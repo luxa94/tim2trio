@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -22,6 +23,9 @@ public class Shift {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<WaiterShift> waiterShifts;
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -55,4 +59,11 @@ public class Shift {
         this.id = id;
     }
 
+    public Set<WaiterShift> getWaiterShifts() {
+        return waiterShifts;
+    }
+
+    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
+        this.waiterShifts = waiterShifts;
+    }
 }
