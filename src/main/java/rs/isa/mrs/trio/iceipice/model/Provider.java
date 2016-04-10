@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import rs.isa.mrs.trio.iceipice.globals.UserTypes;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -15,7 +17,7 @@ import java.util.Set;
 public class Provider extends BaseUser {
 
     public Provider() {
-        this.setType("provider");
+        this.setType(UserTypes.PROVIDER);
     }
 
     @OneToMany(fetch = FetchType.LAZY)

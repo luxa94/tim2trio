@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import rs.isa.mrs.trio.iceipice.globals.UserTypes;
+
 import javax.persistence.*;
 
 /**
@@ -10,7 +12,7 @@ import javax.persistence.*;
 public class RestaurantManager extends BaseUser{
 
     public RestaurantManager() {
-        this.setType("restaurant_manager");
+        this.setType(UserTypes.RESTAURANT_MANAGER);
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

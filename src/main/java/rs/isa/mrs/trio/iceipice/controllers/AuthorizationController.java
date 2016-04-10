@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import rs.isa.mrs.trio.iceipice.model.BaseUser;
-import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
+import rs.isa.mrs.trio.iceipice.repository.*;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -19,13 +19,35 @@ import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
 public class AuthorizationController {
 
     @Autowired
+    BartenderRepository bartenderRepository;
+
+    @Autowired
     BaseUserRepository baseUserRepository;
+
+    @Autowired
+    CookRepository cookRepository;
+
+    @Autowired
+    GuestRepository guestRepository;
+
+    @Autowired
+    ProviderRepository providerRepository;
+
+    @Autowired
+    RestaurantManagerRepository restaurantManagerRepository;
+
+    @Autowired
+    SystemManagerRepository systemManagerRepository;
+
+    @Autowired
+    WaiterRepository waiterRepository;
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResponseEntity login(@RequestParam String email, @RequestParam String password) {
         final BaseUser baseUser = baseUserRepository.findByEmailAndPassword(email, password);
 
         if (baseUser != null) {
+
             return new ResponseEntity<>(baseUser, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);

@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import rs.isa.mrs.trio.iceipice.globals.UserTypes;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +13,7 @@ import java.util.Set;
 public class Cook extends BaseUser {
 
     public Cook() {
-        this.setType("cook");
+        this.setType(UserTypes.COOK);
     }
 
     @Column(name = "dress_size", nullable = false)

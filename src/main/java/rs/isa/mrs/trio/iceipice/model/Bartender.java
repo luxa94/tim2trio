@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import rs.isa.mrs.trio.iceipice.globals.UserTypes;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +13,7 @@ import java.util.Set;
 public class Bartender extends BaseUser {
 
     public Bartender() {
-        this.setType("bartender");
+        this.setType(UserTypes.BARTENDER);
     }
 
     @Column(name = "dress_size", nullable = false)
