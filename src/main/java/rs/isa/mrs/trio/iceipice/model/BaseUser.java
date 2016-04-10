@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "base_user")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 public class BaseUser {
 
     @Id
