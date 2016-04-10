@@ -1,8 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -11,6 +9,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "restaurant")
 public class Restaurant {
+
+        @Id
+        @GeneratedValue
+        private long id;
 
         @Column(name = "name", nullable = false)
         private String name;
@@ -29,6 +31,14 @@ public class Restaurant {
 
         @Column(name = "email", nullable = true, unique = true)
         private String email;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
 
         public String getName() {
             return name;
