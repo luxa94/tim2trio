@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -16,6 +17,12 @@ public class Area {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Restaurant restaurant;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<RestaurantTable> restaurantTables;
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -23,9 +30,6 @@ public class Area {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Restaurant restaurant;
 
     public String getName() {
         return name;
@@ -41,5 +45,13 @@ public class Area {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Set<RestaurantTable> getRestaurantTables() {
+        return restaurantTables;
+    }
+
+    public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
+        this.restaurantTables = restaurantTables;
     }
 }

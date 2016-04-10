@@ -35,7 +35,7 @@ public class Reservation {
     private Set<Invitation> invitations;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Restaurant_table> restaurant_tables;
+    private Set<RestaurantTable> restaurant_tables;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
@@ -96,11 +96,11 @@ public class Reservation {
         this.invitations = invitations;
     }
 
-    public Set<Restaurant_table> getRestaurant_tables() {
+    public Set<RestaurantTable> getRestaurant_tables() {
         return restaurant_tables;
     }
 
-    public void setRestaurant_tables(Set<Restaurant_table> restaurant_tables) {
+    public void setRestaurant_tables(Set<RestaurantTable> restaurant_tables) {
         this.restaurant_tables = restaurant_tables;
     }
 

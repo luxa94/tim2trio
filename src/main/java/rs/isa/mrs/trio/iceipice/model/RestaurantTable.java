@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "restaurant_table")
-public class Restaurant_table {
+public class RestaurantTable {
 
     @Id
     @GeneratedValue
@@ -25,6 +25,12 @@ public class Restaurant_table {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Reservation> reservations;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Area area;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
     public long getId() {
         return id;
@@ -56,5 +62,21 @@ public class Restaurant_table {
 
     public void setReservations(Set<Reservation> reservations) {
         this.reservations = reservations;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -34,7 +34,7 @@ public class Restaurant {
     private String email;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Restaurant_type> restaurant_types;
+    private Set<RestaurantType> restaurant_types;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<RestaurantManager> restaurantManagers;
@@ -113,11 +113,11 @@ public class Restaurant {
         this.email = email;
     }
 
-    public Set<Restaurant_type> getRestaurant_types() {
+    public Set<RestaurantType> getRestaurant_types() {
         return restaurant_types;
     }
 
-    public void setRestaurant_types(Set<Restaurant_type> restaurant_types) {
+    public void setRestaurant_types(Set<RestaurantType> restaurant_types) {
         this.restaurant_types = restaurant_types;
     }
 
