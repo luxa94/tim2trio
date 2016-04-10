@@ -34,6 +34,17 @@ public class Grade {
     @Column(name = "atmosphere_comment")
     private String atmosphere_comment;
 
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Guest guest;
+
     public long getId() {
         return id;
     }

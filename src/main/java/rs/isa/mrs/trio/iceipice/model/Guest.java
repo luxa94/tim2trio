@@ -1,9 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by ninasimic on 10-Apr-16.
@@ -19,6 +17,40 @@ public class Guest extends BaseUser{
 
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Invitation> invitations;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
+
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Grade> grades;
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+
+    public Set<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(Set<Invitation> invitations) {
+        this.invitations = invitations;
+    }
 
     public String getReferral_code() {
         return referral_code;

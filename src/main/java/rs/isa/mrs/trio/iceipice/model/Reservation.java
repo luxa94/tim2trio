@@ -24,6 +24,9 @@ public class Reservation {
     @Column(name = "end_hour", nullable = false)
     private String end_hour;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Guest guest;
+
     public long getId() {
         return id;
     }
