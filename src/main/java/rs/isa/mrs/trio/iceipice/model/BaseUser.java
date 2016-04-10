@@ -33,6 +33,9 @@ public class BaseUser {
     @Column(name = "birth_date")
     private Date birthDate;
 
+    @Column(name = "type", nullable = false)
+    private String type;
+
     public long getId() {
         return id;
     }
@@ -89,4 +92,11 @@ public class BaseUser {
         this.birthDate = birthDate;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
