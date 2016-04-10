@@ -23,6 +23,14 @@ public class MenuItem {
     @Column(name = "end_date", nullable = true)
     private Date endDate;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "article_id", nullable = false)
+    private Article article;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "menu_id", nullable = false)
+    private Menu menu;
+
     public double getPrice() {
         return price;
     }
@@ -53,6 +61,14 @@ public class MenuItem {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
     }
 
 }

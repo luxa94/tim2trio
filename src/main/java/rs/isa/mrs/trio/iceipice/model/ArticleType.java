@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -16,6 +17,9 @@ public class ArticleType {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Article> articles;
+
     public String getName() {
         return name;
     }
@@ -24,4 +28,19 @@ public class ArticleType {
         this.name = name;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Set<Article> getArticles() {
+        return articles;
+    }
+
+    public void setArticles(Set<Article> articles) {
+        this.articles = articles;
+    }
 }
