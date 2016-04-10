@@ -19,6 +19,10 @@ public class Article {
     @Column(name = "description", length = 1000, nullable = false)
     private String description;
 
+    @ManyToOne
+    @JoinColumn(name = "article_type_id", nullable = false)
+    private ArticleType articleType;
+
     public long getId() {
         return id;
     }
@@ -43,4 +47,11 @@ public class Article {
         this.description = description;
     }
 
+    public ArticleType getArticleType() {
+        return articleType;
+    }
+
+    public void setArticleType(ArticleType articleType) {
+        this.articleType = articleType;
+    }
 }
