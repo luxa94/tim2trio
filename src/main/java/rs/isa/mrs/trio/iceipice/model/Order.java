@@ -24,6 +24,9 @@ public class Order {
     @ManyToMany(fetch =  FetchType.LAZY)
     private Set<RestaurantTable> restaurantTables;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Waiter> waiters;
+
     public long getId() {
         return id;
     }
@@ -54,5 +57,13 @@ public class Order {
 
     public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
         this.restaurantTables = restaurantTables;
+    }
+
+    public Set<Waiter> getWaiters() {
+        return waiters;
+    }
+
+    public void setWaiters(Set<Waiter> waiters) {
+        this.waiters = waiters;
     }
 }

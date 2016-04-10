@@ -24,6 +24,9 @@ public class Area {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<RestaurantTable> restaurantTables;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<WaiterShift> waiterShifts;
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -54,5 +57,13 @@ public class Area {
 
     public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
         this.restaurantTables = restaurantTables;
+    }
+
+    public Set<WaiterShift> getWaiterShifts() {
+        return waiterShifts;
+    }
+
+    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
+        this.waiterShifts = waiterShifts;
     }
 }
