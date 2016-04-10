@@ -10,8 +10,8 @@ import javax.persistence.Table;
  */
 
 @Entity
-@Table(name = "Waiter_shift" )
-public class Waiter_shift {
+@Table(name = "WaiterShift" )
+public class WaiterShift {
 
     @Id
     @GeneratedValue

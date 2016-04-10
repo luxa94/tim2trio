@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -18,6 +19,9 @@ public class Order {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Reservation reservation;
+
+    @ManyToMany(fetch =  FetchType.LAZY)
+    private Set<RestaurantTable> restaurantTables;
 
     public long getId() {
         return id;
@@ -41,5 +45,13 @@ public class Order {
 
     public void setReservation(Reservation reservation) {
         this.reservation = reservation;
+    }
+
+    public Set<RestaurantTable> getRestaurantTables() {
+        return restaurantTables;
+    }
+
+    public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
+        this.restaurantTables = restaurantTables;
     }
 }

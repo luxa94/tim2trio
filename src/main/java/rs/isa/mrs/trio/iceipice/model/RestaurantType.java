@@ -9,7 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "restaurant_type")
-public class Restaurant_type {
+public class RestaurantType {
 
     @Id
     @GeneratedValue
