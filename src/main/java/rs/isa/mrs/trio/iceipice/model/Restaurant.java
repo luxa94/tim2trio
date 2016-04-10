@@ -37,24 +37,10 @@ public class Restaurant {
     private Set<Restaurant_type> restaurant_types;
 
     @OneToMany(fetch = FetchType.LAZY)
+    private Set<RestaurantManager> restaurantManagers;
+
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Area> areas;
-
-    public Set<Area> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(Set<Area> areas) {
-        this.areas = areas;
-    }
-
-    public Set<Restaurant_type> getRestaurant_types() {
-        return restaurant_types;
-    }
-
-    public void setRestaurant_types(Set<Restaurant_type> restaurant_types) {
-        this.restaurant_types = restaurant_types;
-    }
-
 
     public long getId() {
         return id;
@@ -110,5 +96,29 @@ public class Restaurant {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Restaurant_type> getRestaurant_types() {
+        return restaurant_types;
+    }
+
+    public void setRestaurant_types(Set<Restaurant_type> restaurant_types) {
+        this.restaurant_types = restaurant_types;
+    }
+
+    public Set<RestaurantManager> getRestaurantManagers() {
+        return restaurantManagers;
+    }
+
+    public void setRestaurantManagers(Set<RestaurantManager> restaurantManagers) {
+        this.restaurantManagers = restaurantManagers;
+    }
+
+    public Set<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Set<Area> areas) {
+        this.areas = areas;
     }
 }

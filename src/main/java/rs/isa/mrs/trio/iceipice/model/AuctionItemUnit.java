@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Sandra on 10.4.2016.
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "auction_item_unit")
-public class ActionItemUnit {
+public class AuctionItemUnit {
 
     @Id
     @GeneratedValue
@@ -16,6 +17,9 @@ public class ActionItemUnit {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<AuctionItem> auctionItems;
 
     public long getId() {
         return id;
@@ -31,5 +35,13 @@ public class ActionItemUnit {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<AuctionItem> getAuctionItems() {
+        return auctionItems;
+    }
+
+    public void setAuctionItems(Set<AuctionItem> auctionItems) {
+        this.auctionItems = auctionItems;
     }
 }

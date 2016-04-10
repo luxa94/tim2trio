@@ -26,6 +26,12 @@ public class BidItem {
     @Column(name = "status", nullable = false)
     private String status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Bid bid;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AuctionItemType auctionItemType;
+
     public long getId() {
         return id;
     }
@@ -64,5 +70,21 @@ public class BidItem {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Bid getBid() {
+        return bid;
+    }
+
+    public void setBid(Bid bid) {
+        this.bid = bid;
+    }
+
+    public AuctionItemType getAuctionItemType() {
+        return auctionItemType;
+    }
+
+    public void setAuctionItemType(AuctionItemType auctionItemType) {
+        this.auctionItemType = auctionItemType;
     }
 }
