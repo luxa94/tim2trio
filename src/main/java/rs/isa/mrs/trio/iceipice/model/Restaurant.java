@@ -29,7 +29,7 @@ public class Restaurant {
         @Column(name = "address", nullable = false)
         private String address;
 
-        @Column(name = "email", nullable = true, unique = true)
+        @Column(name = "email", unique = true)
         private String email;
 
         public long getId() {
