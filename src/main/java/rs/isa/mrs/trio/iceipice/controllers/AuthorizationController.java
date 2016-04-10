@@ -3,12 +3,10 @@ package rs.isa.mrs.trio.iceipice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 import rs.isa.mrs.trio.iceipice.model.BaseUser;
+import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.repository.*;
 
 /**
@@ -42,7 +40,7 @@ public class AuthorizationController {
     @Autowired
     WaiterRepository waiterRepository;
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResponseEntity login(@RequestParam String email, @RequestParam String password) {
         BaseUser baseUser = baseUserRepository.findByEmailAndPassword(email, password);
         if (baseUser != null) {
@@ -67,6 +65,17 @@ public class AuthorizationController {
             return new ResponseEntity<>(baseUser, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    @RequestMapping(value = "/guest/register", method = RequestMethod.POST)
+    public ResponseEntity register(@RequestBody Guest guest) {
+        try {
+            guest = guestRepository.save(guest);
+            return new ResponseEntity<>(guest, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
 
