@@ -1,20 +1,21 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
  */
 @Entity
-@Table(name = "menus")
+@Table(name = "menu")
 public class Menu {
 
     @Id
     @GeneratedValue
     private long id;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<MenuItem> menuItems;
 
     public long getId() {
         return id;
