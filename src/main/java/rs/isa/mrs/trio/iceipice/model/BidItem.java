@@ -31,8 +31,8 @@ public class BidItem {
     private Bid bid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "aution_item_type_id", nullable = false)
-    private AuctionItemType auctionItemType;
+    @JoinColumn(name = "aution_item_unit_id", nullable = false)
+    private AuctionItemUnit auctionItemUnit;
 
     public long getId() {
         return id;
@@ -82,11 +82,11 @@ public class BidItem {
         this.bid = bid;
     }
 
-    public AuctionItemType getAuctionItemType() {
-        return auctionItemType;
+    public AuctionItemUnit getAuctionItemUnit() {
+        return auctionItemUnit;
     }
 
-    public void setAuctionItemType(AuctionItemType auctionItemType) {
-        this.auctionItemType = auctionItemType;
+    public void setAuctionItemUnit(AuctionItemUnit auctionItemUnit) {
+        this.auctionItemUnit = auctionItemUnit;
     }
 }

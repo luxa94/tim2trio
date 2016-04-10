@@ -31,6 +31,9 @@ public class Auction {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<AuctionItem> auctionItems;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Restaurant restaurant;
+
     public long getId() {
         return id;
     }
@@ -77,5 +80,13 @@ public class Auction {
 
     public void setAuctionItems(Set<AuctionItem> auctionItems) {
         this.auctionItems = auctionItems;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 }

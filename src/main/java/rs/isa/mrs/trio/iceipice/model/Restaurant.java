@@ -37,6 +37,9 @@ public class Restaurant {
     private Set<RestaurantType> restaurant_types;
 
     @OneToMany(fetch = FetchType.LAZY)
+    private Set<Auction> auctions;
+
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<RestaurantManager> restaurantManagers;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -47,15 +50,6 @@ public class Restaurant {
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Shift> shifts;
-
-    public Set<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Set<Menu> menus) {
-        this.menus = menus;
-    }
-
 
     public long getId() {
         return id;
@@ -121,6 +115,14 @@ public class Restaurant {
         this.restaurant_types = restaurant_types;
     }
 
+    public Set<Auction> getAuctions() {
+        return auctions;
+    }
+
+    public void setAuctions(Set<Auction> auctions) {
+        this.auctions = auctions;
+    }
+
     public Set<RestaurantManager> getRestaurantManagers() {
         return restaurantManagers;
     }
@@ -135,6 +137,14 @@ public class Restaurant {
 
     public void setAreas(Set<Area> areas) {
         this.areas = areas;
+    }
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
     }
 
     public Set<Shift> getShifts() {

@@ -18,7 +18,13 @@ public class Shift {
     private String shift_type;
 
     @Column(name = "active", nullable = false)
-    private boolean active;
+    private Boolean active;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Cook> cooks;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
@@ -27,20 +33,12 @@ public class Shift {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<WaiterShift> waiterShifts;
 
-    public Restaurant getRestaurant() {
-        return restaurant;
+    public long getId() {
+        return id;
     }
 
-    public void setRestaurant(Restaurant restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getShift_type() {
@@ -51,12 +49,36 @@ public class Shift {
         this.shift_type = shift_type;
     }
 
-    public long getId() {
-        return id;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Set<Cook> getCooks() {
+        return cooks;
+    }
+
+    public void setCooks(Set<Cook> cooks) {
+        this.cooks = cooks;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Set<WaiterShift> getWaiterShifts() {

@@ -20,6 +20,9 @@ public class ArticleType {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Article> articles;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Cook> cooks;
+
     public String getName() {
         return name;
     }
@@ -42,5 +45,13 @@ public class ArticleType {
 
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
+    }
+
+    public Set<Cook> getCooks() {
+        return cooks;
+    }
+
+    public void setCooks(Set<Cook> cooks) {
+        this.cooks = cooks;
     }
 }

@@ -1,8 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -16,6 +15,15 @@ public class Cook extends BaseUser {
 
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<ArticleType> articleTypes;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<OrderItem> orderItems;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
 
     public String getDressSize() {
         return dressSize;
@@ -33,4 +41,27 @@ public class Cook extends BaseUser {
         this.footwearSize = footwearSize;
     }
 
+    public Set<ArticleType> getArticleTypes() {
+        return articleTypes;
+    }
+
+    public void setArticleTypes(Set<ArticleType> articleTypes) {
+        this.articleTypes = articleTypes;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
+    }
 }

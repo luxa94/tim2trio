@@ -21,10 +21,6 @@ public class AuctionItemType {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<AuctionItem> auctionItems;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "bid_item_id", nullable = false)
-    private BidItem bidItem;
-
     public long getId() {
         return id;
     }
@@ -49,11 +45,4 @@ public class AuctionItemType {
         this.auctionItems = auctionItems;
     }
 
-    public BidItem getBidItem() {
-        return bidItem;
-    }
-
-    public void setBidItem(BidItem bidItem) {
-        this.bidItem = bidItem;
-    }
 }
