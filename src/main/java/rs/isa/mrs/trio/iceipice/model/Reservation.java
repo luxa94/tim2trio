@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -26,6 +27,18 @@ public class Reservation {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Guest guest;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Grade> grades;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Invitation> invitations;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Restaurant_table> restaurant_tables;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
     public long getId() {
         return id;
@@ -57,5 +70,45 @@ public class Reservation {
 
     public void setEnd_hour(String end_hour) {
         this.end_hour = end_hour;
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public Set<Grade> getGrades() {
+        return grades;
+    }
+
+    public void setGrades(Set<Grade> grades) {
+        this.grades = grades;
+    }
+
+    public Set<Invitation> getInvitations() {
+        return invitations;
+    }
+
+    public void setInvitations(Set<Invitation> invitations) {
+        this.invitations = invitations;
+    }
+
+    public Set<Restaurant_table> getRestaurant_tables() {
+        return restaurant_tables;
+    }
+
+    public void setRestaurant_tables(Set<Restaurant_table> restaurant_tables) {
+        this.restaurant_tables = restaurant_tables;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

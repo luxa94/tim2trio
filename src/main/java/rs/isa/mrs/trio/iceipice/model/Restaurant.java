@@ -42,6 +42,21 @@ public class Restaurant {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Area> areas;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Menu> menus;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
+
+
     public long getId() {
         return id;
     }
@@ -120,5 +135,13 @@ public class Restaurant {
 
     public void setAreas(Set<Area> areas) {
         this.areas = areas;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
     }
 }

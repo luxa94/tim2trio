@@ -20,6 +20,8 @@ public class Invitation {
     @ManyToOne(fetch = FetchType.EAGER)
     private Guest guest;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Reservation reservation;
 
     public Guest getGuest() {
         return guest;
@@ -44,5 +46,13 @@ public class Invitation {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }

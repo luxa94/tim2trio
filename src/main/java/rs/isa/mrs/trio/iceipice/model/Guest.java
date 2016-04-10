@@ -24,6 +24,9 @@ public class Guest extends BaseUser{
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Reservation> reservations;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Grade> grades;
+
     public Set<Grade> getGrades() {
         return grades;
     }
@@ -31,9 +34,6 @@ public class Guest extends BaseUser{
     public void setGrades(Set<Grade> grades) {
         this.grades = grades;
     }
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private Set<Grade> grades;
 
     public Set<Reservation> getReservations() {
         return reservations;
