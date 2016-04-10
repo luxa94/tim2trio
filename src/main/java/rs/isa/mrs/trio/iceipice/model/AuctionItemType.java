@@ -22,6 +22,7 @@ public class AuctionItemType {
     private Set<AuctionItem> auctionItems;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bid_item_id", nullable = false)
     private BidItem bidItem;
 
     public long getId() {

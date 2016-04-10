@@ -18,6 +18,7 @@ public class Area {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.LAZY)

@@ -21,12 +21,15 @@ public class AuctionItem {
     private long quantity;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_item_type_id", nullable = false)
     private AuctionItemType auctionItemType;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_item_unit_id", nullable = false)
     private AuctionItemUnit auctionItemUnit;
 
     public long getId() {

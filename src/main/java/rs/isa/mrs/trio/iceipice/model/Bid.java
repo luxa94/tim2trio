@@ -26,12 +26,14 @@ public class Bid {
     private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<BidItem> bidItems;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 
     public long getId() {

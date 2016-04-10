@@ -26,6 +26,7 @@ public class Reservation {
     private String end_hour;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
     @OneToMany(fetch = FetchType.LAZY)

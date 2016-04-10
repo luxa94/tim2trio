@@ -27,6 +27,7 @@ public class RestaurantTable {
     private Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_id", nullable = false)
     private Area area;
 
     @ManyToMany(fetch = FetchType.LAZY)
