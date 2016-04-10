@@ -8,4 +8,8 @@ import rs.isa.mrs.trio.iceipice.model.Guest;
  */
 public interface GuestRepository extends JpaRepository<Guest, Long> {
 
+    Guest findByEmail(String email);
+
+    Guest findByEmailAndPassword(String email, String password);
+
 }
