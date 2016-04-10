@@ -9,5 +9,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "system_manager")
 public class SystemManager extends BaseUser {
-
+    public SystemManager() {
+        this.setType("system_manager");
+    }
 }

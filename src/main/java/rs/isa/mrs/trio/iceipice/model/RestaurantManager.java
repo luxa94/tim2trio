@@ -9,6 +9,10 @@ import javax.persistence.*;
 @Table(name = "restaurant_manager")
 public class RestaurantManager extends BaseUser{
 
+    public RestaurantManager() {
+        this.setType("restaurant_manager");
+    }
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;

@@ -14,6 +14,10 @@ import java.util.Set;
 @Table(name = "provider")
 public class Provider extends BaseUser {
 
+    public Provider() {
+        this.setType("provider");
+    }
+
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Bid> bids;
 

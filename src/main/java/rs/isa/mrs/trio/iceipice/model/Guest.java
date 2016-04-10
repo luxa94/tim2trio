@@ -10,6 +10,9 @@ import java.util.Set;
 @Table(name="guest")
 public class Guest extends BaseUser{
 
+    public Guest() {
+        this.setType("guest");
+    }
 
     @Column(name = "referral_code", nullable = false, unique = true)
     @GeneratedValue

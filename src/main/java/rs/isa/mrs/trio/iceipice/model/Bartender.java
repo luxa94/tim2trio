@@ -10,6 +10,10 @@ import java.util.Set;
 @Table(name = "bartender")
 public class Bartender extends BaseUser {
 
+    public Bartender() {
+        this.setType("bartender");
+    }
+
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
