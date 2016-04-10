@@ -16,6 +16,17 @@ public class Area {
     @Column(name = "name", nullable = false)
     private String name;
 
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Restaurant restaurant;
+
     public String getName() {
         return name;
     }
