@@ -27,6 +27,9 @@ public class Order {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Waiter> waiters;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<OrderItem> orderItems;
+
     public long getId() {
         return id;
     }
@@ -65,5 +68,13 @@ public class Order {
 
     public void setWaiters(Set<Waiter> waiters) {
         this.waiters = waiters;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

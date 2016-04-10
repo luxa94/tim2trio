@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import org.aspectj.weaver.ast.Or;
+
 import javax.persistence.*;
 
 /**
@@ -21,6 +23,10 @@ public class OrderItem {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     public long getId() {
         return id;
@@ -54,4 +60,11 @@ public class OrderItem {
         this.status = status;
     }
 
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
