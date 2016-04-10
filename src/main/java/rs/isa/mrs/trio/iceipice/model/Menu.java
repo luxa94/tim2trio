@@ -17,6 +17,9 @@ public class Menu {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<MenuItem> menuItems;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Restaurant restaurant;
+
     public long getId() {
         return id;
     }
@@ -25,4 +28,19 @@ public class Menu {
         this.id = id;
     }
 
+    public Set<MenuItem> getMenuItems() {
+        return menuItems;
+    }
+
+    public void setMenuItems(Set<MenuItem> menuItems) {
+        this.menuItems = menuItems;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
 }

@@ -34,6 +34,12 @@ public class Grade {
     @Column(name = "atmosphere_comment")
     private String atmosphere_comment;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Guest guest;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Reservation reservation;
+
     public Guest getGuest() {
         return guest;
     }
@@ -41,9 +47,6 @@ public class Grade {
     public void setGuest(Guest guest) {
         this.guest = guest;
     }
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Guest guest;
 
     public long getId() {
         return id;
@@ -99,5 +102,13 @@ public class Grade {
 
     public void setAtmosphere_comment(String atmosphere_comment) {
         this.atmosphere_comment = atmosphere_comment;
+    }
+
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 }

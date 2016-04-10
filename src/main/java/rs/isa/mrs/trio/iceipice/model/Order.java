@@ -16,6 +16,9 @@ public class Order {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Reservation reservation;
+
     public long getId() {
         return id;
     }
@@ -32,4 +35,11 @@ public class Order {
         this.status = status;
     }
 
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
 }
