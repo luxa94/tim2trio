@@ -18,6 +18,7 @@ public class Menu {
     private Set<MenuItem> menuItems;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     public long getId() {

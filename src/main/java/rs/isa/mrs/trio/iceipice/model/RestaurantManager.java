@@ -1,9 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by Sandra on 10.4.2016.
@@ -11,7 +8,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "restaurant_manager")
 public class RestaurantManager extends BaseUser{
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
     public Restaurant getRestaurant() {

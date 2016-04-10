@@ -13,6 +13,7 @@ import java.util.Set;
 @Entity
 @Table(name = "provider")
 public class Provider extends BaseUser {
+
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Bid> bids;
 

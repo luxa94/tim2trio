@@ -18,9 +18,11 @@ public class Invitation {
     private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
     public Guest getGuest() {

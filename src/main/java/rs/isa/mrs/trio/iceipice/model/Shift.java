@@ -19,6 +19,10 @@ public class Shift {
     @Column(name = "active", nullable = false)
     private boolean active;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -51,6 +55,4 @@ public class Shift {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Restaurant restaurant;
 }

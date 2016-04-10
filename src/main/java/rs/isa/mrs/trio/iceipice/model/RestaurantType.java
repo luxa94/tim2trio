@@ -21,6 +21,9 @@ public class RestaurantType {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Restaurant> restaurants;
+
     public Set<Restaurant> getRestaurants() {
         return restaurants;
     }
@@ -28,9 +31,6 @@ public class RestaurantType {
     public void setRestaurants(Set<Restaurant> restaurants) {
         this.restaurants = restaurants;
     }
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Restaurant> restaurants;
 
     public long getId() {
         return id;
