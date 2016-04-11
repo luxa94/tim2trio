@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -30,6 +31,9 @@ public class MenuItem {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<OrderItem> orderItems;
 
     public double getPrice() {
         return price;
@@ -71,4 +75,19 @@ public class MenuItem {
         this.article = article;
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }

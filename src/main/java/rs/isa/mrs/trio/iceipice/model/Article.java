@@ -67,4 +67,6 @@ public class Article {
         this.menuItems = menuItems;
     }
 
+
+
 }
