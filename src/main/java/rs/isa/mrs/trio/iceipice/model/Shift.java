@@ -23,6 +23,9 @@ public class Shift {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Cook> cooks;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
+
     public long getId() {
         return id;
     }
@@ -53,5 +56,13 @@ public class Shift {
 
     public void setCooks(Set<Cook> cooks) {
         this.cooks = cooks;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
     }
 }

@@ -21,6 +21,9 @@ public class AuctionItemUnit {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<AuctionItem> auctionItems;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<BidItem> bidItems;
+
     public long getId() {
         return id;
     }
@@ -43,5 +46,13 @@ public class AuctionItemUnit {
 
     public void setAuctionItems(Set<AuctionItem> auctionItems) {
         this.auctionItems = auctionItems;
+    }
+
+    public Set<BidItem> getBidItems() {
+        return bidItems;
+    }
+
+    public void setBidItems(Set<BidItem> bidItems) {
+        this.bidItems = bidItems;
     }
 }
