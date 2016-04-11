@@ -30,6 +30,7 @@ public class OrderItem {
     private Set<Bartender> bartenders;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "menu_item_id", nullable = false)
     private MenuItem menuItem;
 
     public long getId() {

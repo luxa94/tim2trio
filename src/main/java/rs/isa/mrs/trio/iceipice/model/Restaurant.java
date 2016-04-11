@@ -39,6 +39,9 @@ public class Restaurant {
         @OneToMany(fetch = FetchType.LAZY)
         private Set<Auction> auctions;
 
+        @OneToMany(fetch = FetchType.LAZY)
+        private Set<Menu> menus;
+
         public long getId() {
             return id;
         }
@@ -109,5 +112,13 @@ public class Restaurant {
 
         public void setAuctions(Set<Auction> auctions) {
             this.auctions = auctions;
+        }
+
+        public Set<Menu> getMenus() {
+            return menus;
+        }
+
+        public void setMenus(Set<Menu> menus) {
+            this.menus = menus;
         }
 }

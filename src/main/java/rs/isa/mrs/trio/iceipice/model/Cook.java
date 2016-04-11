@@ -22,6 +22,9 @@ public class Cook extends BaseUser {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<OrderItem> orderItems;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
+
     public String getDressSize() {
         return dressSize;
     }
@@ -52,5 +55,13 @@ public class Cook extends BaseUser {
 
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
     }
 }
