@@ -33,6 +33,10 @@ public class OrderItem {
     @JoinColumn(name = "menu_item_id", nullable = false)
     private MenuItem menuItem;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
+
     public long getId() {
         return id;
     }
@@ -87,5 +91,13 @@ public class OrderItem {
 
     public void setMenuItem(MenuItem menuItem) {
         this.menuItem = menuItem;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
