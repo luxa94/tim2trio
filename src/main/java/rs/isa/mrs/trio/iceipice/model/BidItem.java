@@ -27,9 +27,11 @@ public class BidItem {
     private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bid_id", nullable = false)
     private Bid bid;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "aution_item_unit_id", nullable = false)
     private AuctionItemUnit auctionItemUnit;
 
     public long getId() {

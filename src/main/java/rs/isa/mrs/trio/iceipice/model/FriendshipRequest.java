@@ -14,10 +14,15 @@ public class FriendshipRequest {
     @GeneratedValue
     private long id;
 
+    @Column(name = "status", nullable = false)
+    private boolean status;
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "from_user_id", nullable = false)
     private Guest from_user;
 
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "to_user_id", nullable = false)
     private Guest to_user;
 
     public boolean isStatus() {
@@ -35,9 +40,6 @@ public class FriendshipRequest {
     public void setId(long id) {
         this.id = id;
     }
-
-    @Column(name = "status", nullable = false)
-    private boolean status;
 
     public Guest getTo_user() {
         return to_user;

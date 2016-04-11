@@ -3,6 +3,7 @@ package rs.isa.mrs.trio.iceipice.model;
 import org.hibernate.annotations.CollectionId;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -10,7 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurant_table")
-public class Restaurant_table {
+public class RestaurantTable {
 
     @Id
     @GeneratedValue
@@ -21,6 +22,16 @@ public class Restaurant_table {
 
     @Column(name = "capacity", nullable = false)
     private int capacity;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Reservation> reservations;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "area_id", nullable = false)
+    private Area area;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Order> orders;
 
     public long getId() {
         return id;
@@ -44,5 +55,29 @@ public class Restaurant_table {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public Set<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Set<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

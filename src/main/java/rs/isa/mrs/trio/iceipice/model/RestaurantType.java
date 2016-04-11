@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -8,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "restaurant_type")
-public class Restaurant_type {
+public class RestaurantType {
 
     @Id
     @GeneratedValue
@@ -19,6 +20,17 @@ public class Restaurant_type {
 
     @Column(name = "description", nullable = false)
     private String description;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Restaurant> restaurants;
+
+    public Set<Restaurant> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(Set<Restaurant> restaurants) {
+        this.restaurants = restaurants;
+    }
 
     public long getId() {
         return id;

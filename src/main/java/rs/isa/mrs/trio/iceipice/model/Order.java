@@ -17,8 +17,18 @@ public class Order {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "reservation_id", nullable = false)
+    private Reservation reservation;
+
+    @ManyToMany(fetch =  FetchType.LAZY)
+    private Set<RestaurantTable> restaurantTables;
+
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Waiter> waiters;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<OrderItem> orderItems;
 
     public long getId() {
         return id;
@@ -36,11 +46,35 @@ public class Order {
         this.status = status;
     }
 
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
+    }
+
+    public Set<RestaurantTable> getRestaurantTables() {
+        return restaurantTables;
+    }
+
+    public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
+        this.restaurantTables = restaurantTables;
+    }
+
     public Set<Waiter> getWaiters() {
         return waiters;
     }
 
     public void setWaiters(Set<Waiter> waiters) {
         this.waiters = waiters;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

@@ -11,114 +11,147 @@ import java.util.Set;
 @Table(name = "restaurant")
 public class Restaurant {
 
-        @Id
-        @GeneratedValue
-        private long id;
+    @Id
+    @GeneratedValue
+    private long id;
 
-        @Column(name = "name", nullable = false)
-        private String name;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-        @Column(name = "description", nullable = false)
-        private String description;
+    @Column(name = "description", nullable = false)
+    private String description;
 
-        @Column(name = "pib", nullable = false, unique = true)
-        private String pib;
+    @Column(name = "pib", nullable = false, unique = true)
+    private String pib;
 
-        @Column(name = "phone_number", nullable = false)
-        private String phone_number;
+    @Column(name = "phone_number", nullable = false)
+    private String phone_number;
 
-        @Column(name = "address", nullable = false)
-        private String address;
+    @Column(name = "address", nullable = false)
+    private String address;
 
-        @Column(name = "email", unique = true)
-        private String email;
+    @Column(name = "email", unique = true)
+    private String email;
 
-        @OneToMany(fetch = FetchType.LAZY)
-        private Set<RestaurantManager> restaurantManagers;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<RestaurantType> restaurant_types;
 
-        @OneToMany(fetch = FetchType.LAZY)
-        private Set<Auction> auctions;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Auction> auctions;
 
-        @OneToMany(fetch = FetchType.LAZY)
-        private Set<Menu> menus;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<RestaurantManager> restaurantManagers;
 
-        public long getId() {
-            return id;
-        }
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Area> areas;
 
-        public void setId(long id) {
-            this.id = id;
-        }
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Menu> menus;
 
-        public String getName() {
-            return name;
-        }
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Shift> shifts;
 
-        public void setName(String name) {
-            this.name = name;
-        }
+    public long getId() {
+        return id;
+    }
 
-        public String getDescription() {
-            return description;
-        }
+    public void setId(long id) {
+        this.id = id;
+    }
 
-        public void setDescription(String description) {
-            this.description = description;
-        }
+    public String getName() {
+        return name;
+    }
 
-        public String getPib() {
-            return pib;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        public void setPib(String pib) {
-            this.pib = pib;
-        }
+    public String getDescription() {
+        return description;
+    }
 
-        public String getPhone_number() {
-            return phone_number;
-        }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-        public void setPhone_number(String phone_number) {
-            this.phone_number = phone_number;
-        }
+    public String getPib() {
+        return pib;
+    }
 
-        public String getAddress() {
-            return address;
-        }
+    public void setPib(String pib) {
+        this.pib = pib;
+    }
 
-        public void setAddress(String address) {
-            this.address = address;
-        }
+    public String getPhone_number() {
+        return phone_number;
+    }
 
-        public String getEmail() {
-            return email;
-        }
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
+    public String getAddress() {
+        return address;
+    }
 
-        public Set<RestaurantManager> getRestaurantManagers() {
-            return restaurantManagers;
-        }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-        public void setRestaurantManagers(Set<RestaurantManager> restaurantManagers) {
-            this.restaurantManagers = restaurantManagers;
-        }
+    public String getEmail() {
+        return email;
+    }
 
-        public Set<Auction> getAuctions() {
-            return auctions;
-        }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-        public void setAuctions(Set<Auction> auctions) {
-            this.auctions = auctions;
-        }
+    public Set<RestaurantType> getRestaurant_types() {
+        return restaurant_types;
+    }
 
-        public Set<Menu> getMenus() {
-            return menus;
-        }
+    public void setRestaurant_types(Set<RestaurantType> restaurant_types) {
+        this.restaurant_types = restaurant_types;
+    }
 
-        public void setMenus(Set<Menu> menus) {
-            this.menus = menus;
-        }
+    public Set<Auction> getAuctions() {
+        return auctions;
+    }
+
+    public void setAuctions(Set<Auction> auctions) {
+        this.auctions = auctions;
+    }
+
+    public Set<RestaurantManager> getRestaurantManagers() {
+        return restaurantManagers;
+    }
+
+    public void setRestaurantManagers(Set<RestaurantManager> restaurantManagers) {
+        this.restaurantManagers = restaurantManagers;
+    }
+
+    public Set<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(Set<Area> areas) {
+        this.areas = areas;
+    }
+
+    public Set<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(Set<Menu> menus) {
+        this.menus = menus;
+    }
+
+    public Set<Shift> getShifts() {
+        return shifts;
+    }
+
+    public void setShifts(Set<Shift> shifts) {
+        this.shifts = shifts;
+    }
 }

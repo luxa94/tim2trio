@@ -16,6 +16,9 @@ public class Waiter extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<WaiterShift> waiterShifts;
+
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
 
@@ -33,6 +36,14 @@ public class Waiter extends BaseUser {
 
     public void setFootwearSize(String footwearSize) {
         this.footwearSize = footwearSize;
+    }
+
+    public Set<WaiterShift> getWaiterShifts() {
+        return waiterShifts;
+    }
+
+    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
+        this.waiterShifts = waiterShifts;
     }
 
     public Set<Order> getOrders() {
