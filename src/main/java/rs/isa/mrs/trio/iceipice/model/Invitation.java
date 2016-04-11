@@ -17,6 +17,19 @@ public class Invitation {
     @Column(name = "status")
     private String status;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Guest guest;
+
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+
     public long getId() {
         return id;
     }
