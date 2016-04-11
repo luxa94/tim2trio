@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -31,6 +32,9 @@ public class Restaurant {
 
         @Column(name = "email", unique = true)
         private String email;
+
+        @OneToMany(fetch = FetchType.LAZY)
+        private Set<RestaurantManager> restaurantManagers;
 
         public long getId() {
             return id;
@@ -86,5 +90,13 @@ public class Restaurant {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public Set<RestaurantManager> getRestaurantManagers() {
+            return restaurantManagers;
+        }
+
+        public void setRestaurantManagers(Set<RestaurantManager> restaurantManagers) {
+            this.restaurantManagers = restaurantManagers;
         }
 }

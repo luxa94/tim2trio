@@ -20,6 +20,15 @@ public class AuctionItem {
     @Column(name = "quantity", nullable = false)
     private long quantity;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Auction auction;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AuctionItemType auctionItemType;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private AuctionItemUnit auctionItemUnit;
+
     public long getId() {
         return id;
     }
@@ -42,5 +51,29 @@ public class AuctionItem {
 
     public void setQuantity(long quantity) {
         this.quantity = quantity;
+    }
+
+    public Auction getAuction() {
+        return auction;
+    }
+
+    public void setAuction(Auction auction) {
+        this.auction = auction;
+    }
+
+    public AuctionItemUnit getAuctionItemUnit() {
+        return auctionItemUnit;
+    }
+
+    public void setAuctionItemUnit(AuctionItemUnit auctionItemUnit) {
+        this.auctionItemUnit = auctionItemUnit;
+    }
+
+    public AuctionItemType getAuctionItemType() {
+        return auctionItemType;
+    }
+
+    public void setAuctionItemType(AuctionItemType auctionItemType) {
+        this.auctionItemType = auctionItemType;
     }
 }

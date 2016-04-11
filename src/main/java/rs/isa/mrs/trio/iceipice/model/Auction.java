@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Sandra on 10.4.2016.
@@ -23,6 +24,12 @@ public class Auction {
 
     @Column(name = "status", nullable = false)
     private String status;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Bid> bids;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<AuctionItem> auctionItems;
 
     public long getId() {
         return id;
@@ -54,5 +61,21 @@ public class Auction {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Set<Bid> getBids() {
+        return bids;
+    }
+
+    public void setBids(Set<Bid> bids) {
+        this.bids = bids;
+    }
+
+    public Set<AuctionItem> getAuctionItems() {
+        return auctionItems;
+    }
+
+    public void setAuctionItems(Set<AuctionItem> auctionItems) {
+        this.auctionItems = auctionItems;
     }
 }
