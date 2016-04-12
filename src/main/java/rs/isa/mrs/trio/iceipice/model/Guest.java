@@ -4,6 +4,7 @@ import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by ninasimic on 10-Apr-16.
@@ -16,9 +17,8 @@ public class Guest extends BaseUser{
         this.setType(UserTypes.GUEST);
     }
 
-    @Column(name = "referral_code", nullable = false, unique = true)
-    @GeneratedValue
-    private String referral_code;
+    @Column(name = "referralCode", nullable = false, unique = true)
+    private String referralCode;
 
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
@@ -31,6 +31,11 @@ public class Guest extends BaseUser{
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Grade> grades;
+
+    @PrePersist
+    protected void ensureReferralCode() {
+        referralCode = UUID.randomUUID().toString();
+    }
 
     public Set<Grade> getGrades() {
         return grades;
@@ -57,12 +62,12 @@ public class Guest extends BaseUser{
         this.invitations = invitations;
     }
 
-    public String getReferral_code() {
-        return referral_code;
+    public String getReferralCode() {
+        return referralCode;
     }
 
-    public void setReferral_code(String referral_code) {
-        this.referral_code = referral_code;
+    public void setReferralCode(String referralCode) {
+        this.referralCode = referralCode;
     }
 
     public Boolean getConfirmed() {

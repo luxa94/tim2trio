@@ -13,6 +13,14 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 pageTitle: 'Prijava'
             }
         })
+        .state('register', {
+            url: '/register',
+            controller: 'registerController',
+            templateUrl: 'page/register.html',
+            data: {
+                pageTitle: 'Registracija'
+            }
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Iće i Piće</title>
-        <meta name="viewport" content="initial-scale=1"/>
-    </head>
-    <body ng-app="iceipiceApp">
-        <div class="container" ng-view=""></div>
-        <ui-view></ui-view>
+<head>
+    <meta charset="UTF-8">
+    <title>Iće i Piće</title>
+    <meta name="viewport" content="initial-scale=1"/>
+    <link rel="stylesheet" href="css/login.css"/>
+    <link rel="stylesheet" href="css/register.css"/>
+</head>
+<body ng-app="iceipiceApp">
+<div class="container" ng-view=""></div>
+<ui-view></ui-view>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
 
-        <script src="app.js"></script>
-        <script src="authorizationService.js"></script>
+<script src="app.js"></script>
+<script src="authorizationService.js"></script>
 
-        <script src="page/login.js"></script>
-    </body>
+<script src="page/login.js"></script>
+<script src="page/register.js"></script>
+</body>
 </html>

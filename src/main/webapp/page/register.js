@@ -1,20 +1,20 @@
-iceipiceApp.controller('loginController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('registerController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.user = {};
 
-    $scope.login = function() {
-        $http.post('/api/login', $scope.user).success(function(data) {
-
-        }).error(function () {
-            console.log('eror');
-        });
+    $scope.toLogin = function () {
+        $state.transitionTo('login');
     };
 
-    $scope.toRegister = function() {
-        $state.transitionTo('register');
-    }
+    $scope.register = function () {
+        $http.post('/api/guest/register', $scope.user).success(function (data) {
+
+        }).error(function () {
+            
+        });
+    };
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     var animating = false,
         submitPhase1 = 1100,
@@ -34,20 +34,20 @@ $(document).ready(function() {
         elem.append($ripple);
     };
 
-    $(document).on("click", ".login__submit", function(e) {
+    $(document).on("click", ".login__submit", function (e) {
         if (animating) return;
         animating = true;
         var that = this;
         ripple($(that), e);
         $(that).addClass("processing");
-        setTimeout(function() {
+        setTimeout(function () {
             $(that).addClass("success");
-            setTimeout(function() {
+            setTimeout(function () {
                 $app.show();
                 $app.css("top");
                 $app.addClass("active");
             }, submitPhase2 - 70);
-            setTimeout(function() {
+            setTimeout(function () {
                 $login.hide();
                 $login.addClass("inactive");
                 animating = false;
@@ -56,19 +56,19 @@ $(document).ready(function() {
         }, submitPhase1);
     });
 
-    $(document).on("click", ".app__logout", function(e) {
+    $(document).on("click", ".app__logout", function (e) {
         if (animating) return;
         $(".ripple").remove();
         animating = true;
         var that = this;
         $(that).addClass("clicked");
-        setTimeout(function() {
+        setTimeout(function () {
             $app.removeClass("active");
             $login.show();
             $login.css("top");
             $login.removeClass("inactive");
         }, logoutPhase1 - 120);
-        setTimeout(function() {
+        setTimeout(function () {
             $app.hide();
             animating = false;
             $(that).removeClass("clicked");
