@@ -1,7 +1,7 @@
 ﻿<div class="cont">
     <div class="demo">
         <div class="login">
-            <form novalidate>
+            <form novalidate name="loginForm">
                 <div class="login__check"></div>
                 <div class="login__form">
                     <div class="login__row">
@@ -27,10 +27,9 @@
                            </g>
                         </g>
                      </svg>
-                        <input type="password" class="login__input pass" ng-model="user.password" placeholder="Lozinka"
-                               required/>
+                        <input type="password" class="login__input pass" ng-model="user.password" placeholder="Lozinka" required/>
                     </div>
-                    <input type="submit" class="login__submit" ng-click="login()" value="Uloguj se">
+                    <input type="submit" ng-disabled="loginForm.$invalid" class="login__submit" ng-click="login()" value="Uloguj se">
                     <p class="login__signup" ng-click="toRegister()">Nemate nalog? &nbsp;<a>Registrujte se</a></p>
                 </div>
             </form>
