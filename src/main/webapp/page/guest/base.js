@@ -5,6 +5,8 @@ iceipiceApp.controller('guestBaseController', function ($scope, $http, $state, $
 
     $scope.current = 0;
 
+    $scope.user = authorizationService.getUser();
+    
     $scope.home = function() {
         $scope.current = 0;
         $state.transitionTo('guest.home');
@@ -12,17 +14,17 @@ iceipiceApp.controller('guestBaseController', function ($scope, $http, $state, $
 
     $scope.addFriend = function() {
         $scope.current = 1;
-        $state.transitionTo();
+        $state.transitionTo('guest.addFriend');
     };
 
-    $scope.addRestaurantManager = function() {
+    $scope.showRestaurants = function() {
         $scope.current = 2;
-        $state.transitionTo();
+        $state.transitionTo('guest.showRestaurants');
     };
 
-    $scope.addSystemManager = function() {
+    $scope.addReservation = function() {
         $scope.current = 3;
-        $state.transitionTo();
+        $state.transitionTo('guest.addReservation');
     };
 
 });
