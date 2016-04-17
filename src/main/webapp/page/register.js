@@ -10,7 +10,7 @@ iceipiceApp.controller('registerController', function ($scope, $http, $state, $s
             authorizationService.setUser(data);
             $state.transitionTo(data.type + ".home");
         }, function() {
-            alert('Register failed');
+            alert('Registracija nije uspela! Proverite da li ste ispravno uneli sve parametre forme.');
         });
     };
 });

@@ -31,5 +31,5 @@ li a:hover:not(.active) {
 }
 
 .active {
-    background-color: rgb(255, 130, 71);
+    background-color: rgba(255, 130, 71, 0.8);
 }
