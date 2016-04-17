@@ -12,12 +12,12 @@ iceipiceApp.controller('sysmanagerBaseController', function ($scope, $http, $sta
         $state.transitionTo();
     };
 
-    $scope.addRestaurantManager = function() {
+    $scope.showRestaurants = function() {
         $scope.current = 2;
         $state.transitionTo();
     };
 
-    $scope.addSystemManager = function() {
+    $scope.addReservation = function() {
         $scope.current = 3;
         $state.transitionTo();
     };
