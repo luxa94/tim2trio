@@ -1,4 +1,4 @@
-package rs.isa.mrs.trio.iceipice.model.dto;
+package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
