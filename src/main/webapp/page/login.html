@@ -1,10 +1,11 @@
 ﻿<div class="cont">
     <div class="demo">
         <div class="login">
-            <div class="login__check"></div>
-            <div class="login__form">
-                <div class="login__row">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 612.011 612.011" style="enable-background:new 0 0 612.011 612.011;" xml:space="preserve">
+            <form novalidate>
+                <div class="login__check"></div>
+                <div class="login__form">
+                    <div class="login__row">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" width="512px" height="512px" viewBox="0 0 612.011 612.011" style="enable-background:new 0 0 612.011 612.011;" xml:space="preserve">
                         <g>
                            <g id="Shape_17">
                               <g>
@@ -13,10 +14,11 @@
                            </g>
                         </g>
                      </svg>
-                    <input type="text" class="login__input name" ng-model="user.email" placeholder="Email" required/>
-                </div>
-                <div class="login__row">
-                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 340.127 340.127" style="enable-background:new 0 0 340.127 340.127;" xml:space="preserve" width="512px" height="512px">
+                        <input type="text" class="login__input name" ng-model="user.email" placeholder="Email"
+                               required/>
+                    </div>
+                    <div class="login__row">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 340.127 340.127" style="enable-background:new 0 0 340.127 340.127;" xml:space="preserve" width="512px" height="512px">
                         <g>
                            <g id="Lock_2_">
                               <g>
@@ -25,11 +27,13 @@
                            </g>
                         </g>
                      </svg>
-                    <input type="password" class="login__input pass" ng-model = "user.password" placeholder="Lozinka" required/>
+                        <input type="password" class="login__input pass" ng-model="user.password" placeholder="Lozinka"
+                               required/>
+                    </div>
+                    <input type="submit" class="login__submit" ng-click="login()" value="Uloguj se">
+                    <p class="login__signup" ng-click="toRegister()">Nemate nalog? &nbsp;<a>Registrujte se</a></p>
                 </div>
-                <button type="button" class="login__submit">Prijavite se na sistem</button>
-                <p class="login__signup" ng-click="toRegister()">Nemate nalog? &nbsp;<a>Registrujte se</a></p>
-            </div>
+            </form>
         </div>
     </div>
 </div>
