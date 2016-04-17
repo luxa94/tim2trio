@@ -21,6 +21,32 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 pageTitle: 'Registracija'
             }
         })
+        .state('system_manager', {
+            url: '/system_manager',
+            abstract: true,
+            templateUrl: 'page/sysmanager/base.html',
+            controller: 'sysmanagerBaseController'
+        })
+        .state('system_manager.home',{
+            url: '/home',
+            templateUrl: 'page/sysmanager/home.html',
+            controller: 'sysmanagerHomeController'
+        })
+        .state('system_manager.addRestaurant',{
+            url: '/addRestaurant',
+            templateUrl: 'page/sysmanager/addRestaurant.html',
+            controller: 'sysmanagerAddRestaurantController'
+        })
+        .state('system_manager.addRestaurantManager',{
+            url: '/addRestaurantManager',
+            templateUrl: 'page/sysmanager/addRestaurantManager.html',
+            controller: 'sysmanagerAddRestaurantManagerController'
+        })
+        .state('system_manager.addSystemManager',{
+            url: '/addSystemManager',
+            templateUrl: 'page/sysmanager/addSystemManager.html',
+            controller: 'sysmanagerAddSystemManagerController'
+        })
         .state('restaurant_manager.home', {
 
         })
