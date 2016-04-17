@@ -47,6 +47,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/sysmanager/addSystemManager.html',
             controller: 'sysmanagerAddSystemManagerController'
         })
+        .state('system_manager.addProvider',{
+            url: '/addProvider',
+            templateUrl: 'page/sysmanager/addProvider.html',
+            controller: 'sysmanagerAddProviderController'
+        })
         .state('restaurant_manager.home', {
 
         })
