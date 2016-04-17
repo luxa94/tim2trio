@@ -67,7 +67,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         })
         .state('guest.home',{
             url: '/home',
-            templateUrl: 'page/guest/home.html',
+            templateUrl: 'page/guest/homePageGuest.html',
             controller: 'guestHomeController'
         })
         .state('guest.addFriend',{
