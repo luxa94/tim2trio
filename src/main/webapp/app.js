@@ -53,7 +53,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         .state('restaurant_manager.registerWorker', {
             url: '/registerWorker',
             controller: 'registerWorkerController',
-            templateUrl: '',
+            templateUrl: 'page/registerWorker.html',
             data: {
                 pageTitle: 'Registracija radnika'
             }
