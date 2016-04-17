@@ -1,6 +1,7 @@
-package rs.isa.mrs.trio.iceipice.model.dto;
+package rs.isa.mrs.trio.iceipice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import rs.isa.mrs.trio.iceipice.model.Image;
 
 import java.util.List;
 

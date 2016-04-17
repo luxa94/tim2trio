@@ -5,8 +5,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import rs.isa.mrs.trio.iceipice.model.dto.Image;
-import rs.isa.mrs.trio.iceipice.model.dto.ImageRepository;
+import rs.isa.mrs.trio.iceipice.model.Image;
+import rs.isa.mrs.trio.iceipice.repository.ImageRepository;
 
 import javax.servlet.ServletContext;
 import java.io.*;
