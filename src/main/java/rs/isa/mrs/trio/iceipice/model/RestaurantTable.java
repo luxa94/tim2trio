@@ -23,7 +23,7 @@ public class RestaurantTable {
     @Column(name = "capacity", nullable = false)
     private int capacity;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)

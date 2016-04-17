@@ -21,7 +21,7 @@ public class Area {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<RestaurantTable> restaurantTables;
 
     @ManyToMany(fetch = FetchType.LAZY)
