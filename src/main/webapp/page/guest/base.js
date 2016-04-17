@@ -9,7 +9,7 @@ iceipiceApp.controller('guestBaseController', function ($scope, $http, $state, $
     
     $scope.home = function() {
         $scope.current = 0;
-        $state.transitionTo('guest.homePageGuest');
+        $state.transitionTo('guest.home');
     };
 
     $scope.addFriend = function() {
