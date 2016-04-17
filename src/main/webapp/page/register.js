@@ -6,7 +6,7 @@ iceipiceApp.controller('registerController', function ($scope, $http, $state, $s
     };
 
     $scope.register = function () {
-        authorizationService.signIn($scope.user, function(data) {
+        authorizationService.register($scope.user, function(data) {
             authorizationService.setUser(data);
             $state.transitionTo(data.type + ".home");
         }, function() {
