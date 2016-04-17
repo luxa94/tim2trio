@@ -26,7 +26,6 @@ public class AuthorizationController {
     public ResponseEntity login(@RequestBody LoginDTO loginDTO) {
         final String email = loginDTO.getEmail();
         final String password = loginDTO.getPassword();
-        System.out.println(email + " " + password);
 
         BaseUser baseUser = baseUserRepository.findByEmailAndPassword(email, password);
         if (baseUser != null) {
