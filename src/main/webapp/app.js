@@ -59,6 +59,33 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             }
 
         })
+        .state('guest', {
+            url: '/guest',
+            abstract: true,
+            templateUrl: 'page/guest/base.html',
+            controller: 'guestBaseController'
+        })
+        .state('guest.home',{
+            url: '/home',
+            templateUrl: 'page/guest/home.html',
+            controller: 'guestHomeController'
+        })
+        .state('guest.addFriend',{
+            url: '/addFriend',
+            templateUrl: 'page/guest/addFriend.html',
+            controller: 'guestAddFriend'
+        })
+        .state('guest.showRestaurants',{
+            url: '/showRestaurants',
+            templateUrl: 'page/guest/showRestaurants.html',
+            controller: 'guestShowRestaurantsController'
+        })
+        .state('guest.addReservation',{
+            url: '/addReservation',
+            templateUrl: 'page/guest/addReservation.html',
+            controller: 'guestAddReservationController'
+        })
+
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {
@@ -66,6 +93,8 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 $location.path('/login');
             }
         });
+
+
 
 
     if (!$httpProvider.defaults.headers.get) {
