@@ -23,6 +23,7 @@ li a {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 16px;
+    font-family: "Open Sans",Helvetica, cursive, sans-serif;
 }
 
 li a:hover:not(.active) {
@@ -31,8 +32,4 @@ li a:hover:not(.active) {
 
 .active {
     background-color: #4CAF50;
-}
-
-.calcel {
-    background: rgba(239, 70, 40, 0.8);
 }
