@@ -4,22 +4,22 @@ iceipiceApp.controller('sysmanagerBaseController', function ($scope, $http, $sta
 
     $scope.home = function() {
         $scope.current = 0;
-        $state.transitionTo('sysmanager.home');
+        $state.transitionTo('system_manager.home');
     };
 
     $scope.addRestaurant = function() {
         $scope.current = 1;
-        $state.transitionTo();
+        $state.transitionTo('system_manager.addRestaurant');
     };
 
     $scope.addRestaurantManager = function() {
         $scope.current = 2;
-        $state.transitionTo();
+        $state.transitionTo('system_manager.addRestaurantManager');
     };
 
     $scope.addSystemManager = function() {
         $scope.current = 3;
-        $state.transitionTo();
+        $state.transitionTo('system_manager.addSystemManager');
     };
 
 });

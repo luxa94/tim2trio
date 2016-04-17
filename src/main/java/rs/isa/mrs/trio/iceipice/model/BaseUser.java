@@ -36,6 +36,19 @@ public class BaseUser {
     @Column(name = "type", nullable = false)
     private String type;
 
+    public BaseUser() {
+    }
+
+    public BaseUser(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.type = type;
+    }
+
     public long getId() {
         return id;
     }
