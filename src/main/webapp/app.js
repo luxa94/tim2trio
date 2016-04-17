@@ -21,6 +21,18 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 pageTitle: 'Registracija'
             }
         })
+        .state('restaurant_manager.home', {
+
+        })
+        .state('restaurant_manager.registerWorker', {
+            url: '/registerWorker',
+            controller: 'registerWorkerController',
+            templateUrl: '',
+            data: {
+                pageTitle: 'Registracija radnika'
+            }
+
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {
