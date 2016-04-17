@@ -2,10 +2,11 @@ iceipiceApp.controller('loginController', function ($scope, $http, $state, $stat
     $scope.user = {};
 
     $scope.login = function() {
-        $http.post('/api/login', $scope.user).success(function(data) {
-
-        }).error(function () {
-            console.log('eror');
+        authorizationService.signIn($scope.user, function(data) {
+            authorizationService.setUser(data);
+            $state.transitionTo(data.type + ".home");
+        }, function() {
+            alert('Log in failed');
         });
     };
 

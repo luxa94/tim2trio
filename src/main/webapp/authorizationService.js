@@ -29,7 +29,7 @@ iceipiceApp.service('authorizationService', function ($http, $window) {
             LOCAL_STORAGE_INSTANCE && LOCAL_STORAGE_INSTANCE.removeItem(LOCAL_STORAGE_KEY);
         },
         register: function (user, successCallback, errorCallback) {
-            $http.post("/api/register", user).success(successCallback).error(errorCallback);
+            $http.post("/api/guest/register", user).success(successCallback).error(errorCallback);
         }
     }
 });

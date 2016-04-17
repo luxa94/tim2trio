@@ -6,10 +6,11 @@ iceipiceApp.controller('registerController', function ($scope, $http, $state, $s
     };
 
     $scope.register = function () {
-        $http.post('/api/guest/register', $scope.user).success(function (data) {
-
-        }).error(function () {
-            
+        authorizationService.signIn($scope.user, function(data) {
+            authorizationService.setUser(data);
+            $state.transitionTo(data.type + ".home");
+        }, function() {
+            alert('Register failed');
         });
     };
 });
