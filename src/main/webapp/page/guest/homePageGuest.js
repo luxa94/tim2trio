@@ -3,13 +3,14 @@
  */
 iceipiceApp.controller('guestHomeController', function ($scope, $http, $state, $stateParams, authorizationService) {
 
-    $scope.user = {};
+    $scope.user = authorizationService.getUser();
 
     $scope.modifyUserInfo = function () {
-        $http.post('/api/businesses/insert', $scope.guest).success(function () {
-            $scope.close();
+        $http.post('/api/guest/update', $scope.user).success(function (data) {
+            authorizationService.removeUser();
+            authorizationService.setUser(data);
         }).error(function () {
-            $scope.close();
+            console.log("Modifikacija nije uspela. Proverite da li ste pravilno uneli sve parametre forme.");
         });
     };
 });
