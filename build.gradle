@@ -25,12 +25,13 @@ repositories {
 }
 
 dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile files('libs/mail.jar')
     testCompile group: 'junit', name: 'junit', version: '4.11'
     compile 'org.springframework.boot:spring-boot-starter-web:1.3.3.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.3.3.RELEASE'
     compile 'mysql:mysql-connector-java:5.1.36'
     compile 'org.imgscalr:imgscalr-lib:4.2'
-    compile 'com.sun.mail:javax.mail:1.4.7'
 }
 
 task wrapper(type: Wrapper) {
