@@ -24,8 +24,8 @@ public class Restaurant {
     @Column(name = "pib", nullable = false, unique = true)
     private String pib;
 
-    @Column(name = "phone_number", nullable = false)
-    private String phone_number;
+    @Column(name = "phoneNumber", nullable = false)
+    private String phoneNumber;
 
     @Column(name = "address", nullable = false)
     private String address;
@@ -33,8 +33,8 @@ public class Restaurant {
     @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<RestaurantType> restaurant_types;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<RestaurantType> restaurantTypes;
 
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Auction> auctions;
@@ -83,12 +83,12 @@ public class Restaurant {
         this.pib = pib;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getAddress() {
@@ -107,12 +107,12 @@ public class Restaurant {
         this.email = email;
     }
 
-    public Set<RestaurantType> getRestaurant_types() {
-        return restaurant_types;
+    public Set<RestaurantType> getRestaurantTypes() {
+        return restaurantTypes;
     }
 
-    public void setRestaurant_types(Set<RestaurantType> restaurant_types) {
-        this.restaurant_types = restaurant_types;
+    public void setRestaurantTypes(Set<RestaurantType> restaurantTypes) {
+        this.restaurantTypes = restaurantTypes;
     }
 
     public Set<Auction> getAuctions() {

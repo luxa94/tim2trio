@@ -21,6 +21,32 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 pageTitle: 'Registracija'
             }
         })
+        .state('system_manager', {
+            url: '/system_manager',
+            abstract: true,
+            templateUrl: 'page/sysmanager/base.html',
+            controller: 'sysmanagerBaseController'
+        })
+        .state('system_manager.home',{
+            url: '/home',
+            templateUrl: 'page/sysmanager/home.html',
+            controller: 'sysmanagerHomeController'
+        })
+        .state('system_manager.addRestaurant',{
+            url: '/addRestaurant',
+            templateUrl: 'page/sysmanager/addRestaurant.html',
+            controller: 'sysmanagerAddRestaurantController'
+        })
+        .state('system_manager.addRestaurantManager',{
+            url: '/addRestaurantManager',
+            templateUrl: 'page/sysmanager/addRestaurantManager.html',
+            controller: 'sysmanagerAddRestaurantManagerController'
+        })
+        .state('system_manager.addSystemManager',{
+            url: '/addSystemManager',
+            templateUrl: 'page/sysmanager/addSystemManager.html',
+            controller: 'sysmanagerAddSystemManagerController'
+        })
         .state('restaurant_manager.home', {
 
         })
@@ -33,6 +59,33 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             }
 
         })
+        .state('guest', {
+            url: '/guest',
+            abstract: true,
+            templateUrl: 'page/guest/base.html',
+            controller: 'guestBaseController'
+        })
+        .state('guest.home',{
+            url: '/home',
+            templateUrl: 'page/guest/homePageGuest.html',
+            controller: 'guestHomeController'
+        })
+        .state('guest.addFriend',{
+            url: '/addFriend',
+            templateUrl: 'page/guest/addFriend.html',
+            controller: 'guestAddFriend'
+        })
+        .state('guest.showRestaurants',{
+            url: '/showRestaurants',
+            templateUrl: 'page/guest/showRestaurants.html',
+            controller: 'guestShowRestaurantsController'
+        })
+        .state('guest.addReservation',{
+            url: '/addReservation',
+            templateUrl: 'page/guest/addReservation.html',
+            controller: 'guestAddReservationController'
+        })
+
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {
@@ -40,6 +93,8 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 $location.path('/login');
             }
         });
+
+
 
 
     if (!$httpProvider.defaults.headers.get) {
