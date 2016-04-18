@@ -3,6 +3,7 @@ package rs.isa.mrs.trio.iceipice.model;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Created by Sandra on 10.4.2016.
@@ -13,6 +14,11 @@ public class RestaurantManager extends BaseUser{
 
     public RestaurantManager() {
         this.setType(UserTypes.RESTAURANT_MANAGER);
+    }
+
+    public RestaurantManager(String email, String password, String name, String surname, String phoneNumber, Date birthDate, Restaurant restaurant) {
+        super(email, password, name, surname, phoneNumber, birthDate, UserTypes.RESTAURANT_MANAGER);
+        this.restaurant = restaurant;
     }
 
     @ManyToOne(fetch = FetchType.EAGER)

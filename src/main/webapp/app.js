@@ -60,11 +60,8 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         })
         .state('restaurant_manager.registerWorker', {
             url: '/registerWorker',
-            controller: 'restanagerRegisterWorkerController',
-            templateUrl: 'page/restmanager/registerWorker.html',
-            data: {
-                pageTitle: 'Registracija radnika'
-            }
+            controller: 'restmanagerRegisterWorkerController',
+            templateUrl: 'page/restmanager/registerWorker.html'
         })
         .state('restaurant_manager.defineAreas', {
             url: '/defineAreas',
@@ -76,7 +73,6 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             controller: 'restmanagerDefineTimetableController',
             templateUrl: 'page/restmanager/defineTimetable.html'
         })
-
         .state('restaurant_manager.makeBid', {
             url: '/makeBid',
             controller: 'restmanagerMakeBidController',
