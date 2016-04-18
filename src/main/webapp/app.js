@@ -73,7 +73,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         .state('guest.addFriend',{
             url: '/addFriend',
             templateUrl: 'page/guest/addFriend.html',
-            controller: 'guestAddFriend'
+            controller: 'guestAddFriendController'
         })
         .state('guest.showRestaurants',{
             url: '/showRestaurants',
