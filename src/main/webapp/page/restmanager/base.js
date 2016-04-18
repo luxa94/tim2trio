@@ -1,7 +1,7 @@
 /**
  * Created by Sandra on 17.4.2016.
  */
-iceipiceApp.controller('guestBaseController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('restmanagerBaseController', function ($scope, $http, $state, $stateParams, authorizationService) {
 
     $scope.current = 0;
 

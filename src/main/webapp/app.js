@@ -47,17 +47,40 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/sysmanager/addSystemManager.html',
             controller: 'sysmanagerAddSystemManagerController'
         })
+        .state('restaurant_manager',{
+            url: '/restaurant_manager',
+            abstract:true,
+            templateUrl: 'page/restmanager/base.html',
+            controller: 'restmanagerBaseController'
+        })
         .state('restaurant_manager.home', {
-
+            url: '/home',
+            templateUrl: 'page/restmanager/home.html',
+            controller: 'restmanagerHomePageController'
         })
         .state('restaurant_manager.registerWorker', {
             url: '/registerWorker',
-            controller: 'registerWorkerController',
-            templateUrl: 'page/registerWorker.html',
+            controller: 'restanagerRegisterWorkerController',
+            templateUrl: 'page/restmanager/registerWorker.html',
             data: {
                 pageTitle: 'Registracija radnika'
             }
+        })
+        .state('restaurant_manager.defineAreas', {
+            url: '/defineAreas',
+            controller: 'restmanagerDefineAreasController',
+            templateUrl: 'page/restmanager/defineAreas.html'
+        })
+        .state('restaurant_manager.defineTimetable', {
+            url: '/defineTimetable',
+            controller: 'restmanagerDefineTimetableController',
+            templateUrl: 'page/restmanager/defineTimetable.html'
+        })
 
+        .state('restaurant_manager.makeBid', {
+            url: '/makeBid',
+            controller: 'restmanagerMakeBidController',
+            templateUrl: 'page/restmanager/makeBid.html'
         })
         .state('guest', {
             url: '/guest',
