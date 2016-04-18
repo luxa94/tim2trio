@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import rs.isa.mrs.trio.iceipice.model.Restaurant;
+import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.SystemManager;
+import rs.isa.mrs.trio.iceipice.repository.RestaurantManagerRepository;
+import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
 import rs.isa.mrs.trio.iceipice.repository.SystemManagerRepository;
 
 import java.util.Date;
@@ -19,11 +23,24 @@ public class TestController {
     @Autowired
     SystemManagerRepository systemManagerRepository;
 
+    @Autowired
+    RestaurantManagerRepository restaurantManagerRepository;
+
+    @Autowired
+    RestaurantRepository restaurantRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
+            systemManagerRepository.deleteAll();
+            restaurantManagerRepository.deleteAll();
+            restaurantRepository.deleteAll();
+            Restaurant r = new Restaurant("r","r","r","r","r","r");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
+            RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
+            restaurantRepository.save(r);
             systemManagerRepository.save(sm);
+            restaurantManagerRepository.save(rm);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -11,11 +11,11 @@ ul.top_nav {
     width: 100%;
 }
 
-li {
+li.tnli {
     float: left;
 }
 
-li a {
+li.tnli a {
     display: block;
     color: white;
     cursor: pointer;
@@ -26,10 +26,15 @@ li a {
     font-family: "Open Sans",Helvetica, cursive, sans-serif;
 }
 
-li a:hover:not(.active) {
+li.tnli a:hover:not(.active) {
     background-color: #111;
 }
 
 .active {
     background-color: rgba(255, 130, 71, 0.8);
+}
+
+.cancel {
+    margin-top: 0;
+    background: rgb(255, 130, 71);
 }
