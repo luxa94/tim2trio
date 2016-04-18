@@ -51,6 +51,18 @@ public class Restaurant {
     @OneToMany(fetch = FetchType.LAZY)
     private Set<Shift> shifts;
 
+    public Restaurant() {
+    }
+
+    public Restaurant(String name, String description, String pib, String phoneNumber, String address, String email) {
+        this.name = name;
+        this.description = description;
+        this.pib = pib;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.email = email;
+    }
+
     public long getId() {
         return id;
     }

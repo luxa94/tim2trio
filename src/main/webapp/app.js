@@ -47,22 +47,41 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/sysmanager/addSystemManager.html',
             controller: 'sysmanagerAddSystemManagerController'
         })
-        .state('system_manager.addProvider',{
+        .state('system_manager.addProvider', {
             url: '/addProvider',
             templateUrl: 'page/sysmanager/addProvider.html',
             controller: 'sysmanagerAddProviderController'
         })
+        .state('restaurant_manager',{
+            url: '/restaurant_manager',
+            abstract:true,
+            templateUrl: 'page/restmanager/base.html',
+            controller: 'restmanagerBaseController'
+        })
         .state('restaurant_manager.home', {
-
+            url: '/home',
+            templateUrl: 'page/restmanager/home.html',
+            controller: 'restmanagerHomePageController'
         })
         .state('restaurant_manager.registerWorker', {
             url: '/registerWorker',
-            controller: 'registerWorkerController',
-            templateUrl: '',
-            data: {
-                pageTitle: 'Registracija radnika'
-            }
-
+            controller: 'restmanagerRegisterWorkerController',
+            templateUrl: 'page/restmanager/registerWorker.html'
+        })
+        .state('restaurant_manager.defineAreas', {
+            url: '/defineAreas',
+            controller: 'restmanagerDefineAreasController',
+            templateUrl: 'page/restmanager/defineAreas.html'
+        })
+        .state('restaurant_manager.defineTimetable', {
+            url: '/defineTimetable',
+            controller: 'restmanagerDefineTimetableController',
+            templateUrl: 'page/restmanager/defineTimetable.html'
+        })
+        .state('restaurant_manager.makeBid', {
+            url: '/makeBid',
+            controller: 'restmanagerMakeBidController',
+            templateUrl: 'page/restmanager/makeBid.html'
         })
         .state('guest', {
             url: '/guest',
