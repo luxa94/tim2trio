@@ -1,4 +1,5 @@
 iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, $http, $state, $stateParams, authorizationService) {
+
   $scope.restaurant = {};
 
   $scope.current.page = 1;

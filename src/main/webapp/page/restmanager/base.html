@@ -1,13 +1,13 @@
 <div class="cont"></div>
-<divx>
+<div>
     <ul class="top_nav">
-        <li class="tnli"><a ng-class="{active: current==0}" ng-click="home()">Početna</a></li>
-        <li class="tnli"><a ng-class="{active: current==1}" ng-click="registerWorker()">Registruj radnika</a></li>
-        <li class="tnli"><a ng-class="{active: current==2}" ng-click="defineTimetable()">Definisanje rasporeda</a></li>
-        <li class="tnli"><a ng-class="{active: current==3}" ng-click="defineAreas()">Dodela reona</a></li>
-        <li class="tnli"><a ng-class="{active: current==4}" ng-click="makeBid()">Nabavka namirnica</a></li>
+        <li class="tnli"><a ng-class="{active: current.page==0}" ng-click="home()">Početna</a></li>
+        <li class="tnli"><a ng-class="{active: current.page==1}" ng-click="registerWorker()">Registruj radnika</a></li>
+        <li class="tnli"><a ng-class="{active: current.page==2}" ng-click="defineTimetable()">Definisanje rasporeda</a></li>
+        <li class="tnli"><a ng-class="{active: current.page==3}" ng-click="defineAreas()">Dodela reona</a></li>
+        <li class="tnli"><a ng-class="{active: current.page==4}" ng-click="makeBid()">Nabavka namirnica</a></li>
     </ul>
-</divx>
+</div>
 
 <div class="container" ng-view></div>
 <ui-view></ui-view>
