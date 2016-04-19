@@ -2,38 +2,9 @@ body {
     margin: 0;
 }
 
-ul.top_nav {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-
-li.tnli {
-    float: left;
-}
-
-li.tnli a {
-    display: block;
-    color: white;
-    cursor: pointer;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    font-size: 16px;
-    font-family: "Open Sans", Helvetica, cursive, sans-serif;
-}
-
-li.tnli a:hover:not(.active) {
-    background-color: #111;
-}
-
 .active {
-    background-color: rgba(255, 130, 71, 0.8);
+    background-color: #2199e8;
+    color: white;
 }
 
 .cancel {
@@ -77,7 +48,17 @@ li.tnli a:hover:not(.active) {
 .background-image {
     position: relative;
     height: 100%;
+    width: 100%;
     background-image: url("../img/background.jpg");
     background-size: cover;
-    overflow: scroll;
+    overflow: auto;
+}
+
+#content {
+    overflow: auto;
+
+}
+
+.row {
+    overflow: auto;
 }
