@@ -60,7 +60,7 @@ public class Application extends SpringBootServletInitializer {
 
         //	System.out.println("Message: ");
         //	final String messageText = scanner.nextLine();
-        final String messageText = "Uspešno ste se ulogovali na localhost:8080. Molimo Vas da klikom na link ispod potvrdite svoju lozinku.";
+        final String messageText = "Uspešno ste se ulogovali na iceipice.com. Molimo Vas da klikom na link ispod potvrdite svoju lozinku.";
 
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override

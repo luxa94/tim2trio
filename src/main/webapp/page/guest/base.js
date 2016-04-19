@@ -27,4 +27,9 @@ iceipiceApp.controller('guestBaseController', function ($scope, $http, $state, $
         $state.transitionTo('guest.addReservation');
     };
 
+    $scope.logOut = function() {
+        $scope.current = 4;
+        $state.transitionTo('logout');
+    };
+
 });
