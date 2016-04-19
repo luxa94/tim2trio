@@ -2,12 +2,14 @@ iceipiceApp.controller('loginController', function ($scope, $http, $state, $stat
     $scope.user = {};
 
     $scope.login = function() {
-        authorizationService.signIn($scope.user, function(data) {
-            authorizationService.setUser(data);
-            $state.transitionTo(data.type + ".home");
-        }, function() {
-            alert('Log in failed');
-        });
+        if ($scope.loginForm.$valid) {
+            authorizationService.signIn($scope.user, function (data) {
+                authorizationService.setUser(data);
+                $state.transitionTo(data.type + ".home");
+            }, function () {
+                alert('Log in failed');
+            });
+        }
     };
 
     $scope.toRegister = function() {

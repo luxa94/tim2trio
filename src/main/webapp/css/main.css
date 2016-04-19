@@ -1,4 +1,6 @@
-body {margin:0;}
+body {
+    margin: 0;
+}
 
 ul.top_nav {
     list-style-type: none;
@@ -23,7 +25,7 @@ li.tnli a {
     padding: 14px 16px;
     text-decoration: none;
     font-size: 16px;
-    font-family: "Open Sans",Helvetica, cursive, sans-serif;
+    font-family: "Open Sans", Helvetica, cursive, sans-serif;
 }
 
 li.tnli a:hover:not(.active) {
@@ -37,4 +39,36 @@ li.tnli a:hover:not(.active) {
 .cancel {
     margin-top: 0;
     background: rgb(255, 130, 71);
+}
+
+.log-in-form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 3px;
+}
+
+.outer {
+    display: table;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+}
+
+.middle {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.inner {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.background-image {
+    position: relative;
+    height: 100%;
+    background-image: url("http://archwall.xyz/wp-content/uploads/2016/01/modern-restaurant-design-photography-food-ocean-location-panorama-drinks-comfortable-modern-sea-pleasant-quiet-yacht-luxury-nice-style-architecture-cool-champagne-beautiful-relaxin-1920x1080.jpg");
+    background-size: cover;
+    overflow: auto;
 }
