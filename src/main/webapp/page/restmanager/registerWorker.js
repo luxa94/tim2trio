@@ -1,4 +1,4 @@
-iceipiceApp.controller('restanagerRegisterWorkerController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, $http, $state, $stateParams, authorizationService) {
   $scope.restaurant = {};
 
   $scope.current.page = 1;
