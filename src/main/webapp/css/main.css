@@ -68,7 +68,7 @@ li.tnli a:hover:not(.active) {
 .background-image {
     position: relative;
     height: 100%;
-    background-image: url("http://archwall.xyz/wp-content/uploads/2016/01/modern-restaurant-design-photography-food-ocean-location-panorama-drinks-comfortable-modern-sea-pleasant-quiet-yacht-luxury-nice-style-architecture-cool-champagne-beautiful-relaxin-1920x1080.jpg");
+    background-image: url("../img/background.jpg");
     background-size: cover;
     overflow: auto;
 }
