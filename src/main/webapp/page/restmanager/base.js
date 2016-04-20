@@ -5,7 +5,7 @@ iceipiceApp.controller('restmanagerBaseController', function ($scope, $http, $st
 
     $scope.current = {
         page : 0
-    }
+    };
 
     $scope.user = authorizationService.getUser();
 
@@ -27,6 +27,6 @@ iceipiceApp.controller('restmanagerBaseController', function ($scope, $http, $st
 
     $scope.makeBid = function(){
         $state.transitionTo('restaurant_manager.makeBid');
-    }
+    };
 
 });

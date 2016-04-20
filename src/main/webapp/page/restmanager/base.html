@@ -1,4 +1,6 @@
-<div class="cont"></div>
+
+<div class="container" ng-view></div>
+<ui-view></ui-view>
 <div>
     <ul class="top_nav">
         <li class="tnli"><a ng-class="{active: current.page==0}" ng-click="home()">Početna</a></li>
@@ -8,6 +10,3 @@
         <li class="tnli"><a ng-class="{active: current.page==4}" ng-click="makeBid()">Nabavka namirnica</a></li>
     </ul>
 </div>
-
-<div class="container" ng-view></div>
-<ui-view></ui-view>
