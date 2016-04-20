@@ -48,6 +48,15 @@ li.tnli a:hover:not(.active) {
     border-radius: 3px;
 }
 
+.register-form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 3px;
+    height: 550px;
+    overflow: auto;
+}
+
 .outer {
     display: table;
     position: absolute;
@@ -70,5 +79,5 @@ li.tnli a:hover:not(.active) {
     height: 100%;
     background-image: url("http://archwall.xyz/wp-content/uploads/2016/01/modern-restaurant-design-photography-food-ocean-location-panorama-drinks-comfortable-modern-sea-pleasant-quiet-yacht-luxury-nice-style-architecture-cool-champagne-beautiful-relaxin-1920x1080.jpg");
     background-size: cover;
-    overflow: auto;
+    overflow: scroll;
 }
