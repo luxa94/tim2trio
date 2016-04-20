@@ -8,6 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.BaseUser;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.dto.LoginDTO;
 import rs.isa.mrs.trio.iceipice.repository.*;
+import rs.isa.mrs.trio.iceipice.services.EmailService;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -15,6 +16,9 @@ import rs.isa.mrs.trio.iceipice.repository.*;
 @RestController
 @RequestMapping("/api")
 public class AuthorizationController {
+
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     BaseUserRepository baseUserRepository;
@@ -40,6 +44,7 @@ public class AuthorizationController {
         try {
             guest.setConfirmed(false);
             guest = guestRepository.save(guest);
+            emailService.sendMail(guest);
             return new ResponseEntity<>(guest, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
