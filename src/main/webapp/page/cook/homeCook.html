@@ -1,0 +1,37 @@
+<div class="outer background-image">
+    <div class="middle">
+        <div class="inner">
+            <div class="row">
+                <div class="medium-6 medium-centered large-4 large-centered columns register-form">
+
+                    <form novalidate name="registerForm">
+                        <div class="row column ">
+                            <h4 class="text-center">Izmeni podatke</h4>
+                            <label>Ime
+                                <input type="text" required ng-model="user.name" required>
+                            </label>
+                            <label>Prezime
+                                <input type="text" required ng-model="user.surname">
+                            </label>
+                            <label>Datum rođenja
+                                <input type="text" ng-model = "user.birthDate" onfocus="(this.type='date')" onblur="(this.type='text')" required>
+                            </label>
+                            <label>Telefon
+                                <input type="text" required ng-model="user.phoneNumber">
+                            </label>
+                            <label>Konfekcijski broj
+                                <input type="text" placeholder="Dress size" required ng-model="user.dressSize">
+                            </label>
+                            <label>Broj obuće
+                                <input type="text" placeholder="Footwear size" required ng-model="user.footwearSize">
+                            </label>
+                            <p><a type="submit" class="button expanded" ng-click="modifyUserInfo()">Sačuvaj</a></p>
+                            <p><a type="submit" class="button expanded">Odustani</a></p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
