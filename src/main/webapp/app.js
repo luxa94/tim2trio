@@ -86,12 +86,13 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         .state('guest', {
             url: '/guest',
             abstract: true,
-            templateUrl: 'page/guest/base.html',
-            controller: 'guestBaseController'
+            // ovde promeniti kada napravimo celu formu :)
+            templateUrl: 'page/guest/homeGuest.html',
+            controller: 'guestHomeController'
         })
         .state('guest.home',{
             url: '/home',
-            templateUrl: 'page/guest/homePageGuest.html',
+            templateUrl: 'page/guest/homeGuest.html',
             controller: 'guestHomeController'
         })
         .state('guest.addFriend',{
