@@ -2,6 +2,14 @@
     <form novalidate name="registerForm">
         <div class="row column ">
             <h4 class="text-center">Registrujte radnika</h4>
+            <label Tip >
+                <select required>
+                    <option disabled selected value> -- morate odabrati tip radnika -- </option>
+                    <option value="waiter">Konobar</option>
+                    <option value="bartender">Šanker</option>
+                    <option value="cook">Kuvar</option>
+                </select>
+            </label>
             <label>Email
                 <input type="text" placeholder="menadzer@restoran.com" required ng-model="restaurantManager.email">
             </label>
@@ -31,7 +39,6 @@
             <label>Broj cipela
                 <input type="text" placeholder="123456789" required ng-model="restaurantManager.footwearSize">
             </label>
-
             <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj menadžera restorana">
             <input type="button" class="button expanded alert" ng-click="cancel()" value="Otkaži">
         </div>
