@@ -6,6 +6,7 @@
             <label>
                 <input type="image" src="../img/150.png" alt="Submit">
             </label>
+            <p style="color: red;" ng-hide="user.confirmed">Nije verifikovan profil</p>
             <label>Ime
                 <input type="text" required ng-model="user.name" required>
             </label>
