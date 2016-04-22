@@ -87,7 +87,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             url: '/guest',
             abstract: true,
             // ovde promeniti kada napravimo celu formu :)
-            templateUrl: 'page/guest/homeGuest.html',
+            templateUrl: 'page/guest/base.html',
             controller: 'guestHomeController'
         })
         .state('guest.home',{
@@ -105,11 +105,26 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/guest/showRestaurants.html',
             controller: 'guestShowRestaurantsController'
         })
+
         .state('guest.addReservation',{
             url: '/addReservation',
             templateUrl: 'page/guest/addReservation.html',
             controller: 'guestAddReservationController'
         })
+
+        .state('bartender', {
+            url: '/bartender',
+            abstract: true,
+            templateUrl: 'page/bartender/base.html',
+            controller: 'bartenderHomeController'
+        })
+
+        .state('bartender.home',{
+            url: '/home',
+            templateUrl: 'page/bartender/homeBartender.html',
+            controller: 'bartenderHomeController'
+        })
+
 
         .state('logout', {
             url: '/logout',
