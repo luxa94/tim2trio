@@ -110,7 +110,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/guest/addReservation.html',
             controller: 'guestAddReservationController'
         })
-
+        .state('verify', {
+            url: '/authenticate/{id:int}',
+            templateUrl: 'page/authentication.html',
+            controller: 'verificationController'
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

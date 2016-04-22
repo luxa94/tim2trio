@@ -25,8 +25,7 @@ iceipiceApp.controller('sysmanagerBaseController', function ($scope, $http, $sta
     };
 
     $scope.logout = function () {
-        authorizationService.removeUser();
-        $state.transitionTo('login');
+        $state.transitionTo('logout');
     };
 
 });
