@@ -1,12 +1,28 @@
-<div class="cont"></div>
-<div>
-    <ul class="top_nav">
-        <li class="tnli"><a ng-class="{active: current==0}" ng-click="home()">Početna</a></li>
-        <li class="tnli"><a ng-class="{active: current==1}" ng-click="addFriend()">Dodaj prijatelja</a></li>
-        <li class="tnli"><a ng-class="{active: current==2}" ng-click="showRestaurants()">Pronađi restoran</a></li>
-        <li class="tnli"><a ng-class="{active: current==3}" ng-click="addReservation()">Napravi rezervaciju</a></li>
-        <li class="tnli"><a ng-class="{active: current==4}" ng-click="logOut()">Odjavi se</a></li>
-    </ul>
+<div class="background-image">
+
+    <div class="top-bar">
+        <div class="row">
+            <div class="top-bar-left">
+                <ul class="menu" data-dropdown-menu>
+                    <li><a ng-class="{active: current.page==0}" ng-click="home()">Početna</a></li>
+                    <li><a ng-class="{active: current.page==1}" ng-click="addFriend()">Dodaj prijatelja</a></li>
+                    <li><a ng-class="{active: current.page==2}" ng-click="showRestaurants()">Pronađi restoran</a></li>
+                    <li><a ng-class="{active: current.page==3}" ng-click="addReservation()">Napravi rezervaciju</a></li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li>
+                        <button type="button" class="button" ng-click="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container"></div>
+    <div class="row">
+        <ui-view></ui-view>
+    </div>
 </div>
 
-<div ui-view></div>

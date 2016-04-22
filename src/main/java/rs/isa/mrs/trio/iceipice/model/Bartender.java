@@ -3,6 +3,7 @@ package rs.isa.mrs.trio.iceipice.model;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -58,5 +59,11 @@ public class Bartender extends BaseUser {
 
     public void setShifts(Set<Shift> shifts) {
         this.shifts = shifts;
+    }
+
+    public Bartender(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String footwearSize, String dressSize) {
+        super(email, password, name, surname, phoneNumber, birthDate, UserTypes.BARTENDER);
+        this.footwearSize = footwearSize;
+        this.dressSize = dressSize;
     }
 }
