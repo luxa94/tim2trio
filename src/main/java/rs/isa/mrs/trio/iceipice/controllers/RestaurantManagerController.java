@@ -32,4 +32,14 @@ public class RestaurantManagerController {
         }
     }
 
+    @RequestMapping(value = "/restaurantManager/update", method = RequestMethod.POST)
+    public ResponseEntity updateRestaurantManager(@RequestBody RestaurantManagerDTO restaurantManagerDTO){
+        final RestaurantManager rm = restaurantManagerService.editRestaurantManager(restaurantManagerDTO);
+        if(rm != null){
+            return new ResponseEntity<>(rm, HttpStatus.OK);
+        } else{
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }

@@ -52,4 +52,23 @@ public class RestaurantManagerService {
         return null;
     }
 
+    public RestaurantManager editRestaurantManager(RestaurantManagerDTO rmDTO){
+        RestaurantManager oldRM = restaurantManagerRepository.findByEmail(rmDTO.getEmail());
+        updateRestaurantManager(oldRM,rmDTO);
+
+        try{
+            oldRM = restaurantManagerRepository.save(oldRM);
+            return oldRM;
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    private void updateRestaurantManager(RestaurantManager rm, RestaurantManagerDTO restaurantManagerDTO) {
+        rm.setName(restaurantManagerDTO.getName());
+        rm.setSurname(restaurantManagerDTO.getSurname());
+        rm.setBirthDate(restaurantManagerDTO.getBirthDate());
+        rm.setPhoneNumber(restaurantManagerDTO.getPhoneNumber());
+    }
+
 }

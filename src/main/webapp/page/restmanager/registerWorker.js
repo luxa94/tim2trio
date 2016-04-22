@@ -9,6 +9,13 @@ iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, 
   };
 
   $scope.submit = function () {
+    var x = document.getElementById("workertype");
+    if (x.selectedIndex == 0) {
+      
+    }else if (x.selectedIndex == 1){
 
+    }else {
+
+    }
   };
 });
