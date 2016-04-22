@@ -1,0 +1,36 @@
+<div class="medium-8 large-8 columns form">
+    <form novalidate name="registerForm">
+        <div class="row column ">
+            <h4 class="text-center">Napravite nalog</h4>
+            <label>Email
+                <input type="text" placeholder="menadzer@restoran.com" required ng-model="restaurantManager.email">
+            </label>
+            <label>Lozinka
+                <input type="password" required placeholder="**********" ng-model="restaurantManager.password">
+            </label>
+            <label>Ponovite lozinku
+                <input type="password" placeholder="**********" required>
+            </label>
+            <label>Ime
+                <input type="text" placeholder="Petar" required ng-model="restaurantManager.name">
+            </label>
+            <label>Prezime
+                <input type="text" placeholder="Petrović" required ng-model="restaurantManager.surname">
+            </label>
+            <label>Datum rođenja
+                <input type="date" required ng-model="restaurantManager.birthDate">
+            </label>
+            <label>Telefon
+                <input type="text" placeholder="123456789" required ng-model="restaurantManager.phoneNumber">
+            </label>
+            <label Restoran>
+                <select required ng-model="restaurantManager.restaurantId">
+                    <option ng-repeat="restaurant in restaurants" value="{{restaurant.id}}">{{restaurant.name}}</option>
+                </select>
+            </label>
+
+            <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj menadžera restorana">
+            <input type="button" class="button expanded alert" ng-click="cancel()" value="Otkaži">
+        </div>
+    </form>
+</div>

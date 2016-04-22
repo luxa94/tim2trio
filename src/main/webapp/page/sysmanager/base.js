@@ -22,6 +22,11 @@ iceipiceApp.controller('sysmanagerBaseController', function ($scope, $http, $sta
 
     $scope.addProvider = function() {
         $state.transitionTo('system_manager.addProvider');
-    }
+    };
+
+    $scope.logout = function () {
+        authorizationService.removeUser();
+        $state.transitionTo('login');
+    };
 
 });

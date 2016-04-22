@@ -7,8 +7,6 @@ iceipiceApp.controller('sysmanagerAddRestaurantController', function ($scope, $h
     
     $http.get('/api/restaurantTypes/all').success(function(data) {
         $scope.typeNames = data;
-        console.log($scope.typeNames);
-        
     });
     
     $scope.cancel = function () {
@@ -17,17 +15,11 @@ iceipiceApp.controller('sysmanagerAddRestaurantController', function ($scope, $h
     
     $scope.submit = function () {
         $http.post('/api/restaurant/create', $scope.restaurant).success(function (data) {
-            console.log('posted restaurant');
-            alert('Restoran uspesno dodat');
+            console.log('Restoran uspešno dodat');
+            alert('Restoran uspešno dodat');
             $scope.cancel();
         }).error(function () {
-            console.log('error');
+            alert('Greška pri dodavanju restorana');
         });
     };
-
-    // $(function () {
-    //     $('select').multipleSelect();
-    // });
-
-    console.log('done');
 });

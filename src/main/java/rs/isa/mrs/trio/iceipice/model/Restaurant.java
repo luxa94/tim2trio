@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -40,6 +42,7 @@ public class Restaurant {
     private Set<Auction> auctions;
 
     @OneToMany(fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<RestaurantManager> restaurantManagers;
 
     @OneToMany(fetch = FetchType.LAZY)
