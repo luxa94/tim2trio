@@ -5,7 +5,7 @@ iceipiceApp.controller('restmanagerHomePageController', function ($scope, $http,
     $scope.user = authorizationService.getUser();
 
     $scope.modifyUserInfo = function () {
-        $http.post('/api/restaurant_manager/update', $scope.user).success(function (data) {
+        $http.post('/api/restaurantManager/update', $scope.user).success(function (data) {
             authorizationService.removeUser();
             authorizationService.setUser(data);
 
@@ -15,6 +15,9 @@ iceipiceApp.controller('restmanagerHomePageController', function ($scope, $http,
     };
 
     $scope.cancel = function () {
-
+        $http.get('/api/restaurantManager/one/' + $scope.user.id).success(function (data) {
+            $scope.user = data;
+            authorizationService.setUser($scope.user);
+        });
     };
 });

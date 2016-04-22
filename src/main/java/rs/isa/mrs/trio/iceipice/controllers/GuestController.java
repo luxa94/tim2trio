@@ -29,11 +29,10 @@ public class GuestController {
         return new ResponseEntity<>(guestRepository.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/guests/one/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/guest/one/{id}", method = RequestMethod.GET)
     public ResponseEntity getOneGuest(@PathVariable long id) {
         final Guest guest = guestRepository.findById(id);
         if (guest != null) {
-
             // ovde cu dodavati za fatch.lazy sta mi bude trebalo od gosta
             return new ResponseEntity<>(guest, HttpStatus.OK);
         } else {

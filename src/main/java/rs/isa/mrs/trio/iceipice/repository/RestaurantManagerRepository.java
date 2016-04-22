@@ -12,4 +12,6 @@ public interface RestaurantManagerRepository extends JpaRepository<RestaurantMan
 
     RestaurantManager findByEmailAndPassword(String email, String password);
 
+    RestaurantManager findById(long id);
+
 }

@@ -16,6 +16,9 @@ iceipiceApp.controller('guestHomeController', function ($scope, $http, $state, $
     };
 
     $scope.cancel = function () {
-        
+        $http.get('/api/guest/one/' + $scope.user.id).success(function (data) {
+            $scope.user = data;
+            authorizationService.setUser(data);
+        })
     };
 });
