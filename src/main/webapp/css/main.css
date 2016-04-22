@@ -12,6 +12,13 @@ body {
     background: rgb(255, 130, 71);
 }
 
+.form {
+    border: 1px solid #cacaca;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 3px;
+}
+
 .log-in-form {
     border: 1px solid #cacaca;
     padding: 1rem;

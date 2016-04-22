@@ -13,7 +13,7 @@
                             <label>Password
                                 <input type="password" placeholder="Password" required ng-model="user.password">
                             </label>
-                            <p><a type="submit" class="button expanded" ng-click="login()" ng-disabled="loginForm.$invalid">Log In</a></p>
+                            <p><input type="submit" class="button expanded" ng-click="login()" ng-disabled="loginForm.$invalid" value="Log in"></p>
                             <p class="text-center">Nemaš nalog?<a ng-click="toRegister()"> Registruj se!</a></p>
                         </div>
                     </form>
