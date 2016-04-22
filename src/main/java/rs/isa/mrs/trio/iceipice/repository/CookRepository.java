@@ -8,6 +8,8 @@ import rs.isa.mrs.trio.iceipice.model.Cook;
  */
 public interface CookRepository extends JpaRepository<Cook, Long> {
 
+    Cook findById(long id);
+
     Cook findByEmail(String email);
 
     Cook findByEmailAndPassword(String email, String password);
