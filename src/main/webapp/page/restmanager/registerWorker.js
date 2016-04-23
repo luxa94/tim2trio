@@ -9,13 +9,13 @@ iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, 
   };
 
   $scope.submit = function () {
-    
-    $http.post('/api/restaurant_manager/registerWorker').success(function (data) {
-      console.log('Radnik uspešno dodat');
-      alert('Radnik uspešno dodat');
-      $scope.cancel();
-    }).error(function () {
-      alert('Greška pri dodavanju radnika');
-    });
+    var x = document.getElementById("workertype");
+    if (x.selectedIndex == 0) {
+      
+    }else if (x.selectedIndex == 1){
+
+    }else {
+
+    }
   };
 });
