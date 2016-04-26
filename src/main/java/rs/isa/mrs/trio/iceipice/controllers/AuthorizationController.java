@@ -9,6 +9,9 @@ import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.dto.LoginDTO;
 import rs.isa.mrs.trio.iceipice.repository.*;
 import rs.isa.mrs.trio.iceipice.services.EmailService;
+import rs.isa.mrs.trio.iceipice.services.GuestService;
+
+import javax.websocket.server.PathParam;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -22,6 +25,9 @@ public class AuthorizationController {
 
     @Autowired
     BaseUserRepository baseUserRepository;
+
+    @Autowired
+    GuestService guestService;
 
     @Autowired
     GuestRepository guestRepository;
@@ -48,6 +54,16 @@ public class AuthorizationController {
             return new ResponseEntity<>(guest, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/verify/{id}", method = RequestMethod.GET)
+    public ResponseEntity verify(@PathVariable long id) {
+        final Guest guest = guestService.verify(id);
+        if (guest != null) {
+            return new ResponseEntity<>(guest, HttpStatus.OK);
+        } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }

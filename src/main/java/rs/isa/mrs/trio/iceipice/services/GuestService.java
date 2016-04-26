@@ -19,7 +19,7 @@ public class GuestService {
         Guest guest = guestRepository.findById(guestDTO.getId());
         updateGuest(guest, guestDTO);
 
-        try{
+        try {
             guest = guestRepository.save(guest);
             return guest;
         } catch (Exception e) {
@@ -32,6 +32,17 @@ public class GuestService {
         guest.setSurname(guestDTO.getSurname());
         guest.setBirthDate(guestDTO.getBirthDate());
         guest.setPhoneNumber(guestDTO.getPhoneNumber());
+    }
 
+    public Guest verify(long id) {
+        try {
+            Guest guest = guestRepository.findById(id);
+            guest.setConfirmed(true);
+            guest = guestRepository.save(guest);
+            return guest;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

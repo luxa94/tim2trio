@@ -88,7 +88,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             abstract: true,
             // ovde promeniti kada napravimo celu formu :)
             templateUrl: 'page/guest/base.html',
-            controller: 'guestHomeController'
+            controller: 'guestBaseController'
         })
         .state('guest.home',{
             url: '/home',
@@ -111,7 +111,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/guest/addReservation.html',
             controller: 'guestAddReservationController'
         })
-
+        .state('verify', {
+            url: '/authenticate/{id:int}',
+            templateUrl: 'page/authentication.html',
+            controller: 'verificationController'
+        })
         .state('bartender', {
             url: '/bartender',
             abstract: true,
@@ -124,8 +128,6 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/bartender/homeBartender.html',
             controller: 'bartenderHomeController'
         })
-
-
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {
@@ -133,9 +135,6 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
                 $location.path('/login');
             }
         });
-
-
-
 
     if (!$httpProvider.defaults.headers.get) {
         $httpProvider.defaults.headers.get = {};

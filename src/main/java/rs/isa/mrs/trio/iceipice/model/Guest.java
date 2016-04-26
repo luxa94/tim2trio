@@ -3,6 +3,7 @@ package rs.isa.mrs.trio.iceipice.model;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,6 +16,11 @@ public class Guest extends BaseUser{
 
     public Guest() {
         this.setType(UserTypes.GUEST);
+    }
+
+    public Guest(String email, String password, String name, String surname, String phoneNumber, Date birthDate) {
+        super(email, password, name, surname, phoneNumber, birthDate, UserTypes.GUEST);
+        this.confirmed = false;
     }
 
     @Column(name = "referralCode", nullable = false, unique = true)
