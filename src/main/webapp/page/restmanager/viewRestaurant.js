@@ -4,12 +4,11 @@
 iceipiceApp.controller('restManagerViewRestaurantController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.restaurant = {};
 
-    $scope.current.page = 6;
+    $scope.current.page = 5;
 
-    $scope.typeNames = [];
-
-    $http.get('/api/restaurantTypes/all').success(function(data) {
-        $scope.typeNames = data;
+    $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
+        console.log("RESTORAN: " + JSON.stringify(data));
+        $scope.restaurant = data;
     });
 
     $scope.cancel = function () {
