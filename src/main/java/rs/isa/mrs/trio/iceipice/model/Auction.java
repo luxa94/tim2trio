@@ -25,10 +25,10 @@ public class Auction {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
     private Set<Bid> bids;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
     private Set<AuctionItem> auctionItems;
 
     @ManyToOne(fetch = FetchType.EAGER)

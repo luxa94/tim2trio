@@ -20,7 +20,7 @@ public class Provider extends BaseUser {
         this.setType(UserTypes.PROVIDER);
     }
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "provider")
     private Set<Bid> bids;
 
     public Set<Bid> getBids() {

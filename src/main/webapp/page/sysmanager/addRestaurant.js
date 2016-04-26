@@ -6,6 +6,7 @@ iceipiceApp.controller('sysmanagerAddRestaurantController', function ($scope, $h
     $scope.typeNames = [];
     
     $http.get('/api/restaurantTypes/all').success(function(data) {
+        console.log("****data: " + data);
         $scope.typeNames = data;
     });
     

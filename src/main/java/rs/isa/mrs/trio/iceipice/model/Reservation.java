@@ -29,16 +29,16 @@ public class Reservation {
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private Set<Grade> grades;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private Set<Invitation> invitations;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "reservations")
     private Set<RestaurantTable> restaurant_tables;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
     private Set<Order> orders;
 
     public long getId() {

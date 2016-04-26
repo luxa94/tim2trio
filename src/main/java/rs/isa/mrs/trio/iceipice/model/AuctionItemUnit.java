@@ -18,10 +18,10 @@ public class AuctionItemUnit {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionItemUnit")
     private Set<AuctionItem> auctionItems;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionItemUnit")
     private Set<BidItem> bidItems;
 
     public long getId() {

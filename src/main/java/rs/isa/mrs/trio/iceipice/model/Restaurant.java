@@ -1,7 +1,5 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -35,23 +33,22 @@ public class Restaurant {
     @Column(name = "email", unique = true)
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<RestaurantType> restaurantTypes;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private RestaurantType restaurantType;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Auction> auctions;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<RestaurantManager> restaurantManagers;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Area> areas;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Menu> menus;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private Set<Shift> shifts;
 
     public Restaurant() {
@@ -122,14 +119,6 @@ public class Restaurant {
         this.email = email;
     }
 
-    public Set<RestaurantType> getRestaurantTypes() {
-        return restaurantTypes;
-    }
-
-    public void setRestaurantTypes(Set<RestaurantType> restaurantTypes) {
-        this.restaurantTypes = restaurantTypes;
-    }
-
     public Set<Auction> getAuctions() {
         return auctions;
     }
@@ -168,5 +157,13 @@ public class Restaurant {
 
     public void setShifts(Set<Shift> shifts) {
         this.shifts = shifts;
+    }
+
+    public RestaurantType getRestaurantType() {
+        return restaurantType;
+    }
+
+    public void setRestaurantType(RestaurantType restaurantType) {
+        this.restaurantType = restaurantType;
     }
 }

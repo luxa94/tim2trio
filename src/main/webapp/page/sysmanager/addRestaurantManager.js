@@ -14,7 +14,7 @@ iceipiceApp.controller('sysmanagerAddRestaurantManagerController', function ($sc
     });
     
     $scope.submit = function () {
-        $http.post('api//restaurantManager/create', $scope.restaurantManager).success(function (data) {
+        $http.post('/api/restaurantManager/create', $scope.restaurantManager).success(function (data) {
             console.log('Uspešno dodat menadžer restorana');
             alert('Uspešno dodat menadžer restorana');
             $scope.cancel();

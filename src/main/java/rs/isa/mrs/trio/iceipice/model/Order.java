@@ -21,13 +21,13 @@ public class Order {
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
-    @ManyToMany(fetch =  FetchType.LAZY)
+    @ManyToMany(fetch =  FetchType.LAZY, mappedBy = "orders")
     private Set<RestaurantTable> restaurantTables;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "orders")
     private Set<Waiter> waiters;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
     private Set<OrderItem> orderItems;
 
     public long getId() {

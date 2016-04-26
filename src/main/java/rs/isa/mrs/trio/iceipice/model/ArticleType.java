@@ -17,7 +17,7 @@ public class ArticleType {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "articleType")
     private Set<Article> articles;
 
     @ManyToMany(fetch = FetchType.LAZY)

@@ -18,7 +18,7 @@ public class AuctionItemType {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionItemType")
     private Set<AuctionItem> auctionItems;
 
     public long getId() {

@@ -29,6 +29,10 @@ iceipiceApp.controller('restmanagerBaseController', function ($scope, $http, $st
         $state.transitionTo('restaurant_manager.makeBid');
     };
 
+    $scope.viewRestaurant = function(){
+        $state.transitionTo('restaurant_manager.viewRestaurant');
+    };
+
     $scope.logout = function () {
         authorizationService.removeUser();
         $state.transitionTo('login');

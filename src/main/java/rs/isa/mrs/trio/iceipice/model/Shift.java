@@ -24,13 +24,13 @@ public class Shift {
     private Set<Cook> cooks;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Shift> shifts;
+    private Set<Bartender> bartenders;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shift")
     private Set<WaiterShift> waiterShifts;
 
     public long getId() {
@@ -65,14 +65,6 @@ public class Shift {
         this.cooks = cooks;
     }
 
-    public Set<Shift> getShifts() {
-        return shifts;
-    }
-
-    public void setShifts(Set<Shift> shifts) {
-        this.shifts = shifts;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -87,5 +79,13 @@ public class Shift {
 
     public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
         this.waiterShifts = waiterShifts;
+    }
+
+    public Set<Bartender> getBartenders() {
+        return bartenders;
+    }
+
+    public void setBartenders(Set<Bartender> bartenders) {
+        this.bartenders = bartenders;
     }
 }

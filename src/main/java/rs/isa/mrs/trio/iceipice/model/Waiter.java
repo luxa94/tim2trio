@@ -22,7 +22,7 @@ public class Waiter extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
     private Set<WaiterShift> waiterShifts;
 
     @ManyToMany(fetch = FetchType.LAZY)

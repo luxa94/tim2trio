@@ -21,7 +21,7 @@ public class RestaurantDTO {
 
     private String email;
 
-    private Set<String> restaurantTypeNames;
+    private String restaurantType;
 
     public long getId() {
         return id;
@@ -79,12 +79,11 @@ public class RestaurantDTO {
         this.email = email;
     }
 
-    public Set<String> getRestaurantTypeNames() {
-        return restaurantTypeNames;
+    public String getRestaurantType() {
+        return restaurantType;
     }
 
-    public void setRestaurantTypeNames(Set<String> restaurantTypeNames) {
-        this.restaurantTypeNames = restaurantTypeNames;
+    public void setRestaurantType(String restaurantType) {
+        this.restaurantType = restaurantType;
     }
-
 }
