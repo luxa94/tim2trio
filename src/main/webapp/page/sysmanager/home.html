@@ -1,0 +1,26 @@
+<div class="medium-8 large-8 columns form">
+
+    <form novalidate name="registerForm">
+        <div class="row column ">
+            <h4 class="text-center">Izmeni podatke</h4>
+            <label>
+                <input type="image" src="../img/150.png" alt="Submit">
+            </label>
+            <label>Ime
+                <input type="text" required ng-model="user.name" required>
+            </label>
+            <label>Prezime
+                <input type="text" required ng-model="user.surname">
+            </label>
+            <label>Datum rođenja
+                <input type="text" ng-model="user.birthDate" onfocus="(this.type='date')" onblur="(this.type='text')"
+                       required>
+            </label>
+            <label>Telefon
+                <input type="text" required ng-model="user.phoneNumber">
+            </label>
+            <p><a type="submit" class="button expanded" ng-click="modifyUserInfo()">Sačuvaj</a></p>
+            <p><a type="submit" class="button expanded alert" ng-click="cancel()">Odustani</a></p>
+        </div>
+    </form>
+
