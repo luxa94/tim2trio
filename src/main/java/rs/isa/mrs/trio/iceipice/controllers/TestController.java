@@ -4,14 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import rs.isa.mrs.trio.iceipice.model.Bartender;
-import rs.isa.mrs.trio.iceipice.model.Restaurant;
-import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
-import rs.isa.mrs.trio.iceipice.model.SystemManager;
-import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
-import rs.isa.mrs.trio.iceipice.repository.RestaurantManagerRepository;
-import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
-import rs.isa.mrs.trio.iceipice.repository.SystemManagerRepository;
+import rs.isa.mrs.trio.iceipice.model.*;
+import rs.isa.mrs.trio.iceipice.repository.*;
 
 import java.util.Date;
 
@@ -21,6 +15,9 @@ import java.util.Date;
 @RestController
 @RequestMapping("/api")
 public class TestController {
+
+    @Autowired
+    GuestRepository guestRepository;
 
     @Autowired
     SystemManagerRepository systemManagerRepository;
@@ -41,13 +38,16 @@ public class TestController {
             restaurantManagerRepository.deleteAll();
             bartenderRepository.deleteAll();
             restaurantRepository.deleteAll();
+            guestRepository.deleteAll();
             Restaurant r = new Restaurant("r","r","r","r","r","r");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
+            Guest g = new Guest("gg", "gg", "gg", "gg", "123", new Date());
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             systemManagerRepository.save(sm);
+            guestRepository.save(g);
             restaurantManagerRepository.save(rm);
         } catch (Exception e) {
             e.printStackTrace();
