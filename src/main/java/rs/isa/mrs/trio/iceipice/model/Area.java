@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -65,5 +66,10 @@ public class Area {
 
     public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
         this.waiterShifts = waiterShifts;
+    }
+
+    public Area() {
+        restaurantTables = new HashSet<>();
+        waiterShifts = new HashSet<>();
     }
 }

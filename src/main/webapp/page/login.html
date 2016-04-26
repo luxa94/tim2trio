@@ -6,12 +6,12 @@
 
                     <form novalidate name="loginForm">
                         <div class="row column ">
-                            <h4 class="text-center">Log in with you email account</h4>
+                            <h4 class="text-center">Prijavite se na sistem</h4>
                             <label>Email
-                                <input type="text" placeholder="somebody@example.com" required ng-model="user.email">
+                                <input type="text" placeholder="neko@primer.com" required ng-model="user.email">
                             </label>
-                            <label>Password
-                                <input type="password" placeholder="Password" required ng-model="user.password">
+                            <label>Lozinka
+                                <input type="password" placeholder="Lozinka" required ng-model="user.password">
                             </label>
                             <p><input type="submit" class="button expanded" ng-click="login()" ng-disabled="loginForm.$invalid" value="Log in"></p>
                             <p class="text-center">Nemaš nalog?<a ng-click="toRegister()"> Registruj se!</a></p>
