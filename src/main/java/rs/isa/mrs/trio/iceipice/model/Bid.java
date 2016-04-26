@@ -29,7 +29,7 @@ public class Bid {
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bid")
     private Set<BidItem> bidItems;
 
     @ManyToOne(fetch = FetchType.EAGER)

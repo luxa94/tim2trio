@@ -21,10 +21,10 @@ public class Area {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "area")
     private Set<RestaurantTable> restaurantTables;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "areas")
     private Set<WaiterShift> waiterShifts;
 
     public Restaurant getRestaurant() {

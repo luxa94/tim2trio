@@ -22,13 +22,13 @@ public class Cook extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<ArticleType> articleTypes;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<OrderItem> orderItems;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<Shift> shifts;
 
     public String getDressSize() {

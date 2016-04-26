@@ -51,13 +51,10 @@ public class RestaurantService {
         restaurant.setPhoneNumber(restaurantDTO.getPhoneNumber());
         restaurant.setAddress(restaurantDTO.getAddress());
         restaurant.setEmail(restaurantDTO.getEmail());
-        if (restaurantDTO.getRestaurantTypeNames() != null) {
-            for (String typeName : restaurantDTO.getRestaurantTypeNames()) {
-                final RestaurantType restaurantType = restaurantTypeRepository.findByName(typeName);
-                restaurant.getRestaurantTypes().add(restaurantType);
-                restaurantType.getRestaurants().add(restaurant);
-                restaurantTypeRepository.save(restaurantType);
-            }
+        RestaurantType restaurantType = restaurantTypeRepository.findByName(restaurantDTO.getRestaurantType());
+        if (restaurantType  == null) {
+            restaurantType = new RestaurantType();
+            restaurantType.setName(restaurantDTO.getRestaurantType());
         }
     }
 

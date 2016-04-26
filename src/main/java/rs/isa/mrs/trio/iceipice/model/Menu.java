@@ -14,7 +14,7 @@ public class Menu {
     @GeneratedValue
     private long id;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     private Set<MenuItem> menuItems;
 
     @ManyToOne(fetch = FetchType.EAGER)

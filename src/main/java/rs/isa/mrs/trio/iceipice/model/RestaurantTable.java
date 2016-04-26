@@ -1,7 +1,5 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import org.hibernate.annotations.CollectionId;
-
 import javax.persistence.*;
 import java.util.Set;
 

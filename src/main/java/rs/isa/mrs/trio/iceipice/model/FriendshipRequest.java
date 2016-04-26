@@ -19,11 +19,11 @@ public class FriendshipRequest {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "from_user_id", nullable = false)
-    private Guest from_user;
+    private Guest fromUser;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "to_user_id", nullable = false)
-    private Guest to_user;
+    private Guest toUser;
 
     public boolean isStatus() {
         return status;
@@ -41,20 +41,20 @@ public class FriendshipRequest {
         this.id = id;
     }
 
-    public Guest getTo_user() {
-        return to_user;
+    public Guest getToUser() {
+        return toUser;
     }
 
-    public void setTo_user(Guest to_user) {
-        this.to_user = to_user;
+    public void setToUser(Guest toUser) {
+        this.toUser = toUser;
     }
 
-    public Guest getFrom_user() {
-        return from_user;
+    public Guest getFromUser() {
+        return fromUser;
     }
 
-    public void setFrom_user(Guest from_user) {
-        this.from_user = from_user;
+    public void setFromUser(Guest fromUser) {
+        this.fromUser = fromUser;
     }
 
 }

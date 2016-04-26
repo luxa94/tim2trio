@@ -32,7 +32,7 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menuItem")
     private Set<OrderItem> orderItems;
 
     public double getPrice() {

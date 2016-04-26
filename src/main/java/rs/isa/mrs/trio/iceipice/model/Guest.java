@@ -29,14 +29,17 @@ public class Guest extends BaseUser{
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
     private Set<Invitation> invitations;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
     private Set<Reservation> reservations;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
     private Set<Grade> grades;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Guest> friends;
 
     @PrePersist
     protected void ensureReferralCode() {
@@ -82,5 +85,13 @@ public class Guest extends BaseUser{
 
     public void setConfirmed(Boolean confirmed) {
         this.confirmed = confirmed;
+    }
+
+    public Set<Guest> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(Set<Guest> friends) {
+        this.friends = friends;
     }
 }

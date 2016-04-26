@@ -21,7 +21,7 @@ public class RestaurantType {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantType")
     private Set<Restaurant> restaurants;
 
     public Set<Restaurant> getRestaurants() {

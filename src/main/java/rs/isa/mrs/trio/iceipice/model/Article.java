@@ -24,7 +24,7 @@ public class Article {
     @JoinColumn(name = "article_type_id", nullable = false)
     private ArticleType articleType;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
     private Set<MenuItem> menuItems;
 
     public long getId() {

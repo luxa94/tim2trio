@@ -23,10 +23,10 @@ public class Bartender extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<OrderItem> orderItems;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<Shift> shifts;
 
     public String getDressSize() {
