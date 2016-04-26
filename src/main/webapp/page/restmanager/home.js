@@ -3,7 +3,8 @@
  */
 iceipiceApp.controller('restmanagerHomePageController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.user = authorizationService.getUser();
-
+    $scope.current.page = 0;
+    
     $scope.modifyUserInfo = function () {
         $http.post('/api/restaurantManager/update', $scope.user).success(function (data) {
             authorizationService.removeUser();

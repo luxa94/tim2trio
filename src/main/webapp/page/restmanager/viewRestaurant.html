@@ -1,0 +1,35 @@
+<div class="medium-8 large-8 columns form">
+
+    <form novalidate name="registerForm">
+        <div class="row column ">
+            <h4 class="text-center">Pregled restorana</h4>
+            <label>Naziv
+                <input type="text" placeholder="Restoran" required ng-model="user.restaurant.name" disabled>
+            </label>
+            <label>Opis
+                <textarea rows="3" placeholder="Dobar restoran" required ng-model="restaurant.description"></textarea>
+            </label>
+            <label>PIB
+                <input type="text" placeholder="pib" required ng-model="restaurant.pib">
+            </label>
+            <label>Broj telefona
+                <input type="text" placeholder="1234567890" required ng-model="restaurant.phoneNumber">
+            </label>
+            <label>Adresa
+                <input type="text" placeholder="Restoranska 3" required ng-model="restaurant.address">
+            </label>
+            <label>Email
+                <input type="text" placeholder="restoran@restoran.com" required ng-model="user.email">
+            </label>
+            <label Tip>
+                <select required ng-model="restaurant.type">
+                    <option ng-repeat="type in typeNames" value="{{type.name}}">{{type.name}}</option>
+                </select>
+            </label>
+
+            <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj restoran">
+            <input type="button" class="button expanded alert" ng-click="cancel()" value="Otkaži">
+        </div>
+    </form>
+
+</div>
