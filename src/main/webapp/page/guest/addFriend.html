@@ -1,12 +1,13 @@
-<div class="addFriendContainer" >
-    <div ng-controller="guestAddFriendController">
-        <h1 id="headline">Friend Finder</h1>
-        <div class="block">
-            <input type="text" ng-model="query.name" class="search" placeholder="Search friend..." />
-            <button ng-click="reverse()">Reverse Order</button>
+<!--<div class="addFriendContainer" > -->
+ <!--   <div ng-controller="guestAddFriendController"> -->
+      <!--  <h1 id="headline">Friend Finder</h1> -->
+<div class="medium-8 large-8 columns form">
+    <!--    <div class="block"> -->
+            <input type="text" ng-model="query.name" class="search" placeholder="Pronađi prijatelja..." />
+            <button ng-click="reverse()">Obrni redosled pretrage</button>
 
             <ul class="title">
-                <li class="addFriendUL">Name<span>Phone Number</span></li>
+                <li class="addFriendUL">Ime      <span>Prezime</span></li>
             </ul>
             <div id="friend-list" >
                 <ul>
@@ -14,9 +15,9 @@
                         <img class="user-image" ng-src="{{friend.image}}"/>
                         <span>{{friend.name}}</span>
                         <span>{{friend.surname}}</span>
-                        <span>{{friend.id}}</span>
-                        <span ng-if="!friend.friend"><button ng-click="addFriend(friend.id)">Add Friend</button></span>
-                        <span ng-if="friend.friend"><button ng-click="removeFriend(friend.id)">Remove Friend</button></span>
+
+                        <span ng-if="!friend.friend"><button1 class="button1" ng-click="addFriend(friend.id)">Add Friend</1></span>
+                        <span ng-if="friend.friend"><button1 class="button1" ng-click="removeFriend(friend.id)">Remove Friend</button1></span>
                     </li>
                 </ul>
             </div>
