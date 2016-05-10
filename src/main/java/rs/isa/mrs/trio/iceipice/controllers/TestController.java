@@ -50,6 +50,7 @@ public class TestController {
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
             Restaurant r = new Restaurant("r","r","r","r","r","r");
+            Restaurant r1 = new Restaurant("r1","r1","r","r","r","r");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
             Set<RestaurantManager> set = new HashSet<>();

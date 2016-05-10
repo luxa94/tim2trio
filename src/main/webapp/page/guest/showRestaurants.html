@@ -1,11 +1,13 @@
 <div class="medium-8 large-8 columns form">
+    <input type="text" ng-model="query.name" class="search" placeholder="Pronađi restoran..." />
+    <button ng-click="reverse()">Obrni redosled pretrage</button>
     <table border="1">
         <tr>
             <th>Naziv</th>
             <th>Email</th>
             <th>Adresa</th>
         </tr>
-        <tr ng-repeat="restaurant in restaurants">
+        <tr ng-repeat="restaurant in restaurants | filter: query ">
             <td>{{restaurant.name}}</td>
             <td>{{restaurant.email}}</td>
             <td>{{restaurant.address}}</td>
