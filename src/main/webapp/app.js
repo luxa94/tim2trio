@@ -133,6 +133,19 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/bartender/homeBartender.html',
             controller: 'bartenderHomeController'
         })
+
+        .state('cook', {
+            url: '/cook',
+            abstract: true,
+            templateUrl: 'page/cook/base.html',
+            controller: 'cookHomeController'
+        })
+
+        .state('cook.home',{
+            url: '/home',
+            templateUrl: 'page/cook/homeCook.html',
+            controller: 'cookHomeController'
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

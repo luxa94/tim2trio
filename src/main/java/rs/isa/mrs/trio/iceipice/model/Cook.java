@@ -1,8 +1,10 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -22,12 +24,15 @@ public class Cook extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<ArticleType> articleTypes;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<OrderItem> orderItems;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<Shift> shifts;
 
@@ -71,5 +76,12 @@ public class Cook extends BaseUser {
         this.shifts = shifts;
     }
 
+    public Cook(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type, String dressSize, String footwearSize) {
+        super(email, password, name, surname, phoneNumber, birthDate,type);
+        this.dressSize = dressSize;
+        this.footwearSize = footwearSize;
+
+
+    }
 
 }

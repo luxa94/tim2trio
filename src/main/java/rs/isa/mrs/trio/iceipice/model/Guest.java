@@ -38,7 +38,7 @@ public class Guest extends BaseUser{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
     private Set<Grade> grades;
-    
+
     @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Guest> friends;

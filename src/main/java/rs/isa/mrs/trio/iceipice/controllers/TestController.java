@@ -33,6 +33,9 @@ public class TestController {
     @Autowired
     BartenderRepository bartenderRepository;
 
+    @Autowired
+    CookRepository cookRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -41,18 +44,21 @@ public class TestController {
             bartenderRepository.deleteAll();
             restaurantRepository.deleteAll();
             guestRepository.deleteAll();
+            cookRepository.deleteAll();
             Restaurant r = new Restaurant("r","r","r","r","r","r");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
             Guest g = new Guest("gg", "gg", "gg", "gg", "123", new Date());
             Guest g1 = new Guest("g1", "g1", "gg", "gg", "123", new Date());
+            Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "cook", "M", "41");
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             systemManagerRepository.save(sm);
             guestRepository.save(g);
             guestRepository.save(g1);
             restaurantManagerRepository.save(rm);
+            cookRepository.save(ck);
         } catch (Exception e) {
             e.printStackTrace();
         }
