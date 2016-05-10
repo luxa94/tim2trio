@@ -49,8 +49,8 @@ public class TestController {
             guestRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
-            Restaurant r = new Restaurant("r","r","r","r","r","r");
-            Restaurant r1 = new Restaurant("r1","r1","r","r","r","r");
+            Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
+            Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
             Set<RestaurantManager> set = new HashSet<>();
@@ -66,6 +66,7 @@ public class TestController {
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
             bartenderRepository.save(br);
             restaurantRepository.save(r);
+            restaurantRepository.save(r1);
             systemManagerRepository.save(sm);
             guestRepository.save(g);
             guestRepository.save(g1);

@@ -8,4 +8,13 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
     });
+
+    // Reverse Order Button
+    $scope.reverse = function(){
+        if($scope.orderList == "name"){
+            $scope.orderList = "-name";
+        } else {
+            $scope.orderList = "name";
+        }
+    };
 });

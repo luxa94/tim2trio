@@ -7,7 +7,7 @@
             <th>Email</th>
             <th>Adresa</th>
         </tr>
-        <tr ng-repeat="restaurant in restaurants | filter: query ">
+        <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList ">
             <td>{{restaurant.name}}</td>
             <td>{{restaurant.email}}</td>
             <td>{{restaurant.address}}</td>
