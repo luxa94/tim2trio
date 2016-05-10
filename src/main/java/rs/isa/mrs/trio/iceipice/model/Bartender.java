@@ -24,11 +24,11 @@ public class Bartender extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @JsonBackReference
+    @JsonBackReference("bartender-order-item")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<OrderItem> orderItems;
 
-    @JsonBackReference
+    @JsonBackReference("bartender-shift")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<Shift> shifts;
 

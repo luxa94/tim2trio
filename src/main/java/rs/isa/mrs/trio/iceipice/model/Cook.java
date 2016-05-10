@@ -18,21 +18,27 @@ public class Cook extends BaseUser {
         this.setType(UserTypes.COOK);
     }
 
+    public Cook(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String dressSize, String footwearSize) {
+        super(email, password, name, surname, phoneNumber, birthDate, UserTypes.COOK);
+        this.dressSize = dressSize;
+        this.footwearSize = footwearSize;
+    }
+
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @JsonBackReference
+    @JsonBackReference("cook-article-type")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<ArticleType> articleTypes;
 
-    @JsonBackReference
+    @JsonBackReference("cook-order-item")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<OrderItem> orderItems;
 
-    @JsonBackReference
+    @JsonBackReference("cook-shift")
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<Shift> shifts;
 

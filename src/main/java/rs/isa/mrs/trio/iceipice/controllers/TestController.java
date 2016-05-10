@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RestController;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.repository.*;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/17/16.
@@ -52,6 +52,9 @@ public class TestController {
             Restaurant r = new Restaurant("r","r","r","r","r","r");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
+            Set<RestaurantManager> set = new HashSet<>();
+            set.add(rm);
+            r.setRestaurantManagers(set);
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
             Guest g = new Guest("gg", "gg", "Ana", "Anastasijevic", "123", new Date());
             Guest g1 = new Guest("g1", "g1", "Antonina", "Ninic", "123", new Date());
@@ -60,6 +63,7 @@ public class TestController {
             Guest g4 = new Guest("g4", "g4", "Blaza", "Blazic", "123", new Date());
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "cook", "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
+            Cook c = new Cook("cook", "cook", "cook", "cook", "cook", new Date(), "cook", "cook");
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             systemManagerRepository.save(sm);
@@ -71,6 +75,7 @@ public class TestController {
             restaurantManagerRepository.save(rm);
             cookRepository.save(ck);
             waiterRepository.save(w);
+            cookRepository.save(c);
         } catch (Exception e) {
             e.printStackTrace();
         }

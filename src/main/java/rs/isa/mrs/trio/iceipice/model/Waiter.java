@@ -27,7 +27,7 @@ public class Waiter extends BaseUser {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
     private Set<WaiterShift> waiterShifts;
 
-    @JsonBackReference
+    @JsonBackReference("waiter-order")
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
 

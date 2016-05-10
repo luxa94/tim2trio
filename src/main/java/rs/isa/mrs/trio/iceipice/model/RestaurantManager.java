@@ -22,10 +22,9 @@ public class RestaurantManager extends BaseUser{
         this.restaurant = restaurant;
     }
 
-    @JsonBackReference
+    @JsonBackReference("restaurant-manager-restaurant")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
-
     private Restaurant restaurant;
 
     public Restaurant getRestaurant() {
