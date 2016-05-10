@@ -1,5 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
@@ -37,7 +38,8 @@ public class Guest extends BaseUser{
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
     private Set<Grade> grades;
-
+    
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Guest> friends;
 
