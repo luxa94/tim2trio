@@ -1,0 +1,89 @@
+button {
+    background:  #2199e8;
+    color: white;
+    padding: 0.6em;
+    margin-bottom: 1em;
+    position: inherit;
+
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+button1 {
+    background:  #ea5e4f;
+    color: white;
+    padding: 0.4em;
+    position: inherit;
+    margin-bottom: 1em;
+    width: 20%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: table;
+}
+
+button:hover {
+    background: #2199e8;
+}
+
+button1:hover {
+    background: #ea5e4f;
+}
+
+.block {
+    background: white;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: white;
+    margin: 0 auto;
+    overflow: scroll;
+}
+
+input[type="text"] {
+    padding: 1em;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid rgba(228, 228, 228, 0.93);
+    width: 100%;
+    margin-bottom: 1em;
+    position: relative;
+    z-index: 2;
+}
+input[type="text"]:after {
+    position: absolute;
+    display: block;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    background: url("http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4") 0 -690px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+input[type="checkbox"] {
+    margin: 1em 0.5em;
+}
+
+
+ul.addFriendUL.title li.no-hover:hover {
+    background: transparent;
+    cursor: auto;
+}
+
+ul.addFriendUL {
+    font-size: 0.8em;
+}
+ul.addFriendUL li {
+    padding: 1em;
+    cursor: pointer;
+}
+ul.addFriendUL li span {
+    float: right;
+}
+ul.addFriendUL li:hover {
+    background: #ea5e4f;
+    color: white;
+}

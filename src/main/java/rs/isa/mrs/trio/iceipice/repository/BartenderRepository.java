@@ -8,6 +8,8 @@ import rs.isa.mrs.trio.iceipice.model.Bartender;
  */
 public interface BartenderRepository extends JpaRepository<Bartender, Long> {
 
+    Bartender findById(long id);
+
     Bartender findByEmail(String email);
 
     Bartender findByEmailAndPassword(String email, String password);

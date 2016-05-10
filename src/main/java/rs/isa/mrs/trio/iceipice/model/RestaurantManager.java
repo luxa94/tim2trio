@@ -1,5 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
@@ -21,6 +22,7 @@ public class RestaurantManager extends BaseUser{
         this.restaurant = restaurant;
     }
 
+    @JsonBackReference("restaurant-manager-restaurant")
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;

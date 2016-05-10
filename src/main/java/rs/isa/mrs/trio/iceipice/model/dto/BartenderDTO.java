@@ -1,13 +1,11 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
-import rs.isa.mrs.trio.iceipice.model.Guest;
-
 import java.util.Date;
 
 /**
- * Created by Nina on 17-Apr-16.
+ * Created by Nina on 10-May-16.
  */
-public class GuestDTO {
+public class BartenderDTO {
 
     private long id;
 
@@ -19,30 +17,9 @@ public class GuestDTO {
 
     private String phoneNumber;
 
-    private boolean isFriend;
+    private String dressSize;
 
-    public GuestDTO(Guest guest){
-        id = guest.getId();
-        name = guest.getName();
-        surname = guest.getSurname();
-        birthDate = guest.getBirthDate();
-        phoneNumber = guest.getPhoneNumber();
-        isFriend = false;
-    }
-
-    public boolean isFriend() {
-        return isFriend;
-    }
-
-    public void setFriend(boolean friend) {
-        isFriend = friend;
-    }
-
-
-
-    public String getName() {
-        return name;
-    }
+    private  String footwearSize;
 
     public long getId() {
         return id;
@@ -50,6 +27,10 @@ public class GuestDTO {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void setName(String name) {
@@ -78,5 +59,21 @@ public class GuestDTO {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getDressSize() {
+        return dressSize;
+    }
+
+    public void setDressSize(String dressSize) {
+        this.dressSize = dressSize;
+    }
+
+    public String getFootwearSize() {
+        return footwearSize;
+    }
+
+    public void setFootwearSize(String footwearSize) {
+        this.footwearSize = footwearSize;
     }
 }

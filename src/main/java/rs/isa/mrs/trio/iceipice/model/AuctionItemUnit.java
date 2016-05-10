@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -54,5 +55,10 @@ public class AuctionItemUnit {
 
     public void setBidItems(Set<BidItem> bidItems) {
         this.bidItems = bidItems;
+    }
+
+    public AuctionItemUnit() {
+        auctionItems = new HashSet<>();
+        bidItems = new HashSet<>();
     }
 }

@@ -67,5 +67,4 @@ public class AuthorizationController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
     }
-
 }

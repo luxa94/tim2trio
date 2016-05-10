@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 import rs.isa.mrs.trio.iceipice.model.SystemManager;
 import rs.isa.mrs.trio.iceipice.model.dto.SystemManagerDTO;
 import rs.isa.mrs.trio.iceipice.repository.SystemManagerRepository;
@@ -46,6 +47,12 @@ public class SystemManagerController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @RequestMapping(value = "/sysmanager/create", method = RequestMethod.POST)
+    public ResponseEntity registerSystemManager(@RequestBody SystemManager systemManager) {
+        systemManager.setType(UserTypes.SYSTEM_MANAGER);
+        systemManager = systemManagerRepository.save(systemManager);
+        return new ResponseEntity<>(systemManager, HttpStatus.OK);
     }
 }

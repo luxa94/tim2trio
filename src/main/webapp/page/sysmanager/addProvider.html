@@ -1,0 +1,31 @@
+<div class="medium-8 large-8 columns form">
+    <form novalidate name="registerForm">
+        <div class="row column ">
+            <h4 class="text-center">Dodaj ponuđača</h4>
+            <label>Email
+                <input type="text" placeholder="ponudjac@ponuda.com" required ng-model="provider.email">
+            </label>
+            <label>Lozinka
+                <input type="password" required placeholder="**********" ng-model="provider.password">
+            </label>
+            <label>Ponovite lozinku
+                <input type="password" placeholder="**********" required>
+            </label>
+            <label>Ime
+                <input type="text" placeholder="Petar" required ng-model="provider.name">
+            </label>
+            <label>Prezime
+                <input type="text" placeholder="Petrović" required ng-model="provider.surname">
+            </label>
+            <label>Datum rođenja
+                <input type="date" required ng-model="provider.birthDate">
+            </label>
+            <label>Telefon
+                <input type="text" placeholder="123456789" required ng-model="provider.phoneNumber">
+            </label>
+
+            <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj ponuđača">
+            <input type="button" class="button expanded alert" ng-click="cancel()" value="Otkaži">
+        </div>
+    </form>
+</div>

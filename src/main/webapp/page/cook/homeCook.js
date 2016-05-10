@@ -1,12 +1,12 @@
 /**
  * Created by Nina on 21-Apr-16.
  */
-iceipiceApp.controller('guestHomeController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('cookHomeController', function ($scope, $http, $state, $stateParams, authorizationService) {
 
     $scope.user = authorizationService.getUser();
 
     $scope.modifyUserInfo = function () {
-        $http.post('/api/guest/update', $scope.user).success(function (data) {
+        $http.post('/api/cook/update', $scope.user).success(function (data) {
             authorizationService.removeUser();
             authorizationService.setUser(data);
 
@@ -16,6 +16,9 @@ iceipiceApp.controller('guestHomeController', function ($scope, $http, $state, $
     };
 
     $scope.cancel = function () {
-
+        $http.get('/api/cook/one/' + $scope.user.id).success(function (data) {
+            $scope.user = data;
+            authorizationService.setUser(data);
+        })
     };
 });

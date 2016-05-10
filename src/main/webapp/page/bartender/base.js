@@ -7,13 +7,15 @@ iceipiceApp.controller('bartenderBaseController', function ($scope, $http, $stat
         page: 0
     };
 
+    $scope.user = authorizationService.getUser();
+
     $scope.home = function() {
+        $scope.current.page = 0;
         $state.transitionTo('bartender.home');
     };
 
-    $scope.logout = function () {
-        authorizationService.removeUser();
-        $state.transitionTo('login');
+    $scope.logout = function() {
+        $state.transitionTo('logout');
     };
 
 });

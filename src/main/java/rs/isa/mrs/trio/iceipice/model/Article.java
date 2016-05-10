@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -67,6 +68,7 @@ public class Article {
         this.menuItems = menuItems;
     }
 
-
-
+    public Article() {
+        menuItems = new HashSet<>();
+    }
 }

@@ -37,6 +37,7 @@ public class BaseUser {
     private String type;
 
     public BaseUser() {
+
     }
 
     public BaseUser(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type) {

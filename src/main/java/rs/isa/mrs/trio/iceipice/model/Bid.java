@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -26,7 +27,7 @@ public class Bid {
     private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "provider_id", nullable = false)
+    @JoinColumn(name = "provider", nullable = false)
     private Provider provider;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "bid")
@@ -90,5 +91,9 @@ public class Bid {
 
     public void setAuction(Auction auction) {
         this.auction = auction;
+    }
+
+    public Bid() {
+        bidItems = new HashSet<>();
     }
 }

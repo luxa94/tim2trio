@@ -124,14 +124,38 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         .state('bartender', {
             url: '/bartender',
             abstract: true,
+            // ovde promeniti kada napravimo celu formu :)
             templateUrl: 'page/bartender/base.html',
-            controller: 'bartenderHomeController'
+            controller: 'bartenderBaseController'
         })
-
         .state('bartender.home',{
             url: '/home',
             templateUrl: 'page/bartender/homeBartender.html',
             controller: 'bartenderHomeController'
+        })
+        .state('cook', {
+            url: '/cook',
+            abstract: true,
+            // ovde promeniti kada napravimo celu formu :)
+            templateUrl: 'page/cook/base.html',
+            controller: 'cookBaseController'
+        })
+        .state('cook.home',{
+            url: '/home',
+            templateUrl: 'page/cook/homeCook.html',
+            controller: 'cookHomeController'
+        })
+        .state('waiter', {
+            url: '/waiter',
+            abstract: true,
+            // ovde promeniti kada napravimo celu formu :)
+            templateUrl: 'page/waiter/base.html',
+            controller: 'waiterBaseController'
+        })
+        .state('waiter.home',{
+            url: '/home',
+            templateUrl: 'page/waiter/homeWaiter.html',
+            controller: 'waiterHomeController'
         })
         .state('logout', {
             url: '/logout',
