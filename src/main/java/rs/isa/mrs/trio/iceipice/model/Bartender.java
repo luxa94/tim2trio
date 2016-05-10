@@ -1,5 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 
 import javax.persistence.*;
@@ -23,9 +24,11 @@ public class Bartender extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<OrderItem> orderItems;
 
+    @JsonBackReference
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<Shift> shifts;
 

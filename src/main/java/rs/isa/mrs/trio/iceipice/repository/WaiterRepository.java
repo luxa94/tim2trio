@@ -8,6 +8,8 @@ import rs.isa.mrs.trio.iceipice.model.Waiter;
  */
 public interface WaiterRepository extends JpaRepository<Waiter, Long> {
 
+    Waiter findById(long id);
+
     Waiter findByEmail(String email);
 
     Waiter findByEmailAndPassword(String email, String password);
