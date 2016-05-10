@@ -18,7 +18,7 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
                 $scope.friends = filteredFriends;
             }, function(data){
             });
-        }, 2000);
+        }, 100);
 
 
 

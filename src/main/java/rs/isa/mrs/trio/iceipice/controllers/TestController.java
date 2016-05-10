@@ -64,7 +64,6 @@ public class TestController {
             Guest g4 = new Guest("g4", "g4", "Blaza", "Blazic", "123", new Date());
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "cook", "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
-            Cook c = new Cook("cook", "cook", "cook", "cook", "cook", new Date(), "cook", "cook");
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             systemManagerRepository.save(sm);
@@ -76,7 +75,6 @@ public class TestController {
             restaurantManagerRepository.save(rm);
             cookRepository.save(ck);
             waiterRepository.save(w);
-            cookRepository.save(c);
         } catch (Exception e) {
             e.printStackTrace();
         }
