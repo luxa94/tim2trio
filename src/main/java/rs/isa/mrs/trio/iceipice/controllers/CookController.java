@@ -50,4 +50,16 @@ public class CookController {
 
     }
 
+    @RequestMapping(value = "/cook/create", method = RequestMethod.POST)
+    public ResponseEntity addCook(@RequestBody CookDTO cookDTO) {
+
+        final Cook cook = cookService.addCook(cookDTO);
+        if (cook != null) {
+            return new ResponseEntity<>(cook, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
 }

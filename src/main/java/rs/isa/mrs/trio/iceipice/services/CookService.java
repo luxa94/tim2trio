@@ -36,6 +36,20 @@ public class CookService {
         cook.setPhoneNumber(cookDTO.getPhoneNumber());
         cook.setDressSize(cookDTO.getDressSize());
         cook.setFootwearSize(cookDTO.getFootwearSize());
+        cook.setEmail(cookDTO.getEmail());
+        cook.setPassword(cookDTO.getPassword());
+    }
+
+    public Cook addCook(CookDTO cookDTO){
+        Cook cook = new Cook();
+        updateCook(cook,cookDTO);
+
+        try{
+            cook = cookRepository.save(cook);
+            return cook;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
   //  public Guest verify(long id) {
