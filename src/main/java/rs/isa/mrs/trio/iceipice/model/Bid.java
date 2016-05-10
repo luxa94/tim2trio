@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -90,5 +91,9 @@ public class Bid {
 
     public void setAuction(Auction auction) {
         this.auction = auction;
+    }
+
+    public Bid() {
+        bidItems = new HashSet<>();
     }
 }

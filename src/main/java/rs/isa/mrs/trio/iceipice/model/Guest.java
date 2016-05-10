@@ -94,4 +94,13 @@ public class Guest extends BaseUser{
     public void setFriends(Set<Guest> friends) {
         this.friends = friends;
     }
+
+    public boolean isFriendsWith(Guest potentialFriend) {
+        for(Guest guest: friends){
+            if(potentialFriend.getId() == guest.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
 }

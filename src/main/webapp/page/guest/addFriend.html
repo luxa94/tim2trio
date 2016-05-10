@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Dodaj prijatelja</title>
-</head>
-<body>
+<div class="addFriendContainer" >
+    <div ng-controller="guestAddFriendController">
+        <h1 id="headline">Friend Finder</h1>
+        <div class="block">
+            <input type="text" ng-model="query.name" class="search" placeholder="Search friend..." />
+            <button ng-click="reverse()">Reverse Order</button>
+            <input type="text" ng-model="newName" class="third" placeholder="Name.." />
+            <input type="text" ng-model="newSurname" class="third" placeholder="Surname.." />
 
-</body>
-</html>
+            <button ng-click="addUser()">Add Friend</button>
+            <button ng-click="removeUser()">Delete Friend</button>
+
+            <ul class="title">
+                <li class="addFriendUL">Name<span>Phone Number</span></li>
+            </ul>
+            <div id="friend-list" >
+                <ul>
+                    <li class="addFriendUL" ng-repeat="friend in friends | filter: query | orderBy: orderList" ng-class="{odd: $odd}">
+                        <img class="user-image" ng-src="{{friend.image}}"/>
+                        <span>{{friend.name}}</span>
+                        <span>{{friend.surname}}</span>
+                        <span>{{friend.id}}</span>
+                        <span ng-if="!friend.friend"><button ng-click="addFriend(friend.id)">Add Friend</button></span>
+                        <span ng-if="friend.friend"><button ng-click="removeFriend(friend.id)">Remove Friend</button></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

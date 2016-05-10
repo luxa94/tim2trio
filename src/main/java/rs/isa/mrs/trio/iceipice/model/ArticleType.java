@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -53,5 +54,11 @@ public class ArticleType {
 
     public void setCooks(Set<Cook> cooks) {
         this.cooks = cooks;
+    }
+
+    public ArticleType() {
+        articles = new HashSet<>();
+        cooks = new HashSet<>();
+
     }
 }

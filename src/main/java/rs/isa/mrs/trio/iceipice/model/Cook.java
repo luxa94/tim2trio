@@ -70,4 +70,6 @@ public class Cook extends BaseUser {
     public void setShifts(Set<Shift> shifts) {
         this.shifts = shifts;
     }
+
+
 }

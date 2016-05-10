@@ -89,4 +89,7 @@ public class BidItem {
     public void setAuctionItemUnit(AuctionItemUnit auctionItemUnit) {
         this.auctionItemUnit = auctionItemUnit;
     }
+
+    public BidItem() {
+    }
 }

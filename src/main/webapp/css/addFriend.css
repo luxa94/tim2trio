@@ -1,0 +1,157 @@
+
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+
+.addFriendContainer {
+    max-width: 300px;
+    margin: 0 auto;
+    height: 100%;
+    padding: 1em;
+    background-color: rgb(230,230,250)!important;;
+    font-family: Droid Serif, sans-serif;
+    height: 100%;
+    color: #def0fc;
+}
+
+h1#headline {
+    font-family: Oregano, cursive;
+    text-align: center;
+    margin-bottom: 0.5em;
+    color: white;
+    font-size: 2em;
+    letter-spacing: 0.15em;
+    background: rgb(230,230,250);
+}
+
+button {
+    background: rgba(234, 94, 79, 0.9);
+    color: white;
+    padding: 1em;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    width: 100%;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    display: inline-block;
+}
+
+button:hover {
+    background: #ea5e4f;
+}
+
+.block {
+    background: white;
+    padding: 1em;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 2px rgba(0, 0, 0, 0.2);
+    margin: 0 auto;
+    overflow: scroll;
+}
+
+.m {
+    color: #2980b9;
+}
+
+.f {
+    color: hotpink;
+}
+
+.disabled {
+    background: #eee;
+    cursor: auto;
+}
+
+input {
+    font-family: Droid Serif, sans-serif;
+}
+
+input[type="text"] {
+    padding: 1em;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #e4e4e4;
+    width: 100%;
+    margin-bottom: 1em;
+    position: relative;
+    z-index: 2;
+}
+input[type="text"]:after {
+    position: absolute;
+    display: block;
+    top: 5px;
+    right: 5px;
+    width: 16px;
+    height: 16px;
+    background: url("http://cdn.sstatic.net/stackoverflow/img/sprites.png?v=4") 0 -690px;
+    cursor: pointer;
+    z-index: 3;
+}
+
+input.third {
+    width: calc(100% / 3 - 0.5em);
+    display: inline-block;
+    margin-right: 0.25em;
+}
+input.third:last-child {
+}
+
+input[type="checkbox"] {
+    margin: 1em 0.5em;
+}
+
+ul.addFriendUL.title {
+    border-bottom: 1px dotted #afafaf;
+}
+ul.addFriendUL.title li.no-hover {
+    font-size: 0.9em;
+    color: #afafaf;
+    padding: 0.5em 1em 0.5em 1em;
+    background: transparent;
+}
+ul.addFriendUL.title li.no-hover:hover {
+    background: transparent;
+    cursor: auto;
+}
+
+ul.addFriendUL {
+    font-size: 0.8em;
+}
+ul.addFriendUL li {
+    padding: 1em;
+    cursor: pointer;
+}
+ul.addFriendUL li span {
+    float: right;
+}
+ul.addFriendUL li:hover {
+    background: #ea5e4f;
+    color: white;
+}
+
+.odd {
+    background: #eaeaea;
+}
+
+img {
+    wight: 100%;
+    height: auto;
+    border-radius: 50%;
+}
+
+img.user-image {
+    width: 20px;
+    float: left;
+    margin-right: 1em;
+}

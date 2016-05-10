@@ -66,4 +66,6 @@ public class Bartender extends BaseUser {
         this.footwearSize = footwearSize;
         this.dressSize = dressSize;
     }
+
+
 }

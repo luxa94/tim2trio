@@ -46,10 +46,12 @@ public class TestController {
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
             Guest g = new Guest("gg", "gg", "gg", "gg", "123", new Date());
+            Guest g1 = new Guest("g1", "g1", "gg", "gg", "123", new Date());
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             systemManagerRepository.save(sm);
             guestRepository.save(g);
+            guestRepository.save(g1);
             restaurantManagerRepository.save(rm);
         } catch (Exception e) {
             e.printStackTrace();
