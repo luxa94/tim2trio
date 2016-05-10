@@ -16,6 +16,9 @@ iceipiceApp.controller('cookHomeController', function ($scope, $http, $state, $s
     };
 
     $scope.cancel = function () {
-
+        $http.get('/api/cook/one/' + $scope.user.id).success(function (data) {
+            $scope.user = data;
+            authorizationService.setUser(data);
+        })
     };
 });

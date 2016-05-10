@@ -137,10 +137,10 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         .state('cook', {
             url: '/cook',
             abstract: true,
+            // ovde promeniti kada napravimo celu formu :)
             templateUrl: 'page/cook/base.html',
-            controller: 'cookHomeController'
+            controller: 'cookBaseController'
         })
-
         .state('cook.home',{
             url: '/home',
             templateUrl: 'page/cook/homeCook.html',

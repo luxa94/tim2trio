@@ -135,9 +135,6 @@ public class GuestController {
         guestRepository.save(friend);
 
         return new ResponseEntity<>(HttpStatus.OK);
-
-
-
     }
 
 

@@ -34,8 +34,19 @@ public class CookService {
         cook.setSurname(cookDTO.getSurname());
         cook.setBirthDate(cookDTO.getBirthDate());
         cook.setPhoneNumber(cookDTO.getPhoneNumber());
-        cook.setPhoneNumber(cookDTO.getDressSize());
-        cook.setPhoneNumber(cookDTO.getFootwearSize());
-
+        cook.setDressSize(cookDTO.getDressSize());
+        cook.setFootwearSize(cookDTO.getFootwearSize());
     }
+
+  //  public Guest verify(long id) {
+  //      try {
+  //          Cook cook = cookRepository.findById(id);
+ //           cook.setConfirmed(true);
+ //           cook = cookRepository.save(cook);
+ //           return cook;
+//        } catch (Exception e) {
+ //           e.printStackTrace();
+ //           return null;
+  //      }
+ //   }
 }
