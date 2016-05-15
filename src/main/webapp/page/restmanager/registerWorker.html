@@ -11,35 +11,35 @@
                 </select>
             </label>
             <label>Email
-                <input type="text" placeholder="menadzer@restoran.com" required ng-model="restaurantManager.email">
+                <input type="text" placeholder="radnik@restoran.com" required ng-model="worker.email">
             </label>
             <label>Lozinka
-                <input type="password" required placeholder="**********" ng-model="restaurantManager.password">
+                <input type="password" required placeholder="**********" ng-model="worker.password">
             </label>
             <label>Ponovite lozinku
                 <input type="password" placeholder="**********" required>
             </label>
             <label>Ime
-                <input type="text" placeholder="Petar" required ng-model="restaurantManager.name">
+                <input type="text" placeholder="Petar" required ng-model="worker.name">
             </label>
             <label>Prezime
-                <input type="text" placeholder="Petrović" required ng-model="restaurantManager.surname">
+                <input type="text" placeholder="Petrović" required ng-model="worker.surname">
             </label>
             <label>Datum rođenja
-                <input type="date" required ng-model="restaurantManager.birthDate">
+                <input type="date" required ng-model="worker.birthDate">
             </label>
             <label>Telefon
-                <input type="text" placeholder="123456789" required ng-model="restaurantManager.phoneNumber">
+                <input type="text" placeholder="123456789" required ng-model="worker.phoneNumber">
             </label>
             </label>
             <label>Konfekcijski broj
-                <input type="text" placeholder="123456789" required ng-model="restaurantManager.dressSize">
+                <input type="text" placeholder="123456789" required ng-model="worker.dressSize">
             </label>
             </label>
             <label>Broj cipela
-                <input type="text" placeholder="123456789" required ng-model="restaurantManager.footwearSize">
+                <input type="text" placeholder="123456789" required ng-model="worker.footwearSize">
             </label>
-            <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj menadžera restorana">
+            <input type="submit" class="button expanded" ng-click="submit()" ng-disabled="registerForm.$invalid" value="Dodaj radnika">
             <input type="button" class="button expanded alert" ng-click="cancel()" value="Otkaži">
         </div>
     </form>

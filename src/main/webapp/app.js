@@ -88,6 +88,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             controller: 'restManagerViewRestaurantController',
             templateUrl: 'page/restmanager/viewRestaurant.html'
         })
+        .state('restaurant_manager.viewMenu', {
+            url: '/viewMenu',
+            controller: 'restManagerViewMenuController',
+            templateUrl: 'page/restmanager/viewMenu.html'
+        })
         .state('guest', {
             url: '/guest',
             abstract: true,
