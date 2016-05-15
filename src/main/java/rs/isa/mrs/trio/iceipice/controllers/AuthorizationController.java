@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.BaseUser;
+import rs.isa.mrs.trio.iceipice.model.Cook;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.dto.LoginDTO;
@@ -38,11 +39,6 @@ public class AuthorizationController {
 
         BaseUser baseUser = baseUserRepository.findByEmailAndPassword(email, password);
         if (baseUser != null) {
-
-            if (baseUser instanceof RestaurantManager) {
-                System.out.println("AAAAAAAAAAAAAAAAAAA");
-            }
-
             return new ResponseEntity<>(baseUser, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
