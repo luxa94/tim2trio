@@ -1,54 +1,27 @@
-package rs.isa.mrs.trio.iceipice.model;
+package rs.isa.mrs.trio.iceipice.model.dto;
 
-import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Created by nikolalukic on 4/10/16.
+ * Created by nikolalukic on 5/15/16.
  */
-@Entity
-@Table(name = "base_user")
-@Inheritance(strategy = InheritanceType.JOINED)
-public abstract class BaseUser {
+public class BaseUserDTO {
 
-    @Id
-    @GeneratedValue
-    private long id;
+    protected long id;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    protected String email;
 
-    @Column(name = "password", nullable = false)
-    private String password;
+    protected String password;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    protected String name;
 
-    @Column(name = "surname", nullable = false)
-    private String surname;
+    protected String surname;
 
-    @Column(name = "phone_number")
-    private String phoneNumber;
+    protected String phoneNumber;
 
-    @Column(name = "birth_date")
-    private Date birthDate;
+    protected Date birthDate;
 
-    @Column(name = "type", nullable = false)
-    private String type;
-
-    public BaseUser() {
-
-    }
-
-    public BaseUser(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type) {
-        this.email = email;
-        this.password = password;
-        this.name = name;
-        this.surname = surname;
-        this.phoneNumber = phoneNumber;
-        this.birthDate = birthDate;
-        this.type = type;
-    }
+    protected String type;
 
     public long getId() {
         return id;

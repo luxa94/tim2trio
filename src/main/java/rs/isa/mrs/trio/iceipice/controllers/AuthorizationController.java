@@ -6,12 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.BaseUser;
 import rs.isa.mrs.trio.iceipice.model.Guest;
+import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.dto.LoginDTO;
 import rs.isa.mrs.trio.iceipice.repository.*;
 import rs.isa.mrs.trio.iceipice.services.EmailService;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
-
-import javax.websocket.server.PathParam;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -39,6 +38,11 @@ public class AuthorizationController {
 
         BaseUser baseUser = baseUserRepository.findByEmailAndPassword(email, password);
         if (baseUser != null) {
+
+            if (baseUser instanceof RestaurantManager) {
+                System.out.println("AAAAAAAAAAAAAAAAAAA");
+            }
+
             return new ResponseEntity<>(baseUser, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);

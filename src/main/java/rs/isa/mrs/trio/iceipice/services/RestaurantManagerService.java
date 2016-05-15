@@ -20,6 +20,9 @@ public class RestaurantManagerService {
     @Autowired
     RestaurantRepository restaurantRepository;
 
+    @Autowired
+    BaseUserService baseUserService;
+
     public RestaurantManager createFromDTO(RestaurantManagerDTO restaurantManagerDTO) {
         RestaurantManager restaurantManager = new RestaurantManager();
 
@@ -30,12 +33,7 @@ public class RestaurantManagerService {
 
     private RestaurantManager loadFromDTO(RestaurantManager restaurantManager, RestaurantManagerDTO restaurantManagerDTO) {
         try {
-            restaurantManager.setEmail(restaurantManagerDTO.getEmail());
-            restaurantManager.setPassword(restaurantManagerDTO.getPassword());
-            restaurantManager.setName(restaurantManagerDTO.getName());
-            restaurantManager.setSurname(restaurantManagerDTO.getSurname());
-            restaurantManager.setBirthDate(restaurantManagerDTO.getBirthDate());
-            restaurantManager.setPhoneNumber(restaurantManagerDTO.getPhoneNumber());
+            baseUserService.extractData(restaurantManager, restaurantManagerDTO);
 
             final Restaurant restaurant = restaurantRepository.findById(restaurantManagerDTO.getRestaurantId());
 
@@ -52,23 +50,20 @@ public class RestaurantManagerService {
         return null;
     }
 
-    public RestaurantManager editRestaurantManager(RestaurantManagerDTO rmDTO){
+    public RestaurantManager editRestaurantManager(RestaurantManagerDTO rmDTO) {
         RestaurantManager oldRM = restaurantManagerRepository.findByEmail(rmDTO.getEmail());
-        updateRestaurantManager(oldRM,rmDTO);
+        updateRestaurantManager(oldRM, rmDTO);
 
-        try{
+        try {
             oldRM = restaurantManagerRepository.save(oldRM);
             return oldRM;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
     private void updateRestaurantManager(RestaurantManager rm, RestaurantManagerDTO restaurantManagerDTO) {
-        rm.setName(restaurantManagerDTO.getName());
-        rm.setSurname(restaurantManagerDTO.getSurname());
-        rm.setBirthDate(restaurantManagerDTO.getBirthDate());
-        rm.setPhoneNumber(restaurantManagerDTO.getPhoneNumber());
+        baseUserService.updateChangeable(rm, restaurantManagerDTO);
     }
 
 }

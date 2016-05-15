@@ -15,9 +15,12 @@ public class SystemManagerService {
     @Autowired
     SystemManagerRepository systemManagerRepository;
 
+    @Autowired
+    BaseUserService baseUserService;
+
     public SystemManager editSystemManager(SystemManagerDTO systemManagerDTO) {
         SystemManager systemManager = systemManagerRepository.findById(systemManagerDTO.getId());
-        updateSystemMenager(systemManager, systemManagerDTO);
+        updateSystemManager(systemManager, systemManagerDTO);
 
         try {
             systemManager = systemManagerRepository.save(systemManager);
@@ -27,10 +30,7 @@ public class SystemManagerService {
         }
     }
 
-    private void updateSystemMenager(SystemManager systemManager, SystemManagerDTO systemManagerDTO) {
-        systemManager.setName(systemManagerDTO.getName());
-        systemManager.setSurname(systemManagerDTO.getSurname());
-        systemManager.setBirthDate(systemManagerDTO.getBirthDate());
-        systemManager.setPhoneNumber(systemManagerDTO.getPhoneNumber());
+    private void updateSystemManager(SystemManager systemManager, SystemManagerDTO systemManagerDTO) {
+        baseUserService.updateChangeable(systemManager, systemManagerDTO);
     }
 }

@@ -15,6 +15,9 @@ public class GuestService {
     @Autowired
     GuestRepository guestRepository;
 
+    @Autowired
+    BaseUserService baseUserService;
+
     public Guest editGuest(GuestDTO guestDTO) {
         Guest guest = guestRepository.findById(guestDTO.getId());
         updateGuest(guest, guestDTO);
@@ -28,10 +31,7 @@ public class GuestService {
     }
 
     private void updateGuest(Guest guest, GuestDTO guestDTO) {
-        guest.setName(guestDTO.getName());
-        guest.setSurname(guestDTO.getSurname());
-        guest.setBirthDate(guestDTO.getBirthDate());
-        guest.setPhoneNumber(guestDTO.getPhoneNumber());
+        baseUserService.updateChangeable(guest, guestDTO);
     }
 
     public Guest verify(long id) {

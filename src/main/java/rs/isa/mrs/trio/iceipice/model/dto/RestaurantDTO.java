@@ -1,7 +1,5 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
-import java.util.Set;
-
 /**
  * Created by nikolalukic on 4/17/16.
  */

@@ -1,12 +1,10 @@
 package rs.isa.mrs.trio.iceipice.services;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.isa.mrs.trio.iceipice.model.Cook;
-import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.dto.CookDTO;
-import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
 import rs.isa.mrs.trio.iceipice.repository.CookRepository;
-import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 
 /**
  * Created by Nina on 22-Apr-16.
@@ -17,11 +15,14 @@ public class CookService {
     @Autowired
     CookRepository cookRepository;
 
+    @Autowired
+    BaseUserService baseUserService;
+
     public Cook editCook(CookDTO cookDTO) {
         Cook cook = cookRepository.findById(cookDTO.getId());
         updateCook(cook, cookDTO);
 
-        try{
+        try {
             cook = cookRepository.save(cook);
             return cook;
         } catch (Exception e) {
@@ -30,21 +31,16 @@ public class CookService {
     }
 
     private void updateCook(Cook cook, CookDTO cookDTO) {
-        cook.setName(cookDTO.getName());
-        cook.setSurname(cookDTO.getSurname());
-        cook.setBirthDate(cookDTO.getBirthDate());
-        cook.setPhoneNumber(cookDTO.getPhoneNumber());
+        baseUserService.updateChangeable(cook, cookDTO);
         cook.setDressSize(cookDTO.getDressSize());
         cook.setFootwearSize(cookDTO.getFootwearSize());
-        cook.setEmail(cookDTO.getEmail());
-        cook.setPassword(cookDTO.getPassword());
     }
 
-    public Cook addCook(CookDTO cookDTO){
+    public Cook addCook(CookDTO cookDTO) {
         Cook cook = new Cook();
-        updateCook(cook,cookDTO);
+        updateCook(cook, cookDTO);
 
-        try{
+        try {
             cook = cookRepository.save(cook);
             return cook;
         } catch (Exception e) {
@@ -52,15 +48,4 @@ public class CookService {
         }
     }
 
-  //  public Guest verify(long id) {
-  //      try {
-  //          Cook cook = cookRepository.findById(id);
- //           cook.setConfirmed(true);
- //           cook = cookRepository.save(cook);
- //           return cook;
-//        } catch (Exception e) {
- //           e.printStackTrace();
- //           return null;
-  //      }
- //   }
 }
