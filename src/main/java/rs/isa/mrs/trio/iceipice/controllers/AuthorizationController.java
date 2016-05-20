@@ -5,11 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.BaseUser;
-import rs.isa.mrs.trio.iceipice.model.Cook;
 import rs.isa.mrs.trio.iceipice.model.Guest;
-import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.dto.LoginDTO;
-import rs.isa.mrs.trio.iceipice.repository.*;
+import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
+import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.EmailService;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
 

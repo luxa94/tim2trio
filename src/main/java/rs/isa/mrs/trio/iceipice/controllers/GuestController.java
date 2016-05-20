@@ -1,15 +1,12 @@
 package rs.isa.mrs.trio.iceipice.controllers;
 
-import org.hibernate.mapping.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Guest;
-import rs.isa.mrs.trio.iceipice.model.Restaurant;
 import rs.isa.mrs.trio.iceipice.model.dto.AddFriendDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
-import rs.isa.mrs.trio.iceipice.model.dto.RestaurantDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
 

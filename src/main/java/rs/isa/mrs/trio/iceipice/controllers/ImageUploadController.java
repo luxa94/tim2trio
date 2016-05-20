@@ -9,7 +9,10 @@ import rs.isa.mrs.trio.iceipice.model.Image;
 import rs.isa.mrs.trio.iceipice.repository.ImageRepository;
 
 import javax.servlet.ServletContext;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * Created by Sandra on 17.4.2016.

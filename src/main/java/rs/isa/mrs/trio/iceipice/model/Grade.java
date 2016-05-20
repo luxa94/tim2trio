@@ -2,7 +2,6 @@ package rs.isa.mrs.trio.iceipice.model;
 
 
 import javax.persistence.*;
-import javax.websocket.ClientEndpoint;
 
 /**
  * Created by Nina on 10-Apr-16.
