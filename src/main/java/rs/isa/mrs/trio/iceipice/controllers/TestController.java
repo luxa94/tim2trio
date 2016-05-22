@@ -39,12 +39,20 @@ public class TestController {
     @Autowired
     WaiterRepository waiterRepository;
 
+    @Autowired
+    AreaRepository areaRepository;
+
+    @Autowired
+    RestaurantTableRepository restaurantTableRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
             systemManagerRepository.deleteAll();
             restaurantManagerRepository.deleteAll();
             bartenderRepository.deleteAll();
+            restaurantTableRepository.deleteAll();
+            areaRepository.deleteAll();
             restaurantRepository.deleteAll();
             guestRepository.deleteAll();
             cookRepository.deleteAll();

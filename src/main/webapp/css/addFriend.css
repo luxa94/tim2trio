@@ -1,16 +1,3 @@
-button {
-    background:  #2199e8;
-    color: white;
-    padding: 0.6em;
-    margin-bottom: 1em;
-    position: inherit;
-
-    outline: none;
-    border: none;
-    cursor: pointer;
-    display: inline-block;
-}
-
 .button1 {
     background:  #ea5e4f;
     color: white;
@@ -22,10 +9,6 @@ button {
     border: none;
     cursor: pointer;
     display: table;
-}
-
-button:hover {
-    background: #2199e8;
 }
 
 .button1:hover {

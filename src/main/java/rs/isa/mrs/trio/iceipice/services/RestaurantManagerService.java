@@ -66,4 +66,8 @@ public class RestaurantManagerService {
         baseUserService.updateChangeable(rm, restaurantManagerDTO);
     }
 
+    public RestaurantManager findById(long id) {
+        return restaurantManagerRepository.findById(id);
+    }
+
 }

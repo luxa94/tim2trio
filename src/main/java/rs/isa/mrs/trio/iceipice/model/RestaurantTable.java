@@ -1,5 +1,9 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -9,27 +13,33 @@ import java.util.Set;
 
 @Entity
 @Table(name = "restaurant_table")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class RestaurantTable {
 
     @Id
     @GeneratedValue
     private long id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "capacity", nullable = false)
     private int capacity;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<Reservation> reservations;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "area_id", nullable = false)
+    @JoinColumn(name = "area_id", nullable = true)
     private Area area;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Order> orders;
+
+    @Column(name = "fabric_table", length = 2000)
+    private String fabricTable;
 
     public long getId() {
         return id;
@@ -77,5 +87,13 @@ public class RestaurantTable {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getFabricTable() {
+        return fabricTable;
+    }
+
+    public void setFabricTable(String fabricTable) {
+        this.fabricTable = fabricTable;
     }
 }
