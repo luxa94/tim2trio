@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,12 +22,15 @@ public class Area {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonBackReference
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "area")
+    @JsonBackReference
     private Set<RestaurantTable> restaurantTables;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "areas")
+    @JsonBackReference
     private Set<WaiterShift> waiterShifts;
 
     public Restaurant getRestaurant() {

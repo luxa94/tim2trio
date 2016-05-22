@@ -69,3 +69,12 @@ body {
 .row {
     overflow: auto;
 }
+
+.area_table {
+    max-height: 444px;
+    overflow-y: scroll;
+}
+
+.button {
+    margin: 0;
+}

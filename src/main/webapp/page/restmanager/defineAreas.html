@@ -1,10 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="columns small-12 medium-6 form">
+    <div class="button-group">
+        <button class="button" ng-click="addRoundTable()">Dodaj kružni sto</button>
+        <button class="button" ng-click="addRectTable()">Dodaj pravougaoni sto</button>
 
-</body>
-</html>
+        <button class="button alert float-right" ng-click="deleteTable()">Obriši</button>
+    </div>
+</div>
+<div class="columns small-12 medium-6 form">
+    <div class="button-group">
+        <a class="button" ng-click="saveTables()">Sačuvaj</a>
+        <a class="button alert" ng-click="refreshTables()">Otkaži</a>
+    </div>
+</div>
+<div id="canvas_container" class="small-12 medium-8 columns form">
+
+    <canvas id="restaurant_canvas" width="765" height="500">
+    </canvas>
+</div>
+<div class="small-12 medium-4 columns form">
+
+    <div class="area_table">
+        <table>
+            <tr ng-repeat="area in areas track by $index">
+                <td>{{area.name}}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-label">Nov reon</span>
+        <input class="input-group-field" placeholder="Naziv reona" type="text" ng-model="areaName">
+        <a class="input-group-button button" ng-click="addArea()">Dodaj</a>
+    </div>
+
+
+</div>
+
+<div class="small reveal" id="newTable" data-reveal>
+
+    <form novalidate name="tableForm">
+        <h4 class="text-center">Dodaj novi sto</h4>
+        <label>Naziv
+            <input type="text" placeholder="stočić" required ng-model="table.name">
+        </label>
+        <label>Kapacitet
+            <input type="number" placeholder="4" required ng-model="table.capacity">
+        </label>
+
+        <label>Reon
+            <select required ng-model="table.area">
+                <option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
+            </select>
+        </label>
+
+        <div class="button-group float-right">
+            <input type="submit" class="button" ng-click="addTable()" ng-disabled="tableForm.$invalid" value="Sačuvaj">
+            <a class="button alert" ng-click="cancelTable()">Odustani</a>
+        </div>
+
+    </form>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
