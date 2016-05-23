@@ -98,6 +98,17 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
                 // failed to add the friend
             });
         };
+
+    $scope.sendEmail = function () {
+        if ($scope.registerForm.$valid) {
+            authorizationService.register($scope.user, function (data) {
+                authorizationService.setUser(data);
+                $state.transitionTo(data.type + ".home");
+            }, function () {
+                alert('Registracija nije uspela! Proverite da li ste ispravno uneli sve parametre forme.');
+            });
+        }
+    };
     });
 
 
