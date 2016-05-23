@@ -47,6 +47,7 @@ public class AuthorizationController {
     @RequestMapping(value = "/guest/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody Guest guest) {
         try {
+            System.out.println("asdasdasdasdsd");
             guest.setConfirmed(false);
             guest = guestRepository.save(guest);
             emailService.sendMail(guest);
