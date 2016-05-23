@@ -11,6 +11,7 @@ import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.EmailService;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
+import rs.isa.mrs.trio.iceipice.services.InviteFriendService;
 
 /**
  * Created by nikolalukic on 4/10/16.

@@ -99,15 +99,13 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
             });
         };
 
-    $scope.sendEmail = function () {
-        if ($scope.registerForm.$valid) {
-            authorizationService.register($scope.user, function (data) {
-                authorizationService.setUser(data);
-                $state.transitionTo(data.type + ".home");
-            }, function () {
-                alert('Registracija nije uspela! Proverite da li ste ispravno uneli sve parametre forme.');
-            });
-        }
+    $scope.inviteRegister = function () {
+        GuestService.InviteFriend($scope.user.id, $scope.friendEmail ).then(function(data){
+            alert("Poziv za ručak je uspešno poslat!");
+        }, function(data) {
+            // failed to add the friend
+        });
+       
     };
     });
 

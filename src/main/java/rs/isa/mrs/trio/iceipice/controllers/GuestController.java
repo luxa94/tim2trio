@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.dto.AddFriendDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.InviteFriendDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
+import rs.isa.mrs.trio.iceipice.services.InviteFriendService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +21,9 @@ import java.util.Iterator;
 @RestController
 @RequestMapping("/api")
 public class GuestController {
+
+    @Autowired
+    InviteFriendService inviteFriendService;
 
     @Autowired
     GuestRepository guestRepository;
@@ -135,4 +140,15 @@ public class GuestController {
     }
 
 
+    @RequestMapping(value = "guest/inviteFriend", method = RequestMethod.POST)
+    public ResponseEntity invite(@RequestBody InviteFriendDTO guestDTO) {
+        try {
+            final Guest guest = guestRepository.findById(guestDTO.getMyId());
+            inviteFriendService.sendMail(guest, guestDTO.getEmail());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
