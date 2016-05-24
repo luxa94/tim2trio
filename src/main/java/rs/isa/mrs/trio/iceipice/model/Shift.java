@@ -14,24 +14,53 @@ public class Shift {
     @GeneratedValue
     private long id;
 
-    @Column(name = "shift_type", nullable = false)
-    private String shift_type;
-
-    @Column(name = "active", nullable = false)
-    private Boolean active;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Cook> cooks;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Bartender> bartenders;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "restaurant", nullable = false)
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "shift")
-    private Set<WaiterShift> waiterShifts;
+    @Column(name = "day", nullable = false)
+    private int day;
+
+    @Column(name = "valid", nullable = false)
+    private boolean valid;
+
+    @Column(name = "startHour", nullable = false)
+    private String startHour;
+
+    @Column(name = "endHour", nullable = false)
+    private String endHour;
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
+    public String getStartHour() {
+        return startHour;
+    }
+
+    public void setStartHour(String startHour) {
+        this.startHour = startHour;
+    }
+
+    public String getEndHour() {
+        return endHour;
+    }
+
+    public void setEndHour(String endHour) {
+        this.endHour = endHour;
+    }
 
     public long getId() {
         return id;
@@ -41,51 +70,11 @@ public class Shift {
         this.id = id;
     }
 
-    public String getShift_type() {
-        return shift_type;
-    }
-
-    public void setShift_type(String shift_type) {
-        this.shift_type = shift_type;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
-
-    public Set<Cook> getCooks() {
-        return cooks;
-    }
-
-    public void setCooks(Set<Cook> cooks) {
-        this.cooks = cooks;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
-    }
-
-    public Set<WaiterShift> getWaiterShifts() {
-        return waiterShifts;
-    }
-
-    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
-        this.waiterShifts = waiterShifts;
-    }
-
-    public Set<Bartender> getBartenders() {
-        return bartenders;
-    }
-
-    public void setBartenders(Set<Bartender> bartenders) {
-        this.bartenders = bartenders;
     }
 }

@@ -39,8 +39,6 @@ public class RestaurantController {
     public ResponseEntity getOneRestaurant(@PathVariable long id) {
         final Restaurant restaurant = restaurantRepository.findById(id);
         if (restaurant != null) {
-            restaurant.getMenus();
-            restaurant.getAreas();
             return new ResponseEntity<>(restaurant, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
@@ -52,8 +50,6 @@ public class RestaurantController {
         long id = restaurantManagerRepository.findById(idman).getRestaurant().getId();
         final Restaurant restaurant = restaurantRepository.findById(id);
         if (restaurant != null) {
-            restaurant.getMenus();
-            restaurant.getAreas();
             return new ResponseEntity<>(restaurant, HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);

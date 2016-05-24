@@ -45,11 +45,11 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
         });
     };
 
-    $scope.openDialogForTable = function(table) {
-        $scope.table = table;
+    $scope.openDialogForTable = function(t) {
+        $scope.table = t;
         $scope.popup = new Foundation.Reveal($('#newTable'));
-    $scope.popup.open();
-};
+        $scope.popup.open();
+    };
 
     $scope.refreshTables();
 
@@ -105,11 +105,11 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
 
     $scope.saveTables = function () {
         for (var i in $scope.tables) {
-            var table = $scope.tables[i];
-            table.fabricTable.fill = 'white';
-            table.fabricTable = JSON.stringify(table.fabricTable);
-            if (table.area.id) {
-                table.area = table.area.id;
+            var t = $scope.tables[i];
+            t.fabricTable.fill = 'white';
+            t.fabricTable = JSON.stringify(t.fabricTable);
+            if (t.area.id) {
+                t.area = t.area.id;
             }
         }
         $http.post('/api/tables/update/all/' + $scope.user.id, $scope.tables).success(function (data) {
@@ -120,9 +120,11 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
 
     canvas.on('mouse:dblclick', function (options) {
         for (var i in $scope.tables) {
-            var table = $scope.tables[i];
-            if (table.fabricTable == options.target) {
-                $scope.openDialogForTable(table);
+            var t = $scope.tables[i];
+            if (t.fabricTable == options.target) {
+                $scope.table = t;
+                // $scope.openDialogForTable(t);
+                console.log($scope.table);
                 break;
             }
         }

@@ -24,6 +24,9 @@ public class WaiterShift {
     private Shift shift;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "shift_area",
+            joinColumns = {@JoinColumn(name = "shift_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "area_id", nullable = false)})
     private Set<Area> areas;
 
     public long getId() {

@@ -38,7 +38,6 @@ public class RestaurantManagerService {
             final Restaurant restaurant = restaurantRepository.findById(restaurantManagerDTO.getRestaurantId());
 
             if (restaurant != null) {
-                restaurant.getRestaurantManagers().add(restaurantManager);
                 restaurantManager.setRestaurant(restaurant);
                 final RestaurantManager rm = restaurantManagerRepository.save(restaurantManager);
                 restaurantRepository.save(restaurant);

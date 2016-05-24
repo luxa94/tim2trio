@@ -2,8 +2,6 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Sandra on 10.4.2016.
@@ -25,12 +23,6 @@ public class Auction {
 
     @Column(name = "status", nullable = false)
     private String status;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
-    private Set<Bid> bids;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auction")
-    private Set<AuctionItem> auctionItems;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Restaurant restaurant;
@@ -67,22 +59,6 @@ public class Auction {
         this.status = status;
     }
 
-    public Set<Bid> getBids() {
-        return bids;
-    }
-
-    public void setBids(Set<Bid> bids) {
-        this.bids = bids;
-    }
-
-    public Set<AuctionItem> getAuctionItems() {
-        return auctionItems;
-    }
-
-    public void setAuctionItems(Set<AuctionItem> auctionItems) {
-        this.auctionItems = auctionItems;
-    }
-
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -92,8 +68,5 @@ public class Auction {
     }
 
     public Auction() {
-        bids = new HashSet<>();
-        auctionItems = new HashSet<>();
-
     }
 }

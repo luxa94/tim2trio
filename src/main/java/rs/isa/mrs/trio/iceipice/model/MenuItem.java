@@ -32,9 +32,6 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menuItem")
-    private Set<OrderItem> orderItems;
-
     public double getPrice() {
         return price;
     }
@@ -83,11 +80,4 @@ public class MenuItem {
         this.menu = menu;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 }

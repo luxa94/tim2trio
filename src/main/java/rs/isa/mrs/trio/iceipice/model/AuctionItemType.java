@@ -19,9 +19,6 @@ public class AuctionItemType {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "auctionItemType")
-    private Set<AuctionItem> auctionItems;
-
     public long getId() {
         return id;
     }
@@ -38,15 +35,6 @@ public class AuctionItemType {
         this.name = name;
     }
 
-    public Set<AuctionItem> getAuctionItems() {
-        return auctionItems;
-    }
-
-    public void setAuctionItems(Set<AuctionItem> auctionItems) {
-        this.auctionItems = auctionItems;
-    }
-
     public AuctionItemType() {
-        auctionItems = new HashSet<>();
     }
 }

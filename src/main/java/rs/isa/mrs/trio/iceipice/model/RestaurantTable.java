@@ -26,17 +26,9 @@ public class RestaurantTable {
     @Column(name = "capacity", nullable = false)
     private int capacity;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
-    private Set<Reservation> reservations;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "area_id", nullable = true)
     private Area area;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Order> orders;
 
     @Column(name = "fabric_table", length = 2000)
     private String fabricTable;
@@ -65,28 +57,12 @@ public class RestaurantTable {
         this.capacity = capacity;
     }
 
-    public Set<Reservation> getReservations() {
-        return reservations;
-    }
-
-    public void setReservations(Set<Reservation> reservations) {
-        this.reservations = reservations;
-    }
-
     public Area getArea() {
         return area;
     }
 
     public void setArea(Area area) {
         this.area = area;
-    }
-
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
     }
 
     public String getFabricTable() {

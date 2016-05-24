@@ -36,21 +36,6 @@ public class Restaurant {
     @ManyToOne(fetch = FetchType.EAGER)
     private RestaurantType restaurantType;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Auction> auctions;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<RestaurantManager> restaurantManagers;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Area> areas;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Menu> menus;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
-    private Set<Shift> shifts;
-
     public Restaurant() {
     }
 
@@ -117,46 +102,6 @@ public class Restaurant {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public Set<Auction> getAuctions() {
-        return auctions;
-    }
-
-    public void setAuctions(Set<Auction> auctions) {
-        this.auctions = auctions;
-    }
-
-    public Set<RestaurantManager> getRestaurantManagers() {
-        return restaurantManagers;
-    }
-
-    public void setRestaurantManagers(Set<RestaurantManager> restaurantManagers) {
-        this.restaurantManagers = restaurantManagers;
-    }
-
-    public Set<Area> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(Set<Area> areas) {
-        this.areas = areas;
-    }
-
-    public Set<Menu> getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Set<Menu> menus) {
-        this.menus = menus;
-    }
-
-    public Set<Shift> getShifts() {
-        return shifts;
-    }
-
-    public void setShifts(Set<Shift> shifts) {
-        this.shifts = shifts;
     }
 
     public RestaurantType getRestaurantType() {
