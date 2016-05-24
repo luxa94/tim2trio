@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -25,12 +26,15 @@ public class Area {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "area")
+    @JsonIgnore
     private Set<RestaurantTable> restaurantTables;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "areas")
+    @JsonIgnore
     private Set<WaiterShift> waiterShifts;
 
     public Restaurant getRestaurant() {

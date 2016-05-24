@@ -28,17 +28,13 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
             var fabricTable;
             if (t.type == 'rect') {
                 fabricTable = new fabric.Rect(t);
-                console.log('rect');
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
             } else if (t.type == 'circle') {
                 fabricTable = new fabric.Circle(t);
-                console.log('circle');
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
             }
-
-            console.log(table);
         }
     };
 
@@ -123,7 +119,13 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     };
 
     canvas.on('mouse:dblclick', function (options) {
-        console.log('mouse:dblclick');
+        for (var i in $scope.tables) {
+            var table = $scope.tables[i];
+            if (table.fabricTable == options.target) {
+                $scope.openDialogForTable(table);
+                break;
+            }
+        }
     });
 
     $(document).on('closed.zf.reveal', function (e) {
