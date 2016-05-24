@@ -18,6 +18,13 @@ public class GuestDTO extends BaseUserDTO {
         isFriend = false;
     }
 
+
+
+    public GuestDTO() {
+
+
+    }
+
     public boolean isFriend() {
         return isFriend;
     }

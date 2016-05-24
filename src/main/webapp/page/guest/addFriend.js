@@ -98,6 +98,15 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
                 // failed to add the friend
             });
         };
+
+    $scope.inviteRegister = function () {
+        GuestService.InviteFriend($scope.user.id, $scope.friendEmail ).then(function(data){
+            alert("Poziv za ručak je uspešno poslat!");
+        }, function(data) {
+            // failed to add the friend
+        });
+       
+    };
     });
 
 

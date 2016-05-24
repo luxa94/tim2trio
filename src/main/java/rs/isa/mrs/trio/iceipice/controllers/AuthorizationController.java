@@ -11,6 +11,7 @@ import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.EmailService;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
+import rs.isa.mrs.trio.iceipice.services.InviteFriendService;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -47,6 +48,7 @@ public class AuthorizationController {
     @RequestMapping(value = "/guest/register", method = RequestMethod.POST)
     public ResponseEntity register(@RequestBody Guest guest) {
         try {
+            System.out.println("asdasdasdasdsd");
             guest.setConfirmed(false);
             guest = guestRepository.save(guest);
             emailService.sendMail(guest);

@@ -4,22 +4,33 @@
 <div class="medium-8 large-8 columns form">
     <!--    <div class="block"> -->
             <input type="text" ng-model="query.name" class="search" placeholder="Pronađi prijatelja..." />
-            <button ng-click="reverse()">Obrni redosled pretrage</button>
+            <button class="button2" ng-click="reverse()">Obrni redosled pretrage</button>
 
-            <ul class="title">
-                <li class="addFriendUL">Ime      <span>Prezime</span></li>
-            </ul>
-            <div id="friend-list" >
-                <ul>
-                    <li class="addFriendUL" ng-repeat="friend in friends | filter: query | orderBy: orderList" ng-class="{odd: $odd}">
-                        <img class="user-image" ng-src="{{friend.image}}"/>
-                        <span>{{friend.name}}</span>
-                        <span>{{friend.surname}}</span>
+            <h6><br>Vaš prijatelj nema nalog? Pozovite ga da se pridruži!</h6>
+            <span>
+                <input type="text"placeholder="neko@primer.com" ng-model="friendEmail" />
+                <p><input type="submit" class="button2" ng-click="inviteRegister()"
+                          ng-disabled="registerForm.$invalid" value="Pošaljite zahtev"></p>
+            </span>
+            <table border="1">
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="friend in friends | filter: query | orderBy: orderList" >
+                    <td><span>{{friend.name}}</span></td>
+                    <td>{{friend.surname}}</td>
+                    <td>
+                        <span ng-if="!friend.friend"><button class="button2" ng-click="addFriend(friend.id)">Dodaj prijatelja</button></span>
+                        <span ng-if="friend.friend">
+                            <button class="button1" ng-click="removeFriend(friend.id)">Obriši prijatelja</button>
+                            <button class="button2" ng-click="inviteOnLunch(friend.id)">Pozovi na rucak</button>
 
-                        <span ng-if="!friend.friend"><button1 class="button1" ng-click="addFriend(friend.id)">Add Friend</1></span>
-                        <span ng-if="friend.friend"><button1 class="button1" ng-click="removeFriend(friend.id)">Remove Friend</button1></span>
-                    </li>
-                </ul>
+                        </span>
+                    </td>
+                </tr>
+            </table>
             </div>
         </div>
     </div>

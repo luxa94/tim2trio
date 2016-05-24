@@ -21,6 +21,7 @@
         service.AddFriend = AddFriend;
         service.GetAllFriends = GetAllFriends;
         service.RemoveFriend = RemoveFriend;
+        service.InviteFriend = InviteFriend;
 
         return service;
 
@@ -62,6 +63,10 @@
             return $http.post('/api/guest/removeFriend', addFriendDTO).then(handleSuccess, handleError('Error updating user'));
         }
 
+        function InviteFriend(id, friendEmail) {
+            var addFriendDTO = {myId : id, email : friendEmail };
+            return $http.post('/api/guest/inviteFriend', addFriendDTO).then(handleSuccess, handleError('Error inviting user'));
+        }
         // private functions
 
         function handleSuccess(res) {

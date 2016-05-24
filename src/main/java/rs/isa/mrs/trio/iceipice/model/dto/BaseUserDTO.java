@@ -23,6 +23,7 @@ public class BaseUserDTO {
 
     protected String type;
 
+    public BaseUserDTO() {}
     public long getId() {
         return id;
     }
