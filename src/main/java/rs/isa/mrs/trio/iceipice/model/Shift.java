@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -32,6 +33,18 @@ public class Shift {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "shift")
     private Set<WaiterShift> waiterShifts;
+
+    public Shift(String shift_type, Boolean active, Restaurant restaurant) {
+        this.shift_type = shift_type;
+        this.active = active;
+        this.restaurant = restaurant;
+    }
+
+    public Shift() {
+        this.waiterShifts = new HashSet<>();
+        this.bartenders = new HashSet<>();
+        this.cooks = new HashSet<>();
+    }
 
     public long getId() {
         return id;

@@ -5,7 +5,7 @@ iceipiceApp.controller('restManagerViewRestaurantController', function ($scope, 
     $scope.restaurant = {};
 
     $scope.current.page = 5;
-
+    
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
         $scope.restaurant = data;

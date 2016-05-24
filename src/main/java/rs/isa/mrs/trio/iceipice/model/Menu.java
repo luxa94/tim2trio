@@ -50,4 +50,8 @@ public class Menu {
         this.menuItems = new HashSet<MenuItem>();
         this.restaurant = restaurant;
     }
+
+    public Menu() {
+        this.menuItems = new HashSet<MenuItem>();
+    }
 }

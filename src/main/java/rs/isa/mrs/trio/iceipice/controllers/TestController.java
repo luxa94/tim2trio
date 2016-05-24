@@ -45,18 +45,35 @@ public class TestController {
     @Autowired
     RestaurantTableRepository restaurantTableRepository;
 
+    @Autowired
+    ShiftRepository shiftRepository;
+
+    @Autowired
+    MenuRepository menuRepository;
+
+    @Autowired
+    ArticleRepository articleRepository;
+
+    @Autowired
+    ArticleTypeRepository articleTypeRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
             systemManagerRepository.deleteAll();
             restaurantManagerRepository.deleteAll();
-            bartenderRepository.deleteAll();
             restaurantTableRepository.deleteAll();
             areaRepository.deleteAll();
-            restaurantRepository.deleteAll();
             guestRepository.deleteAll();
+            shiftRepository.deleteAll();
+            menuRepository.deleteAll();
+            articleRepository.deleteAll();
+            articleTypeRepository.deleteAll();
+            bartenderRepository.deleteAll();
+            restaurantRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
+
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
             Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
@@ -65,11 +82,13 @@ public class TestController {
             set.add(rm);
             r.setRestaurantManagers(set);
 
-            //dodavanje menija za jelo 2
+
+            //dodavanje menija za jelo
             Menu menu = new Menu(r);
-            Article a1 = new Article("Jelo1", "Opis jela1");
+            ArticleType atype = new ArticleType("ime tipa 1");
+            Article a1 = new Article("Jelo1", "Opis jela1", atype);
             MenuItem mi1 = new MenuItem(100,new Date(),new Date(),a1,menu);
-            Article a2 = new Article("Jelo2", "Opis jela2");
+            Article a2 = new Article("Jelo2", "Opis jela2", atype);
             MenuItem mi2 = new MenuItem(2200,new Date(),new Date(),a2,menu);
             menu.getMenuItems().add(mi1);
             menu.getMenuItems().add(mi2);
@@ -82,6 +101,21 @@ public class TestController {
             Guest g4 = new Guest("g4", "g4", "Blaza", "Blazic", "123", new Date());
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "cook", "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
+
+            Shift shift = new Shift("tip smene", true, r);
+            Set<Cook> cookSet = new HashSet<Cook>();
+            cookSet.add(ck);
+            Set<Bartender> barSet = new HashSet<Bartender>();
+            barSet.add(br);
+            Set<WaiterShift> waiterShiftSet = new HashSet<WaiterShift>();
+            waiterShiftSet.add(new WaiterShift(w,shift));
+            shift.setCooks(cookSet);
+            shift.setBartenders(barSet);
+            shift.setWaiterShifts(waiterShiftSet);
+            Set<Shift> shifts = new HashSet<>();
+            shifts.add(shift);
+            r.setShifts(shifts);
+
             bartenderRepository.save(br);
             restaurantRepository.save(r);
             restaurantRepository.save(r1);
@@ -94,6 +128,12 @@ public class TestController {
             restaurantManagerRepository.save(rm);
             cookRepository.save(ck);
             waiterRepository.save(w);
+            menuRepository.save(menu);
+            shiftRepository.save(shift);
+            articleTypeRepository.save(atype);
+            articleRepository.save(a1);
+            articleRepository.save(a2);
+
         } catch (Exception e) {
             e.printStackTrace();
         }

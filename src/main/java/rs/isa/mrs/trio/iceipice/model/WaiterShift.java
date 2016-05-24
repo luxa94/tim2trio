@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,6 +26,12 @@ public class WaiterShift {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Area> areas;
+
+    public WaiterShift(Waiter waiter, Shift shift) {
+        this.waiter = waiter;
+        this.shift = shift;
+        this.areas = new HashSet<Area>();
+    }
 
     public long getId() {
         return id;
