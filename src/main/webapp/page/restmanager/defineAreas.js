@@ -48,8 +48,8 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     $scope.openDialogForTable = function(table) {
         $scope.table = table;
         $scope.popup = new Foundation.Reveal($('#newTable'));
-        $scope.popup.open();
-    };
+    $scope.popup.open();
+};
 
     $scope.refreshTables();
 
