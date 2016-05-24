@@ -32,6 +32,15 @@ public class Bartender extends BaseUser {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "bartenders")
     private Set<Shift> shifts;
 
+    public Restaurant getRestaurant(){
+        if (shifts.isEmpty()){
+            return null;
+        }
+        else{
+            return shifts.iterator().next().getRestaurant();
+        }
+    }
+
     public String getDressSize() {
         return dressSize;
     }

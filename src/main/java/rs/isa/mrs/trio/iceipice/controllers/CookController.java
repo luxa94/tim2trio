@@ -5,9 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Cook;
+import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.dto.CookDTO;
 import rs.isa.mrs.trio.iceipice.repository.CookRepository;
 import rs.isa.mrs.trio.iceipice.services.CookService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Nina on 22-Apr-16.
@@ -60,6 +64,16 @@ public class CookController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @RequestMapping(value = "/cook/allFromR/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllCooksFromRestaurant(@PathVariable long id){
+        Set<Cook> cooks = new HashSet<Cook>();
+        for (Cook c : cookRepository.findAll()){
+            if (c.getRestaurant().getId() == id)
+                cooks.add(c);
+        }
+        return new ResponseEntity<>(cooks, HttpStatus.OK);
     }
 
 }

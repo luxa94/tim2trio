@@ -9,6 +9,9 @@ import rs.isa.mrs.trio.iceipice.model.dto.BartenderDTO;
 import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
 import rs.isa.mrs.trio.iceipice.services.BartenderService;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Created by Nina on 10-May-16.
  */
@@ -48,5 +51,15 @@ public class BartenderController {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @RequestMapping(value = "/barthender/allFromR/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllBarthendersFromRestaurant(@PathVariable long id){
+        Set<Bartender> bartenders = new HashSet<Bartender>();
+        for (Bartender b : bartenderRepository.findAll()){
+            if (b.getRestaurant().getId() == id)
+                bartenders.add(b);
+        }
+        return new ResponseEntity<>(bartenders, HttpStatus.OK);
     }
 }

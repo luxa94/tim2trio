@@ -31,6 +31,15 @@ public class Waiter extends BaseUser {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<Order> orders;
 
+    public Restaurant getRestaurant(){
+        if (waiterShifts.isEmpty()){
+            return null;
+        }
+        else{
+            return waiterShifts.iterator().next().getShift().getRestaurant();
+        }
+    }
+
     public String getDressSize() {
         return dressSize;
     }

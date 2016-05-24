@@ -42,6 +42,15 @@ public class Cook extends BaseUser {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
     private Set<Shift> shifts;
 
+    public Restaurant getRestaurant(){
+        if (shifts.isEmpty()){
+            return null;
+        }
+        else{
+            return shifts.iterator().next().getRestaurant();
+        }
+    }
+
     public String getDressSize() {
         return dressSize;
     }

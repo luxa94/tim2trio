@@ -3,11 +3,16 @@ package rs.isa.mrs.trio.iceipice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
 import org.springframework.web.bind.annotation.*;
+import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.Waiter;
 import rs.isa.mrs.trio.iceipice.model.dto.WaiterDTO;
 import rs.isa.mrs.trio.iceipice.repository.WaiterRepository;
 import rs.isa.mrs.trio.iceipice.services.WaiterService;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Nina on 10-May-16.
@@ -36,6 +41,16 @@ public class WaiterController {
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @RequestMapping(value = "/waiter/allFromR/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllWaitersFromRestaurant(@PathVariable long id){
+        Set<Waiter> waiters = new HashSet<Waiter>();
+        for (Waiter w : waiterRepository.findAll()){
+            if (w.getRestaurant().getId() == id)
+                waiters.add(w);
+        }
+        return new ResponseEntity<>(waiters, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/waiter/update", method = RequestMethod.POST)
