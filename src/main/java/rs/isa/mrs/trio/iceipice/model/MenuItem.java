@@ -1,8 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -90,4 +89,13 @@ public class MenuItem {
     public void setOrderItems(Set<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
+    public MenuItem(double price, Date startDate, Date endDate, Article article, Menu menu) {
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.article = article;
+        this.menu = menu;
+        this.orderItems = new HashSet<OrderItem>();
+   }
 }

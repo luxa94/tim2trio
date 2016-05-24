@@ -3,7 +3,6 @@
  */
 iceipiceApp.controller('restManagerViewMenuController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.restaurant = {};
-
     $scope.current.page = 6;
 
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {

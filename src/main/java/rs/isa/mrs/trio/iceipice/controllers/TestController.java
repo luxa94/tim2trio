@@ -64,6 +64,16 @@ public class TestController {
             Set<RestaurantManager> set = new HashSet<>();
             set.add(rm);
             r.setRestaurantManagers(set);
+
+            //dodavanje menija za jelo 2
+            Menu menu = new Menu(r);
+            Article a1 = new Article("Jelo1", "Opis jela1");
+            MenuItem mi1 = new MenuItem(100,new Date(),new Date(),a1,menu);
+            Article a2 = new Article("Jelo2", "Opis jela2");
+            MenuItem mi2 = new MenuItem(2200,new Date(),new Date(),a2,menu);
+            menu.getMenuItems().add(mi1);
+            menu.getMenuItems().add(mi2);
+
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
             Guest g = new Guest("gg", "gg", "Ana", "Anastasijevic", "123", new Date());
             Guest g1 = new Guest("g1", "g1", "Antonina", "Ninic", "123", new Date());

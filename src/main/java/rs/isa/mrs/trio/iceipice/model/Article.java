@@ -68,7 +68,8 @@ public class Article {
         this.menuItems = menuItems;
     }
 
-    public Article() {
+    public Article(String name, String description) {
         menuItems = new HashSet<>();
+        articleType = new ArticleType();
     }
 }
