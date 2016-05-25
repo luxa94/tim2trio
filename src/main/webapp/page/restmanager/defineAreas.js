@@ -38,14 +38,14 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
         }
     };
 
-    $scope.refreshTables = function() {
+    $scope.refreshTables = function () {
         $http.get('/api/tables/restaurantManager/' + $scope.user.id).success(function (data) {
             $scope.tables = data;
             $scope.redrawTables();
         });
     };
 
-    $scope.openDialogForTable = function(t) {
+    $scope.openDialogForTable = function (t) {
         $scope.table = t;
         $scope.popup = new Foundation.Reveal($('#newTable'));
         $scope.popup.open();
@@ -122,12 +122,20 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
         for (var i in $scope.tables) {
             var t = $scope.tables[i];
             if (t.fabricTable == options.target) {
-                $scope.table = t;
+                $scope.$apply(function () {
+                    $scope.table = t;
+                });
                 // $scope.openDialogForTable(t);
                 console.log($scope.table);
                 break;
             }
         }
+    });
+
+    canvas.on('before:selection:cleared', function() {
+        $scope.$apply(function () {
+            $scope.table = {};
+        });
     });
 
     $(document).on('closed.zf.reveal', function (e) {

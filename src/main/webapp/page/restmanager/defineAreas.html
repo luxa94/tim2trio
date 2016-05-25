@@ -19,26 +19,6 @@
 </div>
 
 <div class="small-12 medium-4 columns form">
-    <form>
-        <h4 class="text-center">Izmeni sto</h4>
-        <label>Naziv
-            <input type="text" placeholder="stočić" ng-model="table.name">
-        </label>
-        <label>Kapacitet
-            <input type="number" placeholder="4" ng-model="table.capacity">
-        </label>
-
-        <label>Reon
-            <select ng-model="table.area">
-                <option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
-            </select>
-        </label>
-    </form>
-
-</div>
-
-<div class="small-12 medium-4 columns form">
-
     <div class="area_table">
         <table>
             <tr ng-repeat="area in areas track by $index">
@@ -52,7 +32,23 @@
         <input class="input-group-field" placeholder="Naziv reona" type="text" ng-model="areaName">
         <a class="input-group-button button" ng-click="addArea()">Dodaj</a>
     </div>
+</div>
 
+<div class="small-12 medium-4 columns form">
+    <form>
+        <h4 class="text-center">Izmeni sto</h4>
+        <label>Naziv
+            <input type="text" placeholder="stočić" ng-model="table.name">
+        </label>
+        <label>Kapacitet
+            <input type="number" placeholder="4" ng-model="table.capacity">
+        </label>
+
+        <label>Reon
+            <select ng-model="table.area" ng-options="area.name for area in areas track by area.id">
+            </select>
+        </label>
+    </form>
 
 </div>
 
