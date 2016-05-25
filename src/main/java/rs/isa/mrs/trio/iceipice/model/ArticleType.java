@@ -34,4 +34,8 @@ public class ArticleType {
 
     public ArticleType() {
     }
+
+    public ArticleType(String name) {
+        this.name = name;
+    }
 }

@@ -58,4 +58,10 @@ public class Article {
     public Article() {
 
     }
+
+    public Article(String name, String description, ArticleType articleType) {
+        this.name = name;
+        this.description = description;
+        this.articleType = articleType;
+    }
 }
