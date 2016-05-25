@@ -70,9 +70,9 @@ public class TestController {
             articleRepository.deleteAll();
             articleTypeRepository.deleteAll();
             bartenderRepository.deleteAll();
-            restaurantRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
+            restaurantRepository.deleteAll();
 
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
             Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
