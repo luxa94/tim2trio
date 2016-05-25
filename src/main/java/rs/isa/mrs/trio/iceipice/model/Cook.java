@@ -36,7 +36,7 @@ public class Cook extends BaseUser {
 
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<ArticleType> articleTypes;
-    
+
     public String getDressSize() {
         return dressSize;
     }

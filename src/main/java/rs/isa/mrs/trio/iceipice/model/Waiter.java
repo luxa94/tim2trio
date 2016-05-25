@@ -37,15 +37,6 @@ public class Waiter extends BaseUser {
             joinColumns = {@JoinColumn(name = "waiter_id", nullable = false)})
     private Set<Order> orders;
 
-    public Restaurant getRestaurant(){
-        if (waiterShifts.isEmpty()){
-            return null;
-        }
-        else{
-            return waiterShifts.iterator().next().getShift().getRestaurant();
-        }
-    }
-
     public String getDressSize() {
         return dressSize;
     }

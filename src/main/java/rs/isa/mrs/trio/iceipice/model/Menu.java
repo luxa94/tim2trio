@@ -36,11 +36,8 @@ public class Menu {
     }
 
     public Menu( Restaurant restaurant) {
-        this.menuItems = new HashSet<MenuItem>();
         this.restaurant = restaurant;
     }
 
-    public Menu() {
-        this.menuItems = new HashSet<MenuItem>();
-    }
+    public Menu(){}
 }

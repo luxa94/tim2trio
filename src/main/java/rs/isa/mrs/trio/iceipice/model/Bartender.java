@@ -26,15 +26,6 @@ public class Bartender extends BaseUser {
     @JoinColumn(name = "restaurant", nullable = false)
     private Restaurant restaurant;
 
-    public Restaurant getRestaurant(){
-        if (shifts.isEmpty()){
-            return null;
-        }
-        else{
-            return shifts.iterator().next().getRestaurant();
-        }
-    }
-
     public String getDressSize() {
         return dressSize;
     }
