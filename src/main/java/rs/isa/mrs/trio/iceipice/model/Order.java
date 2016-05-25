@@ -21,14 +21,11 @@ public class Order {
     @JoinColumn(name = "reservation_id", nullable = false)
     private Reservation reservation;
 
-    @ManyToMany(fetch =  FetchType.LAZY, mappedBy = "orders")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "table_orders",
+            joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
     private Set<RestaurantTable> restaurantTables;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "orders")
-    private Set<Waiter> waiters;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-    private Set<OrderItem> orderItems;
 
     public long getId() {
         return id;
@@ -62,19 +59,4 @@ public class Order {
         this.restaurantTables = restaurantTables;
     }
 
-    public Set<Waiter> getWaiters() {
-        return waiters;
-    }
-
-    public void setWaiters(Set<Waiter> waiters) {
-        this.waiters = waiters;
-    }
-
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
-    }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
 }

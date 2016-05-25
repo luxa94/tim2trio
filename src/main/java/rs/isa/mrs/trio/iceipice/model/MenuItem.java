@@ -31,9 +31,6 @@ public class MenuItem {
     @JoinColumn(name = "menu_id", nullable = false)
     private Menu menu;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menuItem")
-    private Set<OrderItem> orderItems;
-
     public double getPrice() {
         return price;
     }
@@ -82,20 +79,6 @@ public class MenuItem {
         this.menu = menu;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+    public MenuItem() {
     }
-
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
-    }
-
-    public MenuItem(double price, Date startDate, Date endDate, Article article, Menu menu) {
-        this.price = price;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.article = article;
-        this.menu = menu;
-        this.orderItems = new HashSet<OrderItem>();
-   }
 }

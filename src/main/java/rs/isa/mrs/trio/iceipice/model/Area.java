@@ -1,12 +1,10 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Nina on 10-Apr-16.
@@ -24,14 +22,9 @@ public class Area {
     private String name;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant", nullable = false)
+    @JsonIgnore
     private Restaurant restaurant;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "area")
-    private Set<RestaurantTable> restaurantTables;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "areas")
-    private Set<WaiterShift> waiterShifts;
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -57,24 +50,6 @@ public class Area {
         this.id = id;
     }
 
-    public Set<RestaurantTable> getRestaurantTables() {
-        return restaurantTables;
-    }
-
-    public void setRestaurantTables(Set<RestaurantTable> restaurantTables) {
-        this.restaurantTables = restaurantTables;
-    }
-
-    public Set<WaiterShift> getWaiterShifts() {
-        return waiterShifts;
-    }
-
-    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
-        this.waiterShifts = waiterShifts;
-    }
-
     public Area() {
-        restaurantTables = new HashSet<>();
-        waiterShifts = new HashSet<>();
     }
 }

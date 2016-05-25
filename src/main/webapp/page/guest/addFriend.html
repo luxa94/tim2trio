@@ -35,3 +35,32 @@
         </div>
     </div>
 </div>
+
+<div class="small reveal" id="newInvitation" data-reveal>
+
+    <form novalidate name="inviteFriendOnLunch">
+        <h4 class="text-center">Pozovi prijatelja da ti se pridruži</h4>
+        <label>Email
+            <input type="text" placeholder="neko@primer.com" required ng-model="friend.email">
+        </label>
+        <label>Restoran
+            <input type="text" placeholder="Ime restorana" required >
+        </label>
+        <label>Datum
+        <input type="date" id="myDate" required >
+    </label>
+        <label>Vreme
+            <input type="text" placeholder="Vreme" required>
+        </label>
+
+        <div class="button-group float-right">
+            <input type="submit" class="button" ng-click="sendInvitation()" ng-disabled="inviteFriendOnLunch.$invalid" value="Pozovi prijatelja">
+            <a class="button alert" ng-click="cancelInvitation()">Odustani</a>
+        </div>
+
+    </form>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>

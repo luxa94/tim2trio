@@ -18,6 +18,10 @@ public class Waiter extends BaseUser {
         this.setType(UserTypes.WAITER);
     }
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant", nullable = false)
+    private Restaurant restaurant;
+
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
@@ -27,8 +31,10 @@ public class Waiter extends BaseUser {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
     private Set<WaiterShift> waiterShifts;
 
-    @JsonBackReference("waiter-order")
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "waiter_orders",
+            inverseJoinColumns = {@JoinColumn(name = "order_id", nullable = false)},
+            joinColumns = {@JoinColumn(name = "waiter_id", nullable = false)})
     private Set<Order> orders;
 
     public Restaurant getRestaurant(){
@@ -70,6 +76,14 @@ public class Waiter extends BaseUser {
 
     public void setOrders(Set<Order> orders) {
         this.orders = orders;
+    }
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
 
     public Waiter(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type, String dressSize, String footwearSize) {

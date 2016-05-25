@@ -24,9 +24,15 @@ public class OrderItem {
     private String status;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "cook_orders",
+            joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "cook_id", nullable = false)})
     private Set<Cook> cooks;
 
     @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "bartender_orders",
+            joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "bartender_id", nullable = false)})
     private Set<Bartender> bartenders;
 
     @ManyToOne(fetch = FetchType.EAGER)

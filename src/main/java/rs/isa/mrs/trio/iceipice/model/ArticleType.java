@@ -1,8 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -17,12 +15,6 @@ public class ArticleType {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "articleType")
-    private Set<Article> articles;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Set<Cook> cooks;
 
     public String getName() {
         return name;
@@ -40,29 +32,6 @@ public class ArticleType {
         this.id = id;
     }
 
-    public Set<Article> getArticles() {
-        return articles;
-    }
-
-    public void setArticles(Set<Article> articles) {
-        this.articles = articles;
-    }
-
-    public Set<Cook> getCooks() {
-        return cooks;
-    }
-
-    public void setCooks(Set<Cook> cooks) {
-        this.cooks = cooks;
-    }
-
     public ArticleType() {
-    }
-
-    public ArticleType(String name) {
-        this.name = name;
-        articles = new HashSet<>();
-        cooks = new HashSet<>();
-
     }
 }

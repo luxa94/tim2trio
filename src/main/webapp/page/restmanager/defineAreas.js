@@ -28,17 +28,13 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
             var fabricTable;
             if (t.type == 'rect') {
                 fabricTable = new fabric.Rect(t);
-                console.log('rect');
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
             } else if (t.type == 'circle') {
                 fabricTable = new fabric.Circle(t);
-                console.log('circle');
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
             }
-
-            console.log(table);
         }
     };
 
@@ -49,8 +45,8 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
         });
     };
 
-    $scope.openDialogForTable = function(table) {
-        $scope.table = table;
+    $scope.openDialogForTable = function(t) {
+        $scope.table = t;
         $scope.popup = new Foundation.Reveal($('#newTable'));
         $scope.popup.open();
     };
@@ -109,11 +105,11 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
 
     $scope.saveTables = function () {
         for (var i in $scope.tables) {
-            var table = $scope.tables[i];
-            table.fabricTable.fill = 'white';
-            table.fabricTable = JSON.stringify(table.fabricTable);
-            if (table.area.id) {
-                table.area = table.area.id;
+            var t = $scope.tables[i];
+            t.fabricTable.fill = 'white';
+            t.fabricTable = JSON.stringify(t.fabricTable);
+            if (t.area.id) {
+                t.area = t.area.id;
             }
         }
         $http.post('/api/tables/update/all/' + $scope.user.id, $scope.tables).success(function (data) {
@@ -123,7 +119,15 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     };
 
     canvas.on('mouse:dblclick', function (options) {
-        console.log('mouse:dblclick');
+        for (var i in $scope.tables) {
+            var t = $scope.tables[i];
+            if (t.fabricTable == options.target) {
+                $scope.table = t;
+                // $scope.openDialogForTable(t);
+                console.log($scope.table);
+                break;
+            }
+        }
     });
 
     $(document).on('closed.zf.reveal', function (e) {

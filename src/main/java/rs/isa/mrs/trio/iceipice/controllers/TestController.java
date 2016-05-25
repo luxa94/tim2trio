@@ -78,6 +78,7 @@ public class TestController {
             Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
             SystemManager sm = new SystemManager("aaa", "aaa", "aaa", "aaa", "asdasd", new Date());
             RestaurantManager rm = new RestaurantManager("rm","rm","rm","rm","123", new Date(),r);
+<<<<<<< HEAD
             Set<RestaurantManager> set = new HashSet<>();
             set.add(rm);
             r.setRestaurantManagers(set);
@@ -93,14 +94,17 @@ public class TestController {
             menu.getMenuItems().add(mi1);
             menu.getMenuItems().add(mi2);
 
+=======
+>>>>>>> ad06b2a23035f74296e9fc7e6f96b49b83cf3f3c
             Bartender br = new Bartender("br","br","Petar","Perić","123", new Date(),"42", "L");
             Guest g = new Guest("gg", "gg", "Ana", "Anastasijevic", "123", new Date());
             Guest g1 = new Guest("g1", "g1", "Antonina", "Ninic", "123", new Date());
             Guest g2 = new Guest("g2", "g2", "Petar", "Peric", "123", new Date());
             Guest g3 = new Guest("g3", "g3", "Mitar", "Miric", "123", new Date());
             Guest g4 = new Guest("g4", "g4", "Blaza", "Blazic", "123", new Date());
-            Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "cook", "M", "41");
+            Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
+<<<<<<< HEAD
 
             Shift shift = new Shift("tip smene", true, r);
             Set<Cook> cookSet = new HashSet<Cook>();
@@ -117,7 +121,13 @@ public class TestController {
             r.setShifts(shifts);
 
             bartenderRepository.save(br);
+=======
+            br.setRestaurant(r);
+            ck.setRestaurant(r);
+            w.setRestaurant(r);
+>>>>>>> ad06b2a23035f74296e9fc7e6f96b49b83cf3f3c
             restaurantRepository.save(r);
+            bartenderRepository.save(br);
             restaurantRepository.save(r1);
             systemManagerRepository.save(sm);
             guestRepository.save(g);

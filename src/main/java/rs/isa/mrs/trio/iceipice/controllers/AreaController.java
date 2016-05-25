@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Area;
+import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.dto.AreaDTO;
 import rs.isa.mrs.trio.iceipice.services.AreaService;
 import rs.isa.mrs.trio.iceipice.services.RestaurantManagerService;
@@ -24,7 +25,8 @@ public class AreaController {
 
     @RequestMapping(value = "/areas/forManager/{id}", method = RequestMethod.GET)
     public ResponseEntity getAreasForRestaurantManager(@PathVariable long id) {
-        return new ResponseEntity<>(restaurantManagerService.findById(id).getRestaurant().getAreas(), HttpStatus.OK);
+        final RestaurantManager manager = restaurantManagerService.findById(id);
+        return new ResponseEntity<>(areaService.findByRestaurant(manager.getRestaurant()), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/areas/new", method = RequestMethod.POST)

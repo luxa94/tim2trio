@@ -21,17 +21,6 @@ public class RestaurantType {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantType")
-    private Set<Restaurant> restaurants;
-
-    public Set<Restaurant> getRestaurants() {
-        return restaurants;
-    }
-
-    public void setRestaurants(Set<Restaurant> restaurants) {
-        this.restaurants = restaurants;
-    }
-
     public long getId() {
         return id;
     }

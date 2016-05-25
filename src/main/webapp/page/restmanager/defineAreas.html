@@ -14,9 +14,29 @@
 </div>
 <div id="canvas_container" class="small-12 medium-8 columns form">
 
-    <canvas id="restaurant_canvas" width="765" height="500">
+    <canvas id="restaurant_canvas" width="765" height="600">
     </canvas>
 </div>
+
+<div class="small-12 medium-4 columns form">
+    <form>
+        <h4 class="text-center">Izmeni sto</h4>
+        <label>Naziv
+            <input type="text" placeholder="stočić" ng-model="table.name">
+        </label>
+        <label>Kapacitet
+            <input type="number" placeholder="4" ng-model="table.capacity">
+        </label>
+
+        <label>Reon
+            <select ng-model="table.area">
+                <option ng-repeat="area in areas track by $index" value="{{area.id}}">{{area.name}}</option>
+            </select>
+        </label>
+    </form>
+
+</div>
+
 <div class="small-12 medium-4 columns form">
 
     <div class="area_table">

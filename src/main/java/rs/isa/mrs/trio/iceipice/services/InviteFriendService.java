@@ -26,7 +26,7 @@ public class InviteFriendService {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        final String messageText = String.format("Dobar dan, Vaš prijatelj Vas je pozvao da se pridruzite portalu Iće&Piće kako bi zajedno mogli da obogatite svoje gurmansko iskustvo u restoranima širom Srbije. \nPridružite se klikom na link ispod.\n http://localhost:8080/#/register?friendId=" + user.getId());
+        final String messageText = String.format("Dobar dan, Vaš prijatelj " + user.getName() + " " + user.getSurname() + " Vas je pozvao da se pridruzite portalu Iće&Piće kako bi zajedno mogli da obogatite svoje gurmansko iskustvo u restoranima širom Srbije. \nPridružite se klikom na link ispod.\n http://localhost:8080/#/register?friendId=" + user.getId());
 
         Session session = Session.getDefaultInstance(properties, new Authenticator() {
             @Override
@@ -43,7 +43,6 @@ public class InviteFriendService {
             message.setText(messageText);
 
             Transport.send(message);
-            for(int i = 0; i < 500; i++)
             System.out.println("Message sent!");
         } catch (MessagingException e) {
             e.printStackTrace();

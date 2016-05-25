@@ -29,17 +29,11 @@ public class Reservation {
     @JoinColumn(name = "guest_id", nullable = false)
     private Guest guest;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-    private Set<Grade> grades;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-    private Set<Invitation> invitations;
-
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "reservations")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "reservation_table",
+            joinColumns = {@JoinColumn(name = "reservation_id", nullable = false)},
+            inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
     private Set<RestaurantTable> restaurant_tables;
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-    private Set<Order> orders;
 
     public long getId() {
         return id;
@@ -81,22 +75,6 @@ public class Reservation {
         this.guest = guest;
     }
 
-    public Set<Grade> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(Set<Grade> grades) {
-        this.grades = grades;
-    }
-
-    public Set<Invitation> getInvitations() {
-        return invitations;
-    }
-
-    public void setInvitations(Set<Invitation> invitations) {
-        this.invitations = invitations;
-    }
-
     public Set<RestaurantTable> getRestaurant_tables() {
         return restaurant_tables;
     }
@@ -105,11 +83,6 @@ public class Reservation {
         this.restaurant_tables = restaurant_tables;
     }
 
-    public Set<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(Set<Order> orders) {
-        this.orders = orders;
+    public Reservation() {
     }
 }

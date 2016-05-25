@@ -101,13 +101,36 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
 
     $scope.inviteRegister = function () {
         GuestService.InviteFriend($scope.user.id, $scope.friendEmail ).then(function(data){
-            alert("Poziv za ručak je uspešno poslat!");
+            alert("Poziv za registraciju je uspešno poslat!");
         }, function(data) {
             // failed to add the friend
         });
        
     };
-    });
+
+    $scope.openDialogForInvitation= function() {
+     //   $scope.table = table;
+        $scope.popup = new Foundation.Reveal($('#newInvitation'));
+        $scope.popup.open();
+    };
+
+    $scope.inviteOnLunch = function (id) {
+        $scope.openDialogForInvitation({});
+        var circle = new fabric.Circle({
+            radius: 25, fill: 'red', left: 100, top: 100
+        });
+   //     $scope.table.fabricTable = circle;
+    };
+
+    $scope.cancelInvitation = function () {
+        $scope.popup.close();
+    };
+
+    $scope.sendInvitation = function () {
+        alert("Poziv za ručak je uspešno poslat!");
+    };
+
+});
 
 
 

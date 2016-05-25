@@ -14,6 +14,10 @@ import java.util.Set;
 @Table(name = "cook")
 public class Cook extends BaseUser {
 
+    @ManyToOne
+    @JoinColumn(name = "restaurant", nullable = false)
+    private Restaurant restaurant;
+
     public Cook() {
         this.setType(UserTypes.COOK);
     }
@@ -30,27 +34,9 @@ public class Cook extends BaseUser {
     @Column(name = "footwearSize", nullable = false)
     private String footwearSize;
 
-    @JsonBackReference("cook-article-type")
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<ArticleType> articleTypes;
-
-    @JsonBackReference("cook-order-item")
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
-    private Set<OrderItem> orderItems;
-
-    @JsonBackReference("cook-shift")
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "cooks")
-    private Set<Shift> shifts;
-
-    public Restaurant getRestaurant(){
-        if (shifts.isEmpty()){
-            return null;
-        }
-        else{
-            return shifts.iterator().next().getRestaurant();
-        }
-    }
-
+    
     public String getDressSize() {
         return dressSize;
     }
@@ -75,28 +61,11 @@ public class Cook extends BaseUser {
         this.articleTypes = articleTypes;
     }
 
-    public Set<OrderItem> getOrderItems() {
-        return orderItems;
+    public Restaurant getRestaurant() {
+        return restaurant;
     }
 
-    public void setOrderItems(Set<OrderItem> orderItems) {
-        this.orderItems = orderItems;
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
     }
-
-    public Set<Shift> getShifts() {
-        return shifts;
-    }
-
-    public void setShifts(Set<Shift> shifts) {
-        this.shifts = shifts;
-    }
-
-    public Cook(String email, String password, String name, String surname, String phoneNumber, Date birthDate, String type, String dressSize, String footwearSize) {
-        super(email, password, name, surname, phoneNumber, birthDate,type);
-        this.dressSize = dressSize;
-        this.footwearSize = footwearSize;
-
-
-    }
-
 }
