@@ -132,10 +132,10 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
         }
     });
 
-    canvas.on('before:selection:cleared', function() {
-        $scope.$apply(function () {
+    canvas.on('selection:cleared', function() {
+        // $scope.$apply(function () {
             $scope.table = {};
-        });
+        // });
     });
 
     $(document).on('closed.zf.reveal', function (e) {
