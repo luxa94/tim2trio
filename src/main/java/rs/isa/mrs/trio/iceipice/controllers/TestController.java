@@ -100,10 +100,22 @@ public class TestController {
             Article a1 = new Article("Ime Artikla1", "Opis artikla 1", atype);
             Article a2 = new Article("Ime Artikla2", "Opis artikla 2", atype);
             Article a3 = new Article("Ime Artikla3", "Opis artikla 3", atype);
+            Article a4 = new Article("Ime Artikla4", "Opis artikla 1", atype);
+            Article a5 = new Article("Ime Artikla5", "Opis artikla 2", atype);
+            Article a6 = new Article("Ime Artikla6", "Opis artikla 3", atype);
+            Article a7 = new Article("Ime Artikla7", "Opis artikla 1", atype);
+            Article a8 = new Article("Ime Artikla8", "Opis artikla 2", atype);
+            Article a9 = new Article("Ime Artikla9", "Opis artikla 3", atype);
             Menu m1 = new Menu(r);
             MenuItem mi1 = new MenuItem(100, new Date(), new Date(), a1, m1);
             MenuItem mi2 = new MenuItem(200, new Date(), new Date(), a2, m1);
             MenuItem mi3 = new MenuItem(300, new Date(), new Date(), a3, m1);
+            MenuItem mi4 = new MenuItem(1000, new Date(), new Date(), a4, m1);
+            MenuItem mi5 = new MenuItem(2000, new Date(), new Date(), a5, m1);
+            MenuItem mi6 = new MenuItem(3000, new Date(), new Date(), a6, m1);
+            MenuItem mi7 = new MenuItem(100, new Date(), new Date(), a7, m1);
+            MenuItem mi8 = new MenuItem(200, new Date(), new Date(), a8, m1);
+            MenuItem mi9 = new MenuItem(300, new Date(), new Date(), a9, m1);
 
             restaurantRepository.save(r);
             bartenderRepository.save(br);
@@ -121,10 +133,22 @@ public class TestController {
             articleRepository.save(a1);
             articleRepository.save(a2);
             articleRepository.save(a3);
+            articleRepository.save(a4);
+            articleRepository.save(a5);
+            articleRepository.save(a6);
+            articleRepository.save(a7);
+            articleRepository.save(a8);
+            articleRepository.save(a9);
             menuRepository.save(m1);
             menuItemRepository.save(mi1);
             menuItemRepository.save(mi2);
             menuItemRepository.save(mi3);
+            menuItemRepository.save(mi4);
+            menuItemRepository.save(mi5);
+            menuItemRepository.save(mi6);
+            menuItemRepository.save(mi7);
+            menuItemRepository.save(mi8);
+            menuItemRepository.save(mi9);
 
         } catch (Exception e) {
             e.printStackTrace();
