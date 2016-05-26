@@ -53,8 +53,8 @@ public class BartenderController {
 
     }
 
-    @RequestMapping(value = "/barthender/allFromR/{id}", method = RequestMethod.GET)
-    public ResponseEntity getAllBarthendersFromRestaurant(@PathVariable long id){
+    @RequestMapping(value = "/bartender/allFromR/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllBartendersFromRestaurant(@PathVariable long id){
         Set<Bartender> bartenders = new HashSet<Bartender>();
         for (Bartender b : bartenderRepository.findAll()){
             if (b.getRestaurant().getId() == id)

@@ -57,6 +57,9 @@ public class TestController {
     @Autowired
     ArticleTypeRepository articleTypeRepository;
 
+    @Autowired
+    MenuItemRepository menuItemRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -66,6 +69,7 @@ public class TestController {
             areaRepository.deleteAll();
             guestRepository.deleteAll();
             shiftRepository.deleteAll();
+            menuItemRepository.deleteAll();
             menuRepository.deleteAll();
             articleRepository.deleteAll();
             articleTypeRepository.deleteAll();
@@ -92,6 +96,15 @@ public class TestController {
             ck.setRestaurant(r);
             w.setRestaurant(r);
 
+            ArticleType atype = new ArticleType("neki tip artikla");
+            Article a1 = new Article("Ime Artikla1", "Opis artikla 1", atype);
+            Article a2 = new Article("Ime Artikla2", "Opis artikla 2", atype);
+            Article a3 = new Article("Ime Artikla3", "Opis artikla 3", atype);
+            Menu m1 = new Menu(r);
+            MenuItem mi1 = new MenuItem(100, new Date(), new Date(), a1, m1);
+            MenuItem mi2 = new MenuItem(200, new Date(), new Date(), a2, m1);
+            MenuItem mi3 = new MenuItem(300, new Date(), new Date(), a3, m1);
+
             restaurantRepository.save(r);
             bartenderRepository.save(br);
             restaurantRepository.save(r1);
@@ -104,7 +117,14 @@ public class TestController {
             restaurantManagerRepository.save(rm);
             cookRepository.save(ck);
             waiterRepository.save(w);
-
+            articleTypeRepository.save(atype);
+            articleRepository.save(a1);
+            articleRepository.save(a2);
+            articleRepository.save(a3);
+            menuRepository.save(m1);
+            menuItemRepository.save(mi1);
+            menuItemRepository.save(mi2);
+            menuItemRepository.save(mi3);
 
         } catch (Exception e) {
             e.printStackTrace();

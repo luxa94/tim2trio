@@ -8,6 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.Cook;
 import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.dto.CookDTO;
 import rs.isa.mrs.trio.iceipice.repository.CookRepository;
+import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
 import rs.isa.mrs.trio.iceipice.services.CookService;
 
 import java.util.HashSet;
@@ -25,6 +26,9 @@ public class CookController {
 
     @Autowired
     CookService cookService;
+
+    @Autowired
+    RestaurantRepository restaurantRepository;
 
     @RequestMapping(value = "/cook/all", method = RequestMethod.GET)
     public ResponseEntity getAllCooks() {
@@ -66,11 +70,12 @@ public class CookController {
 
     }
 
-    @RequestMapping(value = "/cook/allFromR/{id}", method = RequestMethod.GET)
-    public ResponseEntity getAllCooksFromRestaurant(@PathVariable long id){
+    @RequestMapping(value = "/cook/allFromR/{idR}", method = RequestMethod.GET)
+    public ResponseEntity getAllCooksFromRestaurant(@PathVariable long idR){
+
         Set<Cook> cooks = new HashSet<Cook>();
         for (Cook c : cookRepository.findAll()){
-            if (c.getRestaurant().getId() == id)
+            if (c.getRestaurant().getId() == idR)
                 cooks.add(c);
         }
         return new ResponseEntity<>(cooks, HttpStatus.OK);

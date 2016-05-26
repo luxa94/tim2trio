@@ -46,10 +46,9 @@ public class WaiterController {
     @RequestMapping(value = "/waiter/allFromR/{id}", method = RequestMethod.GET)
     public ResponseEntity getAllWaitersFromRestaurant(@PathVariable long id){
         Set<Waiter> waiters = new HashSet<Waiter>();
-        for (Waiter w : waiterRepository.findAll()){
+        for (Waiter w : waiterRepository.findAll())
             if (w.getRestaurant().getId() == id)
                 waiters.add(w);
-        }
         return new ResponseEntity<>(waiters, HttpStatus.OK);
     }
 

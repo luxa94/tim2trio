@@ -81,4 +81,12 @@ public class MenuItem {
 
     public MenuItem() {
     }
+
+    public MenuItem(double price, Date startDate, Date endDate, Article article, Menu menu) {
+        this.price = price;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.article = article;
+        this.menu = menu;
+    }
 }
