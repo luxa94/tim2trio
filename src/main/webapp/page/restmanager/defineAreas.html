@@ -23,14 +23,18 @@
         <table>
             <tr ng-repeat="area in areas track by $index">
                 <td>{{area.name}}</td>
+                <td width="30%" style="background: {{area.color}};">&nbsp;</td>
             </tr>
         </table>
     </div>
 
     <div class="input-group">
-        <span class="input-group-label">Nov reon</span>
-        <input class="input-group-field" placeholder="Naziv reona" type="text" ng-model="areaName">
-        <a class="input-group-button button" ng-click="addArea()">Dodaj</a>
+        <select ng-model="area.color" ng-options="color for color in colors">
+
+        </select>
+        <br>
+        <input class="input-group-field" placeholder="Naziv reona" type="text" ng-model="area.name">
+        <a class="input-group-button button" ng-click="addArea()">Dodaj reon</a>
     </div>
 </div>
 
@@ -45,7 +49,7 @@
         </label>
 
         <label>Reon
-            <select ng-model="table.area" ng-options="area.name for area in areas track by area.id">
+            <select id="area_select" ng-model="table.area" ng-options="area.name for area in areas track by area.id">
             </select>
         </label>
     </form>
