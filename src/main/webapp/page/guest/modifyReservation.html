@@ -1,0 +1,38 @@
+<div class="medium-8 large-8 columns form" style="width: 49%;" >
+
+    <form novalidate name="newReservationForm">
+        <div class="row column ">
+            <h4 class="text-center">Moje rezervacije</h4>
+            <!--   <label>
+                   <input type="image" src="../img/150.png" alt="Submit">
+               </label> -->
+            <label>Rezervacija
+                <input type="text" required ng-model="selectedReservation.id" required>
+            </label>
+            <div style="overflow-y:scroll;">
+                <table border="1" >
+                    <tr>
+                        <th>Restoran</th>
+                        <th>Datum</th>
+                        <th>Vreme dolaska</th>
+                    </tr>
+                    <tr ng-repeat="reservation in reservation | filter: query | orderBy: orderList "  ng-class="{'selectedReservation':$index == selectedRow}" ng-click="setClickedRow($index, reservation)" >
+                        <td>{{reservation..name}}</td>
+                        <td>{{reservation.date}}</td>
+                        <td>{{reservation.start_time}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <label>Datum
+                <input type="date" required ng-model="reservation.date">
+            </label>
+            <label>Vreme dolaska
+                <input type="text" placeholder="15:00" ng-model="reservation.start_hour" required>
+            </label>
+            <label>Vreme odlaska
+                <input type="text" placeholder="17:00"ng-model="reservation.end_hour" required>
+            </label>
+        </div>
+    </form>
+</div>

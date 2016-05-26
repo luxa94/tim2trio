@@ -8,11 +8,51 @@
             <th>Adresa</th>
             <th></th>
         </tr>
-        <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList ">
+        <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList " >
             <td>{{restaurant.name}}</td>
             <td>{{restaurant.description}}</td>
             <td>{{restaurant.address}}</td>
-            <td><button class="button2" ng-click="">Detaljnije</button></td>
+            <td>
+                <button class="button2" ng-click="showRestaurant(restaurant)">Detaljnije</button>
+                <button class="button3" ng-click="gotToReservation()">Rezerviši</button>
+            </td>
+
         </tr>
     </table>
+</div>
+
+<div class="small reveal" id="newShowRestaurant" data-reveal>
+
+    <form novalidate name="showRestaurantInfo">
+      <!--  <h4 class="text-center">Pozovi prijatelja da ti se pridruži</h4> -->
+        <label>Naziv
+            <input type="text" placeholder="" readonly required ng-model="restaurant.name">
+        </label>
+        <label>Opis
+            <input type="text" placeholder="" readonly required ng-model="restaurant.description" >
+        </label>
+        <label>PIB
+        <input type="text" placeholder="" readonly required ng-model="restaurant.pib">
+        </label>
+        <label>Broj telefona
+        <input type="text" placeholder="" readonly required ng-model="restaurant.phoneNumber">
+        </label>
+        <label>Adresa
+            <input type="text" placeholder="" readonly required ng-model="restaurant.address">
+        </label>
+        <label>Email
+            <input type="text" placeholder="" readonly required ng-model="restaurant.email">
+        </label>
+        <label>Type
+            <input type="text" placeholder="" readonly required ng-model="restaurant.name">
+        </label>
+        <div class="button-group float-right">
+            <a class="button alert" ng-click="cancel()">Odustani</a>
+        </div>
+
+    </form>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
