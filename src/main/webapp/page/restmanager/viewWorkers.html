@@ -1,10 +1,18 @@
+<div class="medium-8 large-8 columns form">
+    <input type="text" ng-model="query.name" class="search" placeholder="Pronađi radnika..." />
+    <button class="button2" ng-click="reverse()">Obrni redosled pretrage</button>
 <table border="1">
     <tr>
         <th>Ime</th>
         <th>Prezime</th>
+        <th>Uloga</th>
     </tr>
-    <tr ng-repeat="worker in workers" >
+    <tr ng-repeat="worker in workers | filter: query | orderBy: orderList " >
         <td><span>{{worker.name}}</span></td>
         <td>{{worker.surname}}</td>
+        <td ng-if="worker.cook">KUVAR</td>
+        <td ng-if="worker.waiter">KONOBAR</td>
+        <td ng-if="worker.bartender">ŠANKER</td>
     </tr>
 </table>
+    </div>
