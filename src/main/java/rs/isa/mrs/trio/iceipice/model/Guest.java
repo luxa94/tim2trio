@@ -24,7 +24,7 @@ public class Guest extends BaseUser{
         this.confirmed = false;
     }
 
-    @Column(name = "referralCode", nullable = false, unique = true)
+    @Column(name = "referral_code", nullable = false, unique = true)
     private String referralCode;
 
     @Column(name = "confirmed", nullable = false)

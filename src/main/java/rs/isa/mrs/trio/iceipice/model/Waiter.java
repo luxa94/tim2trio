@@ -25,7 +25,7 @@ public class Waiter extends BaseUser {
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
-    @Column(name = "footwearSize", nullable = false)
+    @Column(name = "footwear_size", nullable = false)
     private String footwearSize;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")

@@ -17,13 +17,13 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
         $http.get('/api/cook/allFromR/' + $scope.restaurant.id).success(function(data) {
             console.log("KUVARI: " + JSON.stringify(data));
             cooks = data;
-        })
+        });
         $http.get('/api/bartender/allFromR/' + $scope.restaurant.id).success(function(data) {
             console.log("SANKERI: " + JSON.stringify(data));
             bartenders = data;
             $scope.workers = cooks.concat(bartenders).concat(waiters);
             console.log("RADNICI: " + JSON.stringify($scope.workers));
-        })
+        });
 
     });
 

@@ -31,7 +31,7 @@ public class Cook extends BaseUser {
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
-    @Column(name = "footwearSize", nullable = false)
+    @Column(name = "footwear_size", nullable = false)
     private String footwearSize;
 
     @ManyToMany(fetch = FetchType.LAZY)
