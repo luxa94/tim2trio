@@ -33,6 +33,7 @@ public class Reservation {
     @JoinTable(name = "reservation_table",
             joinColumns = {@JoinColumn(name = "reservation_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
+
     private Set<RestaurantTable> restaurant_tables;
 
     public long getId() {

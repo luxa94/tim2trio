@@ -11,10 +11,21 @@
     padding: 0.71rem;
 }
 
+.button3 {
+    background: #86e884;
+    color: white;
+    padding: 0.71rem;
+}
+
 .button1:hover {
     background: #ea5e4f;
 }
 
+.selectedRestaurant {
+    background-color: #abcebf !important;
+    color:black !important;
+    font-weight:bold !important;
+}
 
 .block {
     background: white;
