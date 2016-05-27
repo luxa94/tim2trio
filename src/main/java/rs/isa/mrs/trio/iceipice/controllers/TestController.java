@@ -99,7 +99,7 @@ public class TestController {
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
 
             Area area1 = new Area("nepusacki", r);
-            RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "fabric");
+            RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
             Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
             tables.add(rt1);
             Reservation res1 = new Reservation(new Date(), "12:00","14:00", g, tables);

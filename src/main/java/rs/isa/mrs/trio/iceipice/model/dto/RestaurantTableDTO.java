@@ -23,6 +23,8 @@ public class RestaurantTableDTO {
         fabricTable = table.getFabricTable();
     }
 
+    public RestaurantTableDTO() {}
+    
     public long getId() {
         return id;
     }

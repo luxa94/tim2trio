@@ -37,6 +37,7 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
                 table.fabricTable = fabricTable;
             }
         }
+        canvas.renderAll();
     };
 
     $scope.refreshTables = function () {
