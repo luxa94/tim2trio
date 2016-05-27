@@ -30,13 +30,16 @@ public class Guest extends BaseUser{
     @Column(name = "confirmed", nullable = false)
     private Boolean confirmed;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
+    @JsonBackReference("guest-invitations")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", orphanRemoval=true)
     private Set<Invitation> invitations;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
+    @JsonBackReference("guest-reservations")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", orphanRemoval=true)
     private Set<Reservation> reservations;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest")
+    @JsonBackReference("guest-grades")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "guest", orphanRemoval=true)
     private Set<Grade> grades;
 
     @JsonBackReference("guest-guest")

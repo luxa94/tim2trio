@@ -26,6 +26,11 @@ public class Area {
     @JsonIgnore
     private Restaurant restaurant;
 
+    public Area(String name, Restaurant restaurant) {
+        this.name = name;
+        this.restaurant = restaurant;
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }

@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
+import rs.isa.mrs.trio.iceipice.model.Restaurant;
+
 /**
  * Created by nikolalukic on 4/17/16.
  */
@@ -20,6 +22,12 @@ public class RestaurantDTO {
     private String email;
 
     private String restaurantType;
+
+    public RestaurantDTO(Restaurant restaurant) {
+        id = restaurant.getId();
+        name = restaurant.getName();
+        description = restaurant.getDescription();
+    }
 
     public long getId() {
         return id;

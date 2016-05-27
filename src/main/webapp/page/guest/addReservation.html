@@ -1,4 +1,4 @@
-<div class="medium-8 large-8 columns form" style="width: 49%;" >
+<div class="medium-8 large-8 columns form" style="width: 56%; height: 40%;" >
 
     <form novalidate name="newReservationForm">
         <div class="row column ">
@@ -36,16 +36,18 @@
         </div>
     </form>
 </div>
-<div class="medium-8 large-8 columns form" style="width: 49%;">
+<div class="medium-8 large-8 columns form" style="width: 42%; height: 40%;">
 
     <form novalidate name="newReservationForm">
         <div class="row column ">
             <h4 class="text-center">Izaberite sto</h4>
             <label>
-                   <input type="image" src="../img/150.png" alt="Submit">
+                   <input type="image" style="position: relative" src="../img/1.png" alt="Submit">
             </label>
-            <button class="button3" ng-click="createNewReservation()">Završi</button>
-            <button class="button1" ng-click="inviteOnLunch(friend.id)">Dalje</button>
+            <span style="float: right">
+                <button class="button3 " ng-click="createNewReservation()">Završi rezervaciju</button>
+                <button class="button1 " ng-click="gotToReservation()">Sledeći korak</button>
+            </span>
         </div>
     </form>
 </div>

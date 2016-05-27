@@ -36,6 +36,14 @@ public class Reservation {
 
     private Set<RestaurantTable> restaurant_tables;
 
+    public Reservation(Date date, String start_hour, String end_hour, Guest guest, Set<RestaurantTable> restaurant_tables) {
+        this.date = date;
+        this.start_hour = start_hour;
+        this.end_hour = end_hour;
+        this.guest = guest;
+        this.restaurant_tables = restaurant_tables;
+    }
+
     public long getId() {
         return id;
     }

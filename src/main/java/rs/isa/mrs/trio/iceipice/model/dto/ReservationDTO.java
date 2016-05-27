@@ -1,12 +1,14 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
 import rs.isa.mrs.trio.iceipice.model.Guest;
+import rs.isa.mrs.trio.iceipice.model.Reservation;
 import rs.isa.mrs.trio.iceipice.model.Restaurant;
 import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
 
 import javax.persistence.Column;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -27,6 +29,26 @@ public class ReservationDTO {
     private RestaurantTableDTO restaurantTable;
 
     private List<GuestDTO> guests = new ArrayList<>();
+
+    public ReservationDTO(Reservation reservation) {
+        id = reservation.getId();
+        date = reservation.getDate();
+        start_hour = reservation.getStart_hour();
+        end_hour = reservation.getEnd_hour();
+        List<RestaurantTableDTO> tableDTO = new ArrayList<>();
+        Iterator<RestaurantTable> tableIterator = reservation.getRestaurant_tables().iterator();
+        Restaurant restaurant = null;
+        while(tableIterator.hasNext()) {
+            RestaurantTable table = tableIterator.next();
+            if(restaurant == null) {
+                restaurant = table.getArea().getRestaurant();
+            }
+            tableDTO.add(new RestaurantTableDTO(table));
+        }
+        this.restaurant = new RestaurantDTO(restaurant);
+
+
+    }
 
     // Treba da se dodaju stavke menija u porudzbinu!!!!!!!!!!
 
