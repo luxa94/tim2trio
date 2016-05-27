@@ -12,6 +12,11 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
 
     });
 
+    $scope.selectedRow = null;  // initialize our variable to null
+    $scope.setClickedRow = function(index,reservation){  //function that sets the value of selectedRow to current index
+        $scope.selectedRow = index;
 
+        $scope.selectedReservation = reservation;
+    }
 
 });
