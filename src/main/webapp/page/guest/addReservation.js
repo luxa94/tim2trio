@@ -5,6 +5,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.restaurants = [];
     $scope.current.page = 3;
 
+
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
     });

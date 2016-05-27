@@ -22,7 +22,7 @@
 </div>
 
 <div class="small reveal" id="newShowRestaurant" data-reveal>
-
+    <div style="width: 60%">
     <form novalidate name="showRestaurantInfo">
       <!--  <h4 class="text-center">Pozovi prijatelja da ti se pridruži</h4> -->
         <label>Naziv
@@ -31,9 +31,9 @@
         <label>Opis
             <input type="text" placeholder="" readonly required ng-model="restaurant.description" >
         </label>
-        <label>PIB
+   <!--     <label>PIB
         <input type="text" placeholder="" readonly required ng-model="restaurant.pib">
-        </label>
+        </label> -->
         <label>Broj telefona
         <input type="text" placeholder="" readonly required ng-model="restaurant.phoneNumber">
         </label>
@@ -43,15 +43,21 @@
         <label>Email
             <input type="text" placeholder="" readonly required ng-model="restaurant.email">
         </label>
-        <label>Type
-            <input type="text" placeholder="" readonly required ng-model="restaurant.name">
-        </label>
-        <div class="button-group float-right">
-            <a class="button alert" ng-click="cancel()">Odustani</a>
+   <!--     <label>Type
+            <input type="text" placeholder="" readonly required ng-model="restaurant.type">
+        </label> -->
+            <div style="height: 50%"> </div>
+
+
+        </form>
         </div>
+    <div>
 
-    </form>
+        <div class="button-group float-right">
+            <a class="button alert" ng-click="cancel()">Odustani</a> </div>
 
+        </div>
+    <div>
     <button class="close-button" data-close aria-label="Close modal" type="button">
         <span aria-hidden="true">&times;</span>
     </button>

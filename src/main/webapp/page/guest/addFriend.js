@@ -129,7 +129,6 @@ iceipiceApp.controller('guestAddFriendController', function ($scope, $http, $sta
     $scope.sendInvitation = function () {
         alert("Poziv za ručak je uspešno poslat!");
     };
-
 });
 
 

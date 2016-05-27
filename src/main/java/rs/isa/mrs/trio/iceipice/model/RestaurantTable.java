@@ -33,6 +33,15 @@ public class RestaurantTable {
     @Column(name = "fabric_table", length = 2000)
     private String fabricTable;
 
+    public RestaurantTable(String name, int capacity, Area area, String fabricTable) {
+        this.name = name;
+        this.capacity = capacity;
+        this.area = area;
+        this.fabricTable = fabricTable;
+    }
+
+    public RestaurantTable() {}
+
     public long getId() {
         return id;
     }

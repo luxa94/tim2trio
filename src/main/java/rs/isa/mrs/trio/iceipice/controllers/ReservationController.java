@@ -4,10 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.Reservation;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
+import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
 import rs.isa.mrs.trio.iceipice.services.ReservationService;
+
+import java.util.List;
 
 /**
  * Created by Nina on 26-May-16.
@@ -22,9 +26,14 @@ public class ReservationController {
     @Autowired
     ReservationService reservationService;
 
-    @RequestMapping(value = "/reservations/all", method = RequestMethod.GET)
-    public ResponseEntity getAllReservations() {
-        return new ResponseEntity<>(reservationRepository.findAll(), HttpStatus.OK);
+    @Autowired
+    GuestRepository guestRepository;
+
+    @RequestMapping(value = "/reservations/all/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllReservations(@PathVariable long id) {
+        List<ReservationDTO> reservations = reservationService.getGuestsReservations(id);
+
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/reservation/one/{id}", method = RequestMethod.GET)
