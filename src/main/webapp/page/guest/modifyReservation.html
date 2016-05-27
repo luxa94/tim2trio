@@ -16,16 +16,18 @@
                         <th>Datum</th>
                         <th>Vreme dolaska</th>
                     </tr>
-                    <tr ng-repeat="reservation in reservations | filter: query | orderBy: orderList "  ng-class="{'selectedReservation':$index == selectedRow}" ng-click="setClickedRow($index, reservation)" >
+                    <tr ng-repeat="reservation in reservations | filter: query | orderBy: orderList "  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, reservation)" >
                         <td>{{reservation.restaurant.name}}</td>
                         <td>{{reservation.date}}</td>
                         <td>{{reservation.start_hour}}</td>
                     </tr>
                 </table>
                 </div>
+                <span style="float: right">
                      <button class="button1" ng-click="removeFriend(friend.id)">Obriši</button>
                      <button class="button2" ng-click="inviteOnLunch(friend.id)">Detaljnije</button>
-                     <button class="button2" ng-click="inviteOnLunch(friend.id)">Izmeni</button>
+                     <button class="button3" ng-click="inviteOnLunch(friend.id)">Izmeni</button>
+                 </span>
         </div>
     </form>
 </div>
