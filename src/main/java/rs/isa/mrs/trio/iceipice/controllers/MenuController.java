@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import rs.isa.mrs.trio.iceipice.model.Menu;
 import rs.isa.mrs.trio.iceipice.model.MenuItem;
+import rs.isa.mrs.trio.iceipice.model.dto.MenuItemDTO;
 import rs.isa.mrs.trio.iceipice.repository.MenuItemRepository;
 import rs.isa.mrs.trio.iceipice.repository.MenuRepository;
+import rs.isa.mrs.trio.iceipice.services.MenuItemService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -27,6 +29,9 @@ public class MenuController {
 
     @Autowired
     MenuItemRepository  menuItemRepository;
+
+    @Autowired
+    MenuItemService menuItemService;
 
     @RequestMapping(value = "/menu/oneFromR/{idR}", method = RequestMethod.GET)
     public ResponseEntity getMenuFromRestaurant(@PathVariable long idR) {
@@ -48,12 +53,20 @@ public class MenuController {
                 break;
             }
         }
-
         for (MenuItem mi : menuItemRepository.findAll()){
             if (mi.getMenu().getId() == menu.getId()){
                 menuItems.add(mi);
             }
         }
         return new ResponseEntity(menuItems, HttpStatus.OK);
+    }
+    @RequestMapping(value = "/menuItem/create", method = RequestMethod.POST)
+    public ResponseEntity createMenuItem(@PathVariable MenuItemDTO menuItemDTO){
+        final MenuItem menuItem = menuItemService.addMenuItem(menuItemDTO);
+        if (menuItem != null){
+            return  new ResponseEntity<>(menuItem,HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 }

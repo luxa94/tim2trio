@@ -1,12 +1,47 @@
 <div class="row column text-center form">
-    <h2>HRANA</h2>
+    <h2>JELOVNIK</h2>
+    <button class="button2" ng-click="addMenuItemDialog()">Dodaj stavku menija</button>
+    <input type="text" ng-model="query.article.name" class="search" placeholder="Pronađi artikal..." />
 </div>
+
+
 <div class="row column small-up-2 medium-up-3 large-up-6 form">
-    <div ng-repeat="mi in menuItems" class="column">
+
+    <div ng-repeat="mi in menuItems | filter:query" class="column">
         <img class="thumbnail" src="http://placehold.it/300x400">
         <h5>{{mi.article.name}}</h5>
         <p>{{mi.price}}RSD</p>
         <a href="#" class="button small expanded hollow">Detalji</a>
     </div>
 
+</div>
+
+
+<div class="small reveal" id="newMenuItem" data-reveal>
+
+    <form novalidate name="tableForm">
+        <h4 class="text-center">Dodaj novu stavku menija</h4>
+        <label>Naziv artikla
+            <input type="text" placeholder="meso..." required ng-model="menuItem.article.name">
+        </label>
+        <label>Cena
+            <input type="number" placeholder="999.99$" required ng-model="menuItem.price">
+        </label>
+
+        <label>Tip artikla
+            <select required ng-model="table.area">
+                <option ng-repeat="at in articleTypes" value="{{at.name}}">{{at.name}}</option>
+            </select>
+        </label>
+
+        <div class="button-group float-right">
+            <input type="submit" class="button" ng-click="addMenuItem()" ng-disabled="tableForm.$invalid" value="Sačuvaj">
+            <a class="button alert" ng-click="cancel()">Odustani</a>
+        </div>
+
+    </form>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
