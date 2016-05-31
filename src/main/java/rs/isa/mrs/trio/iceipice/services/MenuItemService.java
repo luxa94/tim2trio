@@ -33,9 +33,11 @@ public class MenuItemService {
     public MenuItem addMenuItem(MenuItemDTO menuItemDTO) {
         MenuItem menuItem = new MenuItem();
         ArticleType at = articleTypeRepository.findById(menuItemDTO.getArticleTypeId());
-        menuItem.setArticle(new Article(menuItemDTO.getArticleName(),menuItemDTO.getArticleDescription(),at));
+        final Article a = new Article(menuItemDTO.getArticleName(),menuItemDTO.getArticleDescription(),at);
+        menuItem.setArticle(a);
 
         try {
+            articleRepository.save(a);
             menuItem = menuItemRepository.save(menuItem);
             return menuItem;
         } catch (Exception e) {

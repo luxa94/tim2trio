@@ -3,10 +3,7 @@ package rs.isa.mrs.trio.iceipice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Menu;
 import rs.isa.mrs.trio.iceipice.model.MenuItem;
 import rs.isa.mrs.trio.iceipice.model.dto.MenuItemDTO;
@@ -61,7 +58,7 @@ public class MenuController {
         return new ResponseEntity(menuItems, HttpStatus.OK);
     }
     @RequestMapping(value = "/menuItem/create", method = RequestMethod.POST)
-    public ResponseEntity createMenuItem(@PathVariable MenuItemDTO menuItemDTO){
+    public ResponseEntity createMenuItem(@RequestBody MenuItemDTO menuItemDTO){
         final MenuItem menuItem = menuItemService.addMenuItem(menuItemDTO);
 
         if (menuItem != null){
