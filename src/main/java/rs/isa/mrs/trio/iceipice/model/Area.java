@@ -26,6 +26,21 @@ public class Area {
     @JsonIgnore
     private Restaurant restaurant;
 
+    @Column(name = "color", nullable = false)
+    private String color;
+
+    @PrePersist
+    private void setDefaultColor() {
+        if (color == null) {
+            color = "white";
+        }
+    }
+
+    public Area(String name, Restaurant restaurant) {
+        this.name = name;
+        this.restaurant = restaurant;
+    }
+
     public Restaurant getRestaurant() {
         return restaurant;
     }
@@ -48,6 +63,14 @@ public class Area {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public Area() {

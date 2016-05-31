@@ -1,10 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Napravi rezervaciju</title>
-</head>
-<body>
+<div class="medium-8 large-8 columns form" style="width: 56%; height: 40%;" >
 
-</body>
-</html>
+    <form novalidate name="newReservationForm">
+        <div class="row column ">
+            <h4 class="text-center">Napravi rezervaciju</h4>
+         <!--   <label>
+                <input type="image" src="../img/150.png" alt="Submit">
+            </label> -->
+            <label>Restoran
+                <input type="text" required ng-model="selectedRestaurant.name" required>
+            </label>
+            <div style="overflow-y:scroll;">
+            <table border="1" >
+                <tr>
+                    <th>Naziv</th>
+                    <th>Opis</th>
+                    <th>Adresa</th>
+                </tr>
+                <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList "  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, restaurant)" >
+                    <td>{{restaurant.name}}</td>
+                    <td>{{restaurant.description}}</td>
+                    <td>{{restaurant.address}}</td>
+                </tr>
+            </table>
+            </div>
+
+            <label>Datum
+                <input type="date" required ng-model="reservation.date">
+            </label>
+            <label>Vreme dolaska
+                <input type="text" placeholder="15:00" ng-model="reservation.start_hour" required>
+            </label>
+            <label>Vreme odlaska
+                <input type="text" placeholder="17:00"ng-model="reservation.end_hour" required>
+            </label>
+        </div>
+    </form>
+</div>
+<div class="medium-8 large-8 columns form" style="width: 42%; height: 40%;">
+
+    <form novalidate name="newReservationForm">
+        <div class="row column ">
+            <h4 class="text-center">Izaberite sto</h4>
+            <label>
+                   <input type="image" style="position: relative" src="../img/1.png" alt="Submit">
+            </label>
+            <span style="float: right">
+                <button class="button3 " ng-click="createNewReservation()">Završi rezervaciju</button>
+                <button class="button1 " ng-click="gotToReservation()">Sledeći korak</button>
+            </span>
+        </div>
+    </form>
+</div>

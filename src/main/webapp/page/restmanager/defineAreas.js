@@ -8,9 +8,10 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     $scope.canvas = canvas;
     $scope.areas = [];
     $scope.tables = [];
-    $scope.areaName = '';
+    $scope.area = {};
     $scope.user = authorizationService.getUser();
     $scope.table = {};
+    $scope.colors = ['white', 'blue', 'red', 'green', 'orange', 'yellow', 'magenta', 'gray', 'cyan'];
 
     canvas.backgroundColor = '#222';
     canvas.renderAll();
@@ -36,6 +37,7 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
                 table.fabricTable = fabricTable;
             }
         }
+        canvas.renderAll();
     };
 
     $scope.refreshTables = function () {
@@ -56,7 +58,7 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     $scope.addRoundTable = function () {
         $scope.openDialogForTable({});
         var circle = new fabric.Circle({
-            radius: 25, fill: 'red', left: 100, top: 100
+            radius: 25, fill: 'red', left: 100, top: 100, opacity: 0.5
         });
         $scope.table.fabricTable = circle;
     };
@@ -64,7 +66,7 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     $scope.addRectTable = function () {
         $scope.openDialogForTable({});
         var rect = new fabric.Rect({
-            left: 100, top: 100, fill: 'red', width: 50, height: 50
+            left: 100, top: 100, fill: 'red', width: 50, height: 50, opacity: 0.5
         });
         $scope.table.fabricTable = rect;
     };
@@ -82,6 +84,14 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
 
     $scope.addTable = function () {
         $scope.tables.push($scope.table);
+        for (var i in $scope.areas) {
+            var a = $scope.areas[i];
+
+            if (a.id == $scope.table.area) {
+                $scope.table.fabricTable.fill = a.color;
+                break;
+            }
+        }
         $scope.canvas.add($scope.table.fabricTable);
         $scope.popup.close();
     };
@@ -91,22 +101,23 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
     };
 
     $scope.addArea = function () {
-        if ($scope.areaName != '') {
+        if ($scope.area.name && $scope.area.color) {
             var areaDTO = {
-                name: $scope.areaName,
+                name: $scope.area.name,
+                color: $scope.area.color,
                 managerId: $scope.user.id
             };
             $http.post('/api/areas/new', areaDTO).success(function (data) {
                 $scope.areas.push(data);
             });
-            $scope.areaName = '';
+            $scope.area = {};
         }
     };
 
     $scope.saveTables = function () {
         for (var i in $scope.tables) {
             var t = $scope.tables[i];
-            t.fabricTable.fill = 'white';
+            t.fabricTable.opacity = 1;
             t.fabricTable = JSON.stringify(t.fabricTable);
             if (t.area.id) {
                 t.area = t.area.id;
@@ -125,11 +136,34 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
                 $scope.$apply(function () {
                     $scope.table = t;
                 });
-                // $scope.openDialogForTable(t);
-                console.log($scope.table);
                 break;
             }
         }
+    });
+
+    $('#area_select').on('change', function () {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        for (var i in $scope.areas) {
+            var a = $scope.areas[i];
+            if (a.id == valueSelected) {
+                $scope.table.fabricTable.fill = a.color;
+                canvas.renderAll();
+                break;
+            }
+        }
+    });
+
+    canvas.on('object:selected', function() {
+        $scope.$apply(function () {
+            $scope.table = {};
+        });
+    });
+
+    canvas.on('selection:cleared', function() {
+        // $scope.$apply(function () {
+            $scope.table = {};
+        // });
     });
 
     canvas.on('before:selection:cleared', function() {

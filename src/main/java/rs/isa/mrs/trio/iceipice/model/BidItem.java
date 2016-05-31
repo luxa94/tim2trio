@@ -31,7 +31,7 @@ public class BidItem {
     private Bid bid;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "aution_item_unit_id", nullable = false)
+    @JoinColumn(name = "auction_item_unit_id", nullable = false)
     private AuctionItemUnit auctionItemUnit;
 
     public long getId() {

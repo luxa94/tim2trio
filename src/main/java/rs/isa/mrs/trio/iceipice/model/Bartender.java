@@ -19,7 +19,7 @@ public class Bartender extends BaseUser {
     @Column(name = "dress_size", nullable = false)
     private String dressSize;
 
-    @Column(name = "footwearSize", nullable = false)
+    @Column(name = "footwear_size", nullable = false)
     private String footwearSize;
 
     @ManyToOne

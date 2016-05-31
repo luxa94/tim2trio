@@ -33,6 +33,7 @@ public class AreaService {
         Area area = new Area();
         area.setName(areaDTO.getName());
         area.setRestaurant(restaurant);
+        area.setColor(areaDTO.getColor());
 
         area = areaRepository.save(area);
         return area;

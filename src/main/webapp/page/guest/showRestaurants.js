@@ -17,4 +17,27 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
             $scope.orderList = "name";
         }
     };
+
+    $scope.openDialogForRestaurantInfo= function(restaurant) {
+        $scope.restaurant = restaurant;
+        $scope.popup = new Foundation.Reveal($('#newShowRestaurant'));
+        $scope.popup.open();
+    };
+
+    $scope.showRestaurant = function (restaurant) {
+        $scope.openDialogForRestaurantInfo(restaurant);
+        var circle = new fabric.Circle({
+            radius: 25, fill: 'red', left: 100, top: 100
+        });
+        //     $scope.table.fabricTable = circle;
+    };
+
+    $scope.gotToReservation = function () {
+
+        $state.transitionTo( "guest.addReservation");
+    };
+
+    $scope.cancel = function () {
+        $scope.popup.close();
+    };
 });

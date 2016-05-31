@@ -17,6 +17,7 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
         $http.get('/api/cook/allFromR/' + $scope.restaurant.id).success(function(data) {
             console.log("KUVARI: " + JSON.stringify(data));
             cooks = data;
+
             for (i = 0; i < cooks.length; i++){
                 cooks[i].cook = true;
                 cooks[i].bartender = false;

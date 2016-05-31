@@ -25,10 +25,10 @@ public class Shift {
     @Column(name = "valid", nullable = false)
     private boolean valid;
 
-    @Column(name = "startHour", nullable = false)
+    @Column(name = "start_hour", nullable = false)
     private String startHour;
 
-    @Column(name = "endHour", nullable = false)
+    @Column(name = "end_hour", nullable = false)
     private String endHour;
 
     public int getDay() {

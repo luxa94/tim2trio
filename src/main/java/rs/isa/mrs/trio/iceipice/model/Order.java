@@ -7,7 +7,7 @@ import java.util.Set;
  * Created by nikolalukic on 4/10/16.
  */
 @Entity
-@Table(name = "order")
+@Table(name = "order_pls")
 public class Order {
 
     @Id
@@ -22,7 +22,7 @@ public class Order {
     private Reservation reservation;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "table_orders",
+    @JoinTable(name = "order_tables",
             joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
     private Set<RestaurantTable> restaurantTables;

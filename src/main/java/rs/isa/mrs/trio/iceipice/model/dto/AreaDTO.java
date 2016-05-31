@@ -9,6 +9,8 @@ public class AreaDTO {
 
     private String name;
 
+    private String color;
+
     public long getManagerId() {
         return managerId;
     }
@@ -25,4 +27,11 @@ public class AreaDTO {
         this.name = name;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
 }

@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
+import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
+
 /**
  * Created by nikolalukic on 5/22/16.
  */
@@ -15,6 +17,14 @@ public class RestaurantTableDTO {
 
     private String fabricTable;
 
+    public RestaurantTableDTO(RestaurantTable table) {
+        id = table.getId();
+        name = table.getName();
+        fabricTable = table.getFabricTable();
+    }
+
+    public RestaurantTableDTO() {}
+    
     public long getId() {
         return id;
     }

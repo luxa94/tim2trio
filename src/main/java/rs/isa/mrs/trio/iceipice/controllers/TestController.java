@@ -40,12 +40,6 @@ public class TestController {
     WaiterRepository waiterRepository;
 
     @Autowired
-    AreaRepository areaRepository;
-
-    @Autowired
-    RestaurantTableRepository restaurantTableRepository;
-
-    @Autowired
     ShiftRepository shiftRepository;
 
     @Autowired
@@ -60,14 +54,22 @@ public class TestController {
     @Autowired
     MenuItemRepository menuItemRepository;
 
+    @Autowired
+    AreaRepository areaRepository;
+
+    @Autowired
+    RestaurantTableRepository restaurantTableRepository;
+
+    @Autowired
+    ReservationRepository reservationRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
             systemManagerRepository.deleteAll();
             restaurantManagerRepository.deleteAll();
-            restaurantTableRepository.deleteAll();
-            areaRepository.deleteAll();
-            guestRepository.deleteAll();
+
+
             shiftRepository.deleteAll();
             menuItemRepository.deleteAll();
             menuRepository.deleteAll();
@@ -76,7 +78,11 @@ public class TestController {
             bartenderRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
+            reservationRepository.deleteAll();
+            restaurantTableRepository.deleteAll();
+            areaRepository.deleteAll();
             restaurantRepository.deleteAll();
+            guestRepository.deleteAll();
 
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
             Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
@@ -92,6 +98,11 @@ public class TestController {
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
 
+            Area area1 = new Area("nepusacki", r);
+            RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
+            Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
+            tables.add(rt1);
+            Reservation res1 = new Reservation(new Date(), "12:00","14:00", g, tables);
             br.setRestaurant(r);
             ck.setRestaurant(r);
             w.setRestaurant(r);
@@ -120,7 +131,6 @@ public class TestController {
 
             restaurantRepository.save(r);
             bartenderRepository.save(br);
-            restaurantRepository.save(r1);
             systemManagerRepository.save(sm);
             guestRepository.save(g);
             guestRepository.save(g1);
@@ -151,6 +161,9 @@ public class TestController {
             menuItemRepository.save(mi7);
             menuItemRepository.save(mi8);
             menuItemRepository.save(mi9);
+            areaRepository.save(area1);
+            restaurantTableRepository.save(rt1);
+            reservationRepository.save(res1);
 
         } catch (Exception e) {
             e.printStackTrace();
