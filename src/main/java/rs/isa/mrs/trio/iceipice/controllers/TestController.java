@@ -97,15 +97,16 @@ public class TestController {
             w.setRestaurant(r);
 
             ArticleType atype = new ArticleType("neki tip artikla");
+            ArticleType atype2 = new ArticleType("neki tip artikla2222");
             Article a1 = new Article("Ime Artikla1", "Opis artikla 1", atype);
             Article a2 = new Article("Ime Artikla2", "Opis artikla 2", atype);
             Article a3 = new Article("Ime Artikla3", "Opis artikla 3", atype);
             Article a4 = new Article("Ime Artikla4", "Opis artikla 1", atype);
             Article a5 = new Article("Ime Artikla5", "Opis artikla 2", atype);
-            Article a6 = new Article("Ime Artikla6", "Opis artikla 3", atype);
-            Article a7 = new Article("Ime Artikla7", "Opis artikla 1", atype);
-            Article a8 = new Article("Ime Artikla8", "Opis artikla 2", atype);
-            Article a9 = new Article("Ime Artikla9", "Opis artikla 3", atype);
+            Article a6 = new Article("Ime Artikla6", "Opis artikla 3", atype2);
+            Article a7 = new Article("Ime Artikla7", "Opis artikla 1", atype2);
+            Article a8 = new Article("Ime Artikla8", "Opis artikla 2", atype2);
+            Article a9 = new Article("Ime Artikla9", "Opis artikla 3", atype2);
             Menu m1 = new Menu(r);
             MenuItem mi1 = new MenuItem(100, new Date(), new Date(), a1, m1);
             MenuItem mi2 = new MenuItem(200, new Date(), new Date(), a2, m1);
@@ -130,6 +131,7 @@ public class TestController {
             cookRepository.save(ck);
             waiterRepository.save(w);
             articleTypeRepository.save(atype);
+            articleTypeRepository.save(atype2);
             articleRepository.save(a1);
             articleRepository.save(a2);
             articleRepository.save(a3);

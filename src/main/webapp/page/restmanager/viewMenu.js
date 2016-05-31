@@ -29,8 +29,10 @@ iceipiceApp.controller('restManagerViewMenuController', function ($scope, $http,
     };
 
     $scope.addMenuItem = function () {
-        $http.get('/api/menuItem/create').success(function (data) {
-            $scope.articleTypes = data;
-        })
+        $http.post('/api/menuItem/create', $scope.menuItem).success(function (data) {
+            console.log("Uspesno dodata stavka menija\n" + JSON.stringify(data));
+        }).error(function () {
+            alert('Greška pri dodavanju stavke menija');
+        });
     }
 });

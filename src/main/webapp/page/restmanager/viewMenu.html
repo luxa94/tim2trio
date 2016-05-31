@@ -5,9 +5,9 @@
 </div>
 
 
-<div class="row column small-up-2 medium-up-3 large-up-6 form">
+<div class="row column small-up-2 medium-up-3 large-up-6 form" ng-repeat="ar in articleTypes">
 
-    <div ng-repeat="mi in menuItems | filter:query" class="column">
+    <div ng-repeat="mi in menuItems | filter:query" class="column" ng-if="mi.article.articleType.name">
         <img class="thumbnail" src="http://placehold.it/300x400">
         <h5>{{mi.article.name}}</h5>
         <p>{{mi.price}}RSD</p>
@@ -22,15 +22,19 @@
     <form novalidate name="tableForm">
         <h4 class="text-center">Dodaj novu stavku menija</h4>
         <label>Naziv artikla
-            <input type="text" placeholder="meso..." required ng-model="menuItem.article.name">
+            <input type="text" placeholder="meso..." required ng-model="menuItem.articleName">
         </label>
         <label>Cena
             <input type="number" placeholder="999.99$" required ng-model="menuItem.price">
         </label>
 
+        <label>Opis artikla
+            <textarea type="text" placeholder="jako lepo..." required ng-model="menuItem.articleDescription"></textarea>
+        </label>
+
         <label>Tip artikla
-            <select required ng-model="table.area">
-                <option ng-repeat="at in articleTypes" value="{{at.name}}">{{at.name}}</option>
+            <select required ng-model="menuItem.articleTypeId">
+                <option ng-repeat="at in articleTypes" value="{{at.name}}" >{{at.name}}</option>
             </select>
         </label>
 

@@ -4,11 +4,19 @@ package rs.isa.mrs.trio.iceipice.model.dto;
  * Created by Sandra on 25.5.2016.
  */
 public class MenuItemDTO {
+
     private double price;
+    private String articleName;
+    private long articleTypeId;
+    private String articleDescription;
 
-    private long articleId;
+    public String getArticleDescription() {
+        return articleDescription;
+    }
 
-    private long menuId;
+    public void setArticleDescription(String articleDescription) {
+        this.articleDescription = articleDescription;
+    }
 
     public MenuItemDTO() {
     }
@@ -21,19 +29,21 @@ public class MenuItemDTO {
         this.price = price;
     }
 
-    public long getArticleId() {
-        return articleId;
+    public String getArticleName() {
+        return articleName;
     }
 
-    public void setArticleId(long articleId) {
-        this.articleId = articleId;
+    public void setArticleName(String articleName) {
+        this.articleName = articleName;
     }
 
-    public long getMenuId() {
-        return menuId;
+    public long getArticleTypeId() {
+        return articleTypeId;
     }
 
-    public void setMenuId(long menuId) {
-        this.menuId = menuId;
+    public void setArticleTypeId(long articleTypeId) {
+        this.articleTypeId = articleTypeId;
     }
+
+
 }

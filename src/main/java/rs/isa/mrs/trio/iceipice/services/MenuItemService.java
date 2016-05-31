@@ -1,17 +1,21 @@
 package rs.isa.mrs.trio.iceipice.services;
 
-import com.sun.xml.internal.ws.developer.Serialization;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import rs.isa.mrs.trio.iceipice.model.Article;
+import rs.isa.mrs.trio.iceipice.model.ArticleType;
 import rs.isa.mrs.trio.iceipice.model.MenuItem;
 import rs.isa.mrs.trio.iceipice.model.dto.MenuItemDTO;
 import rs.isa.mrs.trio.iceipice.repository.ArticleRepository;
+import rs.isa.mrs.trio.iceipice.repository.ArticleTypeRepository;
 import rs.isa.mrs.trio.iceipice.repository.MenuItemRepository;
 import rs.isa.mrs.trio.iceipice.repository.MenuRepository;
 
 /**
  * Created by Sandra on 27.5.2016.
  */
-@Serialization
+@Service
 public class MenuItemService {
 
     @Autowired
@@ -23,9 +27,13 @@ public class MenuItemService {
     @Autowired
     ArticleRepository articleRepository;
 
+    @Autowired
+    ArticleTypeRepository articleTypeRepository;
+
     public MenuItem addMenuItem(MenuItemDTO menuItemDTO) {
         MenuItem menuItem = new MenuItem();
-        updateMenuItem(menuItem, menuItemDTO);
+        ArticleType at = articleTypeRepository.findById(menuItemDTO.getArticleTypeId());
+        menuItem.setArticle(new Article(menuItemDTO.getArticleName(),menuItemDTO.getArticleDescription(),at));
 
         try {
             menuItem = menuItemRepository.save(menuItem);
@@ -35,10 +43,5 @@ public class MenuItemService {
         }
     }
 
-    private void updateMenuItem(MenuItem menuItem, MenuItemDTO menuItemDTO) {
-        menuItem.setMenu(menuRepository.findById(menuItemDTO.getMenuId()));
-        menuItem.setArticle(articleRepository.findById(menuItemDTO.getArticleId()));
-
-    }
 
 }

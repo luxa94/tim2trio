@@ -63,6 +63,7 @@ public class MenuController {
     @RequestMapping(value = "/menuItem/create", method = RequestMethod.POST)
     public ResponseEntity createMenuItem(@PathVariable MenuItemDTO menuItemDTO){
         final MenuItem menuItem = menuItemService.addMenuItem(menuItemDTO);
+
         if (menuItem != null){
             return  new ResponseEntity<>(menuItem,HttpStatus.OK);
         } else {
