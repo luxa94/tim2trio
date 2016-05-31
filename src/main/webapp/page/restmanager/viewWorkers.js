@@ -46,5 +46,37 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
         }
     };
 
+    $scope.setShift = function(){
+
+        $scope.popup = new Foundation.Reveal($('#addShift'));
+        $scope.popup.open();
+    }
+
+    $(document).ready(function() {
+
+        $('#calendar').fullCalendar({
+            defaultDate: '2016-05-12',
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'radnik1',
+                    start: '2016-05-01'
+                },
+                {
+                    title: 'radnik2',
+                    start: '2016-05-07',
+                    end: '2016-05-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2016-05-09T16:00:00'
+                }
+            ]
+        });
+
+    });
+
 
 });

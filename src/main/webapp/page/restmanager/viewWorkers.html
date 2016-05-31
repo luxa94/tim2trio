@@ -6,6 +6,7 @@
         <th>Ime</th>
         <th>Prezime</th>
         <th>Uloga</th>
+        <th>Postavi smenu</th>
     </tr>
     <tr ng-repeat="worker in workers | filter: query | orderBy: orderList " >
         <td><span>{{worker.name}}</span></td>
@@ -13,6 +14,19 @@
         <td ng-if="worker.cook">KUVAR</td>
         <td ng-if="worker.waiter">KONOBAR</td>
         <td ng-if="worker.bartender">ŠANKER</td>
+        <td> <button ng-click="setShift()" class="button round">smena</button></td>
     </tr>
 </table>
-    </div>
+</div>
+
+
+
+<div class="large reveal" id="addShift" data-reveal>
+
+    <h4 class="text-center">Postavi smenu za radnika</h4>
+
+    <div id='calendar'></div>
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
