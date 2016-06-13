@@ -23,18 +23,20 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
                 cooks[i].bartender = false;
                 cooks[i].waiter = false;
             }
+
+            $http.get('/api/bartender/allFromR/' + $scope.restaurant.id).success(function(data) {
+                console.log("SANKERI: " + JSON.stringify(data));
+                bartenders = data;
+                for (i = 0; i < cooks.length; i++){
+                    bartenders[i].cook = false;
+                    bartenders[i].bartender = true;
+                    bartenders[i].waiter = false;
+                }
+                $scope.workers = cooks.concat(bartenders).concat(waiters);
+                console.log("RADNICI: " + JSON.stringify($scope.workers));
+            })
         })
-        $http.get('/api/bartender/allFromR/' + $scope.restaurant.id).success(function(data) {
-            console.log("SANKERI: " + JSON.stringify(data));
-            bartenders = data;
-            for (i = 0; i < cooks.length; i++){
-                bartenders[i].cook = false;
-                bartenders[i].bartender = true;
-                bartenders[i].waiter = false;
-            }
-            $scope.workers = cooks.concat(bartenders).concat(waiters);
-            console.log("RADNICI: " + JSON.stringify($scope.workers));
-        })
+
 
     });
 
@@ -47,9 +49,10 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
     };
 
     $scope.setShift = function(){
-
-        $scope.popup = new Foundation.Reveal($('#addShift'));
-        $scope.popup.open();
+        //$scope.current.page = 2;
+        $state.transitionTo( "restaurant_manager.defineTimetable");
+        //$scope.popup = new Foundation.Reveal($('#addShift'));
+        //$scope.popup.open();
     }
 
     $(document).ready(function() {

@@ -9,6 +9,15 @@ public class MenuItemDTO {
     private String articleName;
     private long articleTypeId;
     private String articleDescription;
+    private long menuId;
+
+    public long getMenuId() {
+        return menuId;
+    }
+
+    public void setMenuId(long menuId) {
+        this.menuId = menuId;
+    }
 
     public String getArticleDescription() {
         return articleDescription;

@@ -4,7 +4,6 @@
     <input type="text" ng-model="query.article.name" class="search" placeholder="Pronađi artikal..." />
 </div>
 
-
 <div class="row column small-up-2 medium-up-3 large-up-6 form" ng-repeat="ar in articleTypes">
 
     <div ng-repeat="mi in menuItems | filter:query" class="column" ng-if="mi.article.articleType.name">
@@ -15,7 +14,6 @@
     </div>
 
 </div>
-
 
 <div class="small reveal" id="newMenuItem" data-reveal>
 

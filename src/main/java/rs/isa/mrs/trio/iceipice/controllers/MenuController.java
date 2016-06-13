@@ -33,6 +33,7 @@ public class MenuController {
     @RequestMapping(value = "/menu/oneFromR/{idR}", method = RequestMethod.GET)
     public ResponseEntity getMenuFromRestaurant(@PathVariable long idR) {
         for (Menu m : menuRepository.findAll()) {
+            System.out.println("restaurant id: " + m.getRestaurant().getId());
             if (m.getRestaurant().getId() == idR) {
                 return new ResponseEntity<>(m, HttpStatus.OK);
             }
