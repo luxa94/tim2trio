@@ -1,7 +1,7 @@
 /**
  * Created by Nina on 17-Apr-16.
  */
-iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService) {
     $scope.restaurants = [];
     $scope.current.page = 2;
 
@@ -32,7 +32,9 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
         //     $scope.table.fabricTable = circle;
     };
 
-    $scope.gotToReservation = function () {
+    $scope.gotToReservation = function (restaurant) {
+        
+        GuestService.setSelectedRestaurant(restaurant);
 
         $state.transitionTo( "guest.addReservation");
     };

@@ -131,6 +131,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/guest/modifyReservation.html',
             controller: 'guestModifyReservationController'
         })
+        .state('guest.inviteFriend',{
+            url: '/inviteFriend',
+            templateUrl: 'page/guest/inviteFriend.html',
+            controller: 'guestInviteFriendController'
+        })
         .state('verify', {
             url: '/authenticate/{id:int}',
             templateUrl: 'page/authentication.html',

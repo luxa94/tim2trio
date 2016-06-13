@@ -37,7 +37,7 @@
         }
 
         function Delete(id) {
-            return $http.delete('/api/users/' + id).then(handleSuccess, handleError('Error deleting user'));
+            return $http.delete('/api/reservation/delete/' + id).then(handleSuccess, handleError('Error deleting reservation'));
         }
 
         function handleSuccess(res) {

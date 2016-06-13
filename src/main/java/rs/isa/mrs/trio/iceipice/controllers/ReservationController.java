@@ -69,5 +69,18 @@ public class ReservationController {
         }
 
     }
+    @RequestMapping(value = "/reservation/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteReservation(@PathVariable long id) {
+        final Reservation reservation = reservationRepository.findById(id);
+        if (reservation != null) {
+            reservationRepository.delete(id);
+            // ovde cu dodavati za fatch.lazy sta mi bude trebalo od gosta
+
+            return new ResponseEntity<>( HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
 }
