@@ -50,4 +50,6 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
         $scope.invitedFriends.push(friend);
         }
 
+    
+
 });

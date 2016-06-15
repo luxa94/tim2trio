@@ -29,7 +29,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
 
 
-            if( data[i].date >= today) {
+            if( data[i].date <= today) {
                 data[i].tooLate = true;
             } else {
                 data[i].tooLate = false;
@@ -49,11 +49,8 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
     }
 
     $scope.mouseOverDelete = function() {
-
-
         if($scope.selectedReservation.tooLate){
             alert("Niste u mogućnosti da otkažete rezervaciju u poslednjih 30 min pre njenog početka.");
-
         }
     }
 
