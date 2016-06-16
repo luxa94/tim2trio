@@ -28,8 +28,8 @@ public class Waiter extends BaseUser {
     @Column(name = "footwear_size", nullable = false)
     private String footwearSize;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
-    private Set<WaiterShift> waiterShifts;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
+//    private Set<WaiterShift> waiterShifts;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "waiter_orders",
@@ -53,13 +53,13 @@ public class Waiter extends BaseUser {
         this.footwearSize = footwearSize;
     }
 
-    public Set<WaiterShift> getWaiterShifts() {
-        return waiterShifts;
-    }
+//    public Set<WaiterShift> getWaiterShifts() {
+//        return waiterShifts;
+//    }
 
-    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
-        this.waiterShifts = waiterShifts;
-    }
+//    public void setWaiterShifts(Set<WaiterShift> waiterShifts) {
+//        this.waiterShifts = waiterShifts;
+//    }
 
     public Set<Order> getOrders() {
         return orders;

@@ -9,6 +9,8 @@ public class CookDTO extends BaseUserDTO {
 
     private String footwearSize;
 
+    private long restaurantId;
+
     public String getDressSize() {
         return dressSize;
     }
@@ -25,4 +27,11 @@ public class CookDTO extends BaseUserDTO {
         this.footwearSize = footwearSize;
     }
 
+    public long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(long restaurantId) {
+        this.restaurantId = restaurantId;
+    }
 }

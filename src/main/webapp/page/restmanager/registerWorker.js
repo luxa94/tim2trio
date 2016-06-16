@@ -10,6 +10,11 @@ iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, 
 
   $scope.submit = function () {
 
+    $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
+      console.log("RESTORAN: " + JSON.stringify(data));
+      $scope.restaurant = data;
+
+    $scope.worker.restaurantId = $scope.restaurant.id;
   //kuvar
     $http.post('/api/cook/create', $scope.worker).success(function (data) {
       console.log('Uspešno dodat kuvar');
@@ -18,16 +23,8 @@ iceipiceApp.controller('restmanagerRegisterWorkerController', function ($scope, 
     }).error(function () {
       alert('Greška pri dodavanju kuvara');
     });
+    });
 
 
-    var x = document.getElementById("workertype");
-    console.log("X = " +JSON.stringify(x));
-    if (x.selectedIndex == 0) {
-
-    }else if (x.selectedIndex == 1){
-
-    }else if (x.selectedIndex==2){
-
-    }
   };
 });

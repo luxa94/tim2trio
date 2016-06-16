@@ -41,4 +41,8 @@ iceipiceApp.controller('restManagerViewMenuController', function ($scope, $http,
             });
         });
     }
+
+    $scope.cancel = function () {
+        $scope.popup.close();
+    };
 });

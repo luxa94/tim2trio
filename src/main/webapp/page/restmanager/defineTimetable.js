@@ -4,10 +4,18 @@
 iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.current.page = 2;
     $scope.restaurant = {};
+    $scope.areas = [];
     $scope.workers = [];
+    $scope.shift = {};
+    $scope.selectedWorker = {};
     var cooks = [];
     var bartenders = [];
     var waiters = [];
+
+
+    $http.get('/api/areas/forManager/' + $scope.user.id).success(function (data) {
+        $scope.areas = data;
+    });
 
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
@@ -26,13 +34,23 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
             $http.get('/api/bartender/allFromR/' + $scope.restaurant.id).success(function(data) {
                 console.log("SANKERI: " + JSON.stringify(data));
                 bartenders = data;
-                for (i = 0; i < cooks.length; i++){
+                for (i = 0; i < bartenders.length; i++){
                     bartenders[i].cook = false;
                     bartenders[i].bartender = true;
                     bartenders[i].waiter = false;
                 }
-                $scope.workers = cooks.concat(bartenders).concat(waiters);
-                console.log("RADNICI: " + JSON.stringify($scope.workers));
+
+                $http.get('/api/waiter/allFromR/' + $scope.restaurant.id).success(function(data) {
+                    console.log("KONOBARI: " + JSON.stringify(data));
+                    waiters = data;
+                    for (i = 0; i < waiters.length; i++) {
+                        waiters[i].cook = false;
+                        waiters[i].bartender = false;
+                        waiters[i].waiter = true;
+                    }
+                    $scope.workers = cooks.concat(bartenders).concat(waiters);
+                    console.log("RADNICI: " + JSON.stringify($scope.workers));
+                })
             })
         })
     });
@@ -40,25 +58,35 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     $(document).ready(function() {
 
         $('#calendar').fullCalendar({
-            defaultDate: '2016-05-12',
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
             editable: true,
-            eventLimit: true, // allow "more" link when too many events
-            events: [
-                {
-                    title: 'radnik1',
-                    start: '2016-05-01'
-                },
-                {
-                    title: 'radnik2',
-                    start: '2016-05-07',
-                    end: '2016-05-10'
-                },
-                {
-                    id: 999,
-                    title: 'Repeating Event',
-                    start: '2016-05-09T16:00:00'
+            droppable: true, // this allows things to be dropped onto the calendar !!!
+            drop: function(date) { // this function is called when something is dropped
+
+                // retrieve the dropped element's stored Event Object
+                var originalEventObject = $(this).data('eventObject');
+
+                // we need to copy it, so that multiple events don't have a reference to the same object
+                var copiedEventObject = $.extend({}, originalEventObject);
+
+                // assign it the date that was reported
+                copiedEventObject.start = date;
+
+                // render the event on the calendar
+                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+
+                // is the "remove after drop" checkbox checked?
+                if ($('#drop-remove').is(':checked')) {
+                    // if so, remove the element from the "Draggable Events" list
+                    $(this).remove();
                 }
-            ]
+
+            }
         });
     });
 
@@ -71,8 +99,31 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     };
 
     $scope.setShift = function(){
-
+        
     }
 
+
+    $scope.openDialogForNewShift = function (t) {
+
+        $scope.popup = new Foundation.Reveal($('#newShift'));
+        $scope.popup.open();
+    };
+
+
+    $scope.addShiftDialog = function (worker) {
+        $scope.selectedWorker = worker;
+        $scope.shift.workerId = $scope.selectedWorker.id;
+        $scope.shift.workerType = $scope.selectedWorker.type;
+        //console.log("SELEKTOVAN RADNIK: " + JSON.stringify($scope.selectedWorker));
+        $scope.openDialogForNewShift({});
+    };
+
+    $scope.cancel = function () {
+        $scope.popup.close();
+    };
+
+    $scope.addShift = function () {
+        
+    }
 
 });
