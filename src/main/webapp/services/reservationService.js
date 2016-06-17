@@ -11,14 +11,25 @@
     ReservationService.$inject = ['$http'];
     function ReservationService($http) {
         var service = {};
+        var reservationUnderReview = null;
 
         service.GetAll = GetAll;
         service.GetById = GetById;
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.getUnderReview = getUnderReview;
+        service.setUnderReview = setUnderReview;
 
         return service;
+        
+        function getUnderReview() {
+            return reservationUnderReview;
+        }
+
+        function setUnderReview(reservation) {
+            reservationUnderReview = reservation;
+        }
 
         function GetAll(id) {
             return $http.get('/api/reservation/all/' + id).then(handleSuccess, handleError('Error getting all reservations'));

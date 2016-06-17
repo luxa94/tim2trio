@@ -3,12 +3,12 @@
     <form novalidate name="inviteFriendOnLunch2">
         <div class="row column ">
             <h4 class="text-center">Ocenite vaše iskustvo</h4>
-
+            <br>
             <label>Jelo:
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop1" max="5"></input-stars>
             </label>
             <label>Komentar:
-                <input type="text" id="" required  >
+                <input type="text" required  >
             </label>
             <label>Usluga:
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop2" max="5"></input-stars>
@@ -22,7 +22,9 @@
             <label>Komentar:
                 <input type="text" id="" required  >
             </label>
+             <span style="float: right">
             <button class="button2"  ng-click="gradeReservation(reservation)">Oceni</button>
+             </span>
         </div>
     </form>
 </div>

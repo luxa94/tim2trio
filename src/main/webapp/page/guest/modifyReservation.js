@@ -45,7 +45,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         $scope.selectedRow = index;
 
         $scope.selectedReservation = reservation;
-        console.log("IS IT TOO LATE?",    $scope.selectedReservation );
+
     }
 
     $scope.mouseOverDelete = function() {
@@ -71,8 +71,13 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         });
     }
 
-    $scope.gradeReservation = function(reservation) {
-        
+    $scope.gradeReservation = function() {
+
+        if( $scope.selectedRow == -1 || $scope.selectedRow == null){
+            alert("Morate odabrati jednu rezervaciju.");
+        }
+        ReservationService.setUnderReview($scope.selectedReservation );
+
         $state.transitionTo( "guest.gradeReservation");
 
     }
