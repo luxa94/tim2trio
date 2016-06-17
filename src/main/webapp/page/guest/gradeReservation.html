@@ -1,0 +1,28 @@
+<div class="medium-8 large-8 columns form">
+
+    <form novalidate name="inviteFriendOnLunch2">
+        <div class="row column ">
+            <h4 class="text-center">Ocenite vaše iskustvo</h4>
+
+            <label>Jelo:
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop1" max="5"></input-stars>
+            </label>
+            <label>Komentar:
+                <input type="text" id="" required  >
+            </label>
+            <label>Usluga:
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop2" max="5"></input-stars>
+            </label>
+            <label>Komentar:
+                <input type="text" placeholder="" required >
+            </label>
+            <label>Celokupan utisak:
+                &nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop3" max="5"></input-stars>
+            </label>
+            <label>Komentar:
+                <input type="text" id="" required  >
+            </label>
+            <button class="button2"  ng-click="gradeReservation(reservation)">Oceni</button>
+        </div>
+    </form>
+</div>

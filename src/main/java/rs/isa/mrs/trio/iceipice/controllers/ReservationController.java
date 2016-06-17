@@ -6,11 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.Reservation;
+import rs.isa.mrs.trio.iceipice.model.dto.GetReservationDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
 import rs.isa.mrs.trio.iceipice.services.ReservationService;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,8 +61,14 @@ public class ReservationController {
 
     }
 
+
     @RequestMapping(value = "/reservation/create", method = RequestMethod.POST)
     public ResponseEntity createReservation(@RequestBody ReservationDTO reservationDTO) {
+
+        //set date object to 00:00
+        Date date = reservationDTO.getDate();
+
+        reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
 
         final Reservation reservation = reservationService.createReservation(reservationDTO);
         if (reservation != null) {
@@ -81,6 +90,30 @@ public class ReservationController {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * Metoda koja kao parametar dobija getReservationDTO koji u sebi ima restaurantID i date
+     * na osnovu kojih izvlaci rezervacije?
+     *
+     * Ulaz restaurant ID i danasnji datum
+     * RestaurantTable 11
+     *
+     */
+    @RequestMapping(value = "/reservation/get/by-restaurant/by-date", method = RequestMethod.POST)
+    public ResponseEntity getReservationsForRestaurant(GetReservationDTO dto) {
+        List<Reservation> reservations = reservationService.getReservationByRestaurantAndDate(dto.getRestaurantId(), dto.getReservationDate());
+        List<ReservationDTO> dtoReservations = new ArrayList<>();
+        for(Reservation res : reservations) {
+            dtoReservations.add(new ReservationDTO(res));
+        }
+
+        return new ResponseEntity<>(dtoReservations, HttpStatus.OK);
+
+    }
+
+    List<ReservationDTO> reservationDTOs = new ArrayList<ReservationDTO>();
+
+
 
 
 }

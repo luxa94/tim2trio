@@ -1,6 +1,9 @@
 'use-strict';
 
-var iceipiceApp = angular.module('iceipiceApp', ['ui.router']);
+var iceipiceApp = angular.module('iceipiceApp', ['ui.router',  'angular-input-stars']);
+
+
+
 
 iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
     $urlRouterProvider.otherwise('/login');
@@ -135,6 +138,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             url: '/inviteFriend',
             templateUrl: 'page/guest/inviteFriend.html',
             controller: 'guestInviteFriendController'
+        })
+        .state('guest.gradeReservation',{
+            url: '/gradeReservation',
+            templateUrl: 'page/guest/gradeReservation.html',
+            controller: 'guestGradeReservationController'
         })
         .state('verify', {
             url: '/authenticate/{id:int}',

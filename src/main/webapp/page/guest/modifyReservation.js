@@ -70,4 +70,12 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             alert("Unable to delete reservation.");
         });
     }
+
+    $scope.gradeReservation = function(reservation) {
+        
+        $state.transitionTo( "guest.gradeReservation");
+
+    }
+
+    
 });
