@@ -6,9 +6,6 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
     $scope.invitedFriends = [];
     $scope.current.page = 3;
 
-
-
-
     GuestService.GetAllFriends($scope.user.id).then(function(data) {
         var friendsList = [];
         for(var i = 0; i < data.length; i++) {
@@ -49,6 +46,13 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
         }
         $scope.invitedFriends.push(friend);
         }
+
+    $scope.goToSelectMenuItem = function (reservation) {
+
+        $state.transitionTo( "guest.selectMenuItem");
+    };
+
+
 
     
 

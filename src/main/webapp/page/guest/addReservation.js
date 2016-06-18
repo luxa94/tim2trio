@@ -37,12 +37,12 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         alert("Vaša rezervacija je uspešno dodata!");
     };
 
-    $scope.goToInviteFriend = function (reservation) {
+    $scope.goToSelectMenuItem = function (reservation) {
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
             return;
         }
-        $state.transitionTo( "guest.inviteFriend");
+        $state.transitionTo( "guest.selectMenuItem");
     };
 
     $scope.validateDate = function (reservation) {

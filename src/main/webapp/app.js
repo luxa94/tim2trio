@@ -139,6 +139,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/guest/inviteFriend.html',
             controller: 'guestInviteFriendController'
         })
+        .state('guest.selectMenuItem',{
+            url: '/selectMenuItem',
+            templateUrl: 'page/guest/selectMenuItem.html',
+            controller: 'guestSelectMenuItemController'
+        })
         .state('guest.gradeReservation',{
             url: '/gradeReservation',
             templateUrl: 'page/guest/gradeReservation.html',
