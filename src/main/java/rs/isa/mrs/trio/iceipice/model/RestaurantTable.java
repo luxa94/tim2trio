@@ -27,7 +27,7 @@ public class RestaurantTable {
     private int capacity;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "area_id", nullable = true)
+    @JoinColumn(name = "area_id", nullable = false)
     private Area area;
 
     @Column(name = "fabric_table", length = 2000)

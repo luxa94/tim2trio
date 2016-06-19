@@ -166,6 +166,16 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/bartender/homeBartender.html',
             controller: 'bartenderHomeController'
         })
+        .state('bartender.shifts', {
+            url: '/shifts',
+            templateUrl: '/page/bartender/bartenderShifts.html',
+            controller: 'bartenderShiftsController'
+        })
+        .state('bartender.orders', {
+            url: '/orders',
+            templateUrl: 'page/bartender/bartenderOrders.html',
+            controller: 'bartenderOrdersController'
+        })
         .state('cook', {
             url: '/cook',
             abstract: true,
@@ -177,6 +187,16 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             url: '/home',
             templateUrl: 'page/cook/homeCook.html',
             controller: 'cookHomeController'
+        })
+        .state('cook.orders', {
+            url: '/orders',
+            templateUrl: 'page/cook/cookOrders.html',
+            controller: 'cookOrdersController'
+        })
+        .state('cook.shifts', {
+            url: '/shifts',
+            templateUrl: 'page/cook/cookShifts.html',
+            controller: 'cookShiftsController'
         })
         .state('waiter', {
             url: '/waiter',

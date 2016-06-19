@@ -18,7 +18,7 @@ public class Order {
     private String status;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "reservation_id", nullable = false)
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
 
     @ManyToMany(fetch = FetchType.LAZY)

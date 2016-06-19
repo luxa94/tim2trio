@@ -14,6 +14,14 @@ iceipiceApp.controller('bartenderBaseController', function ($scope, $http, $stat
         $state.transitionTo('bartender.home');
     };
 
+    $scope.shifts = function () {
+        $state.transitionTo('bartender.shifts');
+    };
+
+    $scope.orders = function () {
+        $state.transitionTo('bartender.orders');
+    };
+
     $scope.logout = function() {
         $state.transitionTo('logout');
     };
