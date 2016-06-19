@@ -9,7 +9,6 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
 
     console.log(ReservationService.asd.reservation.restaurantId);
     $http.get('/api/menuItems/allFromR/' + ReservationService.asd.reservation.restaurantId).success(function(data) {
-       // console.log("$scope.user.restaurant.id = " + $scope.user.restaurant.id);
         $scope.menuItems = data;
     });
 
@@ -25,6 +24,21 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     $scope.goToInviteFriend = function (reservation) {
 
         $state.transitionTo( "guest.inviteFriend");
+    };
+
+    $scope.openDialogForMenuItemInfo= function(mi) {
+        $scope.mi = mi;
+        $scope.popup = new Foundation.Reveal($('#newShowMenuItem'));
+        $scope.popup.open();
+    };
+
+    $scope.showMenuItem = function (mi) {
+        $scope.openDialogForMenuItemInfo(mi);
+       
+    };
+
+    $scope.cancel = function () {
+        $scope.popup.close();
     };
 
 
