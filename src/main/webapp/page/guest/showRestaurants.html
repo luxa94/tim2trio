@@ -21,10 +21,16 @@
     </table>
 </div>
 
-<div class="small reveal" id="newShowRestaurant" data-reveal>
-    <div style="width: 60%">
+<div class="small reveal" id="newShowRestaurant" data-reveal style="width: 50%; height: 80%;">
+    <div class="column" >
     <form novalidate name="showRestaurantInfo">
-      <!--  <h4 class="text-center">Pozovi prijatelja da ti se pridruži</h4> -->
+
+        <label>
+             <span style="position: center;">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image" src="../img/restaurantM.jpg" alt="Submit" >
+            </span>
+        </label>
+        <h4 class="text-center">Informacije o restoranu</h4>
         <label>Naziv
             <input type="text" placeholder="" readonly required ng-model="restaurant.name">
         </label>
@@ -46,11 +52,19 @@
    <!--     <label>Type
             <input type="text" placeholder="" readonly required ng-model="restaurant.type">
         </label> -->
-            <div style="height: 50%"> </div>
-
-
+        <h4 class="text-center">Ocene i recenzije</h4>
+        <br>
+        <label>Ocena:
+            &nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop3" max="5" readonly></input-stars>
+        </label>
+        <label>Komentari:
+            <input type="text" id="" required readonly>
+        </label>
         </form>
-        </div>
+
+
+    </div>
+
     <div>
 
         <div class="button-group float-right">
