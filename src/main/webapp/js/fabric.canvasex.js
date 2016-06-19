@@ -55,8 +55,8 @@
                 });
             }
 
-            if (e.type === 'touchend' && self.touchStartTimer != null) {
-                clearTimeout(self.touchStartTimer);
+            if (e.type === 'touchend' && self.touchstartHourr != null) {
+                clearTimeout(self.touchstartHourr);
             }
         },
 
@@ -66,12 +66,12 @@
             self.callSuper('_onMouseDown', e);
 
             if (e.type === 'touchstart') {
-                var touchStartTimer = setTimeout(function () {
+                var touchstartHourr = setTimeout(function () {
                     self._onTapHold(e);
                     self.isLongTap = true;
                 }, self.tapholdThreshold);
 
-                self.touchStartTimer = touchStartTimer;
+                self.touchstartHourr = touchstartHourr;
 
                 return;
             }
@@ -108,8 +108,8 @@
 
             if (e.type === 'touchend') {
                 // Process tap hold.
-                if (self.touchStartTimer != null) {
-                    clearTimeout(self.touchStartTimer);
+                if (self.touchstartHourr != null) {
+                    clearTimeout(self.touchstartHourr);
                 }
 
                 // Process long tap.

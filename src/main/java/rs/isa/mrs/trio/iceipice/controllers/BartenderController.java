@@ -5,7 +5,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Bartender;
+import rs.isa.mrs.trio.iceipice.model.BartenderShift;
 import rs.isa.mrs.trio.iceipice.model.dto.BartenderDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.BartenderShiftDTO;
 import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
 import rs.isa.mrs.trio.iceipice.services.BartenderService;
 
@@ -61,5 +63,12 @@ public class BartenderController {
                 bartenders.add(b);
         }
         return new ResponseEntity<>(bartenders, HttpStatus.OK);
+    }
+
+
+    @RequestMapping(value = "/bartenderShift/newShift", method = RequestMethod.POST)
+    public ResponseEntity addShifts(@RequestBody BartenderShiftDTO bartenderShiftDTO) {
+        bartenderService.createBartenderShift(bartenderShiftDTO);
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 }

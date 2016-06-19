@@ -44,4 +44,9 @@ public class BartenderShift {
     public void setShift(Shift shift) {
         this.shift = shift;
     }
+
+    public BartenderShift(Bartender bartender, Shift shift) {
+        this.bartender = bartender;
+        this.shift = shift;
+    }
 }

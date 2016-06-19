@@ -15,12 +15,12 @@
 <div class="small-3 columns form" id="addShift">
 
     <div>
-        <h4>Draggable Events</h4>
+        <h4>Radnici:</h4>
         <input type="text" ng-model="query.name" class="search" placeholder="Pronađi radnika..." />
         <button class="button2" ng-click="reverse()">Obrni redosled pretrage</button>
 
         <div ng-repeat="worker in workers | filter: query | orderBy: orderList ">
-            <a   ng-click="addShiftDialog(worker)"><span>{{worker.name}} {{worker.surname}}</span></a>
+            <a ng-click="addShiftDialog(worker)"><span>{{worker.name}} {{worker.surname}}</span></a>
         </div>
 
     </div>
@@ -43,7 +43,7 @@
 
         <label ng-if="selectedWorker.waiter">
             Reon:
-            <select id="area_select" ng-model="shift.area" ng-options="area.name for area in areas track by area.id">
+            <select id="area_select" required ng-model="selectedWorker.area" ng-options="area.name for area in areas track by area.id">
             </select>
         </label>
 

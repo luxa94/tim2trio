@@ -7,6 +7,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     $scope.areas = [];
     $scope.workers = [];
     $scope.shift = {};
+    $scope.shift.areaId = -1;
     $scope.selectedWorker = {};
     var cooks = [];
     var bartenders = [];
@@ -20,6 +21,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
         $scope.restaurant = data;
+        $scope.shift.restaurantId = $scope.restaurant.id;
         console.log("****Restaurant id = " + $scope.restaurant.id);
         $http.get('/api/cook/allFromR/' + $scope.restaurant.id).success(function(data) {
             console.log("KUVARI: " + JSON.stringify(data));
@@ -123,7 +125,14 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     };
 
     $scope.addShift = function () {
-        
-    }
+        console.log("NOVA SMENA: " + JSON.stringify($scope.shift));
+        if ($scope.selectedWorker.waiter) {
+            $scope.shift.areaId = $scope.selectedWorker.area.id;
+        }
+        else
+        {
+            $http.post('/api/bartenderShift/newShift',$scope.shift).success(function(data) { });
+        }
 
+    }
 });

@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Shift {
     private Restaurant restaurant;
 
     @Column(name = "day", nullable = false)
-    private int day;
+    private Date day;
 
     @Column(name = "valid", nullable = false)
     private boolean valid;
@@ -31,11 +32,11 @@ public class Shift {
     @Column(name = "end_hour", nullable = false)
     private String endHour;
 
-    public int getDay() {
+    public Date getDay() {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(Date day) {
         this.day = day;
     }
 
@@ -77,5 +78,13 @@ public class Shift {
 
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public Shift(Restaurant restaurant, Date day, boolean valid, String startHour, String endHour) {
+        this.restaurant = restaurant;
+        this.day = day;
+        this.valid = valid;
+        this.startHour = startHour;
+        this.endHour = endHour;
     }
 }

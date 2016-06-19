@@ -32,12 +32,20 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
                     bartenders[i].bartender = true;
                     bartenders[i].waiter = false;
                 }
-                $scope.workers = cooks.concat(bartenders).concat(waiters);
-                console.log("RADNICI: " + JSON.stringify($scope.workers));
+
+                $http.get('/api/waiter/allFromR/' + $scope.restaurant.id).success(function(data) {
+                    console.log("KONOBARI: " + JSON.stringify(data));
+                    waiters = data;
+                    for (i = 0; i < waiters.length; i++) {
+                        waiters[i].cook = false;
+                        waiters[i].bartender = false;
+                        waiters[i].waiter = true;
+                    }
+                    $scope.workers = cooks.concat(bartenders).concat(waiters);
+                    console.log("RADNICI: " + JSON.stringify($scope.workers));
+                })
             })
         })
-
-
     });
 
     $scope.reverse = function(){
@@ -80,6 +88,5 @@ iceipiceApp.controller('restManagerViewWorkersController', function ($scope, $ht
         });
 
     });
-
 
 });
