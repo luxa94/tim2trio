@@ -1,29 +1,61 @@
+
 <div class="medium-8 large-8 columns form" style="width: 56%; height: 40%;" >
 
-    <form novalidate name="selectManuItemReservation">
+    <form novalidate name="inviteFriendOnLunch">
         <div class="row column ">
-            <h4 class="text-center">Neka te jelo sačeka na stolu!</h4>
+            <h4 class="text-center">Neka te jelo saceka na stolu!</h4>
 
             <p>Pronađi jelo
             </p>
-            <input type="text" ng-model="query.name" class="search" placeholder="Pronađi jelo..." />
+            <input type="text" ng-model="query.name" class="search" placeholder="Pronađi prijatelja..." />
 
-      <!--      <div style="overflow-y:scroll;">
-                <table border="1" >
-                    <tr>
-                        <th>Ime</th>
-                        <th>Prezime</th>
-                        <th>Pozovi</th>
-                    </tr>
-                    <tr ng-repeat="friend in friends | filter: query | orderBy: orderList"  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, friend)" >
-                        <td>{{friend.name}}</td>
-                        <td>{{friend.surname}}</td>
-                        <td><input ng-model="friend.isInvited" style="margin-left: 50%; margin-right: 50%; margin-bottom: 10%; margin-top: 20%;" id="checkbox1" type="checkbox" ng-change="invitedChanged(friend)"><label for="checkbox1"></label>
+            <div style="overflow-y:scroll;">
 
-                        </td>
-                    </tr>
-                </table>
-            </div> -->
+                <div class="row column small-up-2 medium-up-3 large-up-6 form" ng-repeat="ar in articleTypes">
+                    <h4>{{ar.name}}</h4>
+                    <div ng-repeat="mi in menuItems | filter:query" class="column" ng-if="mi.article.articleType.name == ar.name">
+                        <img class="thumbnail" src="http://placehold.it/300x400">
+                        <h5>{{mi.article.name}}</h5>
+                        <p>{{mi.price}}RSD</p>
+                        <a class="button small expanded hollow">Detalji</a>
+                    </div>
+
+                </div>
+
+                <div class="small reveal" id="newMenuItem" data-reveal>
+
+                    <form novalidate name="tableForm">
+                        <h4 class="text-center">Dodaj novu stavku menija</h4>
+                        <label>Naziv artikla
+                            <input type="text" placeholder="meso..." required ng-model="menuItem.articleName">
+                        </label>
+                        <label>Cena
+                            <input type="number" placeholder="999.99$" required ng-model="menuItem.price">
+                        </label>
+
+                        <label>Opis artikla
+                            <textarea type="text" placeholder="jako lepo..." required ng-model="menuItem.articleDescription"></textarea>
+                        </label>
+
+                        <label>Tip artikla
+                            <select required ng-model="menuItem.articleTypeId">
+                                <option ng-repeat="at in articleTypes" value="{{at.id}}" >{{at.name}}</option>
+                            </select>
+                        </label>
+
+                        <div class="button-group float-right">
+                            <input type="submit" class="button" ng-click="addMenuItem()" ng-disabled="tableForm.$invalid" value="Sačuvaj">
+                            <a class="button alert" ng-click="cancel()">Odustani</a>
+                        </div>
+
+                    </form>
+
+                    <button class="close-button" data-close aria-label="Close modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+            </div>
         </div>
     </form>
 </div>
@@ -44,9 +76,9 @@
                 </tr>
             </table>
              <span style="float: right">
-                 <button class="button1 " ng-click="goToAddNewReservation()">Predhodni korak</button>
+                 <button class="button1 " ng-click="goToInviteFriend(reservation)">Predhodni korak</button>
                 <button class="button3 " ng-click="createNewReservation()">Završi rezervaciju</button>
-                <button class="button1 " ng-click="goToInviteFriend(reservation)">Sledeći korak</button>
+                <button class="button1 " ng-click="goToInviteFriend()">Sledeći korak</button>
             </span>
 
         </div>

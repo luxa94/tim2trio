@@ -36,12 +36,25 @@ public class Reservation {
 
     private Set<RestaurantTable> restaurant_tables;
 
-    public Reservation(Date date, String start_hour, String end_hour, Guest guest, Set<RestaurantTable> restaurant_tables) {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    private Restaurant restaurant;
+
+    public Restaurant getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public Reservation(Date date, String start_hour, String end_hour, Guest guest, Set<RestaurantTable> restaurant_tables, Restaurant restaurant) {
         this.date = date;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
         this.guest = guest;
         this.restaurant_tables = restaurant_tables;
+        this.restaurant = restaurant;
     }
 
     public long getId() {

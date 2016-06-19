@@ -25,13 +25,13 @@
             </div>
 
             <label>Datum
-                <input type="date" required ng-model="reservation.date" ng-change="validateDate(reservation)" >
+                <input type="date" required ng-model="asd.reservation.date" ng-change="validateDate(asd.reservation)" >
             </label>
             <label>Vreme dolaska
-                <input type="text" placeholder="15:00" ng-model="reservation.start_hour" required ng-change="validateTime(reservation)" >
+                <input type="text" placeholder="15:00" ng-model="asd.reservation.start_hour" required ng-change="validateTime(asd.reservation)" >
             </label>
             <label>Vreme odlaska
-                <input type="text" placeholder="17:00"ng-model="reservation.end_hour" required ng-change="validateTime(reservation)">
+                <input type="text" placeholder="17:00"ng-model="asd.reservation.end_hour" required ng-change="validateTime(asd.reservation)">
             </label>
         </div>
     </form>
@@ -45,8 +45,8 @@
                    <input type="image" style="position: relative" src="../img/1.png" alt="Submit">
             </label>
             <span style="float: right">
-                <button class="button3 " ng-click="createNewReservation(reservation)">Završi rezervaciju</button>
-                <button class="button1 " ng-click="goToSelectMenuItem(reservation)">Sledeći korak</button>
+                <button class="button3 " ng-click="createNewReservation(asd.reservation)">Završi rezervaciju</button>
+                <button class="button1 " ng-click="goToSelectMenuItem(asd.reservation)">Sledeći korak</button>
             </span>
         </div>
     </form>

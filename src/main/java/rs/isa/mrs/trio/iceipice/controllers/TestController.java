@@ -108,7 +108,7 @@ public class TestController {
             RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
             Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
             tables.add(rt1);
-            Reservation res1 = new Reservation(new Date(), "22:40","14:00", g, tables);
+            Reservation res1 = new Reservation(new Date(), "22:40","14:00", g, tables, r1);
             br.setRestaurant(r);
             ck.setRestaurant(r);
             w.setRestaurant(r);

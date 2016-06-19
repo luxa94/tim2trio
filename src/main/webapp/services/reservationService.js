@@ -20,6 +20,8 @@
         service.Delete = Delete;
         service.getUnderReview = getUnderReview;
         service.setUnderReview = setUnderReview;
+        service.asd = { reservation : {} };
+
 
         return service;
         

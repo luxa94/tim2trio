@@ -26,6 +26,10 @@ public class ReservationDTO {
 
     private RestaurantDTO restaurant;
 
+
+
+    private long restaurantId;
+
     private RestaurantTableDTO restaurantTable;
 
     private List<GuestDTO> guests = new ArrayList<>();
@@ -106,5 +110,13 @@ public class ReservationDTO {
 
     public void setGuests(List<GuestDTO> guests) {
         this.guests = guests;
+    }
+
+    public long getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(long restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }

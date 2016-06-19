@@ -1,9 +1,10 @@
 /**
  * Created by Nina on 17-Apr-16.
  */
-iceipiceApp.controller('guestAddReservationController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService) {
+iceipiceApp.controller('guestAddReservationController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService, ReservationService) {
     $scope.restaurants = [];
     $scope.current.page = 3;
+    $scope.asd = ReservationService.asd;
 
     
     var previousRestaurant = GuestService.getSelectedRestaurant();
@@ -24,17 +25,18 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
 
     $scope.setClickedRow = function(index,restaurant){  //function that sets the value of selectedRow to current index
         $scope.selectedRow = index;
-
+        $scope.asd.reservation.restaurantId = restaurant.id;
         $scope.selectedRestaurant = restaurant;
-    }
+    };
 
     $scope.createNewReservation = function (reservation) {
-
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
             return;
         }
-        alert("Vaša rezervacija je uspešno dodata!");
+        $http.post('/reservation/create', $scope.asd.reservation).success(function (data) {
+            alert("Vaša rezervacija je uspešno dodata!");
+        });
     };
 
     $scope.goToSelectMenuItem = function (reservation) {
@@ -49,7 +51,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         if(typeof reservation.date === 'undefined' || reservation.date === null) {
             return;
         }
-        console.log(reservation.date);
+   //     console.log(reservation.date);
         var today = new Date();
         today  = new Date(today.getFullYear(), today.getMonth(), today.getDay());
         var selectedDate = new Date(reservation.date.getFullYear(), reservation.date.getMonth(), reservation.date.getDay() );
@@ -57,6 +59,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         console.log(selectedDate.getTime());
         console.log(today.getTime());
         if(selectedDate.getTime() < today.getTime()){
+
             alert("Datum rezervacije ne sme biti u prošlosti!");
             reservation.date = null;
         }
