@@ -104,7 +104,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     }
 
 
-    $scope.openDialogForNewShift = function (t) {
+    $scope.openDialogForNewShift = function () {
 
         $scope.popup = new Foundation.Reveal($('#newShift'));
         $scope.popup.open();
