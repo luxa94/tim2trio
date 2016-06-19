@@ -75,6 +75,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
 
         if( $scope.selectedRow == -1 || $scope.selectedRow == null){
             alert("Morate odabrati jednu rezervaciju.");
+            return;
         }
         ReservationService.setUnderReview($scope.selectedReservation );
 

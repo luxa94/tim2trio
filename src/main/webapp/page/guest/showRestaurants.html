@@ -55,11 +55,18 @@
         <h4 class="text-center">Ocene i recenzije</h4>
         <br>
         <label>Ocena:
-            &nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop3" max="5" readonly></input-stars>
+            &nbsp;&nbsp;&nbsp;<input-stars ng-model="restaurant.finalGrade" max="5" readonly></input-stars>
         </label>
         <label>Komentari:
-            <input type="text" id="" required readonly>
-        </label>
+            <div style="overflow-y:scroll;">
+            <table border="1">
+
+                <tr ng-repeat="grade in restaurant.restaurantGrades" >
+                    <td>{{grade.atmosphere_comment}}</td>
+                </tr>
+            </table>
+            </div>
+            </label>
         </form>
 
 

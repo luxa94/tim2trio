@@ -4,12 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.isa.mrs.trio.iceipice.model.Grade;
 import rs.isa.mrs.trio.iceipice.model.Restaurant;
+import rs.isa.mrs.trio.iceipice.model.dto.GradeDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.RestaurantDTO;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantManagerRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantTypeRepository;
+import rs.isa.mrs.trio.iceipice.services.GradeService;
 import rs.isa.mrs.trio.iceipice.services.RestaurantService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nikolalukic on 4/17/16.
@@ -22,6 +28,9 @@ public class RestaurantController {
     RestaurantRepository restaurantRepository;
 
     @Autowired
+    GradeService gradeService;
+
+    @Autowired
     RestaurantManagerRepository restaurantManagerRepository;
 
     @Autowired
@@ -32,8 +41,36 @@ public class RestaurantController {
 
     @RequestMapping(value = "/restaurants/all", method = RequestMethod.GET)
     public ResponseEntity getAllRestaurants() {
-        return new ResponseEntity<>(restaurantRepository.findAll(), HttpStatus.OK);
+
+
+        List<Restaurant> resta = restaurantRepository.findAll();
+        List<RestaurantDTO> dtos = new ArrayList<>();
+        for(Restaurant rest : resta) {
+            List<GradeDTO> grades = gradeService.getAllGradesForRestaurant(rest);
+            int finalGrade = calculateGrade(grades);
+            RestaurantDTO dto = new RestaurantDTO(rest);
+            dto.setRestaurantGrades(grades);
+            dto.setFinalGrade(finalGrade);
+            dtos.add(dto);
+        }
+
+        return new ResponseEntity<>(dtos, HttpStatus.OK);
     }
+
+    private int calculateGrade(List<GradeDTO> grades) {
+
+        int rez = 0;
+        if(grades.size() == 0) {
+            return 0;
+        }
+        for( GradeDTO g : grades){
+            rez += g.getAtmosphere_grade();
+        }
+
+        rez = (int) Math.round((double)rez/grades.size());
+        return rez;
+    }
+
 
     @RequestMapping(value = "/restaurant/one/{id}", method = RequestMethod.GET)
     public ResponseEntity getOneRestaurant(@PathVariable long id) {
