@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Iće i Piće</title>
     <meta name="viewport" content="initial-scale=1"/>
-
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/foundation.min.css"/>
     <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="css/angular-input-stars.css" />
     <link rel="stylesheet" href="css/login.css"/>
     <link rel="stylesheet" href="css/addFriend.css"/>
     <link rel="stylesheet" href="css/viewMenu.css"/>
@@ -19,6 +20,7 @@
 <ui-view></ui-view>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+<script type="text/javascript" src="directive/angular-input-stars.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.6.2/fabric.min.js"></script>
 <script src="js/fabric.canvasex.js"></script>
@@ -49,6 +51,10 @@
 <script src="page/guest/addReservation.js"></script>
 <script src="page/guest/homeGuest.js"></script>
 <script src="page/guest/modifyReservation.js"></script>
+<script src="page/guest/inviteFriend.js"></script>
+<script src="page/guest/selectMenuItem.js"></script>
+
+<script src="page/guest/gradeReservation.js"></script>
 
 <script src="page/restmanager/base.js"></script>
 <script src="page/restmanager/home.js"></script>
@@ -75,5 +81,6 @@
     $(document).foundation();
 </script>
 <script src="services/guestService.js"></script>
+<script src="services/reservationService.js"></script>
 </body>
 </html>

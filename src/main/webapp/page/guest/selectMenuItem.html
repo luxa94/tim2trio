@@ -1,0 +1,54 @@
+<div class="medium-8 large-8 columns form" style="width: 56%; height: 40%;" >
+
+    <form novalidate name="selectManuItemReservation">
+        <div class="row column ">
+            <h4 class="text-center">Neka te jelo sačeka na stolu!</h4>
+
+            <p>Pronađi jelo
+            </p>
+            <input type="text" ng-model="query.name" class="search" placeholder="Pronađi jelo..." />
+
+      <!--      <div style="overflow-y:scroll;">
+                <table border="1" >
+                    <tr>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Pozovi</th>
+                    </tr>
+                    <tr ng-repeat="friend in friends | filter: query | orderBy: orderList"  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, friend)" >
+                        <td>{{friend.name}}</td>
+                        <td>{{friend.surname}}</td>
+                        <td><input ng-model="friend.isInvited" style="margin-left: 50%; margin-right: 50%; margin-bottom: 10%; margin-top: 20%;" id="checkbox1" type="checkbox" ng-change="invitedChanged(friend)"><label for="checkbox1"></label>
+
+                        </td>
+                    </tr>
+                </table>
+            </div> -->
+        </div>
+    </form>
+</div>
+<div class="medium-8 large-8 columns form" style="width: 42%; height: 100%;">
+
+    <form novalidate name="inviteFriendOnLunch2">
+        <div style="overflow-y:scroll;" >
+            <h4 class="text-center">Pozvani prijatelji</h4>
+            <table border="1" >
+                <tr>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+
+                </tr>
+                <tr ng-repeat="friend in invitedFriends | filter: query | orderBy: orderList"  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, friend)" >
+                    <td>{{friend.name}}</td>
+                    <td>{{friend.surname}}</td>
+                </tr>
+            </table>
+             <span style="float: right">
+                 <button class="button1 " ng-click="goToAddNewReservation()">Predhodni korak</button>
+                <button class="button3 " ng-click="createNewReservation()">Završi rezervaciju</button>
+                <button class="button1 " ng-click="goToInviteFriend(reservation)">Sledeći korak</button>
+            </span>
+
+        </div>
+    </form>
+</div>

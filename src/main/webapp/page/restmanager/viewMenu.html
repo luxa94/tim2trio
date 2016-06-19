@@ -5,8 +5,8 @@
 </div>
 
 <div class="row column small-up-2 medium-up-3 large-up-6 form" ng-repeat="ar in articleTypes">
-
-    <div ng-repeat="mi in menuItems | filter:query" class="column" ng-if="mi.article.articleType.name">
+    <h4>{{ar.name}}</h4>
+    <div ng-repeat="mi in menuItems | filter:query" class="column" ng-if="mi.article.articleType.name == ar.name">
         <img class="thumbnail" src="http://placehold.it/300x400">
         <h5>{{mi.article.name}}</h5>
         <p>{{mi.price}}RSD</p>

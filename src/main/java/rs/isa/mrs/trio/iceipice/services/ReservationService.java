@@ -3,11 +3,15 @@ package rs.isa.mrs.trio.iceipice.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.isa.mrs.trio.iceipice.model.Reservation;
+import rs.isa.mrs.trio.iceipice.model.Restaurant;
+import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import  java.util.Date;
+import java.util.Set;
 
 /**
  * Created by Nina on 26-May-16.
@@ -59,6 +63,26 @@ public class ReservationService {
         }
 
         return dtos;
+
+    }
+
+
+
+    public List<Reservation> getReservationByRestaurantAndDate(long id, Date date){
+
+        List<Reservation> restaurant_reservations_on_date = new ArrayList<Reservation>();
+        List<Reservation> reservations = reservationRepository.findAll();
+
+        for(Reservation res : reservations){
+            Set<RestaurantTable> tables = res.getRestaurant_tables();
+            RestaurantTable table = tables.iterator().next();
+            Restaurant restaurant = table.getArea().getRestaurant();
+            if(restaurant.getId() == id && res.getDate().getTime() == date.getTime()){
+                restaurant_reservations_on_date.add(res);
+            }
+
+        }
+        return restaurant_reservations_on_date;
 
     }
 }

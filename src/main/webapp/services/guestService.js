@@ -11,6 +11,8 @@
     UserService.$inject = ['$http'];
     function UserService($http) {
         var service = {};
+        var selectedRestaurant = null;
+        var invitedFriends = [];
 
         service.GetAll = GetAll;
         service.GetById = GetById;
@@ -22,8 +24,29 @@
         service.GetAllFriends = GetAllFriends;
         service.RemoveFriend = RemoveFriend;
         service.InviteFriend = InviteFriend;
+        // prosledjujem restoran
+        service.setSelectedRestaurant =  setSelectedRestaurant;
+        service.getSelectedRestaurant = getSelectedRestaurant;
+        // prosledjujem listu pozvanih prijatelja
+        service.setInvitedFriends = setInvitedFriends;
+        service.getInvitedFriends = getInvitedFriends;
 
         return service;
+
+        function setInvitedFriends(friends) {
+            invitedFriends = friends;
+        }
+        function getInvitedFriends() {
+            return invitedFriends;
+        }
+
+        function setSelectedRestaurant(restaurant) {
+                selectedRestaurant = restaurant;
+        }
+        function getSelectedRestaurant() {
+            return selectedRestaurant;
+        }
+
 
         function GetAll() {
             return $http.get('/api/guest/all').then(handleSuccess, handleError('Error getting all guests'));
@@ -68,6 +91,7 @@
             return $http.post('/api/guest/inviteFriend', addFriendDTO).then(handleSuccess, handleError('Error inviting user'));
         }
         // private functions
+
 
         function handleSuccess(res) {
             return res.data;
