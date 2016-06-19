@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.BartenderShiftDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ShiftDTO;
-import rs.isa.mrs.trio.iceipice.repository.AreaRepository;
-import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
-import rs.isa.mrs.trio.iceipice.repository.BaseUserRepository;
-import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
+import rs.isa.mrs.trio.iceipice.repository.*;
 import util.DateUtil;
 
 import java.text.SimpleDateFormat;

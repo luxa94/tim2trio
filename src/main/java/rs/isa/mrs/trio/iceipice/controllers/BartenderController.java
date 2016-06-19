@@ -9,6 +9,7 @@ import rs.isa.mrs.trio.iceipice.model.BartenderShift;
 import rs.isa.mrs.trio.iceipice.model.dto.BartenderDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.BartenderShiftDTO;
 import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
+import rs.isa.mrs.trio.iceipice.repository.BartenderShiftRepository;
 import rs.isa.mrs.trio.iceipice.services.BartenderService;
 
 import java.util.HashSet;
@@ -26,6 +27,9 @@ public class BartenderController {
 
     @Autowired
     BartenderService bartenderService;
+
+    @Autowired
+    BartenderShiftRepository bartenderShiftRepository;
 
     @RequestMapping(value = "/bartender/all", method = RequestMethod.GET)
     public ResponseEntity getAllBartenders() {
@@ -70,5 +74,10 @@ public class BartenderController {
     public ResponseEntity addShifts(@RequestBody BartenderShiftDTO bartenderShiftDTO) {
         bartenderService.createBartenderShift(bartenderShiftDTO);
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bartenderShift/getAllShifts", method = RequestMethod.GET)
+    public ResponseEntity getAllShifts() {
+        return new ResponseEntity<>(bartenderShiftRepository.findAll(), HttpStatus.OK);
     }
 }

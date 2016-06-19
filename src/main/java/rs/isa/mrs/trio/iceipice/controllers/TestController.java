@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.repository.*;
+import util.DateUtil;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -63,6 +64,9 @@ public class TestController {
     @Autowired
     ReservationRepository reservationRepository;
 
+    @Autowired
+    BartenderShiftRepository bartenderShiftRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -70,6 +74,7 @@ public class TestController {
             restaurantManagerRepository.deleteAll();
 
 
+            bartenderShiftRepository.deleteAll();
             shiftRepository.deleteAll();
             menuItemRepository.deleteAll();
             menuRepository.deleteAll();
@@ -83,6 +88,7 @@ public class TestController {
             areaRepository.deleteAll();
             restaurantRepository.deleteAll();
             guestRepository.deleteAll();
+
 
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
             Restaurant r1 = new Restaurant("Piknik","Opis","PIB2","021500 500","Ribarac 2","picnic@gmail.com");
@@ -129,7 +135,13 @@ public class TestController {
             MenuItem mi8 = new MenuItem(200, new Date(), new Date(), a8, m1);
             MenuItem mi9 = new MenuItem(300, new Date(), new Date(), a9, m1);
 
+            Shift sh1 = new Shift(r,new Date(),true, "01:01", "02:02");
+            Shift sh2 = new Shift(r, DateUtil.addDays(new Date(),1),true, "01:01", "02:02");
+            BartenderShift btsh1 = new BartenderShift(br,sh1);
+            //CookShift cksh1 = new CookShift(ck,sh2);
+
             restaurantRepository.save(r);
+            restaurantRepository.save(r1);
             bartenderRepository.save(br);
             systemManagerRepository.save(sm);
             guestRepository.save(g);
@@ -164,6 +176,9 @@ public class TestController {
             areaRepository.save(area1);
             restaurantTableRepository.save(rt1);
             reservationRepository.save(res1);
+            shiftRepository.save(sh1);
+            shiftRepository.save(sh2);
+            bartenderShiftRepository.save(btsh1);
 
         } catch (Exception e) {
             e.printStackTrace();

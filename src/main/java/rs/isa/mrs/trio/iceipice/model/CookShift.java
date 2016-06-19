@@ -44,4 +44,9 @@ public class CookShift {
     public void setShift(Shift shift) {
         this.shift = shift;
     }
+
+    public CookShift(Cook cook, Shift shift) {
+        this.cook = cook;
+        this.shift = shift;
+    }
 }

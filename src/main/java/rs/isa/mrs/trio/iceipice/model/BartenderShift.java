@@ -49,4 +49,7 @@ public class BartenderShift {
         this.bartender = bartender;
         this.shift = shift;
     }
+
+    public BartenderShift() {
+    }
 }

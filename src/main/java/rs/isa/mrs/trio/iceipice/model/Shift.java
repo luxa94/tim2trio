@@ -87,4 +87,7 @@ public class Shift {
         this.startHour = startHour;
         this.endHour = endHour;
     }
+
+    public Shift() {
+    }
 }

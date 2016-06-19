@@ -7,6 +7,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     $scope.areas = [];
     $scope.workers = [];
     $scope.shift = {};
+    $scope.shiftsInCalendar = [];
     $scope.shift.areaId = -1;
     $scope.selectedWorker = {};
     var cooks = [];
@@ -18,13 +19,43 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
         $scope.areas = data;
     });
 
+    $http.get('/api/bartenderShift/getAllShifts').success(function(data) {
+        var index;
+        var oneShiftInCalendar;
+        console.log("SVE SMENE " + JSON.stringify(data));
+        for (index = 0; index < data.length; ++index) {
+            oneShiftInCalendar = {
+                //id: data[index].id,
+                title: data[index].bartender.name + " " + data[index].bartender.surname,
+                start: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.startHour,
+                end: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.endHour,
+                //allday: true
+            };
+            $scope.shiftsInCalendar.push(oneShiftInCalendar);
+        }
+        console.log("SMENE ZA KALENDAR" + JSON.stringify($scope.shiftsInCalendar));
+
+
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            editable: false,
+            events: $scope.shiftsInCalendar
+
+        });
+    });
+
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
         $scope.restaurant = data;
         $scope.shift.restaurantId = $scope.restaurant.id;
-        console.log("****Restaurant id = " + $scope.restaurant.id);
+        //console.log("****Restaurant id = " + $scope.restaurant.id);
         $http.get('/api/cook/allFromR/' + $scope.restaurant.id).success(function(data) {
-            console.log("KUVARI: " + JSON.stringify(data));
+            //console.log("KUVARI: " + JSON.stringify(data));
             cooks = data;
 
             for (i = 0; i < cooks.length; i++){
@@ -34,7 +65,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
             }
 
             $http.get('/api/bartender/allFromR/' + $scope.restaurant.id).success(function(data) {
-                console.log("SANKERI: " + JSON.stringify(data));
+                //console.log("SANKERI: " + JSON.stringify(data));
                 bartenders = data;
                 for (i = 0; i < bartenders.length; i++){
                     bartenders[i].cook = false;
@@ -43,7 +74,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
                 }
 
                 $http.get('/api/waiter/allFromR/' + $scope.restaurant.id).success(function(data) {
-                    console.log("KONOBARI: " + JSON.stringify(data));
+                    //console.log("KONOBARI: " + JSON.stringify(data));
                     waiters = data;
                     for (i = 0; i < waiters.length; i++) {
                         waiters[i].cook = false;
@@ -51,46 +82,14 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
                         waiters[i].waiter = true;
                     }
                     $scope.workers = cooks.concat(bartenders).concat(waiters);
-                    console.log("RADNICI: " + JSON.stringify($scope.workers));
+                    //console.log("RADNICI: " + JSON.stringify($scope.workers));
                 })
             })
         })
     });
 
-    $(document).ready(function() {
 
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            editable: true,
-            droppable: true, // this allows things to be dropped onto the calendar !!!
-            drop: function(date) { // this function is called when something is dropped
 
-                // retrieve the dropped element's stored Event Object
-                var originalEventObject = $(this).data('eventObject');
-
-                // we need to copy it, so that multiple events don't have a reference to the same object
-                var copiedEventObject = $.extend({}, originalEventObject);
-
-                // assign it the date that was reported
-                copiedEventObject.start = date;
-
-                // render the event on the calendar
-                // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-                $('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
-
-                // is the "remove after drop" checkbox checked?
-                if ($('#drop-remove').is(':checked')) {
-                    // if so, remove the element from the "Draggable Events" list
-                    $(this).remove();
-                }
-
-            }
-        });
-    });
 
     $scope.reverse = function(){
         if($scope.orderList == "name"){
@@ -125,14 +124,36 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     };
 
     $scope.addShift = function () {
+        var oneShiftInCalendar = {};
         console.log("NOVA SMENA: " + JSON.stringify($scope.shift));
         if ($scope.selectedWorker.waiter) {
             $scope.shift.areaId = $scope.selectedWorker.area.id;
+            //$http.post('/api/waiterShift/newShift',$scope.shift).success(function(data) { });
+
         }
-        else
+        else if ($scope.selectedWorker.bartender)
         {
             $http.post('/api/bartenderShift/newShift',$scope.shift).success(function(data) { });
+
         }
+        else if ($scope.selectedWorker.cook)
+        {
+            //$http.post('/api/cookShift/newShift',$scope.shift).success(function(data) { });
+
+        }
+        else{
+            console.log("NEKI CETVRTI TIP RADNIKA!!!");
+            return;
+        }
+
+        oneShiftInCalendar = {
+            title: $scope.selectedWorker.name + " " +$scope.selectedWorker.surname,
+            start: $scope.shift.startDate,
+            end: $scope.shift.endDate,
+            allday: true
+        };
+        $scope.shiftsInCalendar.push(oneShiftInCalendar);
+
 
     }
 });
