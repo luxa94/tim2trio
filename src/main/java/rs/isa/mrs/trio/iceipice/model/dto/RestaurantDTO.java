@@ -28,12 +28,21 @@ public class RestaurantDTO {
 
     private List<GradeDTO> restaurantGrades = new ArrayList<>();
 
-    private int finalGrade;
+    private int finalGradeMeal;
+
+    private int finalGradeWaiter;
+
+    private int finalGrade; // for restaurant
 
     public RestaurantDTO(Restaurant restaurant) {
         id = restaurant.getId();
         name = restaurant.getName();
         description = restaurant.getDescription();
+        pib = restaurant.getPib();
+        phoneNumber = restaurant.getPhoneNumber();
+        address = restaurant.getAddress();
+        email = restaurant.getEmail();
+
     }
 
     public long getId() {
@@ -114,5 +123,21 @@ public class RestaurantDTO {
 
     public void setFinalGrade(int finalGrade) {
         this.finalGrade = finalGrade;
+    }
+
+    public int getFinalGradeMeal() {
+        return finalGradeMeal;
+    }
+
+    public void setFinalGradeMeal(int finalGradeMeal) {
+        this.finalGradeMeal = finalGradeMeal;
+    }
+
+    public int getFinalGradeWaiter() {
+        return finalGradeWaiter;
+    }
+
+    public void setFinalGradeWaiter(int finalGradeWaiter) {
+        this.finalGradeWaiter = finalGradeWaiter;
     }
 }

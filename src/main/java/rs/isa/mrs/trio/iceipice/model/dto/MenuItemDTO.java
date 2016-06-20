@@ -1,5 +1,8 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Sandra on 25.5.2016.
  */
@@ -10,6 +13,8 @@ public class MenuItemDTO {
     private long articleTypeId;
     private String articleDescription;
     private long menuId;
+
+    private List<GradeDTO> menuItemGrades = new ArrayList<>();
 
     public long getMenuId() {
         return menuId;
@@ -54,5 +59,11 @@ public class MenuItemDTO {
         this.articleTypeId = articleTypeId;
     }
 
+    public List<GradeDTO> getMenuItemGrades() {
+        return menuItemGrades;
+    }
 
+    public void setMenuItemGrades(List<GradeDTO> menuItemGrades) {
+        this.menuItemGrades = menuItemGrades;
+    }
 }

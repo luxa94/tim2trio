@@ -36,6 +36,7 @@ public class ReservationController {
     public ResponseEntity getAllReservations(@PathVariable long id) {
         List<ReservationDTO> reservations = reservationService.getGuestsReservations(id);
 
+        
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 

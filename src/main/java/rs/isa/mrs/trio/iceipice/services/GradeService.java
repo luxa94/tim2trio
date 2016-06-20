@@ -67,4 +67,19 @@ public class GradeService {
         return dtos;
     }
 
+    // proveriti 
+    public List<GradeDTO> getAllGradesForMeal(Restaurant rest) {
+
+        List<GradeDTO> dtos = new ArrayList<>();
+        List<Reservation> reservations = reservationService.getReservationByRestaurant(rest.getId());
+
+        for(Reservation res: reservations){
+            for(Grade grade : gradeRepository.findByReservation_id((res.getId()))){
+                GradeDTO gradeDTO = new GradeDTO(grade);
+                dtos.add(gradeDTO);
+            }
+        }
+        return dtos;
+    }
+
 }

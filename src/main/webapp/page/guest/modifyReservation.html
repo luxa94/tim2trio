@@ -40,19 +40,20 @@
             <div class="row column ">
                 <h4 class="text-center">Ocenite vaše iskustvo</h4>
                 <br>
-                <label>Jelo:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.meal_grade" max="5"></input-stars>
+                <label>Hrana:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.meal_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" required ng-model = "grade.meal_comment" >
                 </label>
-                <label>Uluga konobara:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.waiter_grade" max="5"></input-stars>
+                <label>Uluga:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.waiter_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" ng-model = "grade.waiter_comment" required >
                 </label>
-                <label>Restoran:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.atmosphere_grade" max="5"></input-stars>
+                <label>Atmosfera:
+                    <input-stars ng-model="grade.atmosphere_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" ng-model = "grade.atmosphere_comment" required  >

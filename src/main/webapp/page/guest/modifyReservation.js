@@ -3,9 +3,13 @@
  */
 iceipiceApp.controller('guestModifyReservationController', function ($scope, $http, $state, $stateParams, authorizationService,ReservationService) {
     $scope.reservations = [];
-    $scope.current.page = 4
+    $scope.current.page = 4;
 
-    $scope.grade = {}
+    $scope.reservation = {
+        niceDate: new Date()
+    };
+
+    $scope.grade = {};
     $scope.grade.meal_grade = 0;
     $scope.grade.waiter_grade = 0;
     $scope.grade.atmosphere_grade= 0;
@@ -26,23 +30,20 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
     };
 
     $http.get('/api/reservations/all/' + $scope.user.id).success(function (data) {
-
+        
         var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
 
-
-
         for(var i = 0; i < data.length; i++){
-
-
+            
             var calculatedDate = new Date( data[i].date);
             var todayDay = calculatedDate.getDay();
             var todayMonth = calculatedDate.getMonth();
-            var todayYear = calculatedDate.getYear();
+            var todayYear = calculatedDate.getFullYear();
             var startHour = parseInt(data[i].start_hour.substring(0,3));
             var startMinutes = parseInt(data[i].start_hour.substring(3));
 
 
-            data[i].niceDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).toString();
+            data[i].niceDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).toISOString().substring(0, 10);
 
             calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
 
@@ -52,7 +53,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             } else {
                 data[i].tooLate = false;
             }
-            console.log("IS IT TOO LATE?",    data[i] );
+     //       console.log("IS IT TOO LATE?",    data[i] );
         }
         $scope.reservations = data;
     });
