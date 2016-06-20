@@ -79,4 +79,15 @@ public class AuctionItem {
     public void setAuctionItemType(AuctionItemType auctionItemType) {
         this.auctionItemType = auctionItemType;
     }
+
+    public AuctionItem(String name, long quantity, Auction auction, AuctionItemType auctionItemType, AuctionItemUnit auctionItemUnit) {
+        this.name = name;
+        this.quantity = quantity;
+        this.auction = auction;
+        this.auctionItemType = auctionItemType;
+        this.auctionItemUnit = auctionItemUnit;
+    }
+
+    public AuctionItem() {
+    }
 }
