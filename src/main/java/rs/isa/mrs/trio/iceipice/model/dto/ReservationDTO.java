@@ -26,7 +26,7 @@ public class ReservationDTO {
 
     private RestaurantDTO restaurant;
 
-
+    private Boolean graded;
 
     private long restaurantId;
 
@@ -118,5 +118,13 @@ public class ReservationDTO {
 
     public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Boolean getGraded() {
+        return graded;
+    }
+
+    public void setGraded(Boolean graded) {
+        this.graded = graded;
     }
 }

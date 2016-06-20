@@ -48,9 +48,13 @@ public class RestaurantController {
         for(Restaurant rest : resta) {
             List<GradeDTO> grades = gradeService.getAllGradesForRestaurant(rest);
             int finalGrade = calculateGrade(grades);
+            int finalGradeMeal = calculateMealGrade(grades);
+            int finalGradeWaiter = calculateWaiterGrade(grades);
             RestaurantDTO dto = new RestaurantDTO(rest);
             dto.setRestaurantGrades(grades);
             dto.setFinalGrade(finalGrade);
+            dto.setFinalGradeMeal(finalGradeMeal);
+            dto.setFinalGradeWaiter(finalGradeWaiter);
             dtos.add(dto);
         }
 
@@ -69,6 +73,33 @@ public class RestaurantController {
 
         rez = (int) Math.round((double)rez/grades.size());
         return rez;
+    }
+
+    private int calculateMealGrade(List<GradeDTO> grades) {
+
+        int rez1 = 0;
+        if(grades.size() == 0) {
+            return 0;
+        }
+        for( GradeDTO g : grades){
+            rez1 += g.getMeal_grade();
+        }
+
+        rez1 = (int) Math.round((double)rez1/grades.size());
+        return rez1;
+    }
+    private int calculateWaiterGrade(List<GradeDTO> grades) {
+
+        int rez2 = 0;
+        if(grades.size() == 0) {
+            return 0;
+        }
+        for( GradeDTO g : grades){
+            rez2 += g.getWaiter_grade();
+        }
+
+        rez2 = (int) Math.round((double)rez2/grades.size());
+        return rez2;
     }
 
 

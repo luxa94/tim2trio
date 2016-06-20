@@ -10,6 +10,7 @@ import rs.isa.mrs.trio.iceipice.model.dto.GetReservationDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
+import rs.isa.mrs.trio.iceipice.services.GradeService;
 import rs.isa.mrs.trio.iceipice.services.ReservationService;
 
 import java.util.ArrayList;
@@ -30,13 +31,20 @@ public class ReservationController {
     ReservationService reservationService;
 
     @Autowired
+    GradeService gradeService;
+
+    @Autowired
     GuestRepository guestRepository;
 
     @RequestMapping(value = "/reservations/all/{id}", method = RequestMethod.GET)
     public ResponseEntity getAllReservations(@PathVariable long id) {
         List<ReservationDTO> reservations = reservationService.getGuestsReservations(id);
 
-        
+        for(ReservationDTO res : reservations){
+            boolean isGraded = gradeService.userHasGraded(id, res.getId());
+            res.setGraded(isGraded);
+        }
+
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 
@@ -59,7 +67,6 @@ public class ReservationController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
     }
 
 
@@ -107,9 +114,7 @@ public class ReservationController {
         for(Reservation res : reservations) {
             dtoReservations.add(new ReservationDTO(res));
         }
-
         return new ResponseEntity<>(dtoReservations, HttpStatus.OK);
-
     }
 
     List<ReservationDTO> reservationDTOs = new ArrayList<ReservationDTO>();

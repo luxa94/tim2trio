@@ -82,4 +82,17 @@ public class GradeService {
         return dtos;
     }
 
+    public boolean userHasGraded(long userId, long reservationId) {
+        Reservation res = reservationRepository.findById(reservationId);
+        if(res == null) {
+            return false;
+        }
+
+        for(Grade grade : gradeRepository.findByReservation_id((res.getId()))){
+            if(grade.getGuest().getId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
