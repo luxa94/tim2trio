@@ -56,6 +56,7 @@ public class AuctionItemService {
     }
 
     public List<AuctionItem> getAuctionItemFromAuctionId(long auctionId){
+        System.out.print("USAO U METODU U SERVISU");
         List<AuctionItem> auctionItemList = new ArrayList<AuctionItem>();
         List<AuctionItem> allItems = auctionItemRepository.findAll();
 

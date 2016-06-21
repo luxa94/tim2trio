@@ -36,13 +36,13 @@ public class AuctionController {
         return new ResponseEntity<>(auctionRepository.findAll(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/auctionItem/newAuctionItem", method = RequestMethod.POST)
+    @RequestMapping(value = "/auctionItem/new", method = RequestMethod.POST)
     public ResponseEntity addAuctionItem(@RequestBody AuctionItemDTO auctionItemDTO) {
         AuctionItem ai = auctionItemService.addAuctionItem(auctionItemDTO);
         return new ResponseEntity<>(ai, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/auction/newAuction", method = RequestMethod.POST)
+    @RequestMapping(value = "/auction/new", method = RequestMethod.POST)
     public ResponseEntity addAuction(@RequestBody AuctionDTO auctionDTO) {
         Auction a = auctionService.addAuction(auctionDTO);
         return new ResponseEntity<>(a, HttpStatus.OK);
@@ -50,6 +50,7 @@ public class AuctionController {
 
     @RequestMapping(value = "/auction/allItemsFromAuction/{id}", method = RequestMethod.GET)
     public ResponseEntity getAllAuctionItemsFromAuction(@PathVariable long id){
+        System.out.print("USAO U METODU U KONTROLERU");
         List<AuctionItem> list = auctionItemService.getAuctionItemFromAuctionId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
