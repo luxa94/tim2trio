@@ -43,20 +43,25 @@ public class ReservationService {
 
         try{
             List<Guest> backup = reservation.getGuests();
-            reservation.setGuests(null);
-            reservation = reservationRepository.save(reservation);
+           // reservation.setGuests(null);
+          ///////////////////////////////// // reservation = reservationRepository.save(reservation);
             reservation.setGuests(backup);
-            for(Guest guest: backup) {
-                guest.getReservations().add(reservation);
-                guestRepository.save(guest);
-            }
             reservation = reservationRepository.save(reservation);
+            List<Guest> backups2 = new ArrayList<Guest>();
+            backups2.addAll(backup);
+           for(int i = 0; i < backups2.size(); i++) {
+                Guest newGuest = guestRepository.findById(backups2.get(i).getId());
+               newGuest.getReservations().add(reservation);
+               guestRepository.save(newGuest);
+            }
 
-            createOrderItems(reservationDTO, reservation);
             reservation = reservationRepository.findById(reservation.getId());
+            createOrderItems(reservationDTO, reservation);
+
 
             return reservation;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
@@ -70,6 +75,10 @@ public class ReservationService {
             order.setReservation(reservation);
             order.setRestaurantTables(reservation.getRestaurant_tables());
             order = orderRepository.save(order);
+            List<OrderItem> orderItems = new ArrayList<>();
+           // orders.add(order);
+            reservation.setOrders(orderItems);
+
             for(OrderItemDTO dto : reservationDTO.getOrders()) {
                 OrderItem item = new OrderItem();
                 item.setAmount(dto.getAmount());
@@ -84,7 +93,7 @@ public class ReservationService {
             }
             orderRepository.save(order);
         }catch(Exception e) {
-
+            e.printStackTrace();
         }
 
     }

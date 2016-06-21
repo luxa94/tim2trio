@@ -34,7 +34,6 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
     $scope.gotToReservation = function (restaurant) {
         
         GuestService.setSelectedRestaurant(restaurant);
-
         $state.transitionTo( "guest.addReservation");
     };
 

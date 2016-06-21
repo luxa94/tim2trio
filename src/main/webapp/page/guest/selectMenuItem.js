@@ -13,6 +13,10 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     $scope.orderItem = {};
     $scope.orderItems = [];
 
+    $scope.asd = ReservationService.asd;
+
+    
+
 
 
     console.log(ReservationService.asd.reservation.restaurantId);
@@ -22,9 +26,9 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
         var orderList = ReservationService.asd.reservation.orders;
         if(orderList.length != 0) {
             for(var i = 0; i < orderList.length; i++) {
-                for(var j = 0; j < $scope.menuItem.length; j++) {
-                    if($scope.menuItem[j].id == order[i].menuItemId) {
-                        $scope.selectedMenuItems.push($scope.menuItem[j]);
+                for(var j = 0; j < $scope.menuItems.length; j++) {
+                    if($scope.menuItems[j].id == order[i].menuItemId) {
+                        $scope.selectedMenuItems.push($scope.menuItems[j]);
                     }
                 }
             }
@@ -37,8 +41,7 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
         $scope.articleTypes = data;
     });
     
-    $scope.goToAddNewReservation = function () {
-
+    $scope.goToAddNewReservation = function (reservation) {
 
         var items = [];
         for(var i = 0; i < $scope.selectedMenuItems.length; i++) {
@@ -47,14 +50,18 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
             item.menuItemId = $scope.selectedMenuItems[i].id;
             items.push(item);
         }
-
         var reservation  = ReservationService.asd.reservation;
+        reservation.restaurantId = $scope.asd.reservation.restaurantId;
+        // vrati dobar id restorana
+        console.log("vracam rez: " + reservation.restaurantId);
         reservation.orders = items;
+
 
         $state.transitionTo( "guest.addReservation");
     };
 
     $scope.goToInviteFriend = function (reservation) {
+
         var items = [];
         for(var i = 0; i < $scope.selectedMenuItems.length; i++) {
             var item = {};
@@ -121,7 +128,7 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
         }, function(){
             alert("Vaša rezervacija nije uspešno dodata!");
         });
-        $state.transitionTo( "guest.selectMenuItem");
+        $state.transitionTo( "guest.homePageGuest");
     };
 
 });
