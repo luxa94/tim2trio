@@ -76,13 +76,14 @@ public class ReservationController {
         System.out.println(reservationDTO);
 
         //set date object to 00:00
-        Date date = reservationDTO.getDate();
+      //  Date date = reservationDTO.getDate();
 
-        reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
+        // ovde se nesto cudno desava
+       // reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
 
         final Reservation reservation = reservationService.createReservation(reservationDTO);
         if (reservation != null) {
-            return new ResponseEntity<>(reservation, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

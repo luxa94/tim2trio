@@ -30,6 +30,7 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
         var reservation  = ReservationService.asd.reservation;
         reservation.guests = $scope.invitedFriends;
         reservation.guests.push($scope.user);
+        
         ReservationService.Create(reservation).then(function (data) {
             alert("Vaša rezervacija je uspešno dodata!");
         }, function(){

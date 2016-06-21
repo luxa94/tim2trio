@@ -6,10 +6,10 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.current.page = 3;
     $scope.asd = ReservationService.asd;
     $scope.asd.reservation.guests = [ $scope.user];
-    $scope.asd.reservation.menuItems = [];
+    $scope.asd.reservation.orders = [];
+    var pasedRestaurant = GuestService.getSelectedRestaurant();
     
     var previousRestaurant = GuestService.getSelectedRestaurant();
-
 
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
@@ -20,6 +20,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             if($scope.restaurants[i].id === previousRestaurant.id) {
                 $scope.selectedRow = i;
                 $scope.selectedRestaurant = $scope.restaurants[i];
+                GuestService.setSelectedRestaurant($scope.selectedRestaurant);
                 return;
             }
         }
@@ -39,16 +40,22 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             alert("Morate uneti početno vreme rezervacije!");
             return;
         }
-        if($scope.asd.reservation.restaurantId == null){
+
+        if($scope.asd.reservation.restaurantId == null && pasedRestaurant.id == null){
             alert("Morate selektovati željeni restoran!");
             return;
         }
+
         if(reservation.date == null){
             alert("Morate uneti datum rezervacije!");
             return;
         }
-        reservation.restaurantId = $scope.asd.reservation.restaurantId;
-
+        if(pasedRestaurant != null){
+            reservation.restaurantId = pasedRestaurant.id;
+        }
+        else {
+            reservation.restaurantId = $scope.asd.reservation.restaurantId;
+        }
 
         ReservationService.Create(reservation).then(function (data) {
             alert("Vaša rezervacija je uspešno dodata!");
@@ -58,11 +65,12 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     };
 
     $scope.goToSelectMenuItem = function (reservation) {
+
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
             return;
         }
-        if($scope.asd.reservation.restaurantId == null){
+        if($scope.asd.reservation.restaurantId == null && pasedRestaurant.id == null){
             alert("Morate selektovati željeni restoran!");
             return;
         }
@@ -70,6 +78,13 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             alert("Morate uneti datum rezervacije!");
             return;
         }
+        if(pasedRestaurant != null){
+            reservation.restaurantId = pasedRestaurant.id;
+        }
+        else {
+            reservation.restaurantId = $scope.asd.reservation.restaurantId;
+        }
+
         $state.transitionTo( "guest.selectMenuItem");
     };
 
