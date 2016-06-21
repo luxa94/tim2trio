@@ -31,10 +31,12 @@ iceipiceApp.controller('restmanagerDefineAreasController', function ($scope, $ht
                 fabricTable = new fabric.Rect(t);
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
+                fabricTable.selectable = false;
             } else if (t.type == 'circle') {
                 fabricTable = new fabric.Circle(t);
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
+                fabricTable.selectable = false;
             }
         }
         canvas.renderAll();
