@@ -1,5 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +42,9 @@ public class Reservation {
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
 
+    @JsonBackReference("reservation-order")
+    @OneToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+    private List<OrderItem> orders;
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -107,5 +112,13 @@ public class Reservation {
 
     public void setGuests(List<Guest> guests) {
         this.guests = guests;
+    }
+
+    public List<OrderItem> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderItem> orders) {
+        this.orders = orders;
     }
 }

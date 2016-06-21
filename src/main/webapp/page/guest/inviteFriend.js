@@ -57,6 +57,10 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
 
     $scope.goToSelectMenuItem = function (reservation) {
 
+        var reservation  = ReservationService.asd.reservation;
+        reservation.guests = $scope.invitedFriends;
+        reservation.guests.push($scope.user);
+        
         $state.transitionTo( "guest.selectMenuItem");
     };
 

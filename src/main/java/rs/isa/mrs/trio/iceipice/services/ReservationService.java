@@ -4,11 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
-import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
-import rs.isa.mrs.trio.iceipice.repository.MenuItemRepository;
-import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
-import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
+import rs.isa.mrs.trio.iceipice.repository.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +31,11 @@ public class ReservationService {
     @Autowired
     MenuItemRepository menuItemRepository;
 
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
+    @Autowired
+    OrderRepository orderRepository;
 
     public Reservation createReservation(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
@@ -49,10 +52,41 @@ public class ReservationService {
             }
             reservation = reservationRepository.save(reservation);
 
+            createOrderItems(reservationDTO, reservation);
+            reservation = reservationRepository.findById(reservation.getId());
+
             return reservation;
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private void createOrderItems(ReservationDTO reservationDTO, Reservation reservation) {
+        if(reservationDTO.getOrders() == null || reservationDTO.getOrders().size() ==0) {
+            return;
+        }
+        try {
+            Order order = new Order();
+            order.setReservation(reservation);
+            order.setRestaurantTables(reservation.getRestaurant_tables());
+            order = orderRepository.save(order);
+            for(OrderItemDTO dto : reservationDTO.getOrders()) {
+                OrderItem item = new OrderItem();
+                item.setAmount(dto.getAmount());
+                MenuItem menuItem = menuItemRepository.findById(dto.getMenuItemId());
+                item.setMenuItem(menuItem);
+                item.setReservations(reservation);
+                item.setOrder(order);
+                item  = orderItemRepository.save(item);
+                reservation.getOrders().add(item);
+                reservation = reservationRepository.save(reservation);
+
+            }
+            orderRepository.save(order);
+        }catch(Exception e) {
+
+        }
+
     }
 
     public Reservation editReservation(ReservationDTO reservationDTO) {
@@ -95,7 +129,20 @@ public class ReservationService {
         List<ReservationDTO> dtos = new ArrayList<>();
 
         for(Reservation reservation : reservations) {
-            dtos.add(new ReservationDTO(reservation));
+            ReservationDTO resDTO = new ReservationDTO(reservation);
+
+
+            List<OrderItem> orders = orderItemRepository.findAll();
+            List<OrderItemDTO> itemDtos = new ArrayList<>();
+            for(OrderItem item : orders) {
+                if(item.getReservations().getId() == reservation.getId()){
+                    itemDtos.add(new OrderItemDTO(item));
+                }
+            }
+
+            resDTO.setOrders(itemDtos);
+            dtos.add(resDTO);
+
         }
 
         return dtos;

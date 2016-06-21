@@ -1,9 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
-import rs.isa.mrs.trio.iceipice.model.Guest;
-import rs.isa.mrs.trio.iceipice.model.Reservation;
-import rs.isa.mrs.trio.iceipice.model.Restaurant;
-import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
+import rs.isa.mrs.trio.iceipice.model.*;
 
 import javax.persistence.Column;
 import java.util.ArrayList;
@@ -34,6 +31,8 @@ public class ReservationDTO {
 
     private List<GuestDTO> guests = new ArrayList<>();
 
+    private List<OrderItemDTO> orders = new ArrayList<>();
+
     public ReservationDTO(Reservation reservation) {
         id = reservation.getId();
         date = reservation.getDate();
@@ -46,8 +45,16 @@ public class ReservationDTO {
             tableDTO.add(new RestaurantTableDTO(table));
         }
         this.restaurant = new RestaurantDTO(reservation.getRestaurant());
-
-
+        guests = new ArrayList<GuestDTO>();
+        for(Guest guest: reservation.getGuests()) {
+            GuestDTO dto = new GuestDTO(guest);
+            guests.add(dto);
+        }
+        orders = new ArrayList<OrderItemDTO>();
+       for(OrderItem order : reservation.getOrders()){
+           OrderItemDTO dto = new OrderItemDTO(order);
+          orders.add(dto);
+       }
     }
 
     public ReservationDTO() {
@@ -65,10 +72,11 @@ public class ReservationDTO {
                 ", restaurantId=" + restaurantId +
                 ", restaurantTable=" + restaurantTable +
                 ", guests=" + guests +
+                ", orders=" + orders +
                 '}';
     }
 
-// Treba da se dodaju stavke menija u porudzbinu!!!!!!!!!!
+    // Treba da se dodaju stavke menija u porudzbinu!!!!!!!!!!
 
     public long getId() {
         return id;
@@ -140,5 +148,13 @@ public class ReservationDTO {
 
     public void setGraded(Boolean graded) {
         this.graded = graded;
+    }
+
+    public List<OrderItemDTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderItemDTO> orders) {
+        this.orders = orders;
     }
 }
