@@ -61,7 +61,8 @@ public class AuctionItemService {
         List<AuctionItem> allItems = auctionItemRepository.findAll();
 
         for (AuctionItem ai : allItems) {
-            auctionItemList.add(ai);
+            if(ai.getAuction().getId() == auctionId)
+                auctionItemList.add(ai);
         }
 
         return auctionItemList;

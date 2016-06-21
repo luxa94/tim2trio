@@ -1,0 +1,25 @@
+<div class="background-image">
+
+    <div class="top-bar">
+        <div class="row">
+            <div class="top-bar-left">
+                <ul class="menu" data-dropdown-menu>
+                    <li><a ng-class="{active: current.page==0}" ng-click="home()">Početna</a></li>
+                    <li><a ng-class="{active: current.page==1}" ng-click="previewLists()">Pregled</a></li>
+                </ul>
+            </div>
+            <div class="top-bar-right">
+                <ul class="menu">
+                    <li>
+                        <button type="button" class="button" ng-click="logout()">Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container"></div>
+    <div class="row">
+        <ui-view></ui-view>
+    </div>
+</div>

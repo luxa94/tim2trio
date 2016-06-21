@@ -190,6 +190,22 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/waiter/homeWaiter.html',
             controller: 'waiterHomeController'
         })
+        .state('provider',{
+            url: '/provider',
+            abstract : true,
+            templateUrl: 'page/provider/base.html',
+            controller: 'providerBaseController'
+        })
+        .state('provider.home',{
+            url: '/home',
+            templateUrl: 'page/provider/home.html',
+            controller: 'providerHomeController'
+        })
+        .state('provider.previewLists',{
+            url: '/previewLists',
+            templateUrl: 'page/provider/previewLists.html',
+            controller: 'providerPreviewListsController'
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

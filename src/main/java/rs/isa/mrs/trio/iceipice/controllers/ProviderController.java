@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import rs.isa.mrs.trio.iceipice.globals.UserTypes;
 import rs.isa.mrs.trio.iceipice.model.Provider;
+import rs.isa.mrs.trio.iceipice.model.dto.ProviderDTO;
 import rs.isa.mrs.trio.iceipice.repository.ProviderRepository;
 import rs.isa.mrs.trio.iceipice.services.ProviderService;
 
@@ -32,6 +33,17 @@ public class ProviderController {
         provider = providerRepository.save(provider);
         return new ResponseEntity<>(provider, HttpStatus.OK);
 
+    }
+
+    @RequestMapping(value = "/provider/update", method = RequestMethod.POST)
+    public ResponseEntity updateSystemManager(@RequestBody ProviderDTO providerDTO) {
+
+        final Provider p = providerService.editProvider(providerDTO);
+        if (p != null) {
+            return new ResponseEntity<>(p, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

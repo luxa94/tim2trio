@@ -67,6 +67,9 @@ public class TestController {
     @Autowired
     BartenderShiftRepository bartenderShiftRepository;
 
+    @Autowired
+    ProviderRepository providerRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -80,6 +83,7 @@ public class TestController {
             menuRepository.deleteAll();
             articleRepository.deleteAll();
             articleTypeRepository.deleteAll();
+
             bartenderRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
@@ -88,6 +92,7 @@ public class TestController {
             areaRepository.deleteAll();
             restaurantRepository.deleteAll();
             guestRepository.deleteAll();
+            providerRepository.deleteAll();
 
 
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
@@ -104,12 +109,13 @@ public class TestController {
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
 
+            Provider p = new Provider("p","p","Dobrilo","Dobric","021/1234-5678",new Date(),"provider");
+
             Area area1 = new Area("nepusacki", r);
             RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
             Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
             tables.add(rt1);
             Reservation res1 = new Reservation(new Date(), "22:40","14:00", g, tables, r1);
-            Reservation res2 = new Reservation(new Date(), "22:00","18:00", g, tables, r1);
             br.setRestaurant(r);
             ck.setRestaurant(r);
             w.setRestaurant(r);
@@ -145,6 +151,7 @@ public class TestController {
             restaurantRepository.save(r1);
             bartenderRepository.save(br);
             systemManagerRepository.save(sm);
+            providerRepository.save(p);
             guestRepository.save(g);
             guestRepository.save(g1);
             guestRepository.save(g2);
@@ -177,7 +184,6 @@ public class TestController {
             areaRepository.save(area1);
             restaurantTableRepository.save(rt1);
             reservationRepository.save(res1);
-            reservationRepository.save(res2);
             shiftRepository.save(sh1);
             shiftRepository.save(sh2);
             bartenderShiftRepository.save(btsh1);

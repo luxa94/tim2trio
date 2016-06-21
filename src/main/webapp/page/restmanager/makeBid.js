@@ -3,13 +3,12 @@
  */
 iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, $state, $stateParams, authorizationService) {
     $scope.current.page = 4;
-    $scope.status = ["aktivna lista","na čekanju", "zatvorena lista","istekla", "u pripremi"];
+    $scope.status = ["aktivna lista", "zatvorena lista","istekla", "u pripremi"];
     $scope.currentStatus = "u pripremi";
     $scope.auction = {
-        id : undefined,
         from_date: new Date(),
         to_date: new Date(),
-        status: $scope.status[4]
+        status: $scope.status[3]
     };
     $scope.listItems = [];
     $scope.newAuctionItem = {};
@@ -30,10 +29,18 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
     $http.get('/api/auction/all').success(function(data) {
         $scope.auctionsList = data;
         var i;
+        var today = new Date();
         for(i=0; i<data.length; i++){
+            if(data[i].to_date.valueOf() < today.valueOf()){
+                $scope.auctionsList[i].status = $scope.status[2];
+                $http.post('api/auction/expireAuction', data[i].id).success(function (data) {
+                    $scope.selectedList = data;
+                })
+            }
             $scope.auctionsList[i].from_date = new Date(data[i].from_date).toISOString().substring(0, 10);
-            $scope.auctionsList[i].to_date = new Date(data[i].from_date).toISOString().substring(0, 10);
+            $scope.auctionsList[i].to_date = new Date(data[i].to_date).toISOString().substring(0, 10);
         }
+        //console.log("SVE AUKCIJE ZA ISCRTAVANJE: " + JSON.stringify($scope.auctionsList));
     });
 
     $http.get('/api/auctionItemType/all').success(function (data) {
@@ -55,7 +62,6 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
     $scope.cancel = function () {
         //odustani od nove aukcije
         $scope.auction = {
-            id : undefined,
             from_date: new Date(),
             to_date: new Date(),
             status: $scope.status[4]
@@ -111,13 +117,15 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
             alert("Vaša lista za nabavku ne sadrži ni jednu stavku!");
         }
         else{
+            $scope.auction.status = "u pripremi";
+            console.log("$scope.auction: " + JSON.stringify($scope.auction));
+
             $http.post('/api/auction/new', $scope.auction).success(function(data) {
                 console.log("nova aukcija: " + JSON.stringify(data));
                 var i;
                 var item;
                 for (i=0; i<$scope.listItems.length; i++){
-                    //$scope.listItems[i].auctionId = data.id;
-                    //console.log("stavka: " + JSON.stringify($scope.listItems[i]));
+                   // console.log("stavka: " + JSON.stringify(data));
                     item = {
                         "name":$scope.listItems[i].name,
                         "quantity":$scope.listItems[i].quantity,
@@ -127,19 +135,20 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
                     }
                     console.log("stavka: " + JSON.stringify(item));
                     $http.post('api/auctionItem/new',item).success(function (data) {
-                        console.log("nova stavka aukcija: " + JSON.stringify(data));
+                        //console.log("nova stavka aukcija: " + JSON.stringify(data));
                     });
                 }
                 data.from_date = new Date(data.from_date).toISOString().substring(0, 10);
-                data.to_date = new Date(data.from_date).toISOString().substring(0, 10);
+                data.to_date = new Date(data.to_date).toISOString().substring(0, 10);
                 $scope.auctionsList.push(data);
 
                 //postavi praznu novu aukciju
                 $scope.auction = {
                     from_date: new Date(),
                     to_date: new Date(),
-                    status: $scope.status[4]
+                    status: $scope.status[3]
                 };
+                //console.log("resetovana aukcija: " + JSON.stringify($scope.auction ));
                 $scope.listItems = [];
                 $scope.newAuctionItem = {};
             });
@@ -149,14 +158,14 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
     }
     
     $scope.deleteItem = function(ind){
-        console.log("OBRISI STAVKU SA INDEXOM: " + ind);
+        //console.log("OBRISI STAVKU SA INDEXOM: " + ind);
         $scope.listItems.splice(ind, 1);
     }
 
     $scope.previewList = function(list){
         $scope.selectedList = list;
-        $http.get('api/auction/allItemsFromAuction/' + $scope.selectedList.id).success(function (data) {
-            console.log("STAVKE: " + JSON.stringify(data));
+        $http.get('api/auction/allItemsFromAuction/' + list.id).success(function (data) {
+            //console.log("STAVKE: " + JSON.stringify(data));
             $scope.selectedList.items = data;
             $scope.popup = new Foundation.Reveal($('#previewOneList'));
             $scope.popup.open();
@@ -164,4 +173,35 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
 
     }
 
+    $scope.activateList = function (list) {
+
+        var today = new Date();
+        var to_date = new Date(list.to_date);
+        //console.log("datum glupavi: " + to_date);
+        //console.log("lista: " + JSON.stringify(list));
+        if(to_date.valueOf() <= today.valueOf()){
+            alert("Lista namirnica je ISTEKLA! Neće biti aktivirana.")
+            $http.post('api/auction/expireAuction', list.id).success(function (data) {
+                $scope.selectedList = data;
+            })
+            
+        }
+        else {
+
+            console.log("aktiviraj listu: " + JSON.stringify(list));
+            $http.post('api/auction/activateAuction', list.id).success(function (data) {
+                console.log("DATA: " + JSON.stringify(data));
+                $scope.selectedList = data;
+
+                data.from_date = new Date($scope.selectedList.from_date).toISOString().substring(0, 10);
+                data.to_date = new Date($scope.selectedList.to_date).toISOString().substring(0, 10);
+
+                var index = $scope.auctionsList.indexOf(list);
+                if (index != -1)
+                    $scope.auctionsList.splice(index, 1);
+                $scope.auctionsList.push(data);
+            })
+        }
+    }
+    
 });

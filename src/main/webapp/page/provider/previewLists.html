@@ -1,0 +1,50 @@
+<div class="medium-5 columns form " id="allListsForm">
+    <h3>Liste namirnica</h3>
+    <select ng-model="currentStatus" ng-options="s for s in status">
+    </select>
+
+    <div ng-repeat="list in auctionsList">
+        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{$index + 1}}. {{list.from_date}} (važi do: {{list.to_date}})</a>
+
+    </div>
+</div>
+
+<div class="medium-7  columns form " id="NewListForm">
+    <h3>Lista namirnica</h3>
+    <hr>
+    <div>
+        <h4>Informacija o nabavci</h4>
+        <b>Restoran: </b>{{selectedList.restaurant.name}}<br>
+        <b>Status: </b>{{selectedList.status}}<br>
+        <div style="float: left">
+            <b >Važi od datuma:</b>
+            <input type="text" ng-model="selectedList.from_date" readonly>
+        </div>
+        <div style="float: left">
+            <b>Važi do datuma:</b>
+            <input ng-model="selectedList.to_date" type="text" readonly>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Stavke</h4>
+        <table border="1">
+            <tr>
+                <th>rbr.</th>
+                <th>Naziv stavke</th>
+                <th>Količina</th>
+                <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
+                <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+                <th ng-if="selectedList.status == status[0]">Ponude</th>
+            </tr>
+            <tr ng-repeat="li in selectedList.items">
+                <td>{{$index+1}}</td>
+                <td>{{li.name}}</td>
+                <td>{{li.quantity}}</td>
+                <td>{{li.auctionItemType.name}}</td>
+                <td>{{li.auctionItemUnit.name}}</td>
+                <td ng-if="selectedList.status == status[0]"><a>napravi ponudu</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
