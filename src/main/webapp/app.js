@@ -220,6 +220,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: '/page/waiter/waiterReservations.html',
             controller: 'waiterReservationsController'
         })
+        .state('waiter.newReservation', {
+            url: 'newReservation',
+            templateUrl: '/page/waiter/newReservation.html',
+            controller: 'waiterNewReservationController'
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

@@ -22,5 +22,9 @@ iceipiceApp.controller('waiterBaseController', function ($scope, $http, $state, 
     $scope.reservations = function () {
         $state.transitionTo('waiter.reservations');
     };
+    
+    $scope.newReservations = function () {
+        $state.transitionTo('waiter.newReservation');
+    }
 
 });

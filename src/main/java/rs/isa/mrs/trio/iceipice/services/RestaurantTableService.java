@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import rs.isa.mrs.trio.iceipice.model.RestaurantManager;
 import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
+import rs.isa.mrs.trio.iceipice.model.Waiter;
 import rs.isa.mrs.trio.iceipice.model.dto.RestaurantTableDTO;
 import rs.isa.mrs.trio.iceipice.repository.AreaRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantManagerRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantTableRepository;
+import rs.isa.mrs.trio.iceipice.repository.WaiterRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,9 @@ public class RestaurantTableService {
 
     @Autowired
     RestaurantManagerRepository restaurantManagerRepository;
+
+    @Autowired
+    WaiterRepository waiterRepository;
 
     @Autowired
     AreaRepository areaRepository;
@@ -55,4 +60,11 @@ public class RestaurantTableService {
         }
         restaurantTableRepository.save(tables);
     }
+
+    public List<RestaurantTable> getForWaiter(long id) {
+        final Waiter waiter = waiterRepository.findById(id);
+        // TODO: change when shifts come to play
+        return restaurantTableRepository.findByArea_Restaurant_Id(waiter.getRestaurant().getId());
+    }
+
 }

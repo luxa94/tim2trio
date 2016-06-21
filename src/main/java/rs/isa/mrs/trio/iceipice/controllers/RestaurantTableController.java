@@ -47,4 +47,8 @@ public class RestaurantTableController {
         return new ResponseEntity<>(restaurantTableService.findByManagerId(managerId), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/tables/waiter/{id}", method = RequestMethod.GET)
+    public ResponseEntity getTablesForWaiter(@PathVariable long id) {
+        return new ResponseEntity<>(restaurantTableService.getForWaiter(id), HttpStatus.OK);
+    }
 }

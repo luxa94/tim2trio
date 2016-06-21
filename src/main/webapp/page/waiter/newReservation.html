@@ -1,0 +1,14 @@
+<div id="canvas_container" class="small-12 medium-8 columns form" style="overflow-x: scroll;">
+    <canvas id="restaurant_canvas" width="765" height="600">
+    </canvas>
+</div>
+
+<div class="small-12 columns form" ng-repeat="ar in articleTypes">
+    <h4>{{ar.name}}</h4>
+    <div ng-repeat="mi in menuItems" class="column small-12 medium-4" ng-if="mi.article.articleType.name == ar.name">
+        <h5>{{mi.article.name}}</h5>
+        <p>{{mi.price}}RSD</p>
+        <input type="number" ng-model="mi.count">
+    </div>
+
+</div>
