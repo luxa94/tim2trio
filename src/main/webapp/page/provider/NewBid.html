@@ -1,21 +1,12 @@
 <div class="medium-5 columns form " id="allListsForm">
-    <h3>Liste namirnica</h3>
-    <select ng-model="currentStatus" ng-options="s for s in status">
-    </select>
-
-    <div ng-repeat="list in auctionsList">
-        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{$index + 1}}. {{list.from_date}} (važi do: {{list.to_date}})</a>
-
-    </div>
-</div>
-
-<div class="medium-7  columns form " id="NewListForm">
     <h3>Lista namirnica</h3>
     <hr>
     <div>
         <h4>Informacija o nabavci</h4>
         <b>Restoran: </b>{{selectedList.restaurant.name}}<br>
         <b>Status: </b>{{selectedList.status}}<br>
+        <b>Ponuđač: </b>{{selectedList.status}}<br>
+        <b>Ukupna cena:</b>{{bid.price}}<br>
         <div style="float: left">
             <b >Važi od datuma:</b>
             <input type="text" ng-model="selectedList.from_date" readonly>
@@ -35,6 +26,7 @@
                 <th>Količina</th>
                 <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
                 <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+                <th ng-if="selectedList.status == status[0]">Ponude</th>
             </tr>
             <tr ng-repeat="li in selectedList.items">
                 <td>{{$index+1}}</td>
@@ -42,10 +34,33 @@
                 <td>{{li.quantity}}</td>
                 <td>{{li.auctionItemType.name}}</td>
                 <td>{{li.auctionItemUnit.name}}</td>
+                <td ng-if="selectedList.status == status[0]"><a>napravi ponudu</a></td>
             </tr>
         </table>
     </div>
     <div class="button-group float-right">
-        <input type="submit" class="button" ng-click="newBid(selectedList)" value="Licitiraj" ng-if="selectedList.items.length">
+        <input type="submit" class="button" ng-click="addAuction()" value="Licitiraj" ng-if="selectedList.items.length">
+    </div>
+</div>
+
+<div class="medium-7  columns form " id="NewListForm">
+    <h3>Ponuda za stavku: <i>{{selectedListItem.name}}</i></h3>
+    <hr>
+    <div>
+        <b>Ime: </b><input ng-model="bid.name" type="text"><br>
+        <b>Količina: </b><input ng-model="bid.quantity" type="number"><br>
+        <b>Merna jedinica: </b>
+        <div class="input-group">
+            <select required ng-model="bid.unit" ng-options="unit.name for unit in aiUnits">
+            </select>
+            <br>
+            <input class="input-group-field" placeholder="Naziv nove merne jedinice" type="text" ng-model="newUnit.name">
+            <a class="input-group-button button" ng-click="addUnit()">Dodaj mernu jedinicu</a>
+        </div>
+        <b>Cena:</b>{{bid.price}}<br>
+    </div>
+    <hr>
+    <div class="button-group float-right">
+        <input type="submit" class="button" ng-click="addBidItem()" value="Potvrdi">
     </div>
 </div>

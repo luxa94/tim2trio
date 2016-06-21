@@ -1,7 +1,7 @@
 /**
  * Created by Sandra on 20.6.2016.
  */
-iceipiceApp.controller('providerPreviewListsController', function ($scope, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('providerPreviewListsController', function ($scope, $http, $state, $stateParams, ProviderService, authorizationService) {
 
     $scope.current.page = 1;
     $scope.status = ["aktivna lista", "zatvorena lista","istekla"];
@@ -32,6 +32,11 @@ iceipiceApp.controller('providerPreviewListsController', function ($scope, $http
             console.log("STAVKE: " + JSON.stringify(data));
             $scope.selectedList.items = data;
         })
-
+    }
+    
+    $scope.newBid = function (list) {
+        //prosledi listu kontroleru newBidController
+        ProviderService.setSelectedList(list);
+        $state.transitionTo( "provider.newBid");
     }
 });

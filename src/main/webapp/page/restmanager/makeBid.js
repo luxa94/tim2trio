@@ -45,11 +45,11 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
 
     $http.get('/api/auctionItemType/all').success(function (data) {
         $scope.aiTypes = data;
-    })
+    });
 
     $http.get('/api/auctionItemUnit/all').success(function (data) {
         $scope.aiUnits = data;
-    })
+    });
 
     $scope.addNewListItem = function(){
         $scope.newAuctionItem = {};

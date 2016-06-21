@@ -206,6 +206,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/provider/previewLists.html',
             controller: 'providerPreviewListsController'
         })
+        .state('provider.newBid',{
+            url: '/newBid',
+            templateUrl: 'page/provider/NewBid.html',
+            controller: 'providerNewBidController'
+        })
         .state('logout', {
             url: '/logout',
             controller: function ($location, authorizationService) {

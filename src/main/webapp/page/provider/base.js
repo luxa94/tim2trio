@@ -17,6 +17,11 @@ iceipiceApp.controller('providerBaseController', function ($scope, $http, $state
         $state.transitionTo('provider.previewLists');
     };
 
+    $scope.newBid = function() {
+        $state.transitionTo('provider.newBid');
+    };
+
+
 
     $scope.logout = function () {
         authorizationService.removeUser();
