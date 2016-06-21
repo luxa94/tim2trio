@@ -66,4 +66,15 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     };
 
 
+    $scope.createNewReservation = function () {
+        var reservation  = ReservationService.asd.reservation;
+        reservation.menuItems = $scope.selectedMenuItems;
+        ReservationService.Create(reservation).then(function (data) {
+            alert("Vaša rezervacija je uspešno dodata!");
+        }, function(){
+            alert("Vaša rezervacija nije uspešno dodata!");
+        });
+        $state.transitionTo( "guest.selectMenuItem");
+    };
+
 });

@@ -73,6 +73,8 @@ public class ReservationController {
     @RequestMapping(value = "/reservation/create", method = RequestMethod.POST)
     public ResponseEntity createReservation(@RequestBody ReservationDTO reservationDTO) {
 
+        System.out.println(reservationDTO);
+
         //set date object to 00:00
         Date date = reservationDTO.getDate();
 

@@ -48,8 +48,8 @@
             return $http.get('/api/reservation/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function Create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        function Create(reservation) {
+            return $http.post('/api/reservation/create', reservation).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {

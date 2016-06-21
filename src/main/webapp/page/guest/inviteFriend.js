@@ -1,7 +1,7 @@
 /**
  * Created by Nina on 13-Jun-16.
  */
-iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService) {
+iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService, ReservationService) {
     $scope.friends = [];
     $scope.invitedFriends = [];
     $scope.current.page = 3;
@@ -27,7 +27,15 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
     }
 
     $scope.createNewReservation = function () {
-        alert("Vaša rezervacija je uspešno dodata!");
+        var reservation  = ReservationService.asd.reservation;
+        reservation.guests = $scope.invitedFriends;
+        reservation.guests.push($scope.user);
+        ReservationService.Create(reservation).then(function (data) {
+            alert("Vaša rezervacija je uspešno dodata!");
+        }, function(){
+            alert("Vaša rezervacija nije uspešno dodata!");
+        });
+
     };
 
   //  $scope.goToInviteFriend = function () {

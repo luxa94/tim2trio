@@ -13,6 +13,7 @@
         var service = {};
         var selectedRestaurant = null;
         var invitedFriends = [];
+        var menuItems = [];
 
         service.GetAll = GetAll;
         service.GetById = GetById;
@@ -30,8 +31,18 @@
         // prosledjujem listu pozvanih prijatelja
         service.setInvitedFriends = setInvitedFriends;
         service.getInvitedFriends = getInvitedFriends;
+        // prosledjujem listu meni itema
+        service.setMenuItems = setMenuItems;
+        service.getMenuItems = getMenuItems;
 
         return service;
+
+        function setMenuItems(menu_items) {
+            menuItems = menu_items;
+        }
+        function getMenuItems() {
+            return menuItems;
+        }
 
         function setInvitedFriends(friends) {
             invitedFriends = friends;
