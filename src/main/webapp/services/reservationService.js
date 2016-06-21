@@ -20,11 +20,18 @@
         service.Delete = Delete;
         service.getUnderReview = getUnderReview;
         service.setUnderReview = setUnderReview;
+        service.CreateReview = CreateReview;
+
         service.asd = { reservation : {} };
+        service.order = {};
 
 
         return service;
-        
+
+        function CreateReview(review) {
+            return $http.post('/api/grade/create', review).then(handleSuccess, handleError('Error creating grade'));
+        }
+
         function getUnderReview() {
             return reservationUnderReview;
         }

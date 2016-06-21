@@ -7,7 +7,7 @@
 
             <p>Pronađi jelo
             </p>
-            <input type="text" ng-model="query.name" class="search" placeholder="Pronađi prijatelja..." />
+            <input type="text" ng-model="query.article.name" class="search" placeholder="Pronađi stavku menija..." />
 
             <div style="overflow-y:scroll;">
 
@@ -17,7 +17,7 @@
                         <img class="thumbnail" src="http://placehold.it/300x400">
                         <h5>{{mi.article.name}}</h5>
                         <p>{{mi.price}}RSD</p>
-                        <a class="button small expanded hollow">Detalji</a>
+                        <a class="button small expanded hollow" ng-click="showMenuItem(mi)">Poruči</a>
                     </div>
 
                 </div>
@@ -44,7 +44,6 @@
                         </label>
 
                         <div class="button-group float-right">
-                            <input type="submit" class="button" ng-click="addMenuItem()" ng-disabled="tableForm.$invalid" value="Sačuvaj">
                             <a class="button alert" ng-click="cancel()">Odustani</a>
                         </div>
 
@@ -63,24 +62,79 @@
 
     <form novalidate name="inviteFriendOnLunch2">
         <div style="overflow-y:scroll;" >
-            <h4 class="text-center">Pozvani prijatelji</h4>
+            <h4 class="text-center">Odabrane stavke menija</h4>
             <table border="1" >
                 <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-
+                    <th>Jelo</th>
+                    <th>Količina</th>
+                    <th> </th>
                 </tr>
-                <tr ng-repeat="friend in invitedFriends | filter: query | orderBy: orderList"  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, friend)" >
-                    <td>{{friend.name}}</td>
-                    <td>{{friend.surname}}</td>
+                <tr ng-repeat=" mi in selectedMenuItems | filter: query | orderBy: orderList"  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, mi)" >
+                    <td>{{mi.article.name}}</td>
+                    <td>{{mi.amount}}</td>
+                    <td>
+                        <button class="button1 " ng-click="refreshTable(mi)">Obriši</button>
+                    </td>
                 </tr>
             </table>
              <span style="float: right">
-                 <button class="button1 " ng-click="goToInviteFriend(reservation)">Predhodni korak</button>
+                 <button class="button1 " ng-click="goToAddNewReservation(asd.reservation)">Predhodni korak</button>
                 <button class="button3 " ng-click="createNewReservation()">Završi rezervaciju</button>
                 <button class="button1 " ng-click="goToInviteFriend()">Sledeći korak</button>
             </span>
 
         </div>
     </form>
+</div>
+
+
+<div class="small reveal" id="newShowMenuItem" data-reveal style="width: 50%; height: 80%;">
+    <div class="column" >
+        <form novalidate name="showMenuItemInfo">
+
+            <label>
+             <span style="position: center;">
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="image" src="../img/caffe.jpg" alt="Submit" >
+            </span>
+            </label>
+            <h4 class="text-center">Informacije o jelu</h4>
+            <label>Naziv
+                <input type="text" placeholder="" readonly required ng-model="mi.article.name">
+            </label>
+            <label>Opis
+                <input type="text" placeholder="" readonly required ng-model="mi.article.description" >
+            </label>
+            <label>Cena
+                <input type="text" placeholder="" readonly required ng-model="mi.price">
+            </label>
+            <h4 class="text-center">Ocene i recenzije</h4>
+            <br>
+            <label>Ocena:
+                &nbsp;&nbsp;&nbsp;<input-stars ng-model="reservation.grade.meal_grade" max="5" readonly></input-stars>
+            </label>
+            <label>Komentari:
+                <input type="text" id="" required readonly>
+            </label>
+            <h4 class="text-center">Poruči jelo</h4>
+            <label>Količina:
+                <input type="text" required ng-model="quantity" >
+            </label>
+        </form>
+
+
+    </div>
+
+    <div>
+             <span style="float: right">
+                <button class="button3 " ng-click="addMenuItem(mi,quantity)">Poruči</button>
+               <button class="button1" ng-click="cancel()">Odustani</button>
+            </span>
+
+
+    <div>
+        <button class="close-button" data-close aria-label="Close modal" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+        </div>
 </div>

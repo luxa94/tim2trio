@@ -85,4 +85,21 @@ public class ReservationService {
         return restaurant_reservations_on_date;
 
     }
+
+    public List<Reservation> getReservationByRestaurant(long id){
+
+        List<Reservation> restaurant_reservations = new ArrayList<Reservation>();
+        List<Reservation> reservations = reservationRepository.findAll();
+
+        for(Reservation res : reservations){
+            Set<RestaurantTable> tables = res.getRestaurant_tables();
+            RestaurantTable table = tables.iterator().next();
+            Restaurant restaurant = table.getArea().getRestaurant();
+
+            restaurant_reservations.add(res);
+
+        }
+        return restaurant_reservations;
+
+    }
 }

@@ -2,6 +2,9 @@ package rs.isa.mrs.trio.iceipice.model.dto;
 
 import rs.isa.mrs.trio.iceipice.model.Restaurant;
 
+import java.util.ArrayList;
+import  java.util.List;
+
 /**
  * Created by nikolalukic on 4/17/16.
  */
@@ -22,6 +25,10 @@ public class RestaurantDTO {
     private String email;
 
     private String restaurantType;
+
+    private List<GradeDTO> restaurantGrades = new ArrayList<>();
+
+    private int finalGrade;
 
     public RestaurantDTO(Restaurant restaurant) {
         id = restaurant.getId();
@@ -89,7 +96,23 @@ public class RestaurantDTO {
         return restaurantType;
     }
 
+    public List<GradeDTO> getRestaurantGrades() {
+        return restaurantGrades;
+    }
+
+    public void setRestaurantGrades(List<GradeDTO> restaurantGrades) {
+        this.restaurantGrades = restaurantGrades;
+    }
+
     public void setRestaurantType(String restaurantType) {
         this.restaurantType = restaurantType;
+    }
+
+    public int getFinalGrade() {
+        return finalGrade;
+    }
+
+    public void setFinalGrade(int finalGrade) {
+        this.finalGrade = finalGrade;
     }
 }

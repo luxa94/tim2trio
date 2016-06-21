@@ -3,9 +3,27 @@
  */
 iceipiceApp.controller('guestModifyReservationController', function ($scope, $http, $state, $stateParams, authorizationService,ReservationService) {
     $scope.reservations = [];
-    $scope.current.page = 4;
+    $scope.current.page = 4
 
+    $scope.grade = {}
+    $scope.grade.meal_grade = 0;
+    $scope.grade.waiter_grade = 0;
+    $scope.grade.atmosphere_grade= 0;
+    $scope.grade.meal_comment = null;
+    $scope.grade.waiter_comment= null;
+    $scope.grade.atmosphere_comment = null;
 
+    $scope.rateFunction = function(rating) {
+        console.log('Rating selected: ' + rating);
+    };
+
+    $scope.gradeRes = function() {
+        $scope.grade.userId = $scope.user.id;
+        $scope.grade.reservationId = ReservationService.getUnderReview().id;
+        ReservationService.CreateReview($scope.grade);
+        $scope.popup.close();
+
+    };
 
     $http.get('/api/reservations/all/' + $scope.user.id).success(function (data) {
 
@@ -71,16 +89,25 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         });
     }
 
-    $scope.gradeReservation = function() {
-
+    $scope.gradeReservation = function(reservation) {
         if( $scope.selectedRow == -1 || $scope.selectedRow == null){
             alert("Morate odabrati jednu rezervaciju.");
+            return;
         }
+        $scope.openDialogForGradeRestaurant(reservation);
         ReservationService.setUnderReview($scope.selectedReservation );
-
-        $state.transitionTo( "guest.gradeReservation");
+     //   $state.transitionTo( "guest.gradeReservation");
 
     }
 
+    $scope.openDialogForGradeRestaurant = function(reservation) {
+        $scope.reservation = reservation;
+        $scope.popup = new Foundation.Reveal($('#newGradeRestaurant'));
+        $scope.popup.open();
+    };
+
+    $scope.cancel = function () {
+        $scope.popup.close();
+    };
     
 });
