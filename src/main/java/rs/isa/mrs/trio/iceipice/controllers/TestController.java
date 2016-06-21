@@ -8,9 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.repository.*;
 import util.DateUtil;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by nikolalukic on 4/17/16.
@@ -108,7 +106,11 @@ public class TestController {
             RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
             Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
             tables.add(rt1);
-            Reservation res1 = new Reservation(new Date(), "22:40","14:00", g, tables, r1);
+            List<Guest> guests = new ArrayList<Guest>();
+            guests.add(g);
+
+            Reservation res1 = new Reservation(new Date(), "22:40","14:00", guests, tables, r1);
+            Reservation res2 = new Reservation(new Date(), "22:00","18:00", guests, tables, r1);
             br.setRestaurant(r);
             ck.setRestaurant(r);
             w.setRestaurant(r);
@@ -176,6 +178,7 @@ public class TestController {
             areaRepository.save(area1);
             restaurantTableRepository.save(rt1);
             reservationRepository.save(res1);
+            reservationRepository.save(res2);
             shiftRepository.save(sh1);
             shiftRepository.save(sh2);
             bartenderShiftRepository.save(btsh1);

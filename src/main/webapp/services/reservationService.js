@@ -20,11 +20,18 @@
         service.Delete = Delete;
         service.getUnderReview = getUnderReview;
         service.setUnderReview = setUnderReview;
+        service.CreateReview = CreateReview;
+
         service.asd = { reservation : {} };
+        service.order = {};
 
 
         return service;
-        
+
+        function CreateReview(review) {
+            return $http.post('/api/grade/create', review).then(handleSuccess, handleError('Error creating grade'));
+        }
+
         function getUnderReview() {
             return reservationUnderReview;
         }
@@ -41,8 +48,8 @@
             return $http.get('/api/reservation/' + id).then(handleSuccess, handleError('Error getting user by id'));
         }
 
-        function Create(user) {
-            return $http.post('/api/users', user).then(handleSuccess, handleError('Error creating user'));
+        function Create(reservation) {
+            return $http.post('/api/reservation/create', reservation).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {

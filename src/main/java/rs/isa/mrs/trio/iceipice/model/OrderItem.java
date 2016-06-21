@@ -1,6 +1,9 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -42,6 +45,10 @@ public class OrderItem {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
+
+    @JsonBackReference("order-reservations")
+    @ManyToOne(fetch = FetchType.EAGER,   cascade = CascadeType.ALL)
+    Reservation reservations;
 
     public long getId() {
         return id;
@@ -106,4 +113,14 @@ public class OrderItem {
     public void setOrder(Order order) {
         this.order = order;
     }
+
+
+    public Reservation getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(Reservation reservations) {
+        this.reservations = reservations;
+    }
+
 }

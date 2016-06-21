@@ -14,8 +14,7 @@
                 <input type="text" required ng-model="user.surname">
             </label>
             <label>Datum rođenja
-                <input type="text" ng-model="user.birthDate" onfocus="(this.type='date')" onblur="(this.type='text')"
-                       required>
+                <input ng-model="user.birthDate" type="date" required onfocus="(this.type='date')" onblur="(this.type='date')">
             </label>
             <label>Telefon
                 <input type="text" required ng-model="user.phoneNumber">

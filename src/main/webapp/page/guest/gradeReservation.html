@@ -5,25 +5,26 @@
             <h4 class="text-center">Ocenite vaše iskustvo</h4>
             <br>
             <label>Jelo:
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop1" max="5"></input-stars>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.meal_grade" max="5"></input-stars>
             </label>
             <label>Komentar:
-                <input type="text" required  >
+                <input type="text" required ng-model = "grade.meal_comment" >
             </label>
-            <label>Usluga:
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop2" max="5"></input-stars>
-            </label>
-            <label>Komentar:
-                <input type="text" placeholder="" required >
-            </label>
-            <label>Celokupan utisak:
-                &nbsp;&nbsp;&nbsp;<input-stars ng-model="App.prop3" max="5"></input-stars>
+            <label>Uluga konobara:
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.waiter_grade" max="5"></input-stars>
             </label>
             <label>Komentar:
-                <input type="text" id="" required  >
+                <input type="text" ng-model = "grade.waiter_comment" required >
+            </label>
+            <label>Restoran:
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.atmosphere_grade" max="5"></input-stars>
+            </label>
+            <label>Komentar:
+                <input type="text" ng-model = "grade.atmosphere_comment" required  >
             </label>
              <span style="float: right">
-            <button class="button2"  ng-click="gradeReservation(reservation)">Oceni</button>
+            <button class="button3"  ng-click="gradeReservation(grade)">Oceni</button>
+                 <button class="button1"  ng-click="cancel()">Odustani</button>
              </span>
         </div>
     </form>

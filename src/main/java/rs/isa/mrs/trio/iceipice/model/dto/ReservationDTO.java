@@ -1,9 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model.dto;
 
-import rs.isa.mrs.trio.iceipice.model.Guest;
-import rs.isa.mrs.trio.iceipice.model.Reservation;
-import rs.isa.mrs.trio.iceipice.model.Restaurant;
-import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
+import rs.isa.mrs.trio.iceipice.model.*;
 
 import javax.persistence.Column;
 import java.util.ArrayList;
@@ -26,13 +23,15 @@ public class ReservationDTO {
 
     private RestaurantDTO restaurant;
 
-
+    private Boolean graded;
 
     private long restaurantId;
 
     private RestaurantTableDTO restaurantTable;
 
     private List<GuestDTO> guests = new ArrayList<>();
+
+    private List<OrderItemDTO> orders = new ArrayList<>();
 
     public ReservationDTO(Reservation reservation) {
         id = reservation.getId();
@@ -41,17 +40,40 @@ public class ReservationDTO {
         end_hour = reservation.getEnd_hour();
         List<RestaurantTableDTO> tableDTO = new ArrayList<>();
         Iterator<RestaurantTable> tableIterator = reservation.getRestaurant_tables().iterator();
-        Restaurant restaurant = null;
         while(tableIterator.hasNext()) {
             RestaurantTable table = tableIterator.next();
-            if(restaurant == null) {
-                restaurant = table.getArea().getRestaurant();
-            }
             tableDTO.add(new RestaurantTableDTO(table));
         }
-        this.restaurant = new RestaurantDTO(restaurant);
+        this.restaurant = new RestaurantDTO(reservation.getRestaurant());
+        guests = new ArrayList<GuestDTO>();
+        for(Guest guest: reservation.getGuests()) {
+            GuestDTO dto = new GuestDTO(guest);
+            guests.add(dto);
+        }
+        orders = new ArrayList<OrderItemDTO>();
+       for(OrderItem order : reservation.getOrders()){
+           OrderItemDTO dto = new OrderItemDTO(order);
+          orders.add(dto);
+       }
+    }
 
+    public ReservationDTO() {
+    }
 
+    @Override
+    public String toString() {
+        return "ReservationDTO{" +
+                "id=" + id +
+                ", date=" + date +
+                ", start_hour='" + start_hour + '\'' +
+                ", end_hour='" + end_hour + '\'' +
+                ", restaurant=" + restaurant +
+                ", graded=" + graded +
+                ", restaurantId=" + restaurantId +
+                ", restaurantTable=" + restaurantTable +
+                ", guests=" + guests +
+                ", orders=" + orders +
+                '}';
     }
 
     // Treba da se dodaju stavke menija u porudzbinu!!!!!!!!!!
@@ -118,5 +140,21 @@ public class ReservationDTO {
 
     public void setRestaurantId(long restaurantId) {
         this.restaurantId = restaurantId;
+    }
+
+    public Boolean getGraded() {
+        return graded;
+    }
+
+    public void setGraded(Boolean graded) {
+        this.graded = graded;
+    }
+
+    public List<OrderItemDTO> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderItemDTO> orders) {
+        this.orders = orders;
     }
 }

@@ -1,7 +1,10 @@
 package rs.isa.mrs.trio.iceipice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,20 +28,23 @@ public class Reservation {
     @Column(name = "end_hour", nullable = false)
     private String end_hour;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "guest_id", nullable = false)
-    private Guest guest;
+
+    @ManyToMany(fetch = FetchType.EAGER,   cascade = CascadeType.ALL, mappedBy="reservations")
+    private List<Guest> guests;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reservation_table",
-            joinColumns = {@JoinColumn(name = "reservation_id", nullable = false)},
+            joinColumns = {@JoinColumn(name = "reservation_id",  nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
-
     private Set<RestaurantTable> restaurant_tables;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_id", nullable = false)
     private Restaurant restaurant;
+
+    @JsonBackReference("reservation-order")
+    @OneToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+    private List<OrderItem> orders;
 
     public Restaurant getRestaurant() {
         return restaurant;
@@ -48,11 +54,11 @@ public class Reservation {
         this.restaurant = restaurant;
     }
 
-    public Reservation(Date date, String start_hour, String end_hour, Guest guest, Set<RestaurantTable> restaurant_tables, Restaurant restaurant) {
+    public Reservation(Date date, String start_hour, String end_hour, List<Guest> guests, Set<RestaurantTable> restaurant_tables, Restaurant restaurant) {
         this.date = date;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
-        this.guest = guest;
+        this.guests = guests;
         this.restaurant_tables = restaurant_tables;
         this.restaurant = restaurant;
     }
@@ -89,14 +95,6 @@ public class Reservation {
         this.end_hour = end_hour;
     }
 
-    public Guest getGuest() {
-        return guest;
-    }
-
-    public void setGuest(Guest guest) {
-        this.guest = guest;
-    }
-
     public Set<RestaurantTable> getRestaurant_tables() {
         return restaurant_tables;
     }
@@ -106,5 +104,21 @@ public class Reservation {
     }
 
     public Reservation() {
+    }
+
+    public List<Guest> getGuests() {
+        return guests;
+    }
+
+    public void setGuests(List<Guest> guests) {
+        this.guests = guests;
+    }
+
+    public List<OrderItem> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<OrderItem> orders) {
+        this.orders = orders;
     }
 }

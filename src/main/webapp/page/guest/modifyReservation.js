@@ -5,26 +5,45 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
     $scope.reservations = [];
     $scope.current.page = 4;
 
+    $scope.reservation = {
+        niceDate: new Date()
+    };
 
+    $scope.grade = {};
+    $scope.grade.meal_grade = 0;
+    $scope.grade.waiter_grade = 0;
+    $scope.grade.atmosphere_grade= 0;
+    $scope.grade.meal_comment = null;
+    $scope.grade.waiter_comment= null;
+    $scope.grade.atmosphere_comment = null;
+
+    $scope.rateFunction = function(rating) {
+        console.log('Rating selected: ' + rating);
+    };
+
+    $scope.gradeRes = function() {
+        $scope.grade.userId = $scope.user.id;
+        $scope.grade.reservationId = ReservationService.getUnderReview().id;
+        ReservationService.CreateReview($scope.grade);
+        $scope.popup.close();
+
+    };
 
     $http.get('/api/reservations/all/' + $scope.user.id).success(function (data) {
-
+        
         var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
 
-
-
         for(var i = 0; i < data.length; i++){
-
-
+            
             var calculatedDate = new Date( data[i].date);
             var todayDay = calculatedDate.getDay();
             var todayMonth = calculatedDate.getMonth();
-            var todayYear = calculatedDate.getYear();
+            var todayYear = calculatedDate.getFullYear();
             var startHour = parseInt(data[i].start_hour.substring(0,3));
             var startMinutes = parseInt(data[i].start_hour.substring(3));
 
 
-            data[i].niceDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).toString();
+            data[i].niceDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).toISOString().substring(0, 10);
 
             calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
 
@@ -34,7 +53,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             } else {
                 data[i].tooLate = false;
             }
-            console.log("IS IT TOO LATE?",    data[i] );
+     //       console.log("IS IT TOO LATE?",    data[i] );
         }
         $scope.reservations = data;
     });
@@ -71,16 +90,25 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         });
     }
 
-    $scope.gradeReservation = function() {
-
+    $scope.gradeReservation = function(reservation) {
         if( $scope.selectedRow == -1 || $scope.selectedRow == null){
             alert("Morate odabrati jednu rezervaciju.");
+            return;
         }
+        $scope.openDialogForGradeRestaurant(reservation);
         ReservationService.setUnderReview($scope.selectedReservation );
-
-        $state.transitionTo( "guest.gradeReservation");
+     //   $state.transitionTo( "guest.gradeReservation");
 
     }
 
+    $scope.openDialogForGradeRestaurant = function(reservation) {
+        $scope.reservation = reservation;
+        $scope.popup = new Foundation.Reveal($('#newGradeRestaurant'));
+        $scope.popup.open();
+    };
+
+    $scope.cancel = function () {
+        $scope.popup.close();
+    };
     
 });

@@ -7,12 +7,11 @@ import rs.isa.mrs.trio.iceipice.model.OrderItem;
 import javax.persistence.LockModeType;
 import java.util.List;
 
-/**
- * Created by nikolalukic on 6/18/16.
- */
 public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     List<OrderItem> findByMenuItem_Article_ArticleType_Name(String name);
+
+    OrderItem findById(long id);
 
 }

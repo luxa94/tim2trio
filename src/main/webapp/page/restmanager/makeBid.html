@@ -1,10 +1,141 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="medium-6 columns form " id="allListsForm">
+    <h3>Liste namirnica</h3>
+    <select ng-model="currentStatus" ng-options="s for s in status">
+    </select>
 
-</body>
-</html>
+    <div ng-repeat="list in auctionsList">
+        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{$index + 1}}. {{list.from_date}} (važi do: {{list.to_date}})</a>
+    </div>
+</div>
+<div class="medium-6  columns form " id="NewListForm">
+    <h3>Nova lista namirnica</h3>
+    <hr>
+    <div>
+        <h4>Informacija o nabavci</h4>
+        <b>Restoran: </b>{{restaurant.name}}<br>
+        <b>Status: </b>{{auction.status}}<br>
+        <div style="float: left">
+            <b >Važi od datuma:</b>
+            <input type="date" ng-model="auction.from_date">
+        </div>
+        <div style="float: left">
+            <b>Važi do datuma:</b>
+            <input ng-model="auction.to_date" type="date" required>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Stavke</h4>
+        <a class="button round" ng-click="addNewListItem()">Nova stavka nabavke</a>
+        <table border="1">
+            <tr>
+                <th>rbr.</th>
+                <th>Naziv stavke</th>
+                <th>Količina</th>
+                <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
+                <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+                <th>Obriši</th>
+            </tr>
+            <tr ng-repeat="li in listItems">
+                <td>{{$index+1}}</td>
+                <td>{{li.name}}</td>
+                <td>{{li.quantity}}</td>
+                <td>{{li.type.name}}</td>
+                <td>{{li.unit.name}}</td>
+                <td><input type="checkbox" ng-model="d" ng-change="deleteItem($index)"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="button-group float-right">
+        <input type="submit" class="button" ng-click="addAuction()" value="Dodaj">
+        <a class="button alert" ng-click="cancelNewAuction()">Odustani</a>
+    </div>
+</div>
+
+<div class="small reveal" id="newListItem" data-reveal>
+
+    <form novalidate name="newListItemForm">
+        <h4 class="text-center">Dodaj novu stavku nabavke: </h4>
+        <label>Naziv stavke
+            <input type="text" required ng-model="newAuctionItem.name">
+        </label>
+        <label>
+            Količina
+            <input type="number" min="1" placeholder="4" required ng-model="newAuctionItem.quantity">
+        </label>
+        <label>
+        Tip
+        <div class="input-group">
+
+            <select required ng-model="newAuctionItem.type" ng-options="type.name for type in aiTypes">
+            </select>
+            <br>
+            <input class="input-group-field" placeholder="Naziv novog tipa" type="text" ng-model="newType.name">
+            <a class="input-group-button button" ng-click="addType()">Dodaj tip</a>
+        </div>
+        </label>
+        <label>
+        Merna jedinica
+        <div class="input-group">
+            <select required ng-model="newAuctionItem.unit" ng-options="unit.name for unit in aiUnits">
+            </select>
+            <br>
+            <input class="input-group-field" placeholder="Naziv nove merne jedinice" type="text" ng-model="newUnit.name">
+            <a class="input-group-button button" ng-click="addUnit()">Dodaj mernu jedinicu</a>
+        </div>
+        </label>
+
+        <div class="button-group float-right">
+            <input type="submit" class="button" ng-click="addListItem()" ng-disabled="newListItemForm.$invalid" value="Dodaj">
+            <a class="button alert" ng-click="cancel()">Odustani</a>
+        </div>
+
+    </form>
+
+    <button class="close-button" data-close aria-label="Close modal" type="button">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+
+
+
+
+<div class="small reveal" id="previewOneList" data-reveal>
+    <h3>Nova lista namirnica</h3>
+    <hr>
+    <div>
+        <h4>Informacija o nabavci</h4>
+        <b>Restoran: </b>{{selectedList.restaurant.name}}<br>
+        <b>Status: </b>{{selectedList.status}}<br>
+        <div style="float: left">
+            <b >Važi od datuma:</b>
+            <input type="text" ng-model="selectedList.from_date" readonly>
+        </div>
+        <div style="float: left">
+            <b>Važi do datuma:</b>
+            <input ng-model="selectedList.to_date" type="text" readonly>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Stavke</h4>
+        <table border="1">
+            <tr>
+                <th>rbr.</th>
+                <th>Naziv stavke</th>
+                <th>Količina</th>
+                <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
+                <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+            </tr>
+            <tr ng-repeat="li in selectedList.items">
+                <td>{{$index+1}}</td>
+                <td>{{li.name}}</td>
+                <td>{{li.quantity}}</td>
+                <td>{{li.auctionItemType.name}}</td>
+                <td>{{li.auctionItemUnit.name}}</td>
+            </tr>
+        </table>
+    </div>
+
+</div>
