@@ -132,8 +132,8 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         if($scope.selectedReservation == null){
             alert("Morate selektovati odgovarajuću rezervaciju.");
             return;
-
         }
+
         ReservationService.setUnderReview(reservation);
         ReservationService.asd.reservation = reservation;
      //   GuestService.setSelectedRestaurant(reservation.restaurantId);
@@ -142,8 +142,6 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             reservation.date = new Date(reservation.date);
             $state.transitionTo( "guest.addReservation");
         });
-
-
     };
 
     $scope.openDialogForReservationInfo = function(reservation) {

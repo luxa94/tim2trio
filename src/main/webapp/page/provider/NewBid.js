@@ -173,7 +173,7 @@ iceipiceApp.controller('providerNewBidController', function ($scope, $http, $sta
 
     $scope.activateBid = function () {
         console.log("BID: " + JSON.stringify($scope.bid));
-        $http.post('api/bid/activateBid', $scope.bid.id).success(function (data) {
+        $http.post('api/bid/activateBid', $scope.bid).success(function (data) {
             console.log("DATA: " + JSON.stringify(data));
         })
     }
@@ -186,5 +186,6 @@ iceipiceApp.controller('providerNewBidController', function ($scope, $http, $sta
     $scope.unitNotSet = function () {
         return isEmpty($scope.bidItem.unit);
     }
+
     
 });
