@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import rs.isa.mrs.trio.iceipice.globals.OrderItemStatus;
 import rs.isa.mrs.trio.iceipice.globals.ReservationStatus;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
@@ -44,24 +45,27 @@ public class ReservationService {
     WaiterRepository waiterRepository;
 
     @Autowired
+    CookRepository cookRepository;
+
+    @Autowired
     RestaurantTableRepository restaurantTableRepository;
 
     public Reservation createReservation(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
         updateReservation(reservation, reservationDTO);
 
-        try{
+        try {
             List<Guest> backup = reservation.getGuests();
-           // reservation.setGuests(null);
-          ///////////////////////////////// // reservation = reservationRepository.save(reservation);
+            // reservation.setGuests(null);
+            ///////////////////////////////// // reservation = reservationRepository.save(reservation);
             reservation.setGuests(backup);
             reservation = reservationRepository.save(reservation);
             List<Guest> backups2 = new ArrayList<Guest>();
             backups2.addAll(backup);
-           for(int i = 0; i < backups2.size(); i++) {
+            for (int i = 0; i < backups2.size(); i++) {
                 Guest newGuest = guestRepository.findById(backups2.get(i).getId());
-               newGuest.getReservations().add(reservation);
-               guestRepository.save(newGuest);
+                newGuest.getReservations().add(reservation);
+                guestRepository.save(newGuest);
             }
 
             reservation = reservationRepository.findById(reservation.getId());
@@ -76,7 +80,7 @@ public class ReservationService {
     }
 
     private void createOrderItems(ReservationDTO reservationDTO, Reservation reservation) {
-        if(reservationDTO.getOrders() == null || reservationDTO.getOrders().size() ==0) {
+        if (reservationDTO.getOrders() == null || reservationDTO.getOrders().size() == 0) {
             return;
         }
         try {
@@ -85,46 +89,47 @@ public class ReservationService {
             order.setRestaurantTables(reservation.getRestaurant_tables());
             order = orderRepository.save(order);
             List<OrderItem> orderItems = new ArrayList<>();
-           // orders.add(order);
+            // orders.add(order);
             reservation.setOrders(orderItems);
 
-            for(OrderItemDTO dto : reservationDTO.getOrders()) {
+            for (OrderItemDTO dto : reservationDTO.getOrders()) {
                 OrderItem item = new OrderItem();
                 item.setAmount(dto.getAmount());
                 MenuItem menuItem = menuItemRepository.findById(dto.getMenuItemId());
                 item.setMenuItem(menuItem);
                 item.setReservation(reservation);
                 item.setOrder(order);
-                item  = orderItemRepository.save(item);
+                item = orderItemRepository.save(item);
                 reservation.getOrders().add(item);
                 reservation = reservationRepository.save(reservation);
 
             }
             orderRepository.save(order);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
     public Reservation editReservation(ReservationDTO reservationDTO) {
-            Reservation reservation = reservationRepository.findById(reservationDTO.getId());
-            updateReservation(reservation, reservationDTO);
+        Reservation reservation = reservationRepository.findById(reservationDTO.getId());
+        updateReservation(reservation, reservationDTO);
 
-        try{
+        try {
             reservation = reservationRepository.save(reservation);
             return reservation;
         } catch (Exception e) {
             return null;
         }
     }
+
     private void updateReservation(Reservation reservation, ReservationDTO reservationDTO) {
         reservation.setDate(reservationDTO.getDate());
         reservation.setStart_hour(reservationDTO.getStart_hour());
         reservation.setEnd_hour(reservationDTO.getEnd_hour());
         reservation.setRestaurant(restaurantRepository.findById(reservationDTO.getRestaurantId()));
         List<Guest> guests = new ArrayList<Guest>();
-        for(GuestDTO guest: reservationDTO.getGuests()){
+        for (GuestDTO guest : reservationDTO.getGuests()) {
             guests.add(guestRepository.findById(guest.getId()));
         }
         reservation.setGuests(guests);
@@ -135,9 +140,9 @@ public class ReservationService {
     public List<ReservationDTO> getGuestsReservations(long id) {
         List<Reservation> allReservations = reservationRepository.findAll();
         List<Reservation> reservations = new ArrayList<>();
-        for(Reservation res  : allReservations) {
-            for(Guest guest : res.getGuests()){
-                if(guest.getId() == id) {
+        for (Reservation res : allReservations) {
+            for (Guest guest : res.getGuests()) {
+                if (guest.getId() == id) {
                     reservations.add(res);
                 }
             }
@@ -146,14 +151,14 @@ public class ReservationService {
 
         List<ReservationDTO> dtos = new ArrayList<>();
 
-        for(Reservation reservation : reservations) {
+        for (Reservation reservation : reservations) {
             ReservationDTO resDTO = new ReservationDTO(reservation);
 
 
             List<OrderItem> orders = orderItemRepository.findAll();
             List<OrderItemDTO> itemDtos = new ArrayList<>();
-            for(OrderItem item : orders) {
-                if(item.getReservation().getId() == reservation.getId()){
+            for (OrderItem item : orders) {
+                if (item.getReservation().getId() == reservation.getId()) {
                     itemDtos.add(new OrderItemDTO(item));
                 }
             }
@@ -168,16 +173,15 @@ public class ReservationService {
     }
 
 
-
-    public List<Reservation> getReservationByRestaurantAndDate(long id, Date date){
+    public List<Reservation> getReservationByRestaurantAndDate(long id, Date date) {
 
         List<Reservation> restaurant_reservations_on_date = new ArrayList<Reservation>();
         List<Reservation> reservations = reservationRepository.findAll();
 
-        for(Reservation res : reservations){
+        for (Reservation res : reservations) {
 
 
-            if(res.getRestaurant().getId() == id && res.getDate().getTime() == date.getTime()){
+            if (res.getRestaurant().getId() == id && res.getDate().getTime() == date.getTime()) {
                 restaurant_reservations_on_date.add(res);
             }
 
@@ -186,13 +190,13 @@ public class ReservationService {
 
     }
 
-    public List<Reservation> getReservationByRestaurant(long id){
+    public List<Reservation> getReservationByRestaurant(long id) {
 
         List<Reservation> restaurant_reservations = new ArrayList<Reservation>();
         List<Reservation> reservations = reservationRepository.findAll();
 
-        for(Reservation res : reservations){
-            if(res.getRestaurant().getId() == id) {
+        for (Reservation res : reservations) {
+            if (res.getRestaurant().getId() == id) {
                 restaurant_reservations.add(res);
             }
 
@@ -201,18 +205,18 @@ public class ReservationService {
 
     }
 
-    public void deleteReservation(long id){
+    public void deleteReservation(long id) {
 
         Reservation res = reservationRepository.findById(id);
         res.setOrders(null);
 
         List<Guest> guests = res.getGuests();
-        for(int i = 0; i < guests.size(); i++) {
+        for (int i = 0; i < guests.size(); i++) {
             Guest guest = guests.get(i);
             Iterator<Reservation> tableIterator = guest.getReservations().iterator();
-            while(tableIterator.hasNext()) {
+            while (tableIterator.hasNext()) {
                 Reservation guestRes = tableIterator.next();
-                if(guestRes.getId() == res.getId()) {
+                if (guestRes.getId() == res.getId()) {
                     tableIterator.remove();
                 }
             }
@@ -221,14 +225,14 @@ public class ReservationService {
 
         List<Order> orders = orderRepository.findAll();
         List<Order> needToBeRemoved = new ArrayList<Order>();
-        for(int i = 0; i < orders.size(); i++) {
+        for (int i = 0; i < orders.size(); i++) {
             Order order = orders.get(i);
-            if(order.getReservation().getId() == res.getId()) {
+            if (order.getReservation().getId() == res.getId()) {
                 needToBeRemoved.add(order);
             }
         }
 
-        for(Order order : needToBeRemoved) {
+        for (Order order : needToBeRemoved) {
             orderRepository.delete(order);
         }
 
@@ -291,13 +295,22 @@ public class ReservationService {
 
     public List<Reservation> reservationsForWaiter(long id) {
         final Waiter waiter = waiterRepository.findById(id);
-        final List<Reservation> restaurantReservations = reservationRepository.findByRestaurant_Id(waiter.getRestaurant().getId());
+        return getActiveReservationsForRestaurant(waiter.getRestaurant());
+    }
+
+    private List<Reservation> getActiveReservationsForRestaurant(Restaurant restaurant) {
+        final List<Reservation> restaurantReservations = reservationRepository.findByRestaurant_Id(restaurant.getId());
 
         final List<Reservation> reservations = new ArrayList<>();
 
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        final Date date = new Date();
+        Date date = new Date();
+
+        final Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MINUTE, -30);
+        date = calendar.getTime();
 
         final String currentDate = dateFormat.format(date);
         final String currentTime = timeFormat.format(date);
@@ -307,9 +320,8 @@ public class ReservationService {
                 if (currentTime.compareTo(reservation.getStart_hour()) > 0) {
                     reservations.add(reservation);
                 }
-             }
+            }
         }
-
         return reservations;
     }
 
@@ -340,5 +352,47 @@ public class ReservationService {
         reservation.setStatus(ReservationStatus.FINISHED);
         reservationRepository.save(reservation);
         return price;
+    }
+
+    public List<OrderItem> findOrderForCook(long id) {
+        final Cook cook = cookRepository.findById(id);
+        final List<Reservation> reservations = getActiveReservationsForRestaurant(cook.getRestaurant());
+        final List<OrderItem> orderItems = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            for (OrderItem orderItem : reservation.getOrders()) {
+                if ("hrana".equals(orderItem.getMenuItem().getArticle().getArticleType().getName()) && (OrderItemStatus.NEW.equals(orderItem.getStatus()) ||
+                        (OrderItemStatus.MAKING.equals(orderItem.getStatus()) && orderItem.getCook() != null && cook.getId() == orderItem.getCook().getId()))) {
+                    orderItems.add(orderItem);
+                }
+            }
+        }
+        return orderItems;
+    }
+
+    public synchronized boolean cookTakeOrder(long cookId, long orderId) {
+        final Cook cook = cookRepository.findById(cookId);
+        final OrderItem orderItem = orderItemRepository.findById(orderId);
+
+        if (OrderItemStatus.NEW.equals(orderItem.getStatus())) {
+            orderItem.setCook(cook);
+            orderItem.setStatus(OrderItemStatus.MAKING);
+            orderItemRepository.save(orderItem);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void finishOrder(long id) {
+        final OrderItem orderItem = orderItemRepository.findById(id);
+        orderItem.setStatus(OrderItemStatus.DONE);
+        orderItemRepository.save(orderItem);
+    }
+
+    public void serveOrder(long id) {
+        final OrderItem orderItem = orderItemRepository.findById(id);
+        orderItem.setStatus(OrderItemStatus.SERVED);
+        orderItemRepository.save(orderItem);
     }
 }

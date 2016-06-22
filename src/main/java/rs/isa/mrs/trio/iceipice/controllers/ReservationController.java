@@ -149,4 +149,28 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.closeService(id), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/orders/cook/{id}", method = RequestMethod.GET)
+    public ResponseEntity getCooksOrders(@PathVariable long id) {
+        return new ResponseEntity<>(reservationService.findOrderForCook(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/orders/cook/make/{cookId}/order/{orderId}", method = RequestMethod.POST)
+    public ResponseEntity cookTakeOrder(@PathVariable long cookId, @PathVariable long orderId) {
+        if (reservationService.cookTakeOrder(cookId, orderId)) {
+            return new ResponseEntity(HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.FORBIDDEN);
+        }
+    }
+
+    @RequestMapping(value = "/orders/finish/{id}", method = RequestMethod.POST)
+    public void cookFinishOrder(@PathVariable long id) {
+        reservationService.finishOrder(id);
+    }
+
+    @RequestMapping(value = "/orders/serve/{id}", method = RequestMethod.POST)
+    public void serveOrder(@PathVariable long id) {
+        reservationService.serveOrder(id);
+    }
+
 }
