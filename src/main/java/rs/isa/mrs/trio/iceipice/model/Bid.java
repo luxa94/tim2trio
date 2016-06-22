@@ -16,7 +16,7 @@ public class Bid {
     private long id;
 
     @Column(name = "price")
-    private String price;
+    private double price;
 
     @Column(name = "timestamp")
     private Date timestamp;
@@ -32,11 +32,22 @@ public class Bid {
     @JoinColumn(name = "auction_id", nullable = false)
     private Auction auction;
 
+    @Column(name = "currency")
+    private String currency;
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public long getId() {
         return id;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -52,7 +63,7 @@ public class Bid {
         this.id = id;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -82,4 +93,6 @@ public class Bid {
 
     public Bid() {
     }
+
+
 }

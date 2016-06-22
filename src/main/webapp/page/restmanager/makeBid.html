@@ -62,7 +62,7 @@
         </label>
         <label>
             Količina
-            <input type="number" min="1" placeholder="4" required ng-model="newAuctionItem.quantity">
+            <input type="text" pattern="\d+(\.\d+)?$" placeholder="4" required ng-model="newAuctionItem.quantity">
         </label>
         <label>
         Tip
