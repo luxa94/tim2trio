@@ -50,6 +50,11 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             return;
         }
 
+        if(reservation.end_hour == null){
+            alert("Morate uneti zavšno vreme rezervacije!");
+            return;
+        }
+
         if($scope.asd.reservation.restaurantId == null && pasedRestaurant.id == null){
             alert("Morate selektovati željeni restoran!");
             return;
@@ -77,6 +82,10 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
 
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
+            return;
+        }
+        if(reservation.end_hour == null){
+            alert("Morate uneti zavšno vreme rezervacije!");
             return;
         }
         if($scope.asd.reservation.restaurantId == null && pasedRestaurant.id == null){

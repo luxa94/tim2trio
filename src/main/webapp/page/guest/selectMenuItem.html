@@ -73,7 +73,7 @@
                     <td>{{mi.article.name}}</td>
                     <td>{{mi.amount}}</td>
                     <td>
-                        <button class="button1 " ng-click="refreshTable(mi)">Obriši</button>
+                        <button class="button1 " ng-click="refreshTable(mi)" ng-disabled="tooLate">Obriši</button>
                     </td>
                 </tr>
             </table>
