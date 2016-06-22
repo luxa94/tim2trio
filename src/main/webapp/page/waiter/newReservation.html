@@ -5,10 +5,17 @@
 
 <div class="small-12 columns form" ng-repeat="ar in articleTypes">
     <h4>{{ar.name}}</h4>
-    <div ng-repeat="mi in menuItems" class="column small-12 medium-4" ng-if="mi.article.articleType.name == ar.name">
+    <div ng-repeat="mi in menuItems" class="column small-12 medium-3 form float-left" ng-if="mi.article.articleType.name == ar.name">
         <h5>{{mi.article.name}}</h5>
         <p>{{mi.price}}RSD</p>
         <input type="number" ng-model="mi.count">
     </div>
+</div>
 
+
+<div class="small-12 form columns">
+    <div class="button-group float-right">
+        <button class="button" ng-click="saveReservation()">Sačuvaj</button>
+        <button class="button alert" ng-click="cancelReservation()">Otkaži</button>
+    </div>
 </div>

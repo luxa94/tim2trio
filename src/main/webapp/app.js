@@ -210,7 +210,6 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/waiter/homeWaiter.html',
             controller: 'waiterHomeController'
         })
-<<<<<<< HEAD
         .state('provider',{
             url: '/provider',
             abstract : true,
@@ -232,11 +231,11 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/provider/NewBid.html',
             controller: 'providerNewBidController'
         })
-        .state('provider.myBids',{
+        .state('provider.myBids', {
             url: '/myBids',
             templateUrl: 'page/provider/myBids.html',
             controller: 'providerMyBidsController'
-=======
+        })
         .state('waiter.shifts', {
             url: '/shifts',
             templateUrl: '/page/waiter/waiterShifts.html',
@@ -251,7 +250,6 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             url: 'newReservation',
             templateUrl: '/page/waiter/newReservation.html',
             controller: 'waiterNewReservationController'
->>>>>>> f7ad6e6001d43665cea415d326ab7ca10bd778cb
         })
         .state('logout', {
             url: '/logout',
