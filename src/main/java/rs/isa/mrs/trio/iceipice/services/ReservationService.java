@@ -6,8 +6,10 @@ import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.ReservationWaiterDTO;
 import rs.isa.mrs.trio.iceipice.repository.*;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -33,6 +35,12 @@ public class ReservationService {
 
     @Autowired
     OrderRepository orderRepository;
+
+    @Autowired
+    AreaRepository areaRpoAreaRepository;
+
+    @Autowired
+    RestaurantTableRepository restaurantTableRepository;
 
     public Reservation createReservation(ReservationDTO reservationDTO) {
         Reservation reservation = new Reservation();
@@ -81,7 +89,7 @@ public class ReservationService {
                 item.setAmount(dto.getAmount());
                 MenuItem menuItem = menuItemRepository.findById(dto.getMenuItemId());
                 item.setMenuItem(menuItem);
-                item.setReservations(reservation);
+                item.setReservation(reservation);
                 item.setOrder(order);
                 item  = orderItemRepository.save(item);
                 reservation.getOrders().add(item);
@@ -141,7 +149,7 @@ public class ReservationService {
             List<OrderItem> orders = orderItemRepository.findAll();
             List<OrderItemDTO> itemDtos = new ArrayList<>();
             for(OrderItem item : orders) {
-                if(item.getReservations().getId() == reservation.getId()){
+                if(item.getReservation().getId() == reservation.getId()){
                     itemDtos.add(new OrderItemDTO(item));
                 }
             }
@@ -229,4 +237,51 @@ public class ReservationService {
 
 
     }
+
+    public Reservation createReservation(ReservationWaiterDTO reservationWaiterDTO) {
+        Reservation reservation = new Reservation();
+        final Date currentDate = new Date();
+
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        sdf.applyPattern("hh:mm");
+        final String startTime = sdf.format(currentDate);
+        final Calendar c = Calendar.getInstance();
+        c.setTime(currentDate);
+        c.add(Calendar.HOUR, 2);
+        final String endTime = sdf.format(c.getTime());
+
+        reservation.setDate(currentDate);
+        reservation.setStart_hour(startTime);
+        reservation.setEnd_hour(endTime);
+        reservation.setRestaurant(restaurantRepository.findById(reservationWaiterDTO.getRestaurantId()));
+        reservation.setRestaurant_tables(new HashSet<>(restaurantTableRepository.findAll(reservationWaiterDTO.getTableIds())));
+        Order order = new Order();
+        order.setRestaurantTables(reservation.getRestaurant_tables());
+
+        if (reservationAvailable(reservation)) {
+            reservation = reservationRepository.save(reservation);
+            order.setReservation(reservation);
+            order = orderRepository.save(order);
+
+            for (OrderItemDTO dto : reservationWaiterDTO.getOrderItemDTOs()) {
+                if (dto.getAmount() > 0) {
+                    final OrderItem orderItem = new OrderItem();
+                    orderItem.setAmount(dto.getAmount());
+                    orderItem.setOrder(order);
+                    orderItem.setMenuItem(menuItemRepository.findById(dto.getMenuItemId()));
+                    orderItem.setReservation(reservation);
+
+                    orderItemRepository.save(orderItem);
+                }
+            }
+            return reservation;
+        }
+        return null;
+    }
+
+    private boolean reservationAvailable(Reservation reservation) {
+        return true;
+    }
+
+
 }

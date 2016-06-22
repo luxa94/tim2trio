@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import rs.isa.mrs.trio.iceipice.globals.ReservationStaus;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,12 +29,12 @@ public class Reservation {
     @Column(name = "end_hour", nullable = false)
     private String end_hour;
 
-    @ManyToMany(fetch = FetchType.EAGER,   cascade = CascadeType.ALL, mappedBy="reservations")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "reservations")
     private List<Guest> guests;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "reservation_table",
-            joinColumns = {@JoinColumn(name = "reservation_id",  nullable = false)},
+            joinColumns = {@JoinColumn(name = "reservation_id", nullable = false)},
             inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
     private Set<RestaurantTable> restaurant_tables;
 
@@ -41,8 +42,11 @@ public class Reservation {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    @Column(name = "status", nullable = false)
+    private String status;
+
     @JsonBackReference("reservation-order")
-    @OneToMany(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<OrderItem> orders;
 
     public Restaurant getRestaurant() {
@@ -54,6 +58,7 @@ public class Reservation {
     }
 
     public Reservation(Date date, String start_hour, String end_hour, List<Guest> guests, Set<RestaurantTable> restaurant_tables, Restaurant restaurant) {
+        this();
         this.date = date;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
@@ -103,6 +108,7 @@ public class Reservation {
     }
 
     public Reservation() {
+        this.status = ReservationStaus.CREATED;
     }
 
     public List<Guest> getGuests() {
@@ -119,5 +125,13 @@ public class Reservation {
 
     public void setOrders(List<OrderItem> orders) {
         this.orders = orders;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

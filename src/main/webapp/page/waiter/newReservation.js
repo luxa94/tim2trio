@@ -72,12 +72,33 @@ iceipiceApp.controller('waiterNewReservationController', function ($scope, $http
         // debugger;
     });
 
-
     $scope.cancelReservation = function () {
         for (var i in $scope.menuItems) {
             var item = $scope.menuItems[i];
             item.count = 0;
         }
-    }
+    };
+
+    $scope.saveReservation = function () {
+        var final = {};
+
+        final.tableIds = $scope.selectedTables;
+        final.waiterId = $scope.user.id;
+        final.restaurantId = $scope.user.restaurant.id;
+        final.orderItemDTOs = [];
+        
+        for (var i in $scope.menuItems) {
+            var item = $scope.menuItems[i];
+            var a = {
+                menuItemId: item.id,
+                amount: item.count
+            };
+            final.orderItemDTOs.push(a);
+        }
+
+        $http.post('/api/reservations/create', final).success(function (data) {
+            console.log(data);
+        });
+    };
 
 });
