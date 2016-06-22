@@ -38,7 +38,7 @@ public class Reservation {
     private Set<RestaurantTable> restaurant_tables;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @JsonBackReference("reservation-order")

@@ -5,7 +5,7 @@ iceipiceApp.controller('guestHomeController', function ($scope, $http, $state, $
 
     $scope.user = authorizationService.getUser();
 
-
+    $scope.user.birthDate = new Date($scope.user.birthDate);
 
     $scope.modifyUserInfo = function () {
         $http.post('/api/guest/update', $scope.user).success(function (data) {

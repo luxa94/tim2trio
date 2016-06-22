@@ -118,7 +118,7 @@ public class TestController {
             guests.add(g);
 
             Reservation res1 = new Reservation(new Date(), "22:40","14:00", guests, tables, r1);
-            Reservation res2 = new Reservation(new Date(), "22:00","18:00", guests, tables, r1);
+          //  Reservation res2 = new Reservation(new Date(), "22:00","18:00", guests, tables, r1);
 
             br.setRestaurant(r);
             ck.setRestaurant(r);
@@ -187,8 +187,10 @@ public class TestController {
             menuItemRepository.save(mi9);
             areaRepository.save(area1);
             restaurantTableRepository.save(rt1);
+
             reservationRepository.save(res1);
             shiftRepository.save(sh1);
+
             shiftRepository.save(sh2);
             bartenderShiftRepository.save(btsh1);
 

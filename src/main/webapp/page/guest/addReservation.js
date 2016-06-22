@@ -5,11 +5,19 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.restaurants = [];
     $scope.current.page = 3;
     $scope.asd = ReservationService.asd;
-    $scope.asd.reservation.guests = [ $scope.user];
-    $scope.asd.reservation.orders = [];
+    if(typeof $scope.asd.reservation.guests == "undefined" || $scope.asd.reservation.guests == "undefined" ){
+        $scope.asd.reservation.guests = [ $scope.user];
+    }
+
+    if(typeof $scope.asd.reservation.orders == "undefined" || $scope.asd.reservation.orders == "undefined" ){
+        $scope.asd.reservation.orders = [];
+    }
+
     var pasedRestaurant = GuestService.getSelectedRestaurant();
     
     var previousRestaurant = GuestService.getSelectedRestaurant();
+
+
 
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
@@ -32,6 +40,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.setClickedRow = function(index,restaurant){  //function that sets the value of selectedRow to current index
         $scope.selectedRow = index;
         $scope.asd.reservation.restaurantId = restaurant.id;
+        $scope.asd.reservation.restaurant = restaurant;
         $scope.selectedRestaurant = restaurant;
     };
 
@@ -83,8 +92,10 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         }
         else {
             reservation.restaurantId = $scope.asd.reservation.restaurantId;
-        }
+            reservation.restaurant = $scope.restaurant;
 
+        }
+        GuestService.setSelectedRestaurant($scope.asd.reservation.restaurant);
         $state.transitionTo( "guest.selectMenuItem");
     };
 

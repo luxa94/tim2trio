@@ -7,7 +7,7 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     $scope.articleTypes = [];
     $scope.current.page = 3;
 
-
+    $scope.tooLate = false;
     $scope.selectedMenuItems = [];
     $scope.quantity = 0;
     $scope.orderItem = {};
@@ -15,24 +15,72 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
 
     $scope.asd = ReservationService.asd;
 
-    
-
-
-
     console.log(ReservationService.asd.reservation.restaurantId);
     $http.get('/api/menuItems/allFromR/' + ReservationService.asd.reservation.restaurantId).success(function(data) {
         $scope.menuItems = data;
         // proveritiiii
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+        var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
+
+
+            var calculatedDate = new Date(ReservationService.asd.reservation.date);
+            //  console.log(calculatedDate);
+
+            var todayDay = calculatedDate.getDay();
+            console.log(todayDay);
+            var todayMonth = calculatedDate.getMonth();
+            console.log(todayMonth);
+            var todayYear = calculatedDate.getFullYear();
+            console.log(todayYear);
+            var startHour = parseInt(ReservationService.asd.reservation.start_hour.substring(0,3));
+            var startMinutes = parseInt(ReservationService.asd.reservation.start_hour.substring(3));
+
+            var date = calculatedDate.getTime();
+            console.log(date);
+
+
+            ReservationService.asd.reservation.date = new Date(ReservationService.asd.reservation.date);
+            ReservationService.asd.reservation.niceDate = ReservationService.asd.reservation.date.toISOString().substring(0, 10);
+            //      calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
+
+
+            if( ReservationService.asd.reservation.date.getTime() <= today) {
+                ReservationService.asd.reservation.tooLate = true;
+            } else {
+                ReservationService.asd.reservation.tooLate = false;
+            }
+                  console.log("IS IT TOO LATE?",    ReservationService.asd.reservation );
+            $scope.tooLate = ReservationService.asd.reservation.tooLate;
+            if(ReservationService.asd.reservation.tooLate) {
+
+                return;
+            }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
         var orderList = ReservationService.asd.reservation.orders;
         if(orderList.length != 0) {
             for(var i = 0; i < orderList.length; i++) {
                 for(var j = 0; j < $scope.menuItems.length; j++) {
-                    if($scope.menuItems[j].id == order[i].menuItemId) {
+                    if($scope.menuItems[j].id == orderList[i].menuItemId) {
+                        $scope.menuItems[j].amount = orderList[i].amount;
                         $scope.selectedMenuItems.push($scope.menuItems[j]);
+
                     }
                 }
             }
         }
+
+
 
 
     });
@@ -50,10 +98,11 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
             item.menuItemId = $scope.selectedMenuItems[i].id;
             items.push(item);
         }
-        var reservation  = ReservationService.asd.reservation;
-        reservation.restaurantId = $scope.asd.reservation.restaurantId;
-        // vrati dobar id restorana
-        console.log("vracam rez: " + reservation.restaurantId);
+        //var reservation  = ReservationService.asd.reservation;
+     //   reservation.restaurantId = $scope.asd.reservation.restaurantId;
+      //  // vrati dobar id restorana
+      //  console.log("vracam rez: " + reservation.restaurantId);
+
         reservation.orders = items;
 
 

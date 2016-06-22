@@ -8,10 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.repository.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import  java.util.Date;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Nina on 26-May-16.
@@ -189,6 +186,47 @@ public class ReservationService {
 
         }
         return restaurant_reservations;
+
+    }
+
+    public void deleteReservation(long id){
+
+        Reservation res = reservationRepository.findById(id);
+        res.setOrders(null);
+
+        List<Guest> guests = res.getGuests();
+        for(int i = 0; i < guests.size(); i++) {
+            Guest guest = guests.get(i);
+            Iterator<Reservation> tableIterator = guest.getReservations().iterator();
+            while(tableIterator.hasNext()) {
+                Reservation guestRes = tableIterator.next();
+                if(guestRes.getId() == res.getId()) {
+                    tableIterator.remove();
+                }
+            }
+            guestRepository.save(guest);
+        }
+
+        List<Order> orders = orderRepository.findAll();
+        List<Order> needToBeRemoved = new ArrayList<Order>();
+        for(int i = 0; i < orders.size(); i++) {
+            Order order = orders.get(i);
+            if(order.getReservation().getId() == res.getId()) {
+                needToBeRemoved.add(order);
+            }
+        }
+
+        for(Order order : needToBeRemoved) {
+            orderRepository.delete(order);
+        }
+
+        res.setGuests(null);
+        res.setRestaurant(null);
+        res.setRestaurant_tables(null);
+
+        res = reservationRepository.save(res);
+        reservationRepository.delete(res);
+
 
     }
 }

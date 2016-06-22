@@ -36,7 +36,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
 
         for(var i = 0; i < data.length; i++){
-            
+
             var calculatedDate = new Date(data[i].date);
           //  console.log(calculatedDate);
 
@@ -52,8 +52,9 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             var date = calculatedDate.getTime();
             console.log(date);
 
-            data[i].niceDate = new Date(calculatedDate.getTime()).toISOString().substring(0, 10);
 
+              data[i].date = new Date(data[i].date);
+            data[i].niceDate = data[i].date.toISOString().substring(0, 10);
       //      calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
 
 
@@ -112,6 +113,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
         ReservationService.setUnderReview($scope.selectedReservation );
      //   $state.transitionTo( "guest.gradeReservation");
 
+
     }
 
     $scope.openDialogForGradeRestaurant = function(reservation) {
@@ -133,7 +135,15 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
 
         }
         ReservationService.setUnderReview(reservation);
-        $state.transitionTo( "guest.addReservation");
+        ReservationService.asd.reservation = reservation;
+     //   GuestService.setSelectedRestaurant(reservation.restaurantId);
+        $http.get('/api/restaurant/one/'+ reservation.restaurantId).success(function (data) {
+            GuestService.setSelectedRestaurant(data);
+            reservation.date = new Date(reservation.date);
+            $state.transitionTo( "guest.addReservation");
+        });
+
+
     };
 
     $scope.openDialogForReservationInfo = function(reservation) {
