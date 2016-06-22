@@ -22,13 +22,13 @@
                         <td>{{reservation.start_hour}}</td>
                     </tr>
                 </table>
-                <p style="font-size: x-small";>* Obratite pažnju da rezervacije mogu da se otkažu najkasnije 30 min pre početka rezervacije.</p>
+                <p style="font-size: x-small";>* Obratite pažnju da rezervacije mogu da se otkažu i modifikuju najkasnije 30 min pre početka rezervacije.</p>
                 </div>
                 <span style="float: right">
                      <button class="button1" ng-click="removeReservation()" ng-mouseover="mouseOverDelete()" ng-disabled="selectedReservation.tooLate">Obriši</button>
-                     <button class="button2" ng-click="inviteOnLunch(friend.id)">Detaljnije</button>
-                    <button class="button2" ng-click="gradeReservation(reservation)">Oceni</button>
-                     <button class="button3" ng-click="inviteOnLunch(friend.id)">Izmeni</button>
+                     <button class="button2" ng-click="showReservation(reservation)">Detaljnije</button>
+                    <button class="button2" ng-click="gradeReservation(reservation)" ng-disabled="selectedReservation.graded">Oceni</button>
+                     <button class="button3" ng-click="modifyReservation(reservation)" ng-disabled="selectedReservation.tooLate">Izmeni</button>
                  </span>
         </div>
     </form>
@@ -40,25 +40,83 @@
             <div class="row column ">
                 <h4 class="text-center">Ocenite vaše iskustvo</h4>
                 <br>
-                <label>Jelo:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.meal_grade" max="5"></input-stars>
+                <label>Hrana:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.meal_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" required ng-model = "grade.meal_comment" >
                 </label>
-                <label>Uluga konobara:
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.waiter_grade" max="5"></input-stars>
+                <label>Uluga:
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.waiter_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" ng-model = "grade.waiter_comment" required >
                 </label>
-                <label>Restoran:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="grade.atmosphere_grade" max="5"></input-stars>
+                <label>Atmosfera:
+                    <input-stars ng-model="grade.atmosphere_grade" max="5"></input-stars>
                 </label>
                 <label>Komentar:
                     <input type="text" ng-model = "grade.atmosphere_comment" required  >
                 </label>
              <span style="float: right">
                  <button class="button3"  ng-click="gradeRes()">Oceni</button>
+                 <button class="button1"  ng-click="cancel()">Odustani</button>
+             </span>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="small reveal" id="newShowReservationInfo" data-reveal style="width: 50%; height: 80%;">
+    <div class="column" >
+        <form novalidate name="showReservationInfo">
+            <div class="row column ">
+                <h4 class="text-center">Detalji rezervacije</h4>
+                <br>
+                <label>Restoran:
+
+                    <input type="text" required readonly ng-model="selectedReservation.restaurant.name" required>
+                </label>
+                <label>Datum:
+
+                    <input type="date" required readonly ng-model="selectedReservation.niceDate" required>
+                </label>
+                <label>Početak rezervacije:
+                    <input type="text" required readonly ng-model="selectedReservation.start_hour" required>
+                </label>
+                <label>Kraj rezervacije:
+
+                    <input type="text" required readonly ng-model="selectedReservation.end_hour" required>
+                </label>
+                <label>Pozvani prijatelji:
+                    <table border="1" >
+                        <tr>
+                            <th>Ime</th>
+                            <th>Prezime</th>
+                        </tr>
+                        <tr ng-repeat="friend in selectedReservation.guests" >
+                            <td>{{friend.name}}</td>
+                            <td>{{friend.surname}}</td>
+                        </tr>
+                    </table>
+
+                </label>
+                <label>Porudžbine:
+                    <table border="1" >
+                        <tr>
+                            <th>Stavka menija</th>
+                            <th>Količina</th>
+                        </tr>
+                        <tr ng-repeat="mi in selectedReservation.orders" >
+                            <td>{{mi.name}}</td>
+                            <td>{{mi.quantity}}</td>
+                        </tr>
+                    </table>
+
+                </label>
+
+
+             <span style="float: right">
                  <button class="button1"  ng-click="cancel()">Odustani</button>
              </span>
             </div>

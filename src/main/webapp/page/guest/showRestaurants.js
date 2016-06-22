@@ -7,6 +7,7 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
 
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
+      //  console.log($scope.restaurants);
     });
 
     // Reverse Order Button
@@ -20,22 +21,19 @@ iceipiceApp.controller('guestShowRestaurantsController', function ($scope, $http
 
     $scope.openDialogForRestaurantInfo= function(restaurant) {
         $scope.restaurant = restaurant;
+        $scope.restaurant.address = restaurant.address;
+        console.log(restaurant.address);
         $scope.popup = new Foundation.Reveal($('#newShowRestaurant'));
         $scope.popup.open();
     };
 
     $scope.showRestaurant = function (restaurant) {
         $scope.openDialogForRestaurantInfo(restaurant);
-        var circle = new fabric.Circle({
-            radius: 25, fill: 'red', left: 100, top: 100
-        });
-        //     $scope.table.fabricTable = circle;
     };
 
     $scope.gotToReservation = function (restaurant) {
         
         GuestService.setSelectedRestaurant(restaurant);
-
         $state.transitionTo( "guest.addReservation");
     };
 

@@ -37,9 +37,9 @@
         <label>Opis
             <input type="text" placeholder="" readonly required ng-model="restaurant.description" >
         </label>
-   <!--     <label>PIB
+        <label>PIB
         <input type="text" placeholder="" readonly required ng-model="restaurant.pib">
-        </label> -->
+        </label>
         <label>Broj telefona
         <input type="text" placeholder="" readonly required ng-model="restaurant.phoneNumber">
         </label>
@@ -49,12 +49,35 @@
         <label>Email
             <input type="text" placeholder="" readonly required ng-model="restaurant.email">
         </label>
-   <!--     <label>Type
-            <input type="text" placeholder="" readonly required ng-model="restaurant.type">
-        </label> -->
         <h4 class="text-center">Ocene i recenzije</h4>
         <br>
-        <label>Ocena:
+        <label>Hrana:
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="restaurant.finalGradeMeal" max="5" readonly></input-stars>
+        </label>
+        <label>Komentari:
+            <div style="overflow-y:scroll;">
+                <table border="1">
+
+                    <tr ng-repeat="grade in restaurant.restaurantGrades" >
+                        <td>{{grade.meal_comment}}</td>
+                    </tr>
+                </table>
+            </div>
+        </label>
+        <label>Usluga:
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input-stars ng-model="restaurant.finalGradeWaiter" max="5" readonly></input-stars>
+        </label>
+        <label>Komentari:
+            <div style="overflow-y:scroll;">
+                <table border="1">
+
+                    <tr ng-repeat="grade in restaurant.restaurantGrades" >
+                        <td>{{grade.waiter_comment}}</td>
+                    </tr>
+                </table>
+            </div>
+        </label>
+        <label>Atmosfera:
             &nbsp;&nbsp;&nbsp;<input-stars ng-model="restaurant.finalGrade" max="5" readonly></input-stars>
         </label>
         <label>Komentari:

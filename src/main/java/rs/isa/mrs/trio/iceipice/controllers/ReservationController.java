@@ -10,6 +10,7 @@ import rs.isa.mrs.trio.iceipice.model.dto.GetReservationDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
+import rs.isa.mrs.trio.iceipice.services.GradeService;
 import rs.isa.mrs.trio.iceipice.services.ReservationService;
 
 import java.util.ArrayList;
@@ -30,11 +31,19 @@ public class ReservationController {
     ReservationService reservationService;
 
     @Autowired
+    GradeService gradeService;
+
+    @Autowired
     GuestRepository guestRepository;
 
     @RequestMapping(value = "/reservations/all/{id}", method = RequestMethod.GET)
     public ResponseEntity getAllReservations(@PathVariable long id) {
         List<ReservationDTO> reservations = reservationService.getGuestsReservations(id);
+
+        for(ReservationDTO res : reservations){
+            boolean isGraded = gradeService.userHasGraded(id, res.getId());
+            res.setGraded(isGraded);
+        }
 
         return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
@@ -58,21 +67,23 @@ public class ReservationController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-
     }
 
 
     @RequestMapping(value = "/reservation/create", method = RequestMethod.POST)
     public ResponseEntity createReservation(@RequestBody ReservationDTO reservationDTO) {
 
-        //set date object to 00:00
-        Date date = reservationDTO.getDate();
+        System.out.println(reservationDTO);
 
-        reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
+        //set date object to 00:00
+      //  Date date = reservationDTO.getDate();
+
+        // ovde se nesto cudno desava
+       // reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
 
         final Reservation reservation = reservationService.createReservation(reservationDTO);
         if (reservation != null) {
-            return new ResponseEntity<>(reservation, HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
@@ -106,9 +117,7 @@ public class ReservationController {
         for(Reservation res : reservations) {
             dtoReservations.add(new ReservationDTO(res));
         }
-
         return new ResponseEntity<>(dtoReservations, HttpStatus.OK);
-
     }
 
     List<ReservationDTO> reservationDTOs = new ArrayList<ReservationDTO>();

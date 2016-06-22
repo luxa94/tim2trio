@@ -1,17 +1,23 @@
 /**
  * Created by Nina on 26-May-16.
  */
-iceipiceApp.controller('guestModifyReservationController', function ($scope, $http, $state, $stateParams, authorizationService,ReservationService) {
+iceipiceApp.controller('guestModifyReservationController', function ($scope, $http, $state, $stateParams, authorizationService,ReservationService, GuestService) {
     $scope.reservations = [];
-    $scope.current.page = 4
+    $scope.current.page = 4;
 
-    $scope.grade = {}
+    $scope.reservation = {
+        niceDate: new Date()
+    };
+
+    $scope.grade = {};
     $scope.grade.meal_grade = 0;
     $scope.grade.waiter_grade = 0;
     $scope.grade.atmosphere_grade= 0;
     $scope.grade.meal_comment = null;
     $scope.grade.waiter_comment= null;
     $scope.grade.atmosphere_comment = null;
+
+ //   $scope.asd = ReservationService.asd;
 
     $scope.rateFunction = function(rating) {
         console.log('Rating selected: ' + rating);
@@ -26,25 +32,29 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
     };
 
     $http.get('/api/reservations/all/' + $scope.user.id).success(function (data) {
-
+        
         var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
 
-
-
         for(var i = 0; i < data.length; i++){
+            
+            var calculatedDate = new Date(data[i].date);
+          //  console.log(calculatedDate);
 
-
-            var calculatedDate = new Date( data[i].date);
             var todayDay = calculatedDate.getDay();
+            console.log(todayDay);
             var todayMonth = calculatedDate.getMonth();
-            var todayYear = calculatedDate.getYear();
+            console.log(todayMonth);
+            var todayYear = calculatedDate.getFullYear();
+            console.log(todayYear);
             var startHour = parseInt(data[i].start_hour.substring(0,3));
             var startMinutes = parseInt(data[i].start_hour.substring(3));
 
+            var date = calculatedDate.getTime();
+            console.log(date);
 
-            data[i].niceDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).toString();
+            data[i].niceDate = new Date(calculatedDate.getTime()).toISOString().substring(0, 10);
 
-            calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
+      //      calculatedDate = new Date(todayYear, todayMonth, todayDay, startHour, startMinutes).getTime();
 
 
             if( data[i].date <= today) {
@@ -52,7 +62,7 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
             } else {
                 data[i].tooLate = false;
             }
-            console.log("IS IT TOO LATE?",    data[i] );
+     //       console.log("IS IT TOO LATE?",    data[i] );
         }
         $scope.reservations = data;
     });
@@ -74,7 +84,11 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
 
     $scope.removeReservation = function(){
 
+        if($scope.selectedReservation == null){
+            alert("Morate selektovati odgovarajuću rezervaciju.");
+            return;
 
+        }
 
         ReservationService.Delete($scope.selectedReservation.id).then(function(){
             for(var i = 0; $scope.reservations.length; i++){
@@ -109,5 +123,34 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
     $scope.cancel = function () {
         $scope.popup.close();
     };
-    
+
+
+    $scope.modifyReservation = function(reservation) {
+
+        if($scope.selectedReservation == null){
+            alert("Morate selektovati odgovarajuću rezervaciju.");
+            return;
+
+        }
+        ReservationService.setUnderReview(reservation);
+        $state.transitionTo( "guest.addReservation");
+    };
+
+    $scope.openDialogForReservationInfo = function(reservation) {
+        $scope.reservation = reservation;
+        $scope.popup = new Foundation.Reveal($('#newShowReservationInfo'));
+        $scope.popup.open();
+    };
+
+    $scope.showReservation = function (reservation) {
+        if($scope.selectedReservation == null){
+            alert("Morate selektovati jednu rezervaciju!");
+            return;
+        }
+   //     $scope.selectedReservation = reservation;
+        $scope.openDialogForReservationInfo(reservation);
+    };
+
+
+
 });
