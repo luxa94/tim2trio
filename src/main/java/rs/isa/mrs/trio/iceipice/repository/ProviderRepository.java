@@ -12,4 +12,5 @@ public interface ProviderRepository extends JpaRepository<Provider, Long> {
 
     Provider findByEmailAndPassword(String email, String password);
 
+    Provider findById(long id);
 }

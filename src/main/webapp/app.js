@@ -166,6 +166,16 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/bartender/homeBartender.html',
             controller: 'bartenderHomeController'
         })
+        .state('bartender.shifts', {
+            url: '/shifts',
+            templateUrl: '/page/bartender/bartenderShifts.html',
+            controller: 'bartenderShiftsController'
+        })
+        .state('bartender.orders', {
+            url: '/orders',
+            templateUrl: 'page/bartender/bartenderOrders.html',
+            controller: 'bartenderOrdersController'
+        })
         .state('cook', {
             url: '/cook',
             abstract: true,
@@ -178,6 +188,16 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             templateUrl: 'page/cook/homeCook.html',
             controller: 'cookHomeController'
         })
+        .state('cook.orders', {
+            url: '/orders',
+            templateUrl: 'page/cook/cookOrders.html',
+            controller: 'cookOrdersController'
+        })
+        .state('cook.shifts', {
+            url: '/shifts',
+            templateUrl: 'page/cook/cookShifts.html',
+            controller: 'cookShiftsController'
+        })
         .state('waiter', {
             url: '/waiter',
             abstract: true,
@@ -189,6 +209,49 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             url: '/home',
             templateUrl: 'page/waiter/homeWaiter.html',
             controller: 'waiterHomeController'
+        })
+<<<<<<< HEAD
+        .state('provider',{
+            url: '/provider',
+            abstract : true,
+            templateUrl: 'page/provider/base.html',
+            controller: 'providerBaseController'
+        })
+        .state('provider.home',{
+            url: '/home',
+            templateUrl: 'page/provider/home.html',
+            controller: 'providerHomeController'
+        })
+        .state('provider.previewLists',{
+            url: '/previewLists',
+            templateUrl: 'page/provider/previewLists.html',
+            controller: 'providerPreviewListsController'
+        })
+        .state('provider.newBid',{
+            url: '/newBid',
+            templateUrl: 'page/provider/NewBid.html',
+            controller: 'providerNewBidController'
+        })
+        .state('provider.myBids',{
+            url: '/myBids',
+            templateUrl: 'page/provider/myBids.html',
+            controller: 'providerMyBidsController'
+=======
+        .state('waiter.shifts', {
+            url: '/shifts',
+            templateUrl: '/page/waiter/waiterShifts.html',
+            controller: 'waiterShiftsController'
+        })
+        .state('waiter.reservations', {
+            url: '/reservations',
+            templateUrl: '/page/waiter/waiterReservations.html',
+            controller: 'waiterReservationsController'
+        })
+        .state('waiter.newReservation', {
+            url: 'newReservation',
+            templateUrl: '/page/waiter/newReservation.html',
+            controller: 'waiterNewReservationController'
+>>>>>>> f7ad6e6001d43665cea415d326ab7ca10bd778cb
         })
         .state('logout', {
             url: '/logout',

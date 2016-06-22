@@ -4,7 +4,8 @@
     </select>
 
     <div ng-repeat="list in auctionsList">
-        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{$index + 1}}. {{list.from_date}} (važi do: {{list.to_date}})</a>
+        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{list.from_date}} (važi do: {{list.to_date}})</a>
+        <a class="button small" ng-if="currentStatus == list.status && list.status == status[3]" style="float: right" ng-click="activateList(list)">aktiviraj</a>
     </div>
 </div>
 <div class="medium-6  columns form " id="NewListForm">
@@ -61,7 +62,7 @@
         </label>
         <label>
             Količina
-            <input type="number" min="1" placeholder="4" required ng-model="newAuctionItem.quantity">
+            <input type="text" pattern="\d+(\.\d+)?$" placeholder="4" required ng-model="newAuctionItem.quantity">
         </label>
         <label>
         Tip

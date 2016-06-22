@@ -28,7 +28,6 @@ public class Reservation {
     @Column(name = "end_hour", nullable = false)
     private String end_hour;
 
-
     @ManyToMany(fetch = FetchType.EAGER,   cascade = CascadeType.ALL, mappedBy="reservations")
     private List<Guest> guests;
 

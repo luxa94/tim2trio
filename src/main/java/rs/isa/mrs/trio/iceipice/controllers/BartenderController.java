@@ -80,4 +80,9 @@ public class BartenderController {
     public ResponseEntity getAllShifts() {
         return new ResponseEntity<>(bartenderShiftRepository.findAll(), HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/bartenderShifts/forOne/{id}", method = RequestMethod.GET)
+    public ResponseEntity getShiftsForBartender(@PathVariable long id) {
+        return new ResponseEntity<>(bartenderShiftRepository.findByBartender_Id(id), HttpStatus.OK);
+    }
 }

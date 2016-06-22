@@ -65,6 +65,9 @@ public class TestController {
     @Autowired
     BartenderShiftRepository bartenderShiftRepository;
 
+    @Autowired
+    ProviderRepository providerRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -78,6 +81,7 @@ public class TestController {
             menuRepository.deleteAll();
             articleRepository.deleteAll();
             articleTypeRepository.deleteAll();
+
             bartenderRepository.deleteAll();
             cookRepository.deleteAll();
             waiterRepository.deleteAll();
@@ -86,6 +90,7 @@ public class TestController {
             areaRepository.deleteAll();
             restaurantRepository.deleteAll();
             guestRepository.deleteAll();
+            providerRepository.deleteAll();
 
 
             Restaurant r = new Restaurant("Travica","Najbolja jagnjetina","PIB123", "021 400 400","Novosadskog Sajma 5" ,"travica@gmail.com");
@@ -102,30 +107,34 @@ public class TestController {
             Cook ck = new Cook("cook", "cook", "cook", "cook", "123", new Date(), "M", "41");
             Waiter w = new Waiter("waiter", "waiter", "Marko", "Marković", "123456789", new Date(), "waiter", "XL", "46");
 
+            Provider p = new Provider("p","p","Dobrilo","Dobric","021/1234-5678",new Date(),"provider");
+
             Area area1 = new Area("nepusacki", r);
             RestaurantTable rt1 = new RestaurantTable("sto1", 4, area1, "{\"type\":\"rect\",\"left\":15,\"top\":426,\"width\":50,\"height\":50,\"fill\":\"white\"}");
             Set<RestaurantTable> tables = new HashSet<RestaurantTable>();
             tables.add(rt1);
+
             List<Guest> guests = new ArrayList<Guest>();
             guests.add(g);
 
-        //    Reservation res1 = new Reservation(new Date(), "22:40","14:00", guests, tables, r1);
-      //      Reservation res2 = new Reservation(new Date(), "22:00","18:00", guests, tables, r1);
+            Reservation res1 = new Reservation(new Date(), "22:40","14:00", guests, tables, r1);
+          //  Reservation res2 = new Reservation(new Date(), "22:00","18:00", guests, tables, r1);
+
             br.setRestaurant(r);
             ck.setRestaurant(r);
             w.setRestaurant(r);
 
-            ArticleType atype = new ArticleType("neki tip artikla");
-            ArticleType atype2 = new ArticleType("neki tip artikla2222");
-            Article a1 = new Article("Ime Artikla1", "Opis artikla 1", atype);
-            Article a2 = new Article("Ime Artikla2", "Opis artikla 2", atype);
-            Article a3 = new Article("Ime Artikla3", "Opis artikla 3", atype);
-            Article a4 = new Article("Ime Artikla4", "Opis artikla 1", atype);
-            Article a5 = new Article("Ime Artikla5", "Opis artikla 2", atype);
-            Article a6 = new Article("Ime Artikla6", "Opis artikla 3", atype2);
-            Article a7 = new Article("Ime Artikla7", "Opis artikla 1", atype2);
-            Article a8 = new Article("Ime Artikla8", "Opis artikla 2", atype2);
-            Article a9 = new Article("Ime Artikla9", "Opis artikla 3", atype2);
+            ArticleType foodType = new ArticleType("hrana");
+            ArticleType drinkType = new ArticleType("pice");
+            Article a1 = new Article("Karadjordjeva", "Opis artikla 1", foodType);
+            Article a2 = new Article("Becka", "Opis artikla 2", foodType);
+            Article a3 = new Article("Salata", "Opis artikla 3", foodType);
+            Article a4 = new Article("Kolac", "Opis artikla 1", foodType);
+            Article a5 = new Article("Pomfrit", "Opis artikla 2", foodType);
+            Article a6 = new Article("Kafa", "Opis artikla 3", drinkType);
+            Article a7 = new Article("Caj", "Opis artikla 1", drinkType);
+            Article a8 = new Article("Plava Laguna", "Opis artikla 2", drinkType);
+            Article a9 = new Article("Voda", "Opis artikla 3", drinkType);
             Menu m1 = new Menu(r);
             MenuItem mi1 = new MenuItem(100, new Date(), new Date(), a1, m1);
             MenuItem mi2 = new MenuItem(200, new Date(), new Date(), a2, m1);
@@ -146,6 +155,7 @@ public class TestController {
             restaurantRepository.save(r1);
             bartenderRepository.save(br);
             systemManagerRepository.save(sm);
+            providerRepository.save(p);
             guestRepository.save(g);
             guestRepository.save(g1);
             guestRepository.save(g2);
@@ -154,8 +164,8 @@ public class TestController {
             restaurantManagerRepository.save(rm);
             cookRepository.save(ck);
             waiterRepository.save(w);
-            articleTypeRepository.save(atype);
-            articleTypeRepository.save(atype2);
+            articleTypeRepository.save(foodType);
+            articleTypeRepository.save(drinkType);
             articleRepository.save(a1);
             articleRepository.save(a2);
             articleRepository.save(a3);
@@ -177,9 +187,10 @@ public class TestController {
             menuItemRepository.save(mi9);
             areaRepository.save(area1);
             restaurantTableRepository.save(rt1);
-     //       reservationRepository.save(res1);
-   //         reservationRepository.save(res2);
-           shiftRepository.save(sh1);
+
+            reservationRepository.save(res1);
+            shiftRepository.save(sh1);
+
             shiftRepository.save(sh2);
             bartenderShiftRepository.save(btsh1);
 

@@ -50,10 +50,24 @@ public class AuctionController {
 
     @RequestMapping(value = "/auction/allItemsFromAuction/{id}", method = RequestMethod.GET)
     public ResponseEntity getAllAuctionItemsFromAuction(@PathVariable long id){
-        System.out.print("USAO U METODU U KONTROLERU");
+       // System.out.print("USAO U METODU U KONTROLERU");
         List<AuctionItem> list = auctionItemService.getAuctionItemFromAuctionId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/auction/activateAuction", method = RequestMethod.POST)
+    public ResponseEntity activateAuction(@RequestBody long id) {
+        final Auction a = auctionRepository.findById(id);
+        a.setStatus("aktivna lista");
+        auctionRepository.save(a);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
 
+    @RequestMapping(value = "/auction/expireAuction", method = RequestMethod.POST)
+    public ResponseEntity expireAuction(@RequestBody long id) {
+        final Auction a = auctionRepository.findById(id);
+        a.setStatus("istekla");
+        auctionRepository.save(a);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
 }

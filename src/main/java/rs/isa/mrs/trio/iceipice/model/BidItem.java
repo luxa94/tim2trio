@@ -18,13 +18,10 @@ public class BidItem {
     private String name;
 
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private double quantity;
 
     @Column(name = "price", nullable =  false)
-    private long price;
-
-    @Column(name = "status", nullable = false)
-    private String status;
+    private double price;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "bid_id", nullable = false)
@@ -35,47 +32,42 @@ public class BidItem {
     private AuctionItemUnit auctionItemUnit;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "auction_item_type_id", nullable = false)
-    private AuctionItemType auctionItemType;
+    @JoinColumn(name = "auction_item_id", nullable = false)
+    private AuctionItem auctionItem;
+
+    public BidItem() {
+    }
 
     public long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public long getPrice() {
-        return price;
-    }
-
-    public String getStatus() {
-        return status;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setQuantity(int quantity) {
+    public double getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
-    public void setPrice(long price) {
-        this.price = price;
+    public double getPrice() {
+        return price;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public Bid getBid() {
@@ -94,6 +86,11 @@ public class BidItem {
         this.auctionItemUnit = auctionItemUnit;
     }
 
-    public BidItem() {
+    public AuctionItem getAuctionItem() {
+        return auctionItem;
+    }
+
+    public void setAuctionItem(AuctionItem auctionItem) {
+        this.auctionItem = auctionItem;
     }
 }

@@ -101,7 +101,7 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
 
     $scope.setShift = function(){
         
-    }
+    };
 
 
     $scope.openDialogForNewShift = function () {
