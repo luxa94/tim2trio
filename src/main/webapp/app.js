@@ -6,6 +6,7 @@ var iceipiceApp = angular.module('iceipiceApp', ['ui.router',  'angular-input-st
 
 
 iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
     $urlRouterProvider.otherwise('/login');
     $stateProvider
         .state('login', {
@@ -270,6 +271,45 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
     $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }).run(function ($rootScope, $location, authorizationService) {
+
+    // var publicRoutes = ['/signIn', '/register'];
+    //
+    // var isPublicRoute = function (route) {
+    //     for(var i in publicRoutes) {
+    //         if (publicRoutes[i] === route) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // };
+    //
+    // $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+    //     if (isPublicRoute($location.path())) {
+    //         return;
+    //     }
+    //     if (!isPublicRoute($location.path()) && !authorizationService.getUser()) {
+    //         $location.path('/signIn');
+    //     }
+    // });
+});
+
+iceipiceApp.controller('index_controller', function ($scope, $log,authorizationService) {
+
+    /* Check if the user is logged prior to use the next code */
+    var user = authorizationService.getUser();
+    if (isEmpty(user)) {
+        $log.log("user not logged, redirecting to Login view");
+        // Redirect to Login view
+        console.log("nijeee ulogovan");
+        $scope.$state.go("login");
+    }
+});
+
+function isEmpty(obj) {
+    for (var x in obj) { return false; }
+    return true;
+}
+
     var publicRoutes = ['/login', '/register'];
 
     var isPublicRoute = function (route) {
@@ -289,4 +329,3 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
             $location.path('/login');
         }
     });
-});
