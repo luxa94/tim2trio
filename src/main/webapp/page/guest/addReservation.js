@@ -5,11 +5,19 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.restaurants = [];
     $scope.current.page = 3;
     $scope.asd = ReservationService.asd;
-    $scope.asd.reservation.guests = [ $scope.user];
-    $scope.asd.reservation.orders = [];
+    if(typeof $scope.asd.reservation.guests == "undefined" || $scope.asd.reservation.guests == "undefined" ){
+        $scope.asd.reservation.guests = [ $scope.user];
+    }
+
+    if(typeof $scope.asd.reservation.orders == "undefined" || $scope.asd.reservation.orders == "undefined" ){
+        $scope.asd.reservation.orders = [];
+    }
+
     var pasedRestaurant = GuestService.getSelectedRestaurant();
     
     var previousRestaurant = GuestService.getSelectedRestaurant();
+
+
 
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;

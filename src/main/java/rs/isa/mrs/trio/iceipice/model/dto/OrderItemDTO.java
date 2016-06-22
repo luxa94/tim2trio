@@ -11,9 +11,13 @@ public class OrderItemDTO {
 
     private int amount;
 
+    private String name;
+
     public OrderItemDTO(OrderItem order) {
         this.menuItemId = order.getMenuItem().getId();
         this.amount = order.getAmount();
+        this.name = order.getMenuItem().getArticle().getName();
+
     }
 
     public long getMenuItemId() {
@@ -30,6 +34,14 @@ public class OrderItemDTO {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public OrderItemDTO() {

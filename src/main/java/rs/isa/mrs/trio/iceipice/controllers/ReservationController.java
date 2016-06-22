@@ -93,7 +93,7 @@ public class ReservationController {
     public ResponseEntity deleteReservation(@PathVariable long id) {
         final Reservation reservation = reservationRepository.findById(id);
         if (reservation != null) {
-            reservationRepository.delete(id);
+            reservationService.deleteReservation(id);
             // ovde cu dodavati za fatch.lazy sta mi bude trebalo od gosta
 
             return new ResponseEntity<>( HttpStatus.OK);

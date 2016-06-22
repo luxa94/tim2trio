@@ -40,11 +40,12 @@ public class ReservationDTO {
         end_hour = reservation.getEnd_hour();
         List<RestaurantTableDTO> tableDTO = new ArrayList<>();
         Iterator<RestaurantTable> tableIterator = reservation.getRestaurant_tables().iterator();
-        while(tableIterator.hasNext()) {
+            while(tableIterator.hasNext()) {
             RestaurantTable table = tableIterator.next();
             tableDTO.add(new RestaurantTableDTO(table));
         }
         this.restaurant = new RestaurantDTO(reservation.getRestaurant());
+        this.restaurantId = this.restaurant.getId();
         guests = new ArrayList<GuestDTO>();
         for(Guest guest: reservation.getGuests()) {
             GuestDTO dto = new GuestDTO(guest);
