@@ -104,6 +104,7 @@ public class ReservationService {
     }
 
     public Reservation editReservation(ReservationDTO reservationDTO) {
+
             Reservation reservation = reservationRepository.findById(reservationDTO.getId());
             updateReservation(reservation, reservationDTO);
 
@@ -115,6 +116,8 @@ public class ReservationService {
         }
     }
     private void updateReservation(Reservation reservation, ReservationDTO reservationDTO) {
+
+        System.out.println("jeb seeeeen");
         reservation.setDate(reservationDTO.getDate());
         reservation.setStart_hour(reservationDTO.getStart_hour());
         reservation.setEnd_hour(reservationDTO.getEnd_hour());
@@ -124,6 +127,11 @@ public class ReservationService {
             guests.add(guestRepository.findById(guest.getId()));
         }
         reservation.setGuests(guests);
+        List<OrderItem> orders = new ArrayList<OrderItem>();
+        for(OrderItemDTO order: reservationDTO.getOrders()){
+          //  orders.add(guestRepository.findById());
+        }
+        reservation.setOrders(orders);
 
 
     }
