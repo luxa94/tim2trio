@@ -22,9 +22,11 @@ iceipiceApp.controller('waiterNewReservationController', function ($scope, $http
                 fabricTable = new fabric.Rect(t);
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
+                fabricTable.opacity = 0.5;
                 fabricTable.selectable = false;
             } else if (t.type == 'circle') {
                 fabricTable = new fabric.Circle(t);
+                fabricTable.opacity = 0.5;
                 canvas.add(fabricTable);
                 table.fabricTable = fabricTable;
                 fabricTable.selectable = false;
@@ -33,7 +35,7 @@ iceipiceApp.controller('waiterNewReservationController', function ($scope, $http
         canvas.renderAll();
     };
 
-    $http.get('/api//tables/waiter/' + $scope.user.id).success(function (data) {
+    $http.get('/api/tables/waiter/' + $scope.user.id).success(function (data) {
         $scope.tables = data;
         $scope.redrawTables();
     });
@@ -72,12 +74,39 @@ iceipiceApp.controller('waiterNewReservationController', function ($scope, $http
         // debugger;
     });
 
-
     $scope.cancelReservation = function () {
         for (var i in $scope.menuItems) {
             var item = $scope.menuItems[i];
             item.count = 0;
         }
-    }
+        $http.get('/api/tables/waiter/' + $scope.user.id).success(function (data) {
+            $scope.tables = data;
+            $scope.redrawTables();
+        });
+    };
+
+    $scope.saveReservation = function () {
+        var final = {};
+
+        final.tableIds = $scope.selectedTables;
+        final.waiterId = $scope.user.id;
+        final.restaurantId = $scope.user.restaurant.id;
+        final.orderItemDTOs = [];
+        
+        for (var i in $scope.menuItems) {
+            var item = $scope.menuItems[i];
+            var a = {
+                menuItemId: item.id,
+                amount: item.count
+            };
+            final.orderItemDTOs.push(a);
+        }
+
+        $http.post('/api/reservations/create', final).success(function (data) {
+            console.log(data);
+        });
+
+        $scope.cancelReservation();
+    };
 
 });

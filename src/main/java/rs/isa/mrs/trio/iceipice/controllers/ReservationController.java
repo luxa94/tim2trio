@@ -8,6 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.Reservation;
 import rs.isa.mrs.trio.iceipice.model.dto.GetReservationDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.ReservationWaiterDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.repository.ReservationRepository;
 import rs.isa.mrs.trio.iceipice.services.GradeService;
@@ -122,7 +123,14 @@ public class ReservationController {
 
     List<ReservationDTO> reservationDTOs = new ArrayList<ReservationDTO>();
 
-
-
+    @RequestMapping(value = "/reservations/create", method = RequestMethod.POST)
+    public ResponseEntity createFromWaiterReservation(@RequestBody ReservationWaiterDTO reservationWaiterDTO) {
+        final Reservation reservation = reservationService.createReservation(reservationWaiterDTO);
+        if (reservation != null) {
+            return new ResponseEntity<>(reservation, HttpStatus.OK);
+        } else {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }

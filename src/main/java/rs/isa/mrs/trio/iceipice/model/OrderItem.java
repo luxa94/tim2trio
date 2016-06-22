@@ -1,10 +1,10 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import rs.isa.mrs.trio.iceipice.globals.OrderItemStatus;
 
 import javax.persistence.*;
-import java.util.List;
-import java.util.Set;
 
 /**
  * Created by nikolalukic on 4/10/16.
@@ -26,6 +26,9 @@ public class OrderItem {
     @Column(name = "status")
     private String status;
 
+    @Version
+    private int version;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cook_id")
     private Cook cook;
@@ -42,9 +45,13 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @JsonBackReference("order-reservations")
-    @ManyToOne(fetch = FetchType.EAGER,   cascade = CascadeType.ALL)
-    Reservation reservations;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Reservation reservation;
+
+    public OrderItem() {
+        status = OrderItemStatus.NEW;
+    }
 
     public long getId() {
         return id;
@@ -110,13 +117,21 @@ public class OrderItem {
         this.order = order;
     }
 
-
-    public Reservation getReservations() {
-        return reservations;
+    public int getVersion() {
+        return version;
     }
 
-    public void setReservations(Reservation reservations) {
-        this.reservations = reservations;
+    public void setVersion(int version) {
+        this.version = version;
+    }
+
+    @JsonIgnore
+    public Reservation getReservation() {
+        return reservation;
+    }
+
+    public void setReservation(Reservation reservation) {
+        this.reservation = reservation;
     }
 
 }

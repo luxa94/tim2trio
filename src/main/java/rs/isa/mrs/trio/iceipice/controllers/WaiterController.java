@@ -7,11 +7,16 @@ import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.Waiter;
+import rs.isa.mrs.trio.iceipice.model.WaiterShift;
 import rs.isa.mrs.trio.iceipice.model.dto.WaiterDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.WaiterShiftDTO;
 import rs.isa.mrs.trio.iceipice.repository.WaiterRepository;
+import rs.isa.mrs.trio.iceipice.repository.WaiterShiftRepository;
 import rs.isa.mrs.trio.iceipice.services.WaiterService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -26,6 +31,9 @@ public class WaiterController {
 
     @Autowired
     WaiterService waiterService;
+
+    @Autowired
+    WaiterShiftRepository waiterShiftRepository;
 
     @RequestMapping(value = "/waiter/all", method = RequestMethod.GET)
     public ResponseEntity getAllWaiters() {
@@ -61,5 +69,21 @@ public class WaiterController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "/waiterShift/newShift", method = RequestMethod.POST)
+    public ResponseEntity addShifts(@RequestBody WaiterShiftDTO waiterShiftDTO) {
+        waiterService.createWaiterShift(waiterShiftDTO);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiterShift/getAllShiftsFromRestaurant/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllShifts(@PathVariable long id) {
+        List<WaiterShift> retval = new ArrayList<WaiterShift>();
+        for (WaiterShift bs : waiterShiftRepository.findAll()){
+            if (bs.getWaiter().getRestaurant().getId() == id)
+                retval.add(bs);
+        }
+        return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 }
