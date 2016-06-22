@@ -72,4 +72,12 @@ iceipiceApp.controller('waiterNewReservationController', function ($scope, $http
         // debugger;
     });
 
+
+    $scope.cancelReservation = function () {
+        for (var i in $scope.menuItems) {
+            var item = $scope.menuItems[i];
+            item.count = 0;
+        }
+    }
+
 });
