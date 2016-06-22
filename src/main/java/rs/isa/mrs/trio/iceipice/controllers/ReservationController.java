@@ -42,7 +42,7 @@ public class ReservationController {
     public ResponseEntity getAllReservations(@PathVariable long id) {
         List<ReservationDTO> reservations = reservationService.getGuestsReservations(id);
 
-        for(ReservationDTO res : reservations){
+        for (ReservationDTO res : reservations) {
             boolean isGraded = gradeService.userHasGraded(id, res.getId());
             res.setGraded(isGraded);
         }
@@ -78,10 +78,10 @@ public class ReservationController {
         System.out.println(reservationDTO);
 
         //set date object to 00:00
-      //  Date date = reservationDTO.getDate();
+        //  Date date = reservationDTO.getDate();
 
         // ovde se nesto cudno desava
-       // reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
+        // reservationDTO.setDate(new Date(date.getYear(), date.getMonth(), date.getDay()));
 
         final Reservation reservation = reservationService.createReservation(reservationDTO);
         if (reservation != null) {
@@ -91,6 +91,7 @@ public class ReservationController {
         }
 
     }
+
     @RequestMapping(value = "/reservation/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteReservation(@PathVariable long id) {
         final Reservation reservation = reservationRepository.findById(id);
@@ -98,7 +99,7 @@ public class ReservationController {
             reservationService.deleteReservation(id);
             // ovde cu dodavati za fatch.lazy sta mi bude trebalo od gosta
 
-            return new ResponseEntity<>( HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
@@ -107,16 +108,15 @@ public class ReservationController {
     /**
      * Metoda koja kao parametar dobija getReservationDTO koji u sebi ima restaurantID i date
      * na osnovu kojih izvlaci rezervacije?
-     *
+     * <p>
      * Ulaz restaurant ID i danasnji datum
      * RestaurantTable 11
-     *
      */
     @RequestMapping(value = "/reservation/get/by-restaurant/by-date", method = RequestMethod.POST)
     public ResponseEntity getReservationsForRestaurant(GetReservationDTO dto) {
         List<Reservation> reservations = reservationService.getReservationByRestaurantAndDate(dto.getRestaurantId(), dto.getReservationDate());
         List<ReservationDTO> dtoReservations = new ArrayList<>();
-        for(Reservation res : reservations) {
+        for (Reservation res : reservations) {
             dtoReservations.add(new ReservationDTO(res));
         }
         return new ResponseEntity<>(dtoReservations, HttpStatus.OK);
@@ -154,13 +154,19 @@ public class ReservationController {
         return new ResponseEntity<>(reservationService.findOrderForCook(id), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/orders/bartender/{id}", method = RequestMethod.GET)
+    public ResponseEntity getBartenderOrders(@PathVariable long id) {
+        return new ResponseEntity<>(reservationService.findOrderForBartender(id), HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/orders/cook/make/{cookId}/order/{orderId}", method = RequestMethod.POST)
     public ResponseEntity cookTakeOrder(@PathVariable long cookId, @PathVariable long orderId) {
-        if (reservationService.cookTakeOrder(cookId, orderId)) {
-            return new ResponseEntity(HttpStatus.OK);
-        } else {
-            return new ResponseEntity(HttpStatus.FORBIDDEN);
-        }
+        return new ResponseEntity(reservationService.cookTakeOrder(cookId, orderId) ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+    }
+
+    @RequestMapping(value = "/orders/bartender/make/{bartenderId}/order/{orderId}", method = RequestMethod.POST)
+    public ResponseEntity bartenderTakeOrder(@PathVariable long bartenderId, @PathVariable long orderId) {
+        return new ResponseEntity(reservationService.bartenderTakeOrder(bartenderId, orderId) ? HttpStatus.OK : HttpStatus.FORBIDDEN);
     }
 
     @RequestMapping(value = "/orders/finish/{id}", method = RequestMethod.POST)

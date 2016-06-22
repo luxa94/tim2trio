@@ -48,6 +48,9 @@ public class ReservationService {
     CookRepository cookRepository;
 
     @Autowired
+    BartenderRepository bartenderRepository;
+
+    @Autowired
     RestaurantTableRepository restaurantTableRepository;
 
     public Reservation createReservation(ReservationDTO reservationDTO) {
@@ -316,7 +319,7 @@ public class ReservationService {
 
         final Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
-        calendar.add(Calendar.MINUTE, -30);
+        calendar.add(Calendar.MINUTE, 30);
         date = calendar.getTime();
 
         final String currentDate = dateFormat.format(date);
@@ -377,12 +380,42 @@ public class ReservationService {
         return orderItems;
     }
 
+    public List<OrderItem> findOrderForBartender(long id) {
+        final Bartender bartender = bartenderRepository.findById(id);
+        final List<Reservation> reservations = getActiveReservationsForRestaurant(bartender.getRestaurant());
+        final List<OrderItem> orderItems = new ArrayList<>();
+
+        for (Reservation reservation : reservations) {
+            for (OrderItem orderItem : reservation.getOrders()) {
+                if ("pice".equals(orderItem.getMenuItem().getArticle().getArticleType().getName()) && (OrderItemStatus.NEW.equals(orderItem.getStatus()) ||
+                        (OrderItemStatus.MAKING.equals(orderItem.getStatus()) && orderItem.getBartender() != null && bartender.getId() == orderItem.getBartender().getId()))) {
+                    orderItems.add(orderItem);
+                }
+            }
+        }
+        return orderItems;
+    }
+
     public synchronized boolean cookTakeOrder(long cookId, long orderId) {
         final Cook cook = cookRepository.findById(cookId);
         final OrderItem orderItem = orderItemRepository.findById(orderId);
 
         if (OrderItemStatus.NEW.equals(orderItem.getStatus())) {
             orderItem.setCook(cook);
+            orderItem.setStatus(OrderItemStatus.MAKING);
+            orderItemRepository.save(orderItem);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public synchronized boolean bartenderTakeOrder(long bartenderId, long orderId) {
+        final Bartender bartender = bartenderRepository.findById(bartenderId);
+        final OrderItem orderItem = orderItemRepository.findById(orderId);
+
+        if (OrderItemStatus.NEW.equals(orderItem.getStatus())) {
+            orderItem.setBartender(bartender);
             orderItem.setStatus(OrderItemStatus.MAKING);
             orderItemRepository.save(orderItem);
             return true;
