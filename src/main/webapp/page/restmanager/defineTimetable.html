@@ -41,11 +41,12 @@
             do (0-24h): <input type="text" placeholder="00:00" required pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]" ng-model="shift.endHour">
         </label>
 
-        <label ng-if="selectedWorker.waiter">
-            Reon:
-            <select id="area_select" required ng-model="selectedWorker.area" ng-options="area.name for area in areas track by area.id">
-            </select>
-        </label>
+        <div ng-if="selectedWorker.waiter">
+            Reoni:
+            <div ng-repeat="a in areas">
+                {{a.name}} <input type="checkbox" ng-model="selectedAreas[$index]">
+            </div>
+        </div>
 
         <div class="button-group float-right">
             <input type="submit" class="button" ng-click="addShift()" ng-disabled="newShiftForm.$invalid" value="Dodaj">

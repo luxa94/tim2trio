@@ -12,7 +12,6 @@ public class BartenderShiftDTO {
     private Date endDate;
     private String startHour;
     private String endHour;
-    private long areaId; //-1
     private long restaurantId;
 
     public long getRestaurantId() {
@@ -20,17 +19,6 @@ public class BartenderShiftDTO {
     }
 
     public void setRestaurantId(long restaurantId) {
-        this.restaurantId = restaurantId;
-    }
-
-    public BartenderShiftDTO(long workerId, String workerType, Date startDate, Date endDate, String startHour, String endHour, long areaId, long restaurantId) {
-        this.workerId = workerId;
-        this.workerType = workerType;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.startHour = startHour;
-        this.endHour = endHour;
-        this.areaId = areaId;
         this.restaurantId = restaurantId;
     }
 
@@ -85,11 +73,4 @@ public class BartenderShiftDTO {
         this.endHour = endHour;
     }
 
-    public long getAreaId() {
-        return areaId;
-    }
-
-    public void setAreaId(long areaId) {
-        this.areaId = areaId;
-    }
 }

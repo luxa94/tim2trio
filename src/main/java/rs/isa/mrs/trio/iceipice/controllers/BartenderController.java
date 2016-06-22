@@ -12,7 +12,9 @@ import rs.isa.mrs.trio.iceipice.repository.BartenderRepository;
 import rs.isa.mrs.trio.iceipice.repository.BartenderShiftRepository;
 import rs.isa.mrs.trio.iceipice.services.BartenderService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -76,9 +78,14 @@ public class BartenderController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/bartenderShift/getAllShifts", method = RequestMethod.GET)
-    public ResponseEntity getAllShifts() {
-        return new ResponseEntity<>(bartenderShiftRepository.findAll(), HttpStatus.OK);
+    @RequestMapping(value = "/bartenderShift/getAllShiftsFromRestaurant/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllShifts(@PathVariable long id) {
+        List<BartenderShift> retval = new ArrayList<BartenderShift>();
+        for (BartenderShift bs : bartenderShiftRepository.findAll()){
+            if (bs.getBartender().getRestaurant().getId() == id)
+                retval.add(bs);
+        }
+        return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bartenderShifts/forOne/{id}", method = RequestMethod.GET)

@@ -8,52 +8,23 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
     $scope.workers = [];
     $scope.shift = {};
     $scope.shiftsInCalendar = [];
-    $scope.shift.areaId = -1;
+    //$scope.shift.areaId = -1;
     $scope.selectedWorker = {};
+    $scope.selectedAreas =  [];
     var cooks = [];
     var bartenders = [];
     var waiters = [];
 
 
     $http.get('/api/areas/forManager/' + $scope.user.id).success(function (data) {
+        //console.log("areas: " + JSON.stringify(data));
         $scope.areas = data;
-    });
-
-    $http.get('/api/bartenderShift/getAllShifts').success(function(data) {
-        var index;
-        var oneShiftInCalendar;
-        console.log("SVE SMENE " + JSON.stringify(data));
-        for (index = 0; index < data.length; ++index) {
-            oneShiftInCalendar = {
-                //id: data[index].id,
-                title: data[index].bartender.name + " " + data[index].bartender.surname,
-                start: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.startHour,
-                end: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.endHour,
-                //allday: true
-            };
-            $scope.shiftsInCalendar.push(oneShiftInCalendar);
-        }
-        console.log("SMENE ZA KALENDAR" + JSON.stringify($scope.shiftsInCalendar));
-
-
-
-        $('#calendar').fullCalendar({
-            header: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'month,agendaWeek,agendaDay'
-            },
-            editable: false,
-            events: $scope.shiftsInCalendar
-
-        });
     });
 
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
         $scope.restaurant = data;
         $scope.shift.restaurantId = $scope.restaurant.id;
-        //console.log("****Restaurant id = " + $scope.restaurant.id);
         $http.get('/api/cook/allFromR/' + $scope.restaurant.id).success(function(data) {
             //console.log("KUVARI: " + JSON.stringify(data));
             cooks = data;
@@ -86,6 +57,85 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
                 })
             })
         })
+
+
+
+        //UCITAVANJE SMENA ZA ISPIS U KALENDARU
+        $http.get('/api/bartenderShift/getAllShiftsFromRestaurant/' + $scope.restaurant.id).success(function(data) {
+            var index;
+            var oneShiftInCalendar;
+            console.log("SVE SMENE sankera" + JSON.stringify(data));
+            for (index = 0; index < data.length; ++index) {
+                oneShiftInCalendar = {
+                    //id: data[index].id,
+                    eventColor: "yellow",
+                    title: data[index].bartender.name + " " + data[index].bartender.surname,
+                    start: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.startHour,
+                    end: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.endHour,
+                    //allday: true
+                };
+                $scope.shiftsInCalendar.push(oneShiftInCalendar);
+            }
+            //console.log("SMENE ZA KALENDAR" + JSON.stringify($scope.shiftsInCalendar));
+
+
+            $http.get('/api/waiterShift/getAllShiftsFromRestaurant/' + $scope.restaurant.id).success(function(data) {
+                var index;
+                var oneShiftInCalendar;
+                console.log("**SVE SMENE konobara" + JSON.stringify(data));
+                for (index = 0; index < data.length; ++index) {
+                    oneShiftInCalendar = {
+                        //id: data[index].id,
+                        eventColor: "red",
+                        title: data[index].waiter.name + " " + data[index].waiter.surname,
+                        start: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.startHour,
+                        end: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.endHour,
+                        //allday: true
+                    };
+                    $scope.shiftsInCalendar.push(oneShiftInCalendar);
+                }
+
+                $http.get('/api/cookShift/getAllShiftsFromRestaurant/' + $scope.restaurant.id).success(function(data) {
+                    var index;
+                    var oneShiftInCalendar;
+
+                    for (index = 0; index < data.length; ++index) {
+                        oneShiftInCalendar = {
+                            //id: data[index].id,
+                            eventColor: "blue",
+                            title: data[index].cook.name + " " + data[index].cook.surname,
+                            start: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.startHour,
+                            end: new Date(data[index].shift.day).toISOString().substring(0, 10) +  "T" + data[index].shift.endHour,
+                            //allday: true
+                        };
+                        $scope.shiftsInCalendar.push(oneShiftInCalendar)
+                    }
+
+
+                    console.log("%%%%SVE SMENE za kalendar" + JSON.stringify($scope.shiftsInCalendar));
+
+                    $('#calendar').fullCalendar({
+                        header: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'month,agendaWeek,agendaDay'
+                        },
+                        editable: false,
+                        events: $scope.shiftsInCalendar
+
+                    });
+
+
+
+                });
+
+            });
+
+
+        });
+
+
+
     });
 
 
@@ -99,13 +149,12 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
         }
     };
 
-    $scope.setShift = function(){
-        
-    };
-
-
     $scope.openDialogForNewShift = function () {
-
+        var i;
+        $scope.selectedAreas = [];
+        for(i=0; i< $scope.areas.length; i++){
+            $scope.selectedAreas.push(false);
+        }
         $scope.popup = new Foundation.Reveal($('#newShift'));
         $scope.popup.open();
     };
@@ -127,9 +176,17 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
         var oneShiftInCalendar = {};
         console.log("NOVA SMENA: " + JSON.stringify($scope.shift));
         if ($scope.selectedWorker.waiter) {
-            $scope.shift.areaId = $scope.selectedWorker.area.id;
-            //$http.post('/api/waiterShift/newShift',$scope.shift).success(function(data) { });
-
+            console.log("Dodaj smenu konobaru");
+            console.log("reoni: " + JSON.stringify($scope.areas));
+            var i;
+            $scope.shift.areas = [];
+            for(i=0; i<$scope.areas.length; i++){
+                if($scope.selectedAreas[i] == true){
+                    $scope.shift.areas.push($scope.areas[i].id);
+                }
+            }
+            console.log("Dodati reoni: " + JSON.stringify( $scope.shift.areas));
+            $http.post('/api/waiterShift/newShift',$scope.shift).success(function(data) { });
         }
         else if ($scope.selectedWorker.bartender)
         {
@@ -138,7 +195,8 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
         }
         else if ($scope.selectedWorker.cook)
         {
-            //$http.post('/api/cookShift/newShift',$scope.shift).success(function(data) { });
+            console.log("Dodaj smenu kuvaru");
+            $http.post('/api/cookShift/newShift',$scope.shift).success(function(data) { });
 
         }
         else{
@@ -147,13 +205,15 @@ iceipiceApp.controller('restmanagerDefineTimetableController', function ($scope,
         }
 
         oneShiftInCalendar = {
-            title: $scope.selectedWorker.name + " " +$scope.selectedWorker.surname,
+            title: $scope.selectedWorker.name + " " + $scope.selectedWorker.surname,
             start: $scope.shift.startDate,
             end: $scope.shift.endDate,
             allday: true
         };
+
+
         $scope.shiftsInCalendar.push(oneShiftInCalendar);
-
-
+        $scope.popup.close();
     }
+
 });

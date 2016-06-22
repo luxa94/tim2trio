@@ -3,15 +3,29 @@
  */
 iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $state, $stateParams, authorizationService, GuestService, ReservationService) {
     $scope.friends = [];
-    $scope.invitedFriends = [];
+    if(typeof ReservationService.asd.reservation.guests != "undefined" && ReservationService.asd.reservation.guests != null ){
+        $scope.invitedFriends = ReservationService.asd.reservation.guests;
+    } else {
+        $scope.invitedFriends = [];
+    }
+
     $scope.current.page = 3;
 
     GuestService.GetAllFriends($scope.user.id).then(function(data) {
         var friendsList = [];
         for(var i = 0; i < data.length; i++) {
             if(data[i].friend) {
-                data[i].isInvited = false;
                 friendsList.push(data[i]);
+
+                data[i].isInvited = false;
+
+                for(var j = 0; j < $scope.invitedFriends.length; j++) {
+                    if(data[i].id == $scope.invitedFriends[j].id){
+                        data[i].isInvited = true;
+                    }
+                }
+
+
             }
         }
         $scope.friends = friendsList;
@@ -58,9 +72,9 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
 
     $scope.goToSelectMenuItem = function (reservation) {
 
-        var reservation  = ReservationService.asd.reservation;
-        reservation.guests = $scope.invitedFriends;
-        reservation.guests.push($scope.user);
+     //   var reservation  = ReservationService.asd.reservation;
+       // reservation.guests = $scope.invitedFriends;
+      //  reservation.guests.push($scope.user);
         
         $state.transitionTo( "guest.selectMenuItem");
     };
