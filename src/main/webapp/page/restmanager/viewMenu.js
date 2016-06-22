@@ -15,7 +15,7 @@ iceipiceApp.controller('restManagerViewMenuController', function ($scope, $http,
 
     $http.get('/api/articleTypes/all').success(function (data) {
         $scope.articleTypes = data;
-    })
+    });
     
     $scope.openDialogForNewMenuItem = function (t) {
 

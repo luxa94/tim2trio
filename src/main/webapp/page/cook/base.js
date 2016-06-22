@@ -21,4 +21,12 @@ iceipiceApp.controller('cookBaseController', function ($scope, $http, $state, $s
         $state.transitionTo('logout');
     };
 
+    $scope.shifts = function () {
+        $state.transitionTo('cook.shifts');
+    };
+
+    $scope.orders = function () {
+        $state.transitionTo('cook.orders');
+    };
+
 });

@@ -2,7 +2,7 @@
  * Created by Nina on 21-Apr-16.
  */
 iceipiceApp.controller('cookHomeController', function ($scope, $http, $state, $stateParams, authorizationService) {
-
+    $scope.current.page = 0;
     $scope.user = authorizationService.getUser();
 
     $scope.modifyUserInfo = function () {

@@ -8,6 +8,7 @@ import rs.isa.mrs.trio.iceipice.model.Cook;
 import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.dto.CookDTO;
 import rs.isa.mrs.trio.iceipice.repository.CookRepository;
+import rs.isa.mrs.trio.iceipice.repository.CookShiftRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
 import rs.isa.mrs.trio.iceipice.services.CookService;
 
@@ -29,6 +30,9 @@ public class CookController {
 
     @Autowired
     RestaurantRepository restaurantRepository;
+
+    @Autowired
+    CookShiftRepository cookShiftRepository;
 
     @RequestMapping(value = "/cook/all", method = RequestMethod.GET)
     public ResponseEntity getAllCooks() {
@@ -79,6 +83,11 @@ public class CookController {
                 cooks.add(c);
         }
         return new ResponseEntity<>(cooks, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cookShifts/forOne/{id}", method = RequestMethod.GET)
+    public ResponseEntity getShiftsForBartender(@PathVariable long id) {
+        return new ResponseEntity<>(cookShiftRepository.findByCook_Id(id), HttpStatus.OK);
     }
 
 }

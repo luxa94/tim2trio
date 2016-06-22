@@ -2,8 +2,6 @@
     <div class="button-group">
         <button class="button" ng-click="addRoundTable()">Dodaj kružni sto</button>
         <button class="button" ng-click="addRectTable()">Dodaj pravougaoni sto</button>
-
-        <button class="button alert float-right" ng-click="deleteTable()">Obriši</button>
     </div>
 </div>
 <div class="columns small-12 medium-6 form">
@@ -12,7 +10,7 @@
         <a class="button alert" ng-click="refreshTables()">Otkaži</a>
     </div>
 </div>
-<div id="canvas_container" class="small-12 medium-8 columns form">
+<div id="canvas_container" class="small-12 medium-8 columns form" style="overflow-x: scroll;">
 
     <canvas id="restaurant_canvas" width="765" height="600">
     </canvas>

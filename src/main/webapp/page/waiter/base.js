@@ -1,12 +1,3 @@
-/**
- * Created by Nina on 10-May-16.
- */
-/**
- * Created by Nina on 26-Apr-16.
- */
-/**
- * Created by Nina on 17-Apr-16.
- */
 iceipiceApp.controller('waiterBaseController', function ($scope, $http, $state, $stateParams, authorizationService) {
 
     $scope.current = {
@@ -23,5 +14,17 @@ iceipiceApp.controller('waiterBaseController', function ($scope, $http, $state, 
     $scope.logout = function() {
         $state.transitionTo('logout');
     };
+
+    $scope.shifts = function () {
+        $state.transitionTo('waiter.shifts');
+    };
+
+    $scope.reservations = function () {
+        $state.transitionTo('waiter.reservations');
+    };
+    
+    $scope.newReservations = function () {
+        $state.transitionTo('waiter.newReservation');
+    }
 
 });

@@ -26,17 +26,13 @@ public class OrderItem {
     @Column(name = "status")
     private String status;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "cook_orders",
-            joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "cook_id", nullable = false)})
-    private Set<Cook> cooks;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cook_id")
+    private Cook cook;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "bartender_orders",
-            joinColumns = {@JoinColumn(name = "order_id", nullable = false)},
-            inverseJoinColumns = {@JoinColumn(name = "bartender_id", nullable = false)})
-    private Set<Bartender> bartenders;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bartender_id")
+    private Bartender bartender;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "menu_item_id", nullable = false)
@@ -82,20 +78,20 @@ public class OrderItem {
         this.status = status;
     }
 
-    public Set<Cook> getCooks() {
-        return cooks;
+    public Bartender getBartender() {
+        return bartender;
     }
 
-    public void setCooks(Set<Cook> cooks) {
-        this.cooks = cooks;
+    public void setBartender(Bartender bartender) {
+        this.bartender = bartender;
     }
 
-    public Set<Bartender> getBartenders() {
-        return bartenders;
+    public Cook getCook() {
+        return cook;
     }
 
-    public void setBartenders(Set<Bartender> bartenders) {
-        this.bartenders = bartenders;
+    public void setCook(Cook cook) {
+        this.cook = cook;
     }
 
     public MenuItem getMenuItem() {
