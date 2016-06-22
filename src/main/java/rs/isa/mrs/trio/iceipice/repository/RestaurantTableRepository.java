@@ -1,8 +1,10 @@
 package rs.isa.mrs.trio.iceipice.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import rs.isa.mrs.trio.iceipice.model.Area;
 import rs.isa.mrs.trio.iceipice.model.RestaurantTable;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -12,4 +14,5 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
 
     List<RestaurantTable> findByArea_Restaurant_Id(long id);
 
+    List<RestaurantTable> findByArea(Area area);
 }

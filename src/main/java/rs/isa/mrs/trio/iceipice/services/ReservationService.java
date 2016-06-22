@@ -1,7 +1,9 @@
 package rs.isa.mrs.trio.iceipice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Service;
+import rs.isa.mrs.trio.iceipice.globals.ReservationStaus;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
@@ -38,6 +40,9 @@ public class ReservationService {
 
     @Autowired
     AreaRepository areaRpoAreaRepository;
+
+    @Autowired
+    WaiterRepository waiterRepository;
 
     @Autowired
     RestaurantTableRepository restaurantTableRepository;
@@ -243,7 +248,7 @@ public class ReservationService {
         final Date currentDate = new Date();
 
         SimpleDateFormat sdf = new SimpleDateFormat();
-        sdf.applyPattern("hh:mm");
+        sdf.applyPattern("HH:mm");
         final String startTime = sdf.format(currentDate);
         final Calendar c = Calendar.getInstance();
         c.setTime(currentDate);
@@ -285,5 +290,39 @@ public class ReservationService {
         return true; // TODO: implement O:)
     }
 
+    public List<Reservation> reservationsForWaiter(long id) {
+        final Waiter waiter = waiterRepository.findById(id);
+        final List<Reservation> restaurantReservations = reservationRepository.findByRestaurant_Id(waiter.getRestaurant().getId());
 
+        final List<Reservation> reservations = new ArrayList<>();
+
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+        final Date date = new Date();
+
+        final String currentDate = dateFormat.format(date);
+        final String currentTime = timeFormat.format(date);
+
+        for (Reservation reservation : restaurantReservations) {
+            if (currentDate.equals(dateFormat.format(reservation.getDate())) && ReservationStaus.CREATED.equals(reservation.getStatus())) {
+                if (currentTime.compareTo(reservation.getStart_hour()) > 0) {
+                    reservations.add(reservation);
+                }
+             }
+        }
+
+        return reservations;
+    }
+
+    public void addOrderToReservation(long resId, OrderItemDTO dto) {
+        final Reservation reservation = reservationRepository.findById(resId);
+        final OrderItem orderItem = new OrderItem();
+        final Order order = orderRepository.findByReservation(reservation).get(0);
+        orderItem.setOrder(order);
+        orderItem.setMenuItem(menuItemRepository.findById(dto.getMenuItemId()));
+        orderItem.setAmount(dto.getAmount());
+        orderItemRepository.save(orderItem);
+        reservation.getOrders().add(orderItem);
+        reservationRepository.save(reservation);
+    }
 }

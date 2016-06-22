@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.Reservation;
 import rs.isa.mrs.trio.iceipice.model.dto.GetReservationDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.ReservationWaiterDTO;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
@@ -131,6 +132,16 @@ public class ReservationController {
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping("/reservations/waiter/all/{id}")
+    public ResponseEntity getReservationsForWaiter(@PathVariable long id) {
+        return new ResponseEntity<>(reservationService.reservationsForWaiter(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/orderItems/newForReservation/{id}", method = RequestMethod.POST)
+    public void addOrderToReservation(@PathVariable long id, @RequestBody OrderItemDTO orderItemDTO) {
+        reservationService.addOrderToReservation(id, orderItemDTO);
     }
 
 }
