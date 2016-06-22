@@ -5,14 +5,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rs.isa.mrs.trio.iceipice.model.Cook;
+import rs.isa.mrs.trio.iceipice.model.CookShift;
 import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.dto.CookDTO;
+import rs.isa.mrs.trio.iceipice.model.dto.CookShiftDTO;
 import rs.isa.mrs.trio.iceipice.repository.CookRepository;
 import rs.isa.mrs.trio.iceipice.repository.CookShiftRepository;
 import rs.isa.mrs.trio.iceipice.repository.RestaurantRepository;
 import rs.isa.mrs.trio.iceipice.services.CookService;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -86,8 +90,24 @@ public class CookController {
     }
 
     @RequestMapping(value = "/cookShifts/forOne/{id}", method = RequestMethod.GET)
-    public ResponseEntity getShiftsForBartender(@PathVariable long id) {
+    public ResponseEntity getShiftsForCook(@PathVariable long id) {
         return new ResponseEntity<>(cookShiftRepository.findByCook_Id(id), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cookShift/newShift", method = RequestMethod.POST)
+    public ResponseEntity addShifts(@RequestBody CookShiftDTO cookShiftDTO) {
+        cookService.createCookShift(cookShiftDTO);
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/cookShift/getAllShiftsFromRestaurant/{id}", method = RequestMethod.GET)
+    public ResponseEntity getAllShifts(@PathVariable long id) {
+        List<CookShift> retval = new ArrayList<CookShift>();
+        for (CookShift bs : cookShiftRepository.findAll()){
+            if (bs.getCook().getRestaurant().getId() == id)
+                retval.add(bs);
+        }
+        return new ResponseEntity<>(retval, HttpStatus.OK);
     }
 
 }

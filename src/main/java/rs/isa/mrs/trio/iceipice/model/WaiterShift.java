@@ -36,6 +36,9 @@ public class WaiterShift {
         this.areas = new HashSet<Area>();
     }
 
+    public WaiterShift() {
+    }
+
     public long getId() {
         return id;
     }
