@@ -1,6 +1,7 @@
 package rs.isa.mrs.trio.iceipice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import rs.isa.mrs.trio.iceipice.globals.OrderItemStatus;
 
 import javax.persistence.*;
@@ -44,8 +45,8 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @JsonBackReference("order-reservations")
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Reservation reservation;
 
     public OrderItem() {
@@ -124,6 +125,7 @@ public class OrderItem {
         this.version = version;
     }
 
+    @JsonIgnore
     public Reservation getReservation() {
         return reservation;
     }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import rs.isa.mrs.trio.iceipice.globals.ReservationStaus;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -38,15 +39,14 @@ public class Reservation {
             inverseJoinColumns = {@JoinColumn(name = "table_id", nullable = false)})
     private Set<RestaurantTable> restaurant_tables;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @Column(name = "status", nullable = false)
     private String status;
 
-    @JsonBackReference("reservation-order")
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     private List<OrderItem> orders;
 
     public Restaurant getRestaurant() {
@@ -109,6 +109,7 @@ public class Reservation {
 
     public Reservation() {
         this.status = ReservationStaus.CREATED;
+        this.orders = new ArrayList<>();
     }
 
     public List<Guest> getGuests() {

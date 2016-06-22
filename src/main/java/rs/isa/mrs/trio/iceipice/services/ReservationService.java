@@ -272,15 +272,17 @@ public class ReservationService {
                     orderItem.setReservation(reservation);
 
                     orderItemRepository.save(orderItem);
+                    reservation.getOrders().add(orderItem);
                 }
             }
+            reservation = reservationRepository.save(reservation);
             return reservation;
         }
         return null;
     }
 
     private boolean reservationAvailable(Reservation reservation) {
-        return true;
+        return true; // TODO: implement O:)
     }
 
 
