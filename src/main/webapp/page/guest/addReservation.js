@@ -76,7 +76,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         }, function(){
             alert("Vaša rezervacija nije uspešno dodata!");
         });
-        $state.transitionTo( "guest.homePageGuest");
+        $state.transitionTo( "guest.homePage");
     };
 
     $scope.goToSelectMenuItem = function (reservation) {

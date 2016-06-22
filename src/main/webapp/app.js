@@ -272,9 +272,20 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
 }).run(function ($rootScope, $location, authorizationService) {
     var publicRoutes = ['/login', '/register'];
 
+    var sysMenRoutes = ['/system_manager'];
+
     var isPublicRoute = function (route) {
         for(var i in publicRoutes) {
             if (publicRoutes[i] === route) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var isSysMenRoute = function (route) {
+        for(var i in sysMenRoutes) {
+            if (sysMenRoutes[i] === route) {
                 return true;
             }
         }
@@ -288,6 +299,9 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
         if (!isPublicRoute($location.path()) && !authorizationService.getUser()) {
             $location.path('/login');
         }
-       
+        if (!isSysMenRoute($location.path()) && !authorizationService.getUser().get) {
+            $location.path('/login');
+        }
+
     });
 });
