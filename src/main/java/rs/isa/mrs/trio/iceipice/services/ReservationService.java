@@ -1,9 +1,8 @@
 package rs.isa.mrs.trio.iceipice.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringArrayPropertyEditor;
 import org.springframework.stereotype.Service;
-import rs.isa.mrs.trio.iceipice.globals.ReservationStaus;
+import rs.isa.mrs.trio.iceipice.globals.ReservationStatus;
 import rs.isa.mrs.trio.iceipice.model.*;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.OrderItemDTO;
@@ -304,7 +303,7 @@ public class ReservationService {
         final String currentTime = timeFormat.format(date);
 
         for (Reservation reservation : restaurantReservations) {
-            if (currentDate.equals(dateFormat.format(reservation.getDate())) && ReservationStaus.CREATED.equals(reservation.getStatus())) {
+            if (currentDate.equals(dateFormat.format(reservation.getDate())) && ReservationStatus.CREATED.equals(reservation.getStatus())) {
                 if (currentTime.compareTo(reservation.getStart_hour()) > 0) {
                     reservations.add(reservation);
                 }
@@ -315,14 +314,31 @@ public class ReservationService {
     }
 
     public void addOrderToReservation(long resId, OrderItemDTO dto) {
-        final Reservation reservation = reservationRepository.findById(resId);
-        final OrderItem orderItem = new OrderItem();
-        final Order order = orderRepository.findByReservation(reservation).get(0);
-        orderItem.setOrder(order);
-        orderItem.setMenuItem(menuItemRepository.findById(dto.getMenuItemId()));
-        orderItem.setAmount(dto.getAmount());
-        orderItemRepository.save(orderItem);
-        reservation.getOrders().add(orderItem);
+        if (dto.getAmount() > 0) {
+            final Reservation reservation = reservationRepository.findById(resId);
+            final OrderItem orderItem = new OrderItem();
+            final Order order = orderRepository.findByReservation(reservation).get(0);
+            orderItem.setOrder(order);
+            orderItem.setMenuItem(menuItemRepository.findById(dto.getMenuItemId()));
+            orderItem.setAmount(dto.getAmount());
+            orderItemRepository.save(orderItem);
+            reservation.getOrders().add(orderItem);
+            reservationRepository.save(reservation);
+        }
+    }
+
+    public double closeService(long id) {
+        double price = 0;
+
+        final Reservation reservation = reservationRepository.findById(id);
+        final List<OrderItem> orderItems = reservation.getOrders();
+
+        for (OrderItem orderItem : orderItems) {
+            price += orderItem.getAmount() * orderItem.getMenuItem().getPrice();
+        }
+
+        reservation.setStatus(ReservationStatus.FINISHED);
         reservationRepository.save(reservation);
+        return price;
     }
 }

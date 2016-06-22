@@ -5,7 +5,7 @@ iceipiceApp.controller('waiterReservationsController', function ($scope, $http, 
     $scope.user = authorizationService.getUser();
     $scope.menuItems = [];
     $scope.newOrder = {};
-    
+
     $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
         $scope.reservations = data;
     });
@@ -13,24 +13,36 @@ iceipiceApp.controller('waiterReservationsController', function ($scope, $http, 
     $http.get('/api/menuItems/allFromR/' + $scope.user.restaurant.id).success(function (data) {
         $scope.menuItems = data;
     });
-    
-    $scope.addOrder = function (reservationId) {
-        console.log(reservationId);
 
-        $http.post('/api/orderItems/newForReservation/' + reservationId, $scope.newOrder).success(function (data) {
-            $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
-                $scope.reservations = data;
+    $scope.addOrder = function (reservationId) {
+        if ($scope.newOrder.amount && $scope.newOrder.menuItemId) {
+            $http.post('/api/orderItems/newForReservation/' + reservationId, $scope.newOrder).success(function (data) {
+                $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
+                    $scope.reservations = data;
+                });
             });
-        });
-        
-        $scope.newOrder = {};
+            $scope.newOrder = {};
+        }
     };
 
-    setInterval(function () {
+    $scope.interval = setInterval(function () {
         $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
             $scope.reservations = data;
         });
         console.log('update');
     }, 3000);
-
+    
+    $scope.closeReservation = function (reservationId) {
+        $http.get('/api/reservations/close/' + reservationId).success(function(data) {
+            alert('Konacna cena: ' + data);
+            $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
+                $scope.reservations = data;
+            });
+        });
+    };
+    
+    $scope.$on('$destroy', function() {
+        clearInterval($scope.interval);
+    });
+    
 });

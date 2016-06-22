@@ -144,4 +144,9 @@ public class ReservationController {
         reservationService.addOrderToReservation(id, orderItemDTO);
     }
 
+    @RequestMapping(value = "/reservations/close/{id}", method = RequestMethod.GET)
+    public ResponseEntity closeReservation(@PathVariable long id) {
+        return new ResponseEntity<>(reservationService.closeService(id), HttpStatus.OK);
+    }
+
 }

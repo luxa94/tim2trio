@@ -1,7 +1,6 @@
 package rs.isa.mrs.trio.iceipice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import rs.isa.mrs.trio.iceipice.globals.ReservationStaus;
+import rs.isa.mrs.trio.iceipice.globals.ReservationStatus;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -108,7 +107,7 @@ public class Reservation {
     }
 
     public Reservation() {
-        this.status = ReservationStaus.CREATED;
+        this.status = ReservationStatus.CREATED;
         this.orders = new ArrayList<>();
     }
 
