@@ -50,7 +50,7 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
         }, function(){
             alert("Vaša rezervacija nije uspešno dodata!");
         });
-        $state.transitionTo( "guest.homePage");
+        $state.transitionTo( "guest.homeGuest");
 
     };
 

@@ -292,10 +292,9 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
     //     }
     // });
 });
-
+/*
 iceipiceApp.controller('index_controller', function ($scope, $log,authorizationService) {
 
-    /* Check if the user is logged prior to use the next code */
     var user = authorizationService.getUser();
     if (isEmpty(user)) {
         $log.log("user not logged, redirecting to Login view");
@@ -329,3 +328,4 @@ function isEmpty(obj) {
             $location.path('/login');
         }
     });
+*/

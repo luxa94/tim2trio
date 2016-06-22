@@ -4,16 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import rs.isa.mrs.trio.iceipice.model.FriendshipRequest;
 import rs.isa.mrs.trio.iceipice.model.Guest;
 import rs.isa.mrs.trio.iceipice.model.dto.AddFriendDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.GuestDTO;
 import rs.isa.mrs.trio.iceipice.model.dto.InviteFriendDTO;
+import rs.isa.mrs.trio.iceipice.repository.FriendshipRequestRepository;
 import rs.isa.mrs.trio.iceipice.repository.GuestRepository;
 import rs.isa.mrs.trio.iceipice.services.GuestService;
 import rs.isa.mrs.trio.iceipice.services.InviteFriendService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Nina on 17-Apr-16.
@@ -30,6 +33,9 @@ public class GuestController {
 
     @Autowired
     GuestService guestService;
+
+    @Autowired
+    FriendshipRequestRepository friendshipRequestRepository;
 
     @RequestMapping(value = "/guest/all", method = RequestMethod.GET)
     public ResponseEntity getAllGuests() {
@@ -89,15 +95,18 @@ public class GuestController {
         if(guest.isFriendsWith(friend)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        FriendshipRequest fr = new FriendshipRequest();
+        fr.setFromUser(guest);
+        fr.setToUser(friend);
+        fr.setStatus(false);
 
         guest.getFriends().add(friend);
         friend.getFriends().add(guest);
         guestRepository.save(guest);
         guestRepository.save(friend);
+        friendshipRequestRepository.save(fr);
 
         return new ResponseEntity<>(HttpStatus.OK);
-
-
 
     }
 
@@ -150,5 +159,18 @@ public class GuestController {
             e.printStackTrace();
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @RequestMapping(value = "guest/getActiveFriendshipRequests/{id}", method = RequestMethod.GET)
+    public ResponseEntity getActiveFriendshipRequests(@PathVariable long id){
+        List<FriendshipRequest> fr = friendshipRequestRepository.findAll();
+        List<FriendshipRequest> retVal = new ArrayList<FriendshipRequest>();
+        for(FriendshipRequest b : fr){
+            if(b.getToUser().getId() == id && b.isStatus() == false){
+                b.setStatus(true);
+                retVal.add(b);
+            }
+        }
+        return  new ResponseEntity<>(retVal,HttpStatus.OK);
     }
 }
