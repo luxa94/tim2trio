@@ -57,7 +57,7 @@
         </div>
         <div class="button-group float-right">
             <input type="submit" class="button" ng-if="bid.status == 'u pripremi'" value="Aktiviraj" ng-click="activateBid()">
-            <input type="submit" class="button" ng-disabled="bidForm.$invalid" ng-click="addNewAuction()" value="Licitiraj" ng-if="selectedList.items.length">
+            <input type="submit" class="button" ng-if="selectedList.status = status[0]" ng-disabled="bidForm.$invalid" ng-click="addNewAuction()" value="Licitiraj" ng-if="selectedList.items.length">
         </div>
     </form>
 </div>

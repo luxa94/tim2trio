@@ -21,6 +21,10 @@ iceipiceApp.controller('providerBaseController', function ($scope, $http, $state
         $state.transitionTo('provider.newBid');
     };
 
+    $scope.myBids = function() {
+        $state.transitionTo('provider.myBids');
+    };
+
 
 
     $scope.logout = function () {

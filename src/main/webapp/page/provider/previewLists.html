@@ -4,7 +4,7 @@
     </select>
 
     <div ng-repeat="list in auctionsList">
-        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{$index + 1}}. {{list.from_date}} (važi do: {{list.to_date}})</a>
+        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{list.from_date}} (važi do: {{list.to_date}}) Restoran: {{list.restaurant.name}} </a>
 
     </div>
 </div>

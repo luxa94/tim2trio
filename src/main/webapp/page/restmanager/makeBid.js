@@ -182,7 +182,13 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
         if(to_date.valueOf() <= today.valueOf()){
             alert("Lista namirnica je ISTEKLA! Neće biti aktivirana.")
             $http.post('api/auction/expireAuction', list.id).success(function (data) {
+                data.from_date = new Date($scope.selectedList.from_date).toISOString().substring(0, 10);
+                data.to_date = new Date($scope.selectedList.to_date).toISOString().substring(0, 10);
                 $scope.selectedList = data;
+                var index = $scope.auctionsList.indexOf(list);
+                if (index != -1)
+                    $scope.auctionsList.splice(index, 1);
+                $scope.auctionsList.push(data);
             })
             
         }
