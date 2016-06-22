@@ -1,0 +1,15 @@
+<div class="medium-7 columns form ">
+<canvas id="myChart"></canvas>
+</div>
+
+<div class="medium-5  columns form " id="addShift" name="tableForm">
+    <h5>Vrsta izvestaja: </h5>
+    <select ng-model="kind1" ng-change="select1(kind1)" ng-options="k for k in reportKinds1"></select>
+    <h5>Prema oceni: </h5>
+    <select ng-model="kind2" ng-options="k for k in reportKinds2"></select>
+    <h5>Godina:</h5>
+    <select id="year" ng-model="year" ng-change="select3(year)" ng-options="y for y in years" name="year"/>
+    <div class="button-group float-right">
+        <input type="submit" class="button" ng-click="setData(kind2)" ng-disabled="form.$invalid" value="Sačuvaj">
+    </div>
+</div>

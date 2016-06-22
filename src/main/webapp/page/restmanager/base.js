@@ -46,4 +46,8 @@ iceipiceApp.controller('restmanagerBaseController', function ($scope, $http, $st
         $state.transitionTo('login');
     };
 
+    $scope.viewReports = function () {
+        $state.transitionTo('restaurant_manager.reports');
+    }
+
 });
