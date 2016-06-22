@@ -37,6 +37,7 @@ public class BidItemService {
         bi.setPrice(bidItemDTO.getPrice());
         bi.setAuctionItemUnit(auctionItemUnitRepository.findById(bidItemDTO.getAuctionItemUnitId()));
         bi.setQuantity(bidItemDTO.getQuantity());
+        bidItemRepository.save(bi);
         return bi;
     }
 

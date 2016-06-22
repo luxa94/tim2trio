@@ -138,7 +138,7 @@ iceipiceApp.controller('providerNewBidController', function ($scope, $http, $sta
                         "quantity": $scope.bidItems[i].quantity,
                         "price": $scope.bidItems[i].price,
                         "auctionItemId": $scope.bidItems[i].auctionItemId,
-                        "auctionItemUnitId": $scope.bidItems[i].unit.id,
+                        "auctionItemUnitId": $scope.bidItems[i].auctionItemUnitId,
                         "bidId": data.id
                     }
                     console.log("stavka ponude: " + JSON.stringify(item));

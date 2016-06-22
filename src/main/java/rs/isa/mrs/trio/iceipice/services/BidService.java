@@ -36,6 +36,7 @@ public class BidService {
         b.setTimestamp(new Date());
         b.setCurrency(bidDTO.getCurrency());
         b.setPrice(bidDTO.getPrice());
+        bidRepository.save(b);
         return b;
     }
 
