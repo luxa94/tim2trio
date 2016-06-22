@@ -71,8 +71,10 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
         if(orderList.length != 0) {
             for(var i = 0; i < orderList.length; i++) {
                 for(var j = 0; j < $scope.menuItems.length; j++) {
-                    if($scope.menuItems[j].id == order[i].menuItemId) {
+                    if($scope.menuItems[j].id == orderList[i].menuItemId) {
+                        $scope.menuItems[j].amount = orderList[i].amount;
                         $scope.selectedMenuItems.push($scope.menuItems[j]);
+
                     }
                 }
             }
@@ -96,10 +98,11 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
             item.menuItemId = $scope.selectedMenuItems[i].id;
             items.push(item);
         }
-        var reservation  = ReservationService.asd.reservation;
-        reservation.restaurantId = $scope.asd.reservation.restaurantId;
-        // vrati dobar id restorana
-        console.log("vracam rez: " + reservation.restaurantId);
+        //var reservation  = ReservationService.asd.reservation;
+     //   reservation.restaurantId = $scope.asd.reservation.restaurantId;
+      //  // vrati dobar id restorana
+      //  console.log("vracam rez: " + reservation.restaurantId);
+
         reservation.orders = items;
 
 

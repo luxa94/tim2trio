@@ -40,6 +40,7 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.setClickedRow = function(index,restaurant){  //function that sets the value of selectedRow to current index
         $scope.selectedRow = index;
         $scope.asd.reservation.restaurantId = restaurant.id;
+        $scope.asd.reservation.restaurant = restaurant;
         $scope.selectedRestaurant = restaurant;
     };
 
@@ -91,8 +92,10 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         }
         else {
             reservation.restaurantId = $scope.asd.reservation.restaurantId;
-        }
+            reservation.restaurant = $scope.restaurant;
 
+        }
+        GuestService.setSelectedRestaurant($scope.asd.reservation.restaurant);
         $state.transitionTo( "guest.selectMenuItem");
     };
 
