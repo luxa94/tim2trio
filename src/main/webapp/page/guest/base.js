@@ -1,11 +1,12 @@
 /**
  * Created by Nina on 17-Apr-16.
  */
-iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http, $state, $stateParams, authorizationService, ReservationService) {
 
     $scope.current = {
         page: 0
     };
+
     $scope.user = authorizationService.getUser();
 
     $scope.numberOfActiveFR = 0;
@@ -32,6 +33,8 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
 
     $scope.addReservation = function() {
         $scope.current.page = 3;
+        ReservationService.asd.reservation.date = null;
+        ReservationService.update = false;
         $state.transitionTo('guest.addReservation');
     };
 
@@ -52,9 +55,9 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
 
         startedInterval = $interval(function(retVal) {
             $http.get('api/guest/getActiveFriendshipRequests/' + $scope.user.id).success(function (data) {
-                console.log("frrrrrrrr: "+JSON.stringify(data));
-                console.log(data.length);
-                console.log($scope.numberOfActiveFR);
+           //     console.log("frrrrrrrr: "+JSON.stringify(data));
+           //     console.log(data.length);
+          //      console.log($scope.numberOfActiveFR);
                 if(data.length != $scope.numberOfActiveFR){
                     if(confirm("Prijatelj" + " želi da bude vaš prijatelj. Prihvati?" ) == true){
                         alert("Uspesno ste dodali prijatelja!")
