@@ -304,7 +304,7 @@ iceipiceApp.controller('index_controller', function ($scope, $log,authorizationS
         $scope.$state.go("login");
     }
 });
-
+/*
 function isEmpty(obj) {
     for (var x in obj) { return false; }
     return true;
@@ -344,3 +344,5 @@ function isEmpty(obj) {
         }
 
     });
+
+*/

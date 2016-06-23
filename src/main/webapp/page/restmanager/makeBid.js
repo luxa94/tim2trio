@@ -19,6 +19,19 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
     $scope.auctionsList = [];
     $scope.d = false;
     $scope.selectedList = {};
+    $scope.bids = [];
+    
+    
+    
+    $scope.getBids = function(index){
+
+        $http.get('api/bid/getBidsFromAuctionId/' + $scope.auctionsList[index].id).success(function (data) {
+            $scope.bids = data;
+        })
+        return $scope.bids;
+    }
+    
+    
     
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));

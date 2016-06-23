@@ -70,6 +70,18 @@ public class BidController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/bid/getBidsFromAuctionId/{auctionId}", method = RequestMethod.GET)
+    public ResponseEntity getBidFromAuctionId(@PathVariable long auctionId){
+        List<Bid> bids = bidRepository.findAll();
+        List<Bid> retval = new ArrayList<Bid>();
+        for(Bid b : bids){
+            if (b.getAuction().getId() == auctionId){
+                bids.add(b);
+            }
+        }
+        return new ResponseEntity<>(retval, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/bid/getBidItems/{id}", method = RequestMethod.GET)
     public ResponseEntity getBidItemsFromBidId(@PathVariable long id){
         List<BidItem> bidItems = bidItemRepository.findAll();
