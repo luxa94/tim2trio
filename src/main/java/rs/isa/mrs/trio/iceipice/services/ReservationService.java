@@ -79,7 +79,7 @@ public class ReservationService {
         return true;
     }
 
-    public Reservation createReservation(ReservationDTO reservationDTO) {
+    public synchronized Reservation createReservation(ReservationDTO reservationDTO) {
 
         if (!areTablesFree(reservationDTO.getTableIds(), reservationDTO.getStart_hour(), reservationDTO.getEnd_hour(), reservationDTO.getDate())) {
             return null;
