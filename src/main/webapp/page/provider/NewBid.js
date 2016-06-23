@@ -17,6 +17,8 @@ iceipiceApp.controller('providerNewBidController', function ($scope, $http, $sta
     $scope.newUnit = {};
     $scope.bid = {};
     $scope.bidAlreadyExist = false;
+    $scope.bid.status = $scope.bidStatus[0];
+
 
     $http.get('/api/auctionItemUnit/all').success(function (data) {
         $scope.aiUnits = data;

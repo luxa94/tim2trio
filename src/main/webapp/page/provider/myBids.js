@@ -36,15 +36,7 @@ iceipiceApp.controller('providerMyBidsController', function ($scope, $http, $sta
         })
     }
 
-    $scope.getBidItemPrice = function (id) {
-        var i;
-        for(i=0; i<$scope.selectedBidItems.length; i++){
-            if($scope.selectedBidItems[i].auctionItem.id == id){
-                return $scope.selectedBidItems[i].price;
-            }
-        }
-        return "";
-    }
+    
     
     $scope.details = function (id) {
         var i;

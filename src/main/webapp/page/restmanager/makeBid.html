@@ -1,14 +1,16 @@
-<div class="medium-6 columns form " id="allListsForm">
+<div class="medium-6 columns form " id="allListsForm" xmlns="http://www.w3.org/1999/html">
     <h3>Liste namirnica</h3>
     <select ng-model="currentStatus" ng-options="s for s in status">
     </select>
 
     <div ng-repeat="list in auctionsList">
-        <a ng-click="previewList(list)" ng-if="currentStatus == list.status">{{list.from_date}} (važi do: {{list.to_date}})</a>
+        <a ng-click="previewList(list)" ng-if="currentStatus == list.status"><b>{{list.from_date}} (važi do: {{list.to_date}})</b></a>
         <a class="button small" ng-if="currentStatus == list.status && list.status == status[3]" style="float: right" ng-click="activateList(list)">aktiviraj</a>
-        <div ng-repeat="bid in getBids($index)">
-            <a class="button small" ng-if="currentStatus == list.status && list.status == status[0]" style="float: right" ng-click="activateList(list)">Ponudjac: {{bid.provider.name}} {{bid.provider.surname}}</a>
+        <div ng-repeat="bid in bids[$index]" ng-if="currentStatus == list.status" && list.status == status[0]>
+            <a ng-click="previewBid(bid)" ng-if="currentStatus == list.status && list.status == status[0] && bid.auction.id == list.id"><font color="green">Ponudjac: {{bid.provider.name}} {{bid.provider.surname}}</font></a>
+            <a class="button small" ng-click="closeAuction(list,bid)">prihvati</a>
         </div>
+        <hr ng-if="currentStatus == list.status">
     </div>
 </div>
 <div class="medium-6  columns form " id="NewListForm">
@@ -142,4 +144,52 @@
         </table>
     </div>
 
+</div>
+
+
+
+
+<!--otvaranje dijaloga sa detaljima selektovane ponude-->
+<div class="large reveal" id="bidForm" data-reveal>
+    <h3>Ponuda</h3>
+    <hr>
+    <div>
+        <h4>Informacija o ponudi</h4>
+        <b>Restoran: </b>{{selectedBid.auction.restaurant.name}}<br>
+        <b>Status: </b>{{selectedBid.status}}<br>
+        <div style="float: left">
+            <b >Datum:</b>
+            <input type="text" ng-model="selectedBid.timestamp" readonly>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Stavke</h4>
+        <table border="1">
+            <tr>
+                <th>rbr.</th>
+                <th>Naziv stavke</th>
+                <th>Količina</th>
+                <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
+                <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+
+                <th>Naziv stavke ponude</th>
+                <th>Kolicina</th>
+                <th>Merna jedinica</th>
+                <th>Cena</th>
+            </tr>
+            <tr ng-repeat="i in selectedAuctionItems">
+                <td>{{$index+1}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.quantity}}</td>
+                <td>{{i.auctionItemType.name}}</td>
+                <td>{{i.auctionItemUnit.name}}</td>
+
+                <td>{{getBidItemName(i.id)}}</td>
+                <td>{{getBidItemQ(i.id)}}</td>
+                <td>{{getBidItemUnit(i.id)}}</td>
+                <td>{{getBidItemPrice(i.id)}}</td>
+            </tr>
+        </table>
+    </div>
 </div>

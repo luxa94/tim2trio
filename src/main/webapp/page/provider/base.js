@@ -11,6 +11,7 @@ iceipiceApp.controller('providerBaseController', function ($interval,$scope, $ht
     $scope.numberOfActiveBids = 0;
     $http.get('/api/bid/getActiveBidsFromProvider/' + $scope.user.id).success(function (data) {
         $scope.numberOfActiveBids = data.length;
+        $scope.activeBids = data;
     });
 
 
@@ -55,8 +56,25 @@ iceipiceApp.controller('providerBaseController', function ($interval,$scope, $ht
         startedInterval = $interval(function() {
             $http.get('/api/bid/getActiveBidsFromProvider/' + $scope.user.id).success(function (data) {
                 console.log("aktivne ponude: "+JSON.stringify(data));
-                if(data.length != $scope.numberOfActiveBids){
-                    alert("Imate obavestenje vezano za ponudu!!!");
+                if(data.length < $scope.numberOfActiveBids){
+
+                    var i;
+                    var j;
+                    var nadjen = false;
+                    var mess = "Ponuda: ";
+                    for(i=0; i<$scope.activeBids.length; i++){
+                        for(j=0; j<data.length; j++){
+                            if(data[j].id == $scope.activeBids[i].id){
+                                nadjen = true;
+                                break;
+                            }
+                        }
+                        if(!nadjen){
+                            mess = mess + $scope.activeBids[i].id +" je " + $scope.activeBids[i].status;
+                        }
+                    }
+                    alert(mess);
+                    $scope.activeBids = data;
                 }else{
                     //console.log("Nema obavestenja");
                 }
