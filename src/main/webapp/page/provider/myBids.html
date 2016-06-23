@@ -1,10 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="medium-5 columns form " id="allListsForm">
+    <h3>Ponude</h3>
+    <select ng-model="currentStatus" ng-options="s for s in bidStatus">
+    </select>
 
-</body>
-</html>
+    <div ng-repeat="b in bids">
+        <a ng-click="previewBid(b)" ng-if="currentStatus == b.status"><b>Id liste namirnica:</b> {{b.auction.id}} <b>Restoran:</b> {{b.auction.restaurant.name}} </a>
+
+    </div>
+</div>
+
+<div class="medium-7  columns form " id="NewListForm">
+    <h3>Lista stavki ponude</h3>
+    <hr>
+    <div>
+        <h4>Informacija o ponudi</h4>
+        <b>Restoran: </b>{{selectedBid.auction.restaurant.name}}<br>
+        <b>Status: </b>{{selectedBid.status}}<br>
+        <div style="float: left">
+            <b >Važi od datuma:</b>
+            <input type="text" ng-model="selectedList.from_date" readonly>
+        </div>
+        <div style="float: left">
+            <b>Važi do datuma:</b>
+            <input ng-model="selectedList.to_date" type="text" readonly>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <h4>Stavke</h4>
+        <table border="1">
+            <tr>
+                <th>rbr.</th>
+                <th>Naziv stavke</th>
+                <th>Količina</th>
+                <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
+                <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+            </tr>
+            <tr ng-repeat="li in selectedList.items">
+                <td>{{$index+1}}</td>
+                <td>{{li.name}}</td>
+                <td>{{li.quantity}}</td>
+                <td>{{li.auctionItemType.name}}</td>
+                <td>{{li.auctionItemUnit.name}}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="button-group float-right">
+        <input type="submit" class="button" ng-click="newBid(selectedList)" value="Licitiraj" ng-if="selectedList.items.length">
+    </div>
+</div>
+
+

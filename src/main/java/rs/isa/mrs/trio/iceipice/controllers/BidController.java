@@ -101,11 +101,23 @@ public class BidController {
     }
 
     @RequestMapping(value = "/bid/getActiveBidsFromProvider/{id}", method = RequestMethod.GET)
-    public ResponseEntity getActiveBidFromProvider(@PathVariable long id){
+    public ResponseEntity getActiveBidsFromProvider(@PathVariable long id){
         List<Bid> bids = bidRepository.findAll();
         List<Bid> retVal = new ArrayList<Bid>();
         for(Bid b : bids){
             if(b.getProvider().getId() == id && b.getStatus().equals("aktivna")){
+                retVal.add(b);
+            }
+        }
+        return  new ResponseEntity<>(retVal,HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bid/getBidsFromProvider/{id}", method = RequestMethod.GET)
+    public ResponseEntity getBidsFromProvider(@PathVariable long id){
+        List<Bid> bids = bidRepository.findAll();
+        List<Bid> retVal = new ArrayList<Bid>();
+        for(Bid b : bids){
+            if(b.getProvider().getId() == id){
                 retVal.add(b);
             }
         }

@@ -271,6 +271,7 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
     $httpProvider.defaults.headers.get['Cache-Control'] = 'no-cache';
     $httpProvider.defaults.headers.get['Pragma'] = 'no-cache';
 }).run(function ($rootScope, $location, authorizationService) {
+
     // var publicRoutes = ['/signIn', '/register'];
     //
     // var isPublicRoute = function (route) {
@@ -308,3 +309,38 @@ function isEmpty(obj) {
     for (var x in obj) { return false; }
     return true;
 }
+
+    var publicRoutes = ['/login', '/register'];
+
+    var sysMenRoutes = ['/system_manager'];
+
+    var isPublicRoute = function (route) {
+        for(var i in publicRoutes) {
+            if (publicRoutes[i] === route) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    var isSysMenRoute = function (route) {
+        for(var i in sysMenRoutes) {
+            if (sysMenRoutes[i] === route) {
+                return true;
+            }
+        }
+        return false;
+    };
+
+    $rootScope.$on('$stateChangeStart', function (ev, to, toParams, from, fromParams) {
+        if (isPublicRoute($location.path())) {
+            return;
+        }
+        if (!isPublicRoute($location.path()) && !authorizationService.getUser()) {
+            $location.path('/login');
+        }
+        if (!isSysMenRoute($location.path()) && !authorizationService.getUser().get) {
+            $location.path('/login');
+        }
+
+    });
