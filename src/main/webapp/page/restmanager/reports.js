@@ -96,6 +96,19 @@ iceipiceApp.controller('restManagerReportsController', function ($scope, $http, 
         }
         else if(kind == $scope.reportKinds2[3]){
             //posecenost
+            //ocena usluge
+            if ($scope.kind1 == $scope.reportKinds1[0]){
+                //nedeljno
+                for (i=0; i<weeksNo; i++){
+                    dataset.push(getNumberOfVisistsPerWeek($scope.year,i,$scope.grades));
+                };
+            }
+            else if($scope.kind1 == $scope.reportKinds1[1]){
+                //mesecno
+                for (i=0; i<12; i++){
+                    dataset.push(getNumberOfVisistsPerMonth($scope.year,i,$scope.grades));
+                };
+            }
         }
 
         console.log("DATASET = " + JSON.stringify(dataset));
@@ -131,11 +144,31 @@ iceipiceApp.controller('restManagerReportsController', function ($scope, $http, 
 
 
     getNumberOfVisistsPerMonth = function (year,month,grades) {
+        var i;
+        var d;
+        var br = 0;
+        for(i=0; i<grades.length; i++){
+            d = new Date(grades[i].reservation.date);
+            if(d.getFullYear()==year && d.getMonth()==month){
+                br++;
+            }
+        }
 
+        return br;
     }
 
     getNumberOfVisistsPerWeek = function (year,month,grades) {
+        var i;
+        var d;
+        var br = 0;
+        for(i=0; i<grades.length; i++){
+            d = new Date(grades[i].reservation.date);
+            if(d.getFullYear()==year && d.getMonth()==month){
+                br++;
+            }
+        }
 
+        return br;
     }
 
     getAverageGradeMonth = function (year,month,kind2,grades) {
