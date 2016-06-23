@@ -68,6 +68,9 @@ public class TestController {
     @Autowired
     ProviderRepository providerRepository;
 
+    @Autowired
+    FriendshipRequestRepository friendshipRequestRepository;
+
     @RequestMapping(value = "/fill", method = RequestMethod.GET)
     public void fillBase() {
         try {
@@ -89,6 +92,7 @@ public class TestController {
             restaurantTableRepository.deleteAll();
             areaRepository.deleteAll();
             restaurantRepository.deleteAll();
+            friendshipRequestRepository.deleteAll();
             guestRepository.deleteAll();
             providerRepository.deleteAll();
 

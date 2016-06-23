@@ -1,0 +1,13 @@
+<div class="small-8 small-centered columns form">
+
+    <table>
+        <tr ng-repeat="order in orders">
+            <td>{{order.menuItem.article.name}}</td>
+            <td>{{order.amount}}</td>
+            <td>{{order.status}}</td>
+            <td ng-if="order.status == 'NEW'"><button class="button expanded" ng-click="make(order.id)">Preuzmi</button></td>
+            <td ng-if="order.status == 'MAKING'"><button class="button alert expanded" ng-click="finish(order.id)">Završi</button></td>
+        </tr>
+    </table>
+
+</div>

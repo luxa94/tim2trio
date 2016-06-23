@@ -3,10 +3,7 @@ package rs.isa.mrs.trio.iceipice.model.dto;
 import rs.isa.mrs.trio.iceipice.model.*;
 
 import javax.persistence.Column;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Nina on 26-May-16.
@@ -28,6 +25,8 @@ public class ReservationDTO {
     private long restaurantId;
 
     private RestaurantTableDTO restaurantTable;
+
+    private List<Long> tableIds;
 
     private List<GuestDTO> guests = new ArrayList<>();
 
@@ -59,19 +58,21 @@ public class ReservationDTO {
     }
 
     public ReservationDTO() {
+
     }
 
     @Override
     public String toString() {
         return "ReservationDTO{" +
-                "id=" + id +
-                ", date=" + date +
+                "date=" + date +
+                ", id=" + id +
                 ", start_hour='" + start_hour + '\'' +
                 ", end_hour='" + end_hour + '\'' +
                 ", restaurant=" + restaurant +
                 ", graded=" + graded +
                 ", restaurantId=" + restaurantId +
                 ", restaurantTable=" + restaurantTable +
+                ", tableIds=" + tableIds +
                 ", guests=" + guests +
                 ", orders=" + orders +
                 '}';
@@ -157,5 +158,13 @@ public class ReservationDTO {
 
     public void setOrders(List<OrderItemDTO> orders) {
         this.orders = orders;
+    }
+
+    public List<Long> getTableIds() {
+        return tableIds;
+    }
+
+    public void setTableIds(List<Long> tableIds) {
+        this.tableIds = tableIds;
     }
 }

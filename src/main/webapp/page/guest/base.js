@@ -1,11 +1,12 @@
 /**
  * Created by Nina on 17-Apr-16.
  */
-iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http, $state, $stateParams, authorizationService) {
+iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http, $state, $stateParams, authorizationService, ReservationService) {
 
     $scope.current = {
         page: 0
     };
+
     $scope.user = authorizationService.getUser();
 
     $scope.numberOfActiveFR = 0;
@@ -32,6 +33,8 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
 
     $scope.addReservation = function() {
         $scope.current.page = 3;
+        ReservationService.asd.reservation.date = null;
+        ReservationService.update = false;
         $state.transitionTo('guest.addReservation');
     };
 
@@ -52,24 +55,42 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
 
         startedInterval = $interval(function(retVal) {
             $http.get('api/guest/getActiveFriendshipRequests/' + $scope.user.id).success(function (data) {
-                console.log("frrrrrrrr: "+JSON.stringify(data));
-                console.log(data.length);
-                console.log($scope.numberOfActiveFR);
-                if(data.length != $scope.numberOfActiveFR){
-                    if(confirm("Prijatelj" + " želi da bude vaš prijatelj. Prihvati?" ) == true){
-                        alert("Uspesno ste dodali prijatelja!")
-                        data.length = data.length - 1;
-                    }
-                    else{
-                        alert("Odbili ste zahtev za prijateljstvo!");
+           //     console.log("frrrrrrrr: "+JSON.stringify(data));
+           //     console.log(data.length);
+          //      console.log($scope.numberOfActiveFR);
+              //  if(data.length != $scope.numberOfActiveFR){
+                    for(var i = 0; i  < data.length; i++) {
+                        if(data[i].unread && data[i].fromUser.id == $scope.user.id) {
+                            // someone accepted u as a friend life++ ?
+                            alert(data[i].toUser.name + " " +  data[i].toUser.surname + " je prihvatio Vas zahtev za prijateljstvo!");
+                            // mark as read...!
+                            $http.get('api/guest/markRequestAsRead/' + data[i].id);
+                        } // markRequestAsRead
+                        if(data[i].status) {
+                            // already handled, skip it?
+                            return;
+                        }
+                        //guest/handleFriendRequest/{myId}/{friendId}/{accepted}
+                        // fromUser
+                        // toUser
+                        var accepted = confirm((data[i].fromUser.name + " " + data[i].fromUser.surname) + " želi da bude vaš prijatelj. Prihvati?" );
+
+                        if(accepted){
+                            alert("Uspesno ste dodali prijatelja!")
+                            $http.get('api/guest/handleFriendRequest/'+ data[i].toUser.id + '/'+ data[i].fromUser.id + '/true');
+                        }
+                        else{
+                            alert("Odbili ste zahtev za prijateljstvo!");
+                            $http.get('api/guest/handleFriendRequest/'+ data[i].toUser.id + '/'+ data[i].fromUser.id + '/false');
+                        }
                     }
 
 
-                }else{
+             //   }else{
                //    alert("Nemate novih obavestenja");
-                }
+             //   }
             });
-        }, 1000);
+        }, 5000);
     };
 
     $scope.stopPing = function() {

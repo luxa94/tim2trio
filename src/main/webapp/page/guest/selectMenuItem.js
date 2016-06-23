@@ -11,13 +11,15 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     $scope.selectedMenuItems = [];
     $scope.quantity = 0;
     $scope.orderItem = {};
-    $scope.orderItems = [];
+
 
     $scope.asd = ReservationService.asd;
 
     console.log(ReservationService.asd.reservation.restaurantId);
     $http.get('/api/menuItems/allFromR/' + ReservationService.asd.reservation.restaurantId).success(function(data) {
+
         $scope.menuItems = data;
+
         // proveritiiii
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
         var today = new Date(Date.now() - (1000 /*sec*/ * 60 /*min*/ * 30 )).getTime();
@@ -141,11 +143,17 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
     };
 
     $scope.addMenuItem = function (mi,quantity) {
-
+        // if the list already contains the specified menu item
+        //  only update the amount
+        for(var i = 0; i < $scope.selectedMenuItems.length; i++) {
+            if($scope.selectedMenuItems[i].id == mi.id) {
+                $scope.selectedMenuItems[i].amount = quantity;
+                $scope.popup.close();
+                return;
+            }
+        }
         $scope.selectedMenuItems.push(mi);
         mi.amount = quantity;
-     //   $scope.orderItem.menuItem.name = mi.name;
-        $scope.orderItems.push($scope.orderItem);
         $scope.popup.close();
 
     };
@@ -165,19 +173,29 @@ iceipiceApp.controller('guestSelectMenuItemController', function ($scope, $http,
         var items = [];
         for(var i = 0; i < $scope.selectedMenuItems.length; i++) {
             var item = {};
-            item.amount = $scope.selectedMenuItems[i].quantity;
+            item.amount = $scope.selectedMenuItems[i].amount;
             item.menuItemId = $scope.selectedMenuItems[i].id;
             items.push(item);
         }
 
         var reservation  = ReservationService.asd.reservation;
         reservation.orders = items;
-        ReservationService.Create(reservation).then(function (data) {
-            alert("Vaša rezervacija je uspešno dodata!");
-        }, function(){
-            alert("Vaša rezervacija nije uspešno dodata!");
-        });
-        $state.transitionTo( "guest.homeGuest");
+        if(ReservationService.update == true){
+            ReservationService.Update(reservation).then(function (data) {
+                alert("Vaša rezervacija je uspešno izmenjena!");
+
+            }, function(){
+                alert("Vaša rezervacija nije uspešno izmenjena!");
+            });
+        }
+        else{
+            ReservationService.Create(reservation).then(function (data) {
+                alert("Vaša rezervacija je uspešno dodata!");
+            }, function(){
+                alert("Vaša rezervacija nije uspešno dodata!");
+            });
+        }
+        $state.transitionTo( "guest.home");
     };
 
 });

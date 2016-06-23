@@ -3,9 +3,7 @@ package rs.isa.mrs.trio.iceipice.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.concurrent.ScheduledExecutorTask;
 import org.springframework.web.bind.annotation.*;
-import rs.isa.mrs.trio.iceipice.model.Shift;
 import rs.isa.mrs.trio.iceipice.model.Waiter;
 import rs.isa.mrs.trio.iceipice.model.WaiterShift;
 import rs.isa.mrs.trio.iceipice.model.dto.WaiterDTO;
@@ -85,5 +83,10 @@ public class WaiterController {
                 retval.add(bs);
         }
         return new ResponseEntity<>(retval, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/waiterShifts/forOne/{id}", method = RequestMethod.GET)
+    public ResponseEntity getShiftsForBartender(@PathVariable long id) {
+        return new ResponseEntity<>(waiterShiftRepository.findByWaiter_Id(id), HttpStatus.OK);
     }
 }

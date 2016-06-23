@@ -1,0 +1,26 @@
+<div class="small-12 medium-6 form columns" ng-repeat="reservation in reservations">
+    <table style="width: 100%; overflow-y: scroll;">
+        <tr ng-repeat="order in reservation.orders">
+            <td width="50%">{{order.menuItem.article.name}}</td>
+            <td width="10%">{{order.amount}}</td>
+            <td width="20%" style="text-align: right;">{{order.status}}</td>
+            <td width="20%" ng-if="order.status == 'DONE'">
+                <button class="button" ng-click="serve(order.id)">serviraj</button>
+            </td>
+        </tr>
+    </table>
+
+    <div class="input-group">
+        <select ng-model="newOrder.menuItemId"
+                ng-options="menuItem.id as menuItem.article.name for menuItem in menuItems">
+        </select>
+        <br>
+        <input class="input-group-field" placeholder="3" type="number" ng-model="newOrder.amount">
+        <a class="input-group-button button" ng-click="addOrder(reservation.id)">Dodaj stavku</a>
+    </div>
+
+    <div class="button-group">
+        <button class="button alert float-right" ng-click="closeReservation(reservation.id)">Zatvori rezervaciju</button>
+    </div>
+
+</div>

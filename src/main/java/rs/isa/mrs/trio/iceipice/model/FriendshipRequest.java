@@ -14,8 +14,16 @@ public class FriendshipRequest {
     @GeneratedValue
     private long id;
 
+
+
     @Column(name = "status", nullable = false)
     private boolean status;
+
+    @Column(name = "unread", nullable = false)
+    private boolean unread;
+
+
+
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "from_user_id", nullable = false)
@@ -27,6 +35,14 @@ public class FriendshipRequest {
 
     public boolean isStatus() {
         return status;
+    }
+
+    public boolean isUnread() {
+        return unread;
+    }
+
+    public void setUnread(boolean unread) {
+        this.unread = unread;
     }
 
     public void setStatus(boolean status) {

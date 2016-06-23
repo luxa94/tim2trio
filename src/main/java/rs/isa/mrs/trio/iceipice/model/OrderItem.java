@@ -2,6 +2,7 @@ package rs.isa.mrs.trio.iceipice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.internal.Nullable;
 import rs.isa.mrs.trio.iceipice.globals.OrderItemStatus;
 
 import javax.persistence.*;
@@ -41,8 +42,9 @@ public class OrderItem {
     @JoinColumn(name = "menu_item_id", nullable = false)
     private MenuItem menuItem;
 
+    @Nullable
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "order_id", nullable = false)
+    @JoinColumn(name = "order_id", nullable = true)
     private Order order;
 
     @JsonIgnore
