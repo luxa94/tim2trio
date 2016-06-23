@@ -5,8 +5,15 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.restaurants = [];
     $scope.current.page = 3;
     $scope.asd = ReservationService.asd;
-    console.log(JSON.stringify($scope.asd));
     $scope.update = false;
+    $scope.tables = [];
+    $scope.selectedTables = [];
+
+    $scope.canvas = new fabric.CanvasEx('restaurant_canvas');
+    var canvas = $scope.canvas;
+    canvas.hoverCursor = 'pointer';
+    canvas.backgroundColor = '#222';
+    canvas.renderAll();
 
     function isEmpty(obj) {
         for (var x in obj) { return false; }
@@ -32,8 +39,6 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     
     var previousRestaurant = GuestService.getSelectedRestaurant();
 
-
-
     $http.get('/api/restaurants/all').success(function (data) {
         $scope.restaurants = data;
         for(var i = 0; i < $scope.restaurants.length; i++){
@@ -52,14 +57,81 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
 
     $scope.selectedRow = null ;  // initialize our variable to null
 
+    $scope.redrawTables = function () {
+        canvas.clear();
+
+        for (var i in $scope.tables) {
+            var table = $scope.tables[i];
+            var t = JSON.parse(table.fabricTable);
+            var fabricTable;
+            if (t.type == 'rect') {
+                fabricTable = new fabric.Rect(t);
+                canvas.add(fabricTable);
+                table.fabricTable = fabricTable;
+                fabricTable.opacity = 0.5;
+                fabricTable.selectable = false;
+            } else if (t.type == 'circle') {
+                fabricTable = new fabric.Circle(t);
+                fabricTable.opacity = 0.5;
+                canvas.add(fabricTable);
+                table.fabricTable = fabricTable;
+                fabricTable.selectable = false;
+            }
+        }
+        canvas.renderAll();
+    };
+
     $scope.setClickedRow = function(index,restaurant){  //function that sets the value of selectedRow to current index
         $scope.selectedRow = index;
         $scope.asd.reservation.restaurantId = restaurant.id;
         $scope.asd.reservation.restaurant = restaurant;
         $scope.selectedRestaurant = restaurant;
+
+        $scope.selectedTables = [];
+
+        $http.get('/api/tables/restaurant/' + restaurant.id).success(function (data) {
+            $scope.tables = data;
+            $scope.redrawTables();
+
+        });
     };
 
+    if (GuestService.getSelectedRestaurant()) {
+        $http.get('/api/tables/restaurant/' + GuestService.getSelectedRestaurant().id).success(function (data) {
+            $scope.tables = data;
+            $scope.redrawTables();
+
+        });
+    }
+
+    canvas.on('mouse:dblclick', function (options) {
+        if (options.target != undefined) {
+            options.target.opacity = 1.5 - options.target.opacity;
+            canvas.renderAll();
+            for (var i in $scope.tables) {
+                var t = $scope.tables[i];
+                if (t.fabricTable == options.target) {
+                    $scope.table = t;
+                    var index = $scope.selectedTables.indexOf(t.id);
+                    if (index > -1) {
+                        $scope.selectedTables.splice(index, 1);
+                    } else {
+                        $scope.selectedTables.push(t.id);
+                    }
+                    console.log($scope.selectedTables);
+                    break;
+                }
+            }
+        }
+    });
+
     $scope.createNewReservation = function (reservation) {
+
+        if ($scope.selectedTables.length == 0) {
+            alert('Morate rezervisati bar jedan sto!');
+            return;
+        }
+
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
             return;
@@ -79,6 +151,9 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             alert("Morate uneti datum rezervacije!");
             return;
         }
+
+        reservation.tableIds = $scope.selectedTables;
+
         if(pasedRestaurant != null){
             reservation.restaurantId = pasedRestaurant.id;
         }
@@ -91,7 +166,9 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             }, function(){
                 alert("Vaša rezervacija nije uspešno izmenjena!");
             });
+            return;
         }
+
         ReservationService.Create(reservation).then(function (data) {
             alert("Vaša rezervacija je uspešno dodata!");
         }, function(){
@@ -101,6 +178,11 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     };
 
     $scope.goToSelectMenuItem = function (reservation) {
+
+        if ($scope.selectedTables.length == 0) {
+            alert('Morate rezervisati bar jedan sto!');
+            return;
+        }
 
         if(reservation.start_hour == null){
             alert("Morate uneti početno vreme rezervacije!");
@@ -118,13 +200,16 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
             alert("Morate uneti datum rezervacije!");
             return;
         }
+
+        $scope.asd.reservation.tableIds = $scope.selectedTables;
+
         if(pasedRestaurant != null){
             reservation.restaurantId = pasedRestaurant.id;
         }
         else {
             reservation.restaurantId = $scope.asd.reservation.restaurantId;
             reservation.restaurant = $scope.restaurant;
-
+            reservation.tableIds = $scope.selectedTables;
         }
         GuestService.setSelectedRestaurant($scope.asd.reservation.restaurant);
         $state.transitionTo( "guest.selectMenuItem");

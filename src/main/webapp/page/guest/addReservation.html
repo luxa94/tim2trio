@@ -1,4 +1,4 @@
-<div class="medium-8 large-8 columns form" style="width: 56%; height: 40%;" >
+<div class="medium-9 columns form " >
 
     <form novalidate name="newReservationForm">
         <div class="row column ">
@@ -16,7 +16,7 @@
                     <th>Opis</th>
                     <th>Adresa</th>
                 </tr>
-                <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList "  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, restaurant)" >
+                <tr ng-repeat="restaurant in restaurants | filter: query | orderBy: orderList "  ng-class="{'selectedRestaurant':$index == selectedRow}" ng-click="setClickedRow($index, restaurant)" style="cursor: pointer;" >
                     <td>{{restaurant.name}}</td>
                     <td>{{restaurant.description}}</td>
                     <td>{{restaurant.address}}</td>
@@ -36,18 +36,17 @@
         </div>
     </form>
 </div>
-<div class="medium-8 large-8 columns form" style="width: 42%; height: 40%;">
+<div class="medium-9 columns form float-left">
 
     <form novalidate name="newReservationForm">
-        <div class="row column ">
+        <div>
             <h4 class="text-center">Izaberite sto</h4>
-            <label>
-                   <input type="image" style="position: relative" src="../img/1.png" alt="Submit">
-            </label>
-            <span style="float: right">
-                <button class="button3 " ng-click="createNewReservation(asd.reservation)">Završi rezervaciju</button>
-                <button class="button1 " ng-click="goToSelectMenuItem(asd.reservation)">Sledeći korak</button>
-            </span>
+            <canvas id="restaurant_canvas" class="float-center" width="765" height="600">
+            </canvas>
+            <div class="button-group float-right">
+                <button class="button success" ng-click="createNewReservation(asd.reservation)">Završi rezervaciju</button>
+                <button class="button alert" ng-click="goToSelectMenuItem(asd.reservation)">Sledeći korak</button>
+            </div>
         </div>
     </form>
 </div>

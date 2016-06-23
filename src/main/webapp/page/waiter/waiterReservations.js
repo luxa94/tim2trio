@@ -37,7 +37,6 @@ iceipiceApp.controller('waiterReservationsController', function ($scope, $http, 
         $http.get("/api/reservations/waiter/all/" + $scope.user.id).success(function (data) {
             $scope.reservations = data;
         });
-        console.log('update');
     }, 3000);
     
     $scope.closeReservation = function (reservationId) {
