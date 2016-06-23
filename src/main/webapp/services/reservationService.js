@@ -49,11 +49,12 @@
         }
 
         function Create(reservation) {
+            console.log("Raz" + JSON.stringify(reservation));
             return $http.post('/api/reservation/create', reservation).then(handleSuccess, handleError('Error creating user'));
         }
 
-        function Update(user) {
-            return $http.put('/api/users/' + user.id, user).then(handleSuccess, handleError('Error updating user'));
+        function Update(reservation) {
+            return $http.put('/api/reservation/update' + reservation).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {

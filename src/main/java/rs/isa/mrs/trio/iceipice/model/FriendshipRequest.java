@@ -57,6 +57,8 @@ public class FriendshipRequest {
         this.fromUser = fromUser;
     }
 
+
+
     public FriendshipRequest() {
 
 

@@ -5,6 +5,21 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
     $scope.restaurants = [];
     $scope.current.page = 3;
     $scope.asd = ReservationService.asd;
+    console.log(JSON.stringify($scope.asd));
+    $scope.update = false;
+
+    function isEmpty(obj) {
+        for (var x in obj) { return false; }
+        return true;
+    }
+
+    if(!isEmpty($scope.asd)){
+        if(typeof $scope.asd.reservation.date != "undefined" ){
+            $scope.update = true;
+        }
+    }
+    console.log("UPDATEEEEEE" + $scope.update);
+
     if(typeof $scope.asd.reservation.guests == "undefined" || $scope.asd.reservation.guests == "undefined" ){
         $scope.asd.reservation.guests = [ $scope.user];
     }
@@ -70,13 +85,19 @@ iceipiceApp.controller('guestAddReservationController', function ($scope, $http,
         else {
             reservation.restaurantId = $scope.asd.reservation.restaurantId;
         }
-
+        if($scope.update == true){
+            ReservationService.Update(reservation).then(function (data) {
+                alert("Vaša rezervacija je uspešno izmenjena!");
+            }, function(){
+                alert("Vaša rezervacija nije uspešno izmenjena!");
+            });
+        }
         ReservationService.Create(reservation).then(function (data) {
             alert("Vaša rezervacija je uspešno dodata!");
         }, function(){
             alert("Vaša rezervacija nije uspešno dodata!");
         });
-        $state.transitionTo( "guest.homePage");
+        $state.transitionTo( "guest.homeGuest");
     };
 
     $scope.goToSelectMenuItem = function (reservation) {

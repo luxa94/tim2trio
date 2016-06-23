@@ -292,10 +292,9 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
     //     }
     // });
 });
-
+/*
 iceipiceApp.controller('index_controller', function ($scope, $log,authorizationService) {
 
-    /* Check if the user is logged prior to use the next code */
     var user = authorizationService.getUser();
     if (isEmpty(user)) {
         $log.log("user not logged, redirecting to Login view");
@@ -312,20 +311,9 @@ function isEmpty(obj) {
 
     var publicRoutes = ['/login', '/register'];
 
-    var sysMenRoutes = ['/system_manager'];
-
     var isPublicRoute = function (route) {
         for(var i in publicRoutes) {
             if (publicRoutes[i] === route) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    var isSysMenRoute = function (route) {
-        for(var i in sysMenRoutes) {
-            if (sysMenRoutes[i] === route) {
                 return true;
             }
         }
@@ -339,10 +327,9 @@ function isEmpty(obj) {
         if (!isPublicRoute($location.path()) && !authorizationService.getUser()) {
             $location.path('/login');
         }
-        if (!isSysMenRoute($location.path()) && !authorizationService.getUser().get) {
-            $location.path('/login');
-        }
-
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 11e8866de5964bad5d4fec9d84f78bc1adba4646
 */
