@@ -122,7 +122,7 @@ public class ReservationService {
         try {
             Order order = new Order();
             order.setReservation(reservation);
-            order.setRestaurantTables(reservation.getRestaurant_tables());
+        //    order.setRestaurantTables(reservation.getRestaurant_tables());
             order = orderRepository.save(order);
             List<OrderItem> orderItems = new ArrayList<>();
             // orders.add(order);
@@ -148,10 +148,28 @@ public class ReservationService {
     }
 
     public Reservation editReservation(ReservationDTO reservationDTO) {
-        Reservation reservation = reservationRepository.findById(reservationDTO.getId());
-        updateReservation(reservation, reservationDTO);
 
-        try {
+            Reservation reservation = reservationRepository.findById(reservationDTO.getId());
+            reservation = clearRelationships(reservation);
+            updateReservation(reservation, reservationDTO);
+
+        try{
+            List<Guest> backup = reservation.getGuests();
+            // reservation.setGuests(null);
+            ///////////////////////////////// // reservation = reservationRepository.save(reservation);
+            reservation.setGuests(backup);
+            reservation = reservationRepository.save(reservation);
+            List<Guest> backups2 = new ArrayList<Guest>();
+            backups2.addAll(backup);
+            for(int i = 0; i < backups2.size(); i++) {
+                Guest newGuest = guestRepository.findById(backups2.get(i).getId());
+                newGuest.getReservations().add(reservation);
+                guestRepository.save(newGuest);
+            }
+
+            reservation = reservationRepository.findById(reservation.getId());
+            createOrderItems(reservationDTO, reservation);
+
             reservation = reservationRepository.save(reservation);
             return reservation;
         } catch (Exception e) {
@@ -161,7 +179,9 @@ public class ReservationService {
 
     private void updateReservation(Reservation reservation, ReservationDTO reservationDTO) {
 
+
         System.out.println("jeb seeeeen");
+
         reservation.setDate(reservationDTO.getDate());
         reservation.setStart_hour(reservationDTO.getStart_hour());
         reservation.setEnd_hour(reservationDTO.getEnd_hour());
@@ -176,7 +196,6 @@ public class ReservationService {
             //  orders.add(guestRepository.findById());
         }
         reservation.setOrders(orders);
-
 
     }
 
@@ -248,8 +267,68 @@ public class ReservationService {
 
     }
 
-    public void deleteReservation(long id) {
+    private Reservation clearRelationships(Reservation res ) {
 
+
+        List<Guest> guests = res.getGuests();
+        if(guests != null) {
+            for(int i = 0; i < guests.size(); i++) {
+                Guest guest = guests.get(i);
+                Iterator<Reservation> tableIterator = guest.getReservations().iterator();
+                while(tableIterator.hasNext()) {
+                    Reservation guestRes = tableIterator.next();
+                    if(guestRes.getId() == res.getId()) {
+                        tableIterator.remove();
+                    }
+                }
+                guestRepository.save(guest);
+            }
+        }
+
+
+        List<Order> orders = orderRepository.findAll();
+        List<Order> needToBeRemoved = new ArrayList<Order>();
+        for(int i = 0; i < orders.size(); i++) {
+            Order order = orders.get(i);
+            if(order.getReservation().getId() == res.getId()) {
+                needToBeRemoved.add(order);
+            }
+        }
+
+
+
+        res = reservationRepository.save(res);
+        res.setOrders(null);
+        res = reservationRepository.save(res);
+        List<OrderItem> orderItems = orderItemRepository.findAll();
+        for(OrderItem oi : orderItems) {
+            if(oi.getReservation().getId()==res.getId()) {
+                oi.setReservation(null);
+                OrderItem oi2 =  orderItemRepository.save(oi);
+                orderItemRepository.delete(oi2);
+            }
+        }
+
+        res.setOrders(null);
+        res.setGuests(null);
+        res.setRestaurant(null);
+        res.setRestaurant_tables(null);
+        res = reservationRepository.save(res);
+
+        for(Order order : needToBeRemoved) {
+            // remove da order items
+            order.setReservation(null);
+            Order fromDB = orderRepository.save(order);
+            orderRepository.delete(fromDB);
+        }
+
+
+        res = reservationRepository.save(res);
+        return res;
+
+    }
+
+    public void deleteReservation(long id){
         Reservation res = reservationRepository.findById(id);
         res.setOrders(null);
 
@@ -265,6 +344,16 @@ public class ReservationService {
             }
             guestRepository.save(guest);
         }
+
+
+        /***
+         *
+         *  ============>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+         */
+      // List<OrderItem> orderItems = res.getOrders();
+     //   for(OrderItem oi : orderItems) {
+     //       orderItemRepository.delete(oi);
+     //   }
 
         List<Order> orders = orderRepository.findAll();
         List<Order> needToBeRemoved = new ArrayList<Order>();

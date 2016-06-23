@@ -17,12 +17,8 @@
         <b>Restoran: </b>{{selectedBid.auction.restaurant.name}}<br>
         <b>Status: </b>{{selectedBid.status}}<br>
         <div style="float: left">
-            <b >Važi od datuma:</b>
-            <input type="text" ng-model="selectedList.from_date" readonly>
-        </div>
-        <div style="float: left">
-            <b>Važi do datuma:</b>
-            <input ng-model="selectedList.to_date" type="text" readonly>
+            <b >Datum:</b>
+            <input type="text" ng-model="selectedBid.timestamp" readonly>
         </div>
     </div>
     <hr>
@@ -35,13 +31,17 @@
                 <th>Količina</th>
                 <th>Tip <!--<button class="button small">dodaj tip</button>--></th>
                 <th>Merna jedinica <!--<button class="button small">dodaj m.j.</button>--></th>
+                <th>Cena</th>
+                <th></th>
             </tr>
-            <tr ng-repeat="li in selectedList.items">
+            <tr ng-repeat="i in selectedAuctionItems">
                 <td>{{$index+1}}</td>
-                <td>{{li.name}}</td>
-                <td>{{li.quantity}}</td>
-                <td>{{li.auctionItemType.name}}</td>
-                <td>{{li.auctionItemUnit.name}}</td>
+                <td>{{i.name}}</td>
+                <td>{{i.quantity}}</td>
+                <td>{{i.auctionItemType.name}}</td>
+                <td>{{i.auctionItemUnit.name}}</td>
+                <td>{{getBidItemPrice(i.id)}}</td>
+                <td><a ng-click="details(i.id)")>detalji</a></td>
             </tr>
         </table>
     </div>
@@ -50,4 +50,17 @@
     </div>
 </div>
 
+
+
+
+<div class="small reveal" id="bidItemDetails" data-reveal>
+    <h3>Ponuda za stavku: <i>{{selectedListItem.name}}</i></h3>
+    <hr>
+    <div>
+        <b>Ime: </b><input readonly ng-model="selectedBidItem.name" required type="text" ><br>
+        <b>Količina: </b><input readonly placeholder="4.0" ng-model="selectedBidItem.quantity" required type="text" pattern="\d+(\.\d+)?$" ><br>
+        <b>Merna jedinica: </b><input readonly ng-model="selectedBidItem.auctionItemUnit.name" type="text"><br>
+        <b>Cena: ({{selectedBid.currency}})</b><input readonly ng-model="selectedBidItem.price" type="text" >
+    </div>
+</div>
 

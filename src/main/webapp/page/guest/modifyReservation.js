@@ -128,11 +128,12 @@ iceipiceApp.controller('guestModifyReservationController', function ($scope, $ht
 
 
     $scope.modifyReservation = function(reservation) {
-
+        
         if($scope.selectedReservation == null){
             alert("Morate selektovati odgovarajuću rezervaciju.");
             return;
         }
+        ReservationService.update = true;
 
         ReservationService.setUnderReview(reservation);
         ReservationService.asd.reservation = reservation;

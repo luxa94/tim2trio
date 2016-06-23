@@ -21,6 +21,7 @@
         service.getUnderReview = getUnderReview;
         service.setUnderReview = setUnderReview;
         service.CreateReview = CreateReview;
+        service.update = false;
 
         service.asd = { reservation : {} };
         service.order = {};
@@ -49,12 +50,15 @@
         }
 
         function Create(reservation) {
+            reservation.restaurant = null;
             console.log("Raz" + JSON.stringify(reservation));
             return $http.post('/api/reservation/create', reservation).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(reservation) {
-            return $http.put('/api/reservation/update' + reservation).then(handleSuccess, handleError('Error updating user'));
+            reservation.restaurant = null;
+
+            return $http.post('/api/reservation/update', reservation).then(handleSuccess, handleError('Error updating user'));
         }
 
         function Delete(id) {

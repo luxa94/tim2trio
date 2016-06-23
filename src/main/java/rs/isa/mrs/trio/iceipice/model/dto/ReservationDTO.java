@@ -58,6 +58,7 @@ public class ReservationDTO {
     }
 
     public ReservationDTO() {
+
     }
 
     @Override

@@ -66,7 +66,7 @@ public class ReservationController {
 
         final Reservation reservation = reservationService.editReservation(reservationDTO);
         if (reservation != null) {
-            return new ResponseEntity<>(reservation, HttpStatus.OK);
+            return new ResponseEntity<>( HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

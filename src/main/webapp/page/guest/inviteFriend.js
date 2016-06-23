@@ -44,13 +44,23 @@ iceipiceApp.controller('guestInviteFriendController', function ($scope, $http, $
         var reservation  = ReservationService.asd.reservation;
         reservation.guests = $scope.invitedFriends;
         reservation.guests.push($scope.user);
-        
-        ReservationService.Create(reservation).then(function (data) {
-            alert("Vaša rezervacija je uspešno dodata!");
-        }, function(){
-            alert("Vaša rezervacija nije uspešno dodata!");
-        });
-        $state.transitionTo( "guest.homeGuest");
+
+        if(ReservationService.update == true){
+            ReservationService.Update(reservation).then(function (data) {
+                alert("Vaša rezervacija je uspešno izmenjena!");
+
+            }, function(){
+                alert("Vaša rezervacija nije uspešno izmenjena!");
+            });
+        }
+        else{
+            ReservationService.Create(reservation).then(function (data) {
+                alert("Vaša rezervacija je uspešno dodata!");
+            }, function(){
+                alert("Vaša rezervacija nije uspešno dodata!");
+            });
+        }
+        $state.transitionTo( "guest.home");
 
     };
 
