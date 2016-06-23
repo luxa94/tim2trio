@@ -53,10 +53,43 @@ public class ReservationService {
     @Autowired
     RestaurantTableRepository restaurantTableRepository;
 
+    private boolean areTablesFree(List<Long> tableIds, String startTime, String endTime, Date date) {
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+        final String reservationDate = dateFormat.format(date);
+
+        List<Reservation> reservations = null;
+        for (long id : tableIds) {
+            final RestaurantTable table = restaurantTableRepository.findById(id);
+            if (reservations == null) {
+                reservations = reservationRepository.findByRestaurant_Id(table.getArea().getRestaurant().getId());
+            }
+
+            for (Reservation reservation : reservations) {
+                if (reservation.getRestaurant_tables().contains(table) && ReservationStatus.CREATED.equals(reservation.getStatus()) && reservationDate.equals(dateFormat.format(reservation.getDate()))) {
+                    if ( (startTime.compareTo(reservation.getStart_hour()) >= 0 && startTime.compareTo(reservation.getEnd_hour()) < 0) ||
+                            (endTime.compareTo(reservation.getStart_hour()) > 0 && endTime.compareTo(reservation.getEnd_hour()) <= 0) ) {
+                        return false;
+                    }
+                }
+            }
+
+        }
+        return true;
+    }
+
     public Reservation createReservation(ReservationDTO reservationDTO) {
+
+        if (!areTablesFree(reservationDTO.getTableIds(), reservationDTO.getStart_hour(), reservationDTO.getEnd_hour(), reservationDTO.getDate())) {
+            return null;
+        }
+
         Reservation reservation = new Reservation();
         updateReservation(reservation, reservationDTO);
 
+
+        reservation.setRestaurant_tables(new HashSet<>(restaurantTableRepository.findAll(reservationDTO.getTableIds())));
         try {
             List<Guest> backup = reservation.getGuests();
             // reservation.setGuests(null);
@@ -268,15 +301,19 @@ public class ReservationService {
         c.add(Calendar.HOUR, 2);
         final String endTime = sdf.format(c.getTime());
 
+        if (!areTablesFree(reservationWaiterDTO.getTableIds(), startTime, endTime, new Date())) {
+            return null;
+        }
+
         reservation.setDate(currentDate);
         reservation.setStart_hour(startTime);
         reservation.setEnd_hour(endTime);
         reservation.setRestaurant(restaurantRepository.findById(reservationWaiterDTO.getRestaurantId()));
         reservation.setRestaurant_tables(new HashSet<>(restaurantTableRepository.findAll(reservationWaiterDTO.getTableIds())));
+
         Order order = new Order();
         order.setRestaurantTables(reservation.getRestaurant_tables());
 
-        if (reservationAvailable(reservation)) {
             reservation = reservationRepository.save(reservation);
             order.setReservation(reservation);
             order = orderRepository.save(order);
@@ -295,12 +332,6 @@ public class ReservationService {
             }
             reservation = reservationRepository.save(reservation);
             return reservation;
-        }
-        return null;
-    }
-
-    private boolean reservationAvailable(Reservation reservation) {
-        return true; // TODO: implement O:)
     }
 
     public List<Reservation> reservationsForWaiter(long id) {

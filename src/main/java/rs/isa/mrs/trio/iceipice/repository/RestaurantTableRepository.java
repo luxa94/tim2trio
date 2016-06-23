@@ -15,4 +15,6 @@ public interface RestaurantTableRepository extends JpaRepository<RestaurantTable
     List<RestaurantTable> findByArea_Restaurant_Id(long id);
 
     List<RestaurantTable> findByArea(Area area);
+
+    RestaurantTable findById(long id);
 }

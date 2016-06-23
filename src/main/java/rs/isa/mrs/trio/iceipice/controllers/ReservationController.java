@@ -16,6 +16,7 @@ import rs.isa.mrs.trio.iceipice.services.GradeService;
 import rs.isa.mrs.trio.iceipice.services.ReservationService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -74,9 +75,6 @@ public class ReservationController {
 
     @RequestMapping(value = "/reservation/create", method = RequestMethod.POST)
     public ResponseEntity createReservation(@RequestBody ReservationDTO reservationDTO) {
-
-        System.out.println(reservationDTO);
-
         //set date object to 00:00
         //  Date date = reservationDTO.getDate();
 

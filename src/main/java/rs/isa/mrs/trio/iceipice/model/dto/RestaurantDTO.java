@@ -45,6 +45,9 @@ public class RestaurantDTO {
 
     }
 
+    public RestaurantDTO() {
+    }
+
     public long getId() {
         return id;
     }
