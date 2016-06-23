@@ -62,7 +62,7 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
                     for(var i = 0; i  < data.length; i++) {
                         if(data[i].unread && data[i].fromUser.id == $scope.user.id) {
                             // someone accepted u as a friend life++ ?
-                            alert(data[i].toUser.name + " je prihvatio Vas zahtev za prijateljstvo!");
+                            alert(data[i].toUser.name + " " +  data[i].toUser.surname + " je prihvatio Vas zahtev za prijateljstvo!");
                             // mark as read...!
                             $http.get('api/guest/markRequestAsRead/' + data[i].id);
                         } // markRequestAsRead
@@ -73,7 +73,7 @@ iceipiceApp.controller('guestBaseController', function ($scope, $interval, $http
                         //guest/handleFriendRequest/{myId}/{friendId}/{accepted}
                         // fromUser
                         // toUser
-                        var accepted = confirm((data[i].fromUser.name) + " želi da bude vaš prijatelj. Prihvati?" );
+                        var accepted = confirm((data[i].fromUser.name + " " + data[i].fromUser.surname) + " želi da bude vaš prijatelj. Prihvati?" );
 
                         if(accepted){
                             alert("Uspesno ste dodali prijatelja!")

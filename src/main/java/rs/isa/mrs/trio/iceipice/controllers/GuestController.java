@@ -166,7 +166,7 @@ public class GuestController {
         FriendshipRequest fr = friendshipRequestRepository.findById(id);
         if(fr != null) {
             fr.setUnread(false);
-            friendshipRequestRepository.save(fr);
+            friendshipRequestRepository.delete(fr);
         }
 
         return  new ResponseEntity<>(HttpStatus.OK);
