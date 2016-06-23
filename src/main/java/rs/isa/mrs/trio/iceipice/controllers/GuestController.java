@@ -100,8 +100,8 @@ public class GuestController {
         fr.setToUser(friend);
         fr.setStatus(false);
 
-        guest.getFriends().add(friend);
-        friend.getFriends().add(guest);
+       // guest.getFriends().add(friend);
+       // friend.getFriends().add(guest);
         guestRepository.save(guest);
         guestRepository.save(friend);
         friendshipRequestRepository.save(fr);
@@ -161,13 +161,50 @@ public class GuestController {
         }
     }
 
+    @RequestMapping(value = "guest/markRequestAsRead/{id}", method = RequestMethod.GET)
+    public ResponseEntity markNotificationAsRead(@PathVariable long id){
+        FriendshipRequest fr = friendshipRequestRepository.findById(id);
+        if(fr != null) {
+            fr.setUnread(false);
+            friendshipRequestRepository.delete(fr);
+        }
+
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "guest/handleFriendRequest/{myId}/{friendId}/{accepted}", method = RequestMethod.GET)
+    public ResponseEntity confirmFriendshipRequest(@PathVariable long myId, @PathVariable long friendId, @PathVariable boolean accepted){
+        List<FriendshipRequest> fr = friendshipRequestRepository.findAll();
+
+        for(FriendshipRequest b : fr){
+            if(b.getToUser().getId() == myId && b.isStatus() == false && b.getFromUser().getId() == friendId && accepted){
+                b.setStatus(true);
+                b.setUnread(true);
+                friendshipRequestRepository.save(b);
+                b.getToUser().getFriends().add(b.getFromUser());
+                b.getFromUser().getFriends().add( b.getToUser());
+                guestRepository.save(b.getFromUser());
+                guestRepository.save(b.getFromUser());
+            }
+            if(!accepted) {
+                b.setStatus(true);
+                friendshipRequestRepository.save(b);
+            }
+        }
+
+
+
+        return  new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @RequestMapping(value = "guest/getActiveFriendshipRequests/{id}", method = RequestMethod.GET)
     public ResponseEntity getActiveFriendshipRequests(@PathVariable long id){
         List<FriendshipRequest> fr = friendshipRequestRepository.findAll();
         List<FriendshipRequest> retVal = new ArrayList<FriendshipRequest>();
         for(FriendshipRequest b : fr){
-            if(b.getToUser().getId() == id && b.isStatus() == false){
-                b.setStatus(true);
+            if(b.getToUser().getId() == id || b.getFromUser().getId() == id){
+              //  b.setStatus(true);
+
                 retVal.add(b);
             }
         }
