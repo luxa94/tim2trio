@@ -70,4 +70,12 @@ public class AuctionController {
         auctionRepository.save(a);
         return new ResponseEntity<>(a, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/auction/closeAuction", method = RequestMethod.POST)
+    public ResponseEntity closeAuction(@RequestBody long id) {
+        final Auction a = auctionRepository.findById(id);
+        a.setStatus("zatvorena lista");
+        auctionRepository.save(a);
+        return new ResponseEntity<>(a, HttpStatus.OK);
+    }
 }

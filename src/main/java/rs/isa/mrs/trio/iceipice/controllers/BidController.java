@@ -70,6 +70,21 @@ public class BidController {
         return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/bid/getBidsFromAuctionId/{auctionId}", method = RequestMethod.GET)
+    public ResponseEntity getBidFromAuctionId(@PathVariable long auctionId){
+        List<Bid> bids = bidRepository.findAll();
+        List<Bid> retval = new ArrayList<Bid>();
+        Bid b;
+        for(int i=0; i<bids.size(); i++){
+            b = bids.get(i);
+            if (b.getAuction().getId() == auctionId){
+                retval.add(b);
+            }
+        }
+
+        return new ResponseEntity<>(retval, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/bid/getBidItems/{id}", method = RequestMethod.GET)
     public ResponseEntity getBidItemsFromBidId(@PathVariable long id){
         List<BidItem> bidItems = bidItemRepository.findAll();
@@ -96,8 +111,39 @@ public class BidController {
             }
         }
         return new ResponseEntity<>(null, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/bid/acceptBid", method = RequestMethod.POST)
+    public ResponseEntity acceptBid(@RequestBody long id){
+
+        //dobavi bid
+        Bid b2 = bidRepository.findById(id);
+        List<Bid> bids = bidRepository.findAll();
+        for(Bid b : bids){
+            if (b.getAuction().getId() == b2.getAuction().getId() && b.getProvider().getId() == b2.getProvider().getId()){
+                b.setStatus("odobrena");
+                bidRepository.save(b);
+                return new ResponseEntity<>(b, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+    }
 
 
+    @RequestMapping(value = "/bid/rejectedBid", method = RequestMethod.POST)
+    public ResponseEntity rejectedBid(@RequestBody long id){
+
+        //dobavi bid
+        Bid b2 = bidRepository.findById(id);
+        List<Bid> bids = bidRepository.findAll();
+        for(Bid b : bids){
+            if (b.getAuction().getId() == b2.getAuction().getId() && b.getProvider().getId() == b2.getProvider().getId()){
+                b.setStatus("odbijena");
+                bidRepository.save(b);
+                return new ResponseEntity<>(b, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/bid/getActiveBidsFromProvider/{id}", method = RequestMethod.GET)

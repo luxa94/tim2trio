@@ -303,7 +303,7 @@ iceipiceApp.controller('index_controller', function ($scope, $log,authorizationS
         $scope.$state.go("login");
     }
 });
-
+/*
 function isEmpty(obj) {
     for (var x in obj) { return false; }
     return true;
@@ -328,4 +328,8 @@ function isEmpty(obj) {
             $location.path('/login');
         }
     });
+<<<<<<< HEAD
+
+=======
+>>>>>>> 11e8866de5964bad5d4fec9d84f78bc1adba4646
 */

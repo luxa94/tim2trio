@@ -19,6 +19,13 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
     $scope.auctionsList = [];
     $scope.d = false;
     $scope.selectedList = {};
+    $scope.bids = [];
+    $scope.selectedBid = {};
+    
+
+
+
+    
     
     $http.get('/api/restaurant/oneM/' + $scope.user.id).success(function(data) {
         console.log("RESTORAN: " + JSON.stringify(data));
@@ -41,7 +48,26 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
             $scope.auctionsList[i].to_date = new Date(data[i].to_date).toISOString().substring(0, 10);
         }
         //console.log("SVE AUKCIJE ZA ISCRTAVANJE: " + JSON.stringify($scope.auctionsList));
+        getBids($scope.auctionsList);
+        console.log("###BIDS "  + JSON.stringify($scope.bids));
     });
+
+    getBids = function(auctionsList){
+        console.log("****aukcije glupave "  + JSON.stringify(auctionsList));
+        var i;
+        for(i=0; i<auctionsList.length; i++){
+            console.log("aaaa");
+            //$scope.bids[i]  =[];
+            console.log("data =  " + JSON.stringify($scope.bids));
+            $http.get('api/bid/getBidsFromAuctionId/' + auctionsList[i].id).success(function (data) {
+
+                $scope.bids.push(data);
+               // console.log("data =  " + JSON.stringify($scope.bids));
+                //     console.log("\nponude: " + JSON.stringify(data) + " na aukciju: " + auctionsList[i].id);
+            })
+        }
+        console.log("****BIDS "  + JSON.stringify($scope.bids));
+    }
 
     $http.get('/api/auctionItemType/all').success(function (data) {
         $scope.aiTypes = data;
@@ -209,5 +235,111 @@ iceipiceApp.controller('restmanagerMakeBidController', function ($scope, $http, 
             })
         }
     }
-    
+
+
+
+    //sve potrebno za pregled ponude
+    $scope.previewBid = function(b){
+        $scope.selectedBid = b;
+        $scope.selectedBid.timestamp = new Date(b.timestamp).toISOString().substring(0, 10);
+        console.log("\nsss: " + JSON.stringify(b));
+        $http.get('api/auction/allItemsFromAuction/' + $scope.selectedBid.auction.id).success(function (data) {
+            console.log("STAVKE Auction: " + JSON.stringify(data));
+            $scope.selectedAuctionItems = data;
+
+            //...
+
+            $http.get('api/bid/getBidItems/' + $scope.selectedBid.id).success(function (data) {
+                console.log("STAVKE BID: " + JSON.stringify(data));
+                $scope.selectedBidItems = data;
+                $scope.popup = new Foundation.Reveal($('#bidForm'));
+                $scope.popup.open();
+            });
+        });
+
+
+    }
+
+    $scope.getBidItemPrice = function (id) {
+        var i;
+        for(i=0; i<$scope.selectedBidItems.length; i++){
+            if($scope.selectedBidItems[i].auctionItem.id == id){
+                return $scope.selectedBidItems[i].price;
+            }
+        }
+        return "";
+    }
+
+    $scope.getBidItemName = function (id) {
+        var i;
+        for(i=0; i<$scope.selectedBidItems.length; i++){
+            if($scope.selectedBidItems[i].auctionItem.id == id){
+                return $scope.selectedBidItems[i].name;
+            }
+        }
+        return "";
+    }
+
+    $scope.getBidItemQ = function (id) {
+        var i;
+        for(i=0; i<$scope.selectedBidItems.length; i++){
+            if($scope.selectedBidItems[i].auctionItem.id == id){
+                return $scope.selectedBidItems[i].quantity;
+            }
+        }
+        return "";
+    }
+
+    $scope.getBidItemUnit = function (id) {
+        var i;
+        for(i=0; i<$scope.selectedBidItems.length; i++){
+            if($scope.selectedBidItems[i].auctionItem.id == id){
+                return $scope.selectedBidItems[i].auctionItemUnit.name;
+            }
+        }
+        return "";
+    }
+
+
+
+    //ZATVARANJE LICITACIJE
+    $scope.closeAuction = function(list,bid){
+        var i;
+        var j;
+        for(i=0; i<$scope.auctionsList.length; i++){
+            if($scope.auctionsList[i].id == list.id){
+                $http.post('api/auction/closeAuction',list.id).success(function (data) {
+                    console.log("\n\nglupa lista aukcija: " + JSON.stringify($scope.auctionsList));
+                    console.log("Nadam se da je zatvorena aukcija: " + JSON.stringify(data));
+                    console.log("i = " + i);
+                    console.log("bids glupi!?!?!?!?: " + JSON.stringify($scope.bids));
+
+                })
+            }
+        }
+
+
+        for(j=0; j<$scope.bids.length; j++){
+
+            if($scope.bids[j].length>0){
+                if($scope.bids[j][0].auction.id == list.id){
+                    var k;
+                    for (k=0; k<$scope.bids[j].length; k++){
+                        console.log("j = " + j +" k = " + k);
+                        if($scope.bids[j][k].id == bid.id){
+                            $http.post('api/bid/acceptBid',bid.id).success(function (data) {
+                                console.log("Nadam se da je prihvacena ponuda: " + JSON.stringify(data));
+                            })
+                        }
+                        else{
+                            $http.post('api/bid/rejectedBid',bid.id).success(function (data) {
+                                console.log("Nadam se da je odbijena ponuda: " + JSON.stringify(data));
+                            })
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 });

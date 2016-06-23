@@ -8,6 +8,10 @@ iceipiceApp.controller('providerMyBidsController', function ($scope, $http, $sta
     $scope.bidStatus = ["u pripremi", "aktivna", "istekla","odbijena","odobrena"];
     $scope.currentStatus = $scope.bidStatus[0];
     $scope.bids = [];
+    $scope.selectedBid = {};
+    $scope.selectedBidItems = [];
+    $scope.selectedAuctionItems = [];
+    $scope.selectedBidItem = {};
 
     $http.get('api/bid/getBidsFromProvider/' + $scope.user.id).success(function (data) {
         $scope.bids = data;
@@ -17,12 +21,31 @@ iceipiceApp.controller('providerMyBidsController', function ($scope, $http, $sta
 
     $scope.previewBid = function(b){
         $scope.selectedBid = b;
-        console.log("\n\nsss: " + JSON.stringify(b));
+        $scope.selectedBid.timestamp = new Date(b.timestamp);
+        console.log("\nsss: " + JSON.stringify(b));
+        $http.get('api/auction/allItemsFromAuction/' + $scope.selectedBid.auction.id).success(function (data) {
+            console.log("STAVKE Auction: " + JSON.stringify(data));
+            $scope.selectedAuctionItems = data;
 
-        $http.get('api/bid/getBidItems/' + $scope.selectedBid.id).success(function (data) {
-            console.log("STAVKE: " + JSON.stringify(data));
-           // $scope.selectedList.items = data;
+            //...
+
+            $http.get('api/bid/getBidItems/' + $scope.selectedBid.id).success(function (data) {
+                console.log("STAVKE BID: " + JSON.stringify(data));
+                $scope.selectedBidItems = data;
+            })
         })
+    }
 
+    
+    
+    $scope.details = function (id) {
+        var i;
+        for(i=0; i<$scope.selectedBidItems.length; i++){
+            if($scope.selectedBidItems[i].auctionItem.id == id){
+                $scope.selectedBidItem =  $scope.selectedBidItems[i];
+            }
+        }
+        $scope.popup = new Foundation.Reveal($('#bidItemDetails'));
+        $scope.popup.open();
     }
 });
