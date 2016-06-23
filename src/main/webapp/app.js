@@ -6,6 +6,7 @@ var iceipiceApp = angular.module('iceipiceApp', ['ui.router',  'angular-input-st
 
 
 iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
+
     $urlRouterProvider.otherwise('/login');
     $stateProvider
         .state('login', {
@@ -290,3 +291,20 @@ iceipiceApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) 
     //     }
     // });
 });
+
+iceipiceApp.controller('index_controller', function ($scope, $log,authorizationService) {
+
+    /* Check if the user is logged prior to use the next code */
+    var user = authorizationService.getUser();
+    if (isEmpty(user)) {
+        $log.log("user not logged, redirecting to Login view");
+        // Redirect to Login view
+        console.log("nijeee ulogovan");
+        $scope.$state.go("login");
+    }
+});
+
+function isEmpty(obj) {
+    for (var x in obj) { return false; }
+    return true;
+}

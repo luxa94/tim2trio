@@ -83,10 +83,32 @@ public class BidController {
     }
 
     @RequestMapping(value = "/bid/activateBid", method = RequestMethod.POST)
-    public ResponseEntity activateBid(@RequestBody long id){
-        Bid b = bidRepository.findById(id);
-        b.setStatus("aktivna");
-        bidRepository.save(b);
-        return new ResponseEntity<>(b, HttpStatus.OK);
+    public ResponseEntity activateBid(@RequestBody BidDTO bidDTO){
+
+        //dobavi bid
+        Bid bid;
+        List<Bid> bids = bidRepository.findAll();
+        for(Bid b : bids){
+            if (b.getAuction().getId() == bidDTO.getAuctionId() && b.getProvider().getId() == bidDTO.getProviderId()){
+                b.setStatus("aktivna");
+                bidRepository.save(b);
+                return new ResponseEntity<>(b, HttpStatus.OK);
+            }
+        }
+        return new ResponseEntity<>(null, HttpStatus.OK);
+
+
+    }
+
+    @RequestMapping(value = "/bid/getActiveBidsFromProvider/{id}", method = RequestMethod.GET)
+    public ResponseEntity getActiveBidFromProvider(@PathVariable long id){
+        List<Bid> bids = bidRepository.findAll();
+        List<Bid> retVal = new ArrayList<Bid>();
+        for(Bid b : bids){
+            if(b.getProvider().getId() == id && b.getStatus().equals("aktivna")){
+                retVal.add(b);
+            }
+        }
+        return  new ResponseEntity<>(retVal,HttpStatus.OK);
     }
 }

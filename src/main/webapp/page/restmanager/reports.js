@@ -130,6 +130,14 @@ iceipiceApp.controller('restManagerReportsController', function ($scope, $http, 
     }
 
 
+    getNumberOfVisistsPerMonth = function (year,month,grades) {
+
+    }
+
+    getNumberOfVisistsPerWeek = function (year,month,grades) {
+
+    }
+
     getAverageGradeMonth = function (year,month,kind2,grades) {
         var i;
         var d;
